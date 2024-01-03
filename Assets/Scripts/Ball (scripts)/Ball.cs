@@ -9,41 +9,50 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public Rigidbody2D rb2d;
-    private float scale;
-    private float mass;
-    private Sprite sprite;
-    private int tierIndex;
+    private int tier;
+    private int scoreValue;
+    private IntReference playerScore;
+    private BallSetData ballSetData;
 
-    public void SetBallData(BallData ballData, int index, Vector3 position)
+    public void SetBallData(BallSetData setData, int tierIndex, IntReference score)
     {
-        scale = ballData.scale;
-        mass = ballData.mass;
-        sprite = ballData.sprite;
-        tierIndex = index;
-
-        spriteRenderer.sprite = sprite;
-        transform.localScale = Vector3.one*scale;
-        rb2d.mass = mass;
-        transform.position = position;
+        ballSetData = setData;
+        var ballData = ballSetData.GetBallData(tierIndex);
+        if (ballData == null)
+        {
+            Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
+            Destroy(gameObject);
+        }
+        spriteRenderer.sprite = ballData.sprite;
+        transform.localScale = Vector3.one * ballData.scale;
+        rb2d.mass = ballData.mass;
+        
+        tier = ballData.index;
+        scoreValue = ballData.GetScoreValue();
+        playerScore = score;
     }
 
-    public int GetBallTier()
+    public int GetBallTier() => tier;
+
+    public void ClearBall()
     {
-        return tierIndex;
+        playerScore?.Variable.ApplyChange(scoreValue);
+        Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision collision)
+private void OnCollisionEnter(Collision collision)
     {
         if (!collision.transform.CompareTag("Ball")) return;
         var otherBall = collision.gameObject.GetComponent<Ball>();
-        if (otherBall.GetBallTier() == tierIndex)
+        if (otherBall.GetBallTier() == tier)
         {
-            FuseWithOtherBall(otherBall, collision.transform.position);  
+            FuseWithOtherBall(otherBall, collision.transform.position);
         }
     }
 
     private void FuseWithOtherBall(Ball other, Vector3 contactPosition)
     {
-        Debug.Log("FU-SIOOON");
+        other.ClearBall();
+        
     }
 }

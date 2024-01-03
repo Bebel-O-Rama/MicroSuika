@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d677d34eb0d562d41ba92e49ad9e9b08, type: 3}
   m_Name: 0_BlueBall
   m_EditorClassIdentifier: 
-  index: 1
+  index: 0
   scale: 0.35
   mass: 1
   sprite: {fileID: 21300000, guid: cef95f833929f5c4e918c7f91f2a9d28, type: 3}

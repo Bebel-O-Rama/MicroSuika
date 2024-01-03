@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class DebugBallSpawner : MonoBehaviour
 {
-    [SerializeField] public BallSetData gameData;
+    [SerializeField] public BallSetData ballSetData;
+
+    [Tooltip("It's not ideal, but it simplifies my job a bit so we need to pass an IntReference here now")]
+    public IntReference debugScore;
 
     private Object ballObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (gameData == null)
+        if (ballSetData == null)
             Debug.LogError("The ball data set in the DebugBallSpawner is null");
         ballObj = Resources.Load("PF_Ball");
         if (ballObj == null)
@@ -28,23 +31,22 @@ public class DebugBallSpawner : MonoBehaviour
 
             Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
             GameObject spawnedBall = Instantiate(ballObj, objectPos, Quaternion.identity) as GameObject;
-            Ball newBall = spawnedBall.GetComponent<Ball>(); 
-            
+            Ball newBall = spawnedBall.GetComponent<Ball>();
+
             if (Input.GetKey(KeyCode.Alpha1))
-                newBall.SetBallData(gameData.GetBallData(0), 0, objectPos);
+                newBall.SetBallData(ballSetData, 0, debugScore);
             else if (Input.GetKey(KeyCode.Alpha2))
-                newBall.SetBallData(gameData.GetBallData(1), 1, objectPos);
+                newBall.SetBallData(ballSetData, 1, debugScore);
             else if (Input.GetKey(KeyCode.Alpha3))
-                newBall.SetBallData(gameData.GetBallData(2), 2, objectPos);
+                newBall.SetBallData(ballSetData, 2, debugScore);
             else if (Input.GetKey(KeyCode.Alpha4))
-                newBall.SetBallData(gameData.GetBallData(3), 3, objectPos);
+                newBall.SetBallData(ballSetData, 3, debugScore);
             else if (Input.GetKey(KeyCode.Alpha5))
-                newBall.SetBallData(gameData.GetBallData(4), 4, objectPos);
+                newBall.SetBallData(ballSetData, 4, debugScore);
             else
             {
                 Destroy(spawnedBall);
             }
-            
         }
     }
 }
