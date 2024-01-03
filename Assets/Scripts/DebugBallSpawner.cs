@@ -48,5 +48,17 @@ public class DebugBallSpawner : MonoBehaviour
                 Destroy(spawnedBall);
             }
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 2f;
+
+            Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+            GameObject spawnedBall = Instantiate(ballObj, objectPos, Quaternion.identity) as GameObject;
+            Ball newBall = spawnedBall.GetComponent<Ball>();
+
+            newBall.SetBallData(ballSetData, ballSetData.GetRandomBallTier(), debugScore);
+        }
     }
 }

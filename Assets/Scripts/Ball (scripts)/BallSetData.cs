@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Ball Set Data")]
 public class BallSetData : ScriptableObject
@@ -12,10 +13,10 @@ public class BallSetData : ScriptableObject
     [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
     public List<BallData> ballSetData;
 
-    public int GetTierOfBall(BallData tier)
-    {
-        return ballSetData.IndexOf(tier);
-    }
+    private float totalWeight;
+    
+    public int GetTierOfBall(BallData tier) => ballSetData.IndexOf(tier);
+    public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
 
     public BallData GetBallUpgrade(int currentIndex)
     {
@@ -23,12 +24,19 @@ public class BallSetData : ScriptableObject
         return ballSetData[currentIndex + 1];
     }
 
-    public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
-
-    private void OnValidate()
+    public int GetRandomBallTier(bool usingWeight = true)
     {
-        ballSetData.RemoveAll(item => item == null);
-        ballSetData = ballSetData.OrderBy(ball => ball.index).ToList();
+        if (!usingWeight)
+            return Random.Range(0, ballSetData.Count - 1);
+        
+        float randValue = Random.Range(0f, 1f);
+        foreach (var ballData in ballSetData)
+        {
+            randValue -= ballData.spawnChance / totalWeight;
+            if (randValue <= 0)
+                return ballData.index;
+        }
+        return 0;
     }
 
     private void TestingAndCleaningSet()
@@ -44,9 +52,18 @@ public class BallSetData : ScriptableObject
         //     Debug.LogWarning("Modifications have been made to the BallSetData " + ballSetName);
         ballSetData = tempSet;
     }
-    
+
+    private void SetWeight() => totalWeight = ballSetData.Sum(b => b.spawnChance);
+
+    private void OnValidate()
+    {
+        ballSetData.RemoveAll(item => item == null);
+        ballSetData = ballSetData.OrderBy(ball => ball.index).ToList();
+    }
+
     private void OnEnable()
     {
         TestingAndCleaningSet();
+        SetWeight();
     }
 }

@@ -10,6 +10,8 @@ public class BallData : ScriptableObject
     public float scale;
     public float mass;
     public Sprite sprite;
+    [Tooltip("1 is the baseline here")] [Range(0f, 4f)]
+    public float spawnChance = 1f;
 
     // Good old triangular number sequence. It's also used in the original Suika Game
     public int GetScoreValue() => (index+1) * (index + 2) / 2;

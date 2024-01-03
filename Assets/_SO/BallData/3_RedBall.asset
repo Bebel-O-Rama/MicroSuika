@@ -16,3 +16,4 @@ MonoBehaviour:
   scale: 1.56
   mass: 1
   sprite: {fileID: 21300000, guid: 77850a4b0949deb419af9f47bd29ef30, type: 3}
+  spawnChance: 0.4
