@@ -116,7 +116,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8605715763825767316}
-  - {fileID: 8717047619478820376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7835383461270231165
@@ -132,8 +131,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  reloadCooldown: 0.5
+  yBallDelta: 0.91
   boundariesFromCenter: 3.2
-  ballSet: {fileID: 11400000, guid: 4c52bdca317844743a8b10dbc0014316, type: 2}
+  gameData: {fileID: 11400000, guid: 4c52bdca317844743a8b10dbc0014316, type: 2}
+  playerScore:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 55cedce5fc551b44cae56891210211ba, type: 2}
 --- !u!50 &4731801930963433338
 Rigidbody2D:
   serializedVersion: 4
@@ -161,34 +166,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!1 &8580005972217023580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8717047619478820376}
-  m_Layer: 7
-  m_Name: BallHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8717047619478820376
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580005972217023580}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.91, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3390122420269146065}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

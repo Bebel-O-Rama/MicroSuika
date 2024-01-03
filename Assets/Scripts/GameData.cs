@@ -9,7 +9,6 @@ using UnityEngine.Serialization;
 public class GameData : ScriptableObject
 {
     public BallSetData ballSetData;
-
     public IntReference score;
 
     // public void IncrementScore(int incrementValue) => score += incrementValue;

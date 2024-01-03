@@ -14,7 +14,7 @@ public class Ball : MonoBehaviour
     private IntReference playerScore;
     private BallSetData ballSetData;
 
-    public void SetBallData(BallSetData setData, int tierIndex, IntReference score)
+    public void SetBallData(BallSetData setData, int tierIndex, IntReference score, bool disableCollision = false)
     {
         ballSetData = setData;
         var ballData = ballSetData.GetBallData(tierIndex);
@@ -30,8 +30,16 @@ public class Ball : MonoBehaviour
         tier = ballData.index;
         scoreValue = ballData.GetScoreValue();
         playerScore = score;
+
+        if (disableCollision)
+            rb2d.simulated = false;
     }
 
+    public void EnableCollision()
+    {
+        rb2d.simulated = true;
+    }
+    
     public int GetBallTier() => tier;
 
     public void ClearBall()
