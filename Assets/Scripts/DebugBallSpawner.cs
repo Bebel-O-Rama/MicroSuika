@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DebugBallSpawner : MonoBehaviour
 {
-    [SerializeField] public GameData gameData;
+    [SerializeField] public BallSetData gameData;
 
     private Object ballObj;
 
@@ -12,7 +12,7 @@ public class DebugBallSpawner : MonoBehaviour
     void Start()
     {
         if (gameData == null)
-            Debug.LogError("The gameData in the DebugBallSpawner is null");
+            Debug.LogError("The ball data set in the DebugBallSpawner is null");
         ballObj = Resources.Load("PF_Ball");
         if (ballObj == null)
             Debug.LogError("The DebugBallSpawner can't load the ball Prefab (PF_Ball)");

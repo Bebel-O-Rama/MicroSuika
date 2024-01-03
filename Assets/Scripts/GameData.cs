@@ -3,28 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Game Data")]
 public class GameData : ScriptableObject
 {
-    [Header("The size of the ball should grow as the index of the positions goes up (small index = small ball)")]
-    public List<BallData> ballData;
+    public BallSetData ballSetData;
 
-    public int GetTierOfBall(BallData tier)
-    {
-        return ballData.IndexOf(tier);
-    }
+    public int score;
 
-    public BallData GetBallUpgrade(int currentIndex)
+    private void OnEnable()
     {
-        if (ballData.Count - 1 >= currentIndex) return null;
-        return ballData[currentIndex + 1];
-    }
-    
-    public BallData GetBallData(int index) => ballData[index];
-
-    private void OnValidate()
-    {
-        ballData = new List<BallData>(ballData.OrderBy(ball => ball.scale));
+        score = 0;
     }
 }
