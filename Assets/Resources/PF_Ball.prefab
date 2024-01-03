@@ -47,9 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fe3588786562f46b8fe344765f66ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TEMP_GameData: {fileID: 0}
-  TEMP_BallDataData: {fileID: 0}
-  TEMP_BallIndex: 0
   spriteRenderer: {fileID: 4711732001261019832}
   rb2d: {fileID: 7345287644621296678}
 --- !u!58 &2341846513916466983
@@ -187,14 +184,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cef95f833929f5c4e918c7f91f2a9d28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.41, y: 1.42}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
