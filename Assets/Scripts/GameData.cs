@@ -20,6 +20,8 @@ public class GameData : ScriptableObject
         if (ballData.Count - 1 >= currentIndex) return null;
         return ballData[currentIndex + 1];
     }
+    
+    public BallData GetBallData(int index) => ballData[index];
 
     private void OnValidate()
     {
