@@ -30,6 +30,7 @@ public class DebugBallSpawner : MonoBehaviour
             mousePos.z = 2f;
 
             Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+            objectPos.z = 0f;
             GameObject spawnedBall = Instantiate(ballObj, objectPos, Quaternion.identity) as GameObject;
             Ball newBall = spawnedBall.GetComponent<Ball>();
 

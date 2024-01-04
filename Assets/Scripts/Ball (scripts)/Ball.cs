@@ -13,6 +13,7 @@ public class Ball : MonoBehaviour
     private int scoreValue;
     private IntReference playerScore;
     private BallSetData ballSetData;
+    private bool hasBeenCleared = false;
 
     public void SetBallData(BallSetData setData, int tierIndex, IntReference score, bool disableCollision = false)
     {
@@ -35,32 +36,31 @@ public class Ball : MonoBehaviour
             rb2d.simulated = false;
     }
 
-    public void EnableCollision()
-    {
-        rb2d.simulated = true;
-    }
-    
+    public void EnableCollision() => rb2d.simulated = true;
+
     public int GetBallTier() => tier;
 
     public void ClearBall()
     {
         playerScore?.Variable.ApplyChange(scoreValue);
+        hasBeenCleared = true;
         Destroy(gameObject);
     }
 
-private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.transform.CompareTag("Ball")) return;
+        if (!collision.transform.CompareTag("Ball") || hasBeenCleared) return;
         var otherBall = collision.gameObject.GetComponent<Ball>();
         if (otherBall.GetBallTier() == tier)
         {
-            FuseWithOtherBall(otherBall, collision.transform.position);
+            FuseWithOtherBall(otherBall, collision.GetContact(0).point);
         }
     }
 
     private void FuseWithOtherBall(Ball other, Vector3 contactPosition)
     {
         other.ClearBall();
-        
+        ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
+        ClearBall();
     }
 }

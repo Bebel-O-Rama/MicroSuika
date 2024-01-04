@@ -24,6 +24,15 @@ public class BallSetData : ScriptableObject
         return ballSetData[currentIndex + 1];
     }
 
+    public Ball SpawnNewBall(Vector3 position, int tierIndex, IntReference score, bool disableCollision = false)
+    {
+        var ballObj = Resources.Load("PF_Ball");
+        GameObject spawnedBall = Instantiate(ballObj, position, Quaternion.identity) as GameObject;
+        var newBall = spawnedBall.GetComponent<Ball>();
+        newBall.SetBallData(this, tierIndex, score, disableCollision);
+        return newBall;
+    }
+    
     public int GetRandomBallTier(bool usingWeight = true)
     {
         if (!usingWeight)
