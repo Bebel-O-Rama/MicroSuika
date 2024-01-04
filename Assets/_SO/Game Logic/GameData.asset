@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260f93e6a383ee642a2a17c768d8432d, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  ballSetData: {fileID: 11400000, guid: fbeef2ce50cb9cf4ab73c3e97eb22bdf, type: 2}
+  ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   score:
     UseConstant: 0
     ConstantValue: 0
