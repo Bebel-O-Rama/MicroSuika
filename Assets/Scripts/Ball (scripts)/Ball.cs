@@ -14,8 +14,7 @@ public class Ball : MonoBehaviour
     private int scoreValue;
     private IntReference playerScore;
     private BallSetData ballSetData;
-    private bool hasBeenCleared = false;
-
+    
     public void SetBallData(BallSetData setData, int tierIndex, IntReference score, bool disableCollision = false)
     {
         ballSetData = setData;
@@ -52,7 +51,7 @@ public class Ball : MonoBehaviour
     public void ClearBall()
     {
         playerScore?.Variable.ApplyChange(scoreValue);
-        hasBeenCleared = true;
+        rb2d.simulated = false;
         Destroy(gameObject);
     }
 
@@ -64,9 +63,9 @@ public class Ball : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.transform.CompareTag("Ball") || hasBeenCleared) return;
+        if (!collision.transform.CompareTag("Ball")) return;
         var otherBall = collision.gameObject.GetComponent<Ball>();
-        if (otherBall.GetBallTier() == tier)
+        if (otherBall.GetBallTier() == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
         {
             FuseWithOtherBall(otherBall, collision.GetContact(0).point);
         }
@@ -75,8 +74,11 @@ public class Ball : MonoBehaviour
     private void FuseWithOtherBall(Ball other, Vector3 contactPosition)
     {
         other.ClearBall();
-        if (tier < ballSetData.GetMaxTier)
-            ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
         ClearBall();
+        if (tier < ballSetData.GetMaxTier)
+        {
+            // ApplyExpansionForce();
+            ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
+        }
     }
 }
