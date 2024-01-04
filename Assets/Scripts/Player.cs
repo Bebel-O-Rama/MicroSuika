@@ -18,9 +18,7 @@ public class Player : MonoBehaviour
     private Vector2 horizontalMargin;
     private Queue<Ball> nextBalls;
     private Ball currentBall;
-
     private Vector3 ballDelta;
-    private Object ballObj;
 
     private void Start()
     {
@@ -30,10 +28,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        
-        
         UpdatePlayerPosition(Input.GetAxis("Horizontal"));
-
         if (Input.GetKeyDown(KeyCode.Space) && currentBall != null)
             DropBall();
     }
@@ -47,17 +42,11 @@ public class Player : MonoBehaviour
 
     private void LoadNewBall()
     {
-        var newBallTier = gameData.ballSetData.GetRandomBallTier();
-        GameObject spawnedBall = Instantiate(ballObj, transform.position + ballDelta, Quaternion.identity) as GameObject;
-        currentBall = spawnedBall.GetComponent<Ball>();
-        currentBall.SetBallData(gameData.ballSetData, newBallTier, playerScore, true);
+        currentBall = gameData.ballSetData.SpawnNewBall(transform.position + ballDelta, playerScore, disableCollision: true);
     }
     
     private void InitializePlayerData()
     {
-        ballObj = Resources.Load("PF_Ball");
-        if (ballObj == null)
-            Debug.LogError("The DebugBallSpawner can't load the ball Prefab (PF_Ball)");
         if (gameData == null)
         {
             Debug.LogError("The player doesn't have gameData");
@@ -66,7 +55,6 @@ public class Player : MonoBehaviour
         centeredPosition = transform.position;
         horizontalMargin = new Vector2(centeredPosition.x - boundariesFromCenter,
             centeredPosition.x + boundariesFromCenter);
-        
     }
 
     private void UpdatePlayerPosition(float xAxis)

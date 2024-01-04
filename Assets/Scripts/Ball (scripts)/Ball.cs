@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
@@ -33,10 +34,18 @@ public class Ball : MonoBehaviour
         playerScore = score;
 
         if (disableCollision)
+        {
             rb2d.simulated = false;
+            return;
+        }
+        ApplyRotationForce();
     }
 
-    public void EnableCollision() => rb2d.simulated = true;
+    public void EnableCollision()
+    {
+        rb2d.simulated = true;
+        ApplyRotationForce();
+    }
 
     public int GetBallTier() => tier;
 
@@ -47,6 +56,12 @@ public class Ball : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void ApplyRotationForce()
+    {
+        var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
+        rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
+    }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.transform.CompareTag("Ball") || hasBeenCleared) return;
@@ -60,7 +75,8 @@ public class Ball : MonoBehaviour
     private void FuseWithOtherBall(Ball other, Vector3 contactPosition)
     {
         other.ClearBall();
-        ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
+        if (tier < ballSetData.GetMaxTier)
+            ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
         ClearBall();
     }
 }

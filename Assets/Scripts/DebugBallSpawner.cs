@@ -28,38 +28,29 @@ public class DebugBallSpawner : MonoBehaviour
         {
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = 2f;
-
             Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
             objectPos.z = 0f;
-            GameObject spawnedBall = Instantiate(ballObj, objectPos, Quaternion.identity) as GameObject;
-            Ball newBall = spawnedBall.GetComponent<Ball>();
-
+            
             if (Input.GetKey(KeyCode.Alpha1))
-                newBall.SetBallData(ballSetData, 0, debugScore);
+                ballSetData.SpawnNewBall(objectPos, 0, debugScore);
             else if (Input.GetKey(KeyCode.Alpha2))
-                newBall.SetBallData(ballSetData, 1, debugScore);
+                ballSetData.SpawnNewBall(objectPos, 1, debugScore);
             else if (Input.GetKey(KeyCode.Alpha3))
-                newBall.SetBallData(ballSetData, 2, debugScore);
+                ballSetData.SpawnNewBall(objectPos, 2, debugScore);
             else if (Input.GetKey(KeyCode.Alpha4))
-                newBall.SetBallData(ballSetData, 3, debugScore);
+                ballSetData.SpawnNewBall(objectPos, 3, debugScore);
             else if (Input.GetKey(KeyCode.Alpha5))
-                newBall.SetBallData(ballSetData, 4, debugScore);
-            else
-            {
-                Destroy(spawnedBall);
-            }
+                ballSetData.SpawnNewBall(objectPos, 4, debugScore);
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = 2f;
-
             Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
-            GameObject spawnedBall = Instantiate(ballObj, objectPos, Quaternion.identity) as GameObject;
-            Ball newBall = spawnedBall.GetComponent<Ball>();
-
-            newBall.SetBallData(ballSetData, ballSetData.GetRandomBallTier(), debugScore);
+            objectPos.z = 0f;
+            
+            ballSetData.SpawnNewBall(objectPos, debugScore);
         }
     }
 }

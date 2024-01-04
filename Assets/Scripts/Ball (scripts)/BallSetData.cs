@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Ball Set Data")]
@@ -13,11 +14,13 @@ public class BallSetData : ScriptableObject
     [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
     public List<BallData> ballSetData;
 
-    private float totalWeight;
+    public Object ballPF;
     
+    private float totalWeight;
+        
     public int GetTierOfBall(BallData tier) => ballSetData.IndexOf(tier);
     public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
-
+    public int GetMaxTier => ballSetData.Count - 1;
     public BallData GetBallUpgrade(int currentIndex)
     {
         if (ballSetData.Count - 1 >= currentIndex) return null;
@@ -26,11 +29,12 @@ public class BallSetData : ScriptableObject
 
     public Ball SpawnNewBall(Vector3 position, int tierIndex, IntReference score, bool disableCollision = false)
     {
-        var ballObj = Resources.Load("PF_Ball");
-        GameObject spawnedBall = Instantiate(ballObj, position, Quaternion.identity) as GameObject;
-        var newBall = spawnedBall.GetComponent<Ball>();
-        newBall.SetBallData(this, tierIndex, score, disableCollision);
-        return newBall;
+        return SpawnBall(position, tierIndex, score, disableCollision);
+    }
+    
+    public Ball SpawnNewBall(Vector3 position, IntReference score, bool useWeightedRandom = true, bool disableCollision = false)
+    {
+        return SpawnBall(position, GetRandomBallTier(useWeightedRandom), score, disableCollision);
     }
     
     public int GetRandomBallTier(bool usingWeight = true)
@@ -48,6 +52,14 @@ public class BallSetData : ScriptableObject
         return 0;
     }
 
+    private Ball SpawnBall(Vector3 position, int tierIndex, IntReference score, bool disableCollision)
+    {
+        GameObject spawnedBall = Instantiate(ballPF, position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))) as GameObject;
+        var newBall = spawnedBall.GetComponent<Ball>();
+        newBall.SetBallData(this, tierIndex, score, disableCollision);
+        return newBall;
+    }
+    
     private void TestingAndCleaningSet()
     {
         // It's not flawless, but at least it takes care of null elements and duplicates. The OnValidate should already take care of the order of the BallData
@@ -74,5 +86,7 @@ public class BallSetData : ScriptableObject
     {
         TestingAndCleaningSet();
         SetWeight();
+        if (ballPF == null)
+            Debug.LogError("The Ball Prefab in the BallSetData is null!");
     }
 }
