@@ -11,8 +11,13 @@ public class Player : MonoBehaviour
     [Min(0f)] [SerializeField] public float boundariesFromCenter;
     
     [Header("General Game Parameters")]
-    [SerializeField] public GameData gameData;
+    [SerializeField] public PlayerGameData playerGameData;
     [SerializeField] public IntReference playerScore;
+
+    [Header("Ball Cannon Parameters")] 
+    [Min(0f)] [SerializeField] public float downwardForce = 20f;
+    [SerializeField] public Vector2 shootingDirection = Vector2.down;
+    
     
     private Vector3 centeredPosition;
     private Vector2 horizontalMargin;
@@ -36,18 +41,19 @@ public class Player : MonoBehaviour
     private void DropBall()
     {
         currentBall.EnableCollision();
+        currentBall.rb2d.AddForce(shootingDirection.normalized * downwardForce);
         currentBall = null;
         Invoke("LoadNewBall", reloadCooldown);
     }
 
     private void LoadNewBall()
     {
-        currentBall = gameData.ballSetData.SpawnNewBall(transform.position + ballDelta, playerScore, disableCollision: true);
+        currentBall = playerGameData.ballSetData.SpawnNewBall(transform.position + ballDelta, playerScore, disableCollision: true);
     }
     
     private void InitializePlayerData()
     {
-        if (gameData == null)
+        if (playerGameData == null)
         {
             Debug.LogError("The player doesn't have gameData");
         }

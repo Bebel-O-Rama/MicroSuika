@@ -771,7 +771,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 671828830}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1cfb3a45ad3e6f64abc5003a3fdc5c45, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -973,7 +973,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1062602802}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1cfb3a45ad3e6f64abc5003a3fdc5c45, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2392,6 +2392,18 @@ PrefabInstance:
     - target: {fileID: 6472537476770901546, guid: 1a587ee8e07c16846bdf92e1ce961190, type: 3}
       propertyPath: m_Name
       value: PF_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835383461270231165, guid: 1a587ee8e07c16846bdf92e1ce961190, type: 3}
+      propertyPath: downwardForce
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835383461270231165, guid: 1a587ee8e07c16846bdf92e1ce961190, type: 3}
+      propertyPath: playerGameData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c52bdca317844743a8b10dbc0014316, type: 2}
+    - target: {fileID: 7835383461270231165, guid: 1a587ee8e07c16846bdf92e1ce961190, type: 3}
+      propertyPath: playerScore.ConstantValue
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

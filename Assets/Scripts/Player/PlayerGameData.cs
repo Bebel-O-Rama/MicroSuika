@@ -5,8 +5,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(menuName = "Game Data")]
-public class GameData : ScriptableObject
+[CreateAssetMenu(menuName = "Player Game Data")]
+public class PlayerGameData : ScriptableObject
 {
     public BallSetData ballSetData;
     public IntReference score;

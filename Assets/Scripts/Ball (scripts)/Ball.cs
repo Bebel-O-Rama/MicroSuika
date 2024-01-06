@@ -14,7 +14,7 @@ public class Ball : MonoBehaviour
     private int scoreValue;
     private IntReference playerScore;
     private BallSetData ballSetData;
-    
+
     public void SetBallData(BallSetData setData, int tierIndex, IntReference score, bool disableCollision = false)
     {
         ballSetData = setData;
@@ -24,10 +24,11 @@ public class Ball : MonoBehaviour
             Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
             Destroy(gameObject);
         }
+
         spriteRenderer.sprite = ballData.sprite;
         transform.localScale = Vector3.one * ballData.scale;
         rb2d.mass = ballData.mass;
-        
+
         tier = ballData.index;
         scoreValue = ballData.GetScoreValue();
         playerScore = score;
@@ -37,6 +38,7 @@ public class Ball : MonoBehaviour
             rb2d.simulated = false;
             return;
         }
+
         ApplyRotationForce();
     }
 
@@ -47,6 +49,8 @@ public class Ball : MonoBehaviour
     }
 
     public int GetBallTier() => tier;
+    public float GetBallRadius() => transform.localScale.x / 2f;
+    public Vector2 GetBallPosition() => transform.position;
 
     public void ClearBall()
     {
@@ -60,7 +64,7 @@ public class Ball : MonoBehaviour
         var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
         rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.transform.CompareTag("Ball")) return;
@@ -76,9 +80,6 @@ public class Ball : MonoBehaviour
         other.ClearBall();
         ClearBall();
         if (tier < ballSetData.GetMaxTier)
-        {
-            // ApplyExpansionForce();
             ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
-        }
     }
 }
