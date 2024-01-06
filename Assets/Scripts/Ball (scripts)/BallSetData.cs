@@ -52,7 +52,7 @@ public class BallSetData : ScriptableObject
         return 0;
     }
 
-    private Ball SpawnBall(Vector3 position, int tierIndex, IntReference score, bool disableCollision)
+    private Ball SpawnBall(Vector2 position, int tierIndex, IntReference score, bool disableCollision)
     {
         GameObject spawnedBall = Instantiate(ballPF, position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))) as GameObject;
         var newBall = spawnedBall.GetComponent<Ball>();

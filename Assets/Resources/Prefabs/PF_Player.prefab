@@ -132,13 +132,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   reloadCooldown: 0.5
-  yBallDelta: 0.91
   boundariesFromCenter: 3.2
-  gameData: {fileID: 11400000, guid: 4c52bdca317844743a8b10dbc0014316, type: 2}
+  playerGameData: {fileID: 11400000, guid: 4c52bdca317844743a8b10dbc0014316, type: 2}
   playerScore:
     UseConstant: 0
-    ConstantValue: 0
+    ConstantValue: 1
     Variable: {fileID: 11400000, guid: 55cedce5fc551b44cae56891210211ba, type: 2}
+  isUsingPeggleControls: 0
+  shootingForce: 200
+  shootingAngle: 0
+  shootingDirection: {x: 0, y: -1}
 --- !u!50 &4731801930963433338
 Rigidbody2D:
   serializedVersion: 4
