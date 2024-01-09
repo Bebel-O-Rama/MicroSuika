@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Cannon : MonoBehaviour
 {
     [Header("Player Specific Parameters")]
     [Min(0f)] [SerializeField] public float speed;
     [Min(0f)] [SerializeField] public float reloadCooldown;
-    // It's not used anymore with the shootingDirection that's already at -1 when at 0°
-    // [Min(0f)] [SerializeField] public float yBallDelta;
     [Min(0f)] [SerializeField] public float boundariesFromCenter;
     
     [Header("General Game Parameters")]
@@ -26,22 +24,14 @@ public class Player : MonoBehaviour
     private Vector2 horizontalMargin;
     private Queue<Ball> nextBalls;
     private Ball currentBall;
-    // private Vector2 ballDelta;
 
-    private void Start()
+    private void OnEnable()
     {
         InitializePlayerData();
         LoadNewBall();
     }
 
-    private void Update()
-    {
-        UpdatePlayerPosition(Input.GetAxis("Horizontal"));
-        if (Input.GetKeyDown(KeyCode.Space) && currentBall != null)
-            DropBall();
-    }
-
-    private void DropBall()
+    public void DropBall()
     {
         currentBall.EnableCollision();
         // TESTING ANGLE DROPPING, REFACTOR THIS LATER!!!
@@ -49,27 +39,10 @@ public class Player : MonoBehaviour
         currentBall = null;
         Invoke("LoadNewBall", reloadCooldown);
     }
-
-    private void LoadNewBall()
-    {
-        currentBall = playerGameData.ballSetData.SpawnNewBall((Vector2)transform.position + /*ballDelta +*/ shootingDirection, playerScore, disableCollision: true);
-    }
     
-    private void InitializePlayerData()
-    {
-        if (playerGameData == null)
-        {
-            Debug.LogError("The player doesn't have gameData");
-        }
-        // ballDelta = new Vector3(0f, -yBallDelta, 0f);
-        centeredPosition = transform.position;
-        horizontalMargin = new Vector2(centeredPosition.x - boundariesFromCenter,
-            centeredPosition.x + boundariesFromCenter);
-    }
 
-    private void UpdatePlayerPosition(float xAxis)
+    public void MoveCannon(float xAxis)
     {
-        if (xAxis == 0) return;
         if (isUsingPeggleControls)
         {
             if (xAxis < 0 && shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && shootingAngle < Mathf.PI / 2 - 0.1f)
@@ -86,6 +59,22 @@ public class Player : MonoBehaviour
 
         if (currentBall != null)
             currentBall.transform.position = (Vector2)transform.position + /*ballDelta +*/ shootingDirection;
-
+    }
+    
+    private void LoadNewBall()
+    {
+        currentBall = playerGameData.ballSetData.SpawnNewBall((Vector2)transform.position + /*ballDelta +*/ shootingDirection, playerScore, disableCollision: true);
+    }
+    
+    private void InitializePlayerData()
+    {
+        if (playerGameData == null)
+        {
+            Debug.LogError("The player doesn't have gameData");
+        }
+        // ballDelta = new Vector3(0f, -yBallDelta, 0f);
+        centeredPosition = transform.position;
+        horizontalMargin = new Vector2(centeredPosition.x - boundariesFromCenter,
+            centeredPosition.x + boundariesFromCenter);
     }
 }
