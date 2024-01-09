@@ -6,20 +6,11 @@
             "id": "1a25cff6-e9f7-44cb-8c12-31b19a95eaae",
             "actions": [
                 {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "6b792b88-7bc8-4c60-8090-c12e211bc494",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "HorizontalMvt",
                     "type": "Value",
                     "id": "03ded752-27d7-45eb-8b35-e651b5f1372a",
                     "expectedControlType": "Axis",
-                    "processors": "AxisDeadzone",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -33,38 +24,25 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "6b792b88-7bc8-4c60-8090-c12e211bc494",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "822e4591-ad66-4d8e-b983-85981861494b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "7e6ec841-dc39-4163-a4d2-5ffb177130ae",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a6dd58c7-2c5a-4a25-9b4f-59848c9ca4ff",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "WASD",
                     "id": "49826e8a-388c-4059-859c-396454de42fc",
@@ -169,7 +147,7 @@
                     "id": "196d8d3e-6f13-43e6-b897-1856af1ac844",
                     "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
-                    "processors": "StickDeadzone",
+                    "processors": "",
                     "groups": "",
                     "action": "HorizontalMvt",
                     "isComposite": false,
@@ -275,15 +253,37 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "82679ea9-b157-4439-982d-c28cee378d5a",
-                    "path": "<Gamepad>/leftStick/y",
-                    "interactions": "Tap",
-                    "processors": "AxisDeadzone(min=0.4,max=0.4)",
+                    "name": "LJoystick",
+                    "id": "c5155078-73a4-481f-9eec-40dcec683f30",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalMvt",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "87a4a609-8e44-437d-9f1d-f7e12e13cfb1",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
                     "action": "VerticalMvt",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "6f3a9fb3-29ae-4bf8-925c-673a71abaacc",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalMvt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -304,6 +304,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e6ec841-dc39-4163-a4d2-5ffb177130ae",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6dd58c7-2c5a-4a25-9b4f-59848c9ca4ff",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

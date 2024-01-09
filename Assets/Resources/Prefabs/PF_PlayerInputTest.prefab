@@ -193,8 +193,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cf7d8e9366d25418b02dc671c15f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb2d: {fileID: 2230687305239458395}
-  speed: 5
+  verticalInputDeadzone: 0.8
+  OnHorizontalMvt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1082350922297297877}
+        m_TargetAssemblyTypeName: PlayerTest, Assembly-CSharp
+        m_MethodName: MoveH
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnVerticalMvt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1082350922297297877}
+        m_TargetAssemblyTypeName: PlayerTest, Assembly-CSharp
+        m_MethodName: MoveV
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPause:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1138736899380294257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +295,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3656424463733577873}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnShoot
+        m_MethodName: OnShootInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -276,7 +311,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3656424463733577873}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnHorizontalMvt
+        m_MethodName: OnHorizontalMvtInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -292,7 +327,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3656424463733577873}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnVerticalMvt
+        m_MethodName: OnVerticalMvtInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -308,7 +343,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3656424463733577873}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnPause
+        m_MethodName: OnPauseInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -334,6 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8168320167375407592}
+  - component: {fileID: 1082350922297297877}
   m_Layer: 0
   m_Name: PF_PlayerInputTest
   m_TagString: Untagged
@@ -358,3 +394,16 @@ Transform:
   - {fileID: 3181790652163787609}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1082350922297297877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879583119778027493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a908160787c1834fadf8e2fa31f09cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5

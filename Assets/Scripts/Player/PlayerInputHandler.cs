@@ -2,86 +2,126 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    [SerializeField] public Rigidbody2D rb2d;
-    [SerializeField] public float speed;
-    private Player player;
-    private PlayerInput playerInput;
-    private int playerInputIndex;
-    [SerializeField] public float xAxis;
-    private bool isMoving = false;
+    [Tooltip("The vertical input of the Joystick needs to have a big deadzone, otherwise the player might switch target by accident")]
+    [SerializeField] [Range(0f, 1f)] private float verticalInputDeadzone = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float horizontalInputDeadzone = 0.1f;
+    
+    [Header("InputEvent")] public UnityEvent<float> OnHorizontalMvt;
+    public UnityEvent<int> OnVerticalMvt;
+    public UnityEvent OnShoot;
+    public UnityEvent OnPause;
+
+    [Header("Debug and Testing Parameters")]
+    [Tooltip("It'll change the feel of the movements for players with a controllers. Might be good or bad")]
+    [SerializeField] private bool useFloatforHorizontalInput = false;
+    [SerializeField] private bool showInputLog = false;
+    
+    // PlayerInput Parameters
+    private PlayerInput _playerInput;
+    private int _playerInputIndex;
+    private string _playerInputDeviceName;
+
+    // Horizontal Inputs Parameters
+    private float _xAxis;
+    private bool _isHorizontalInDeadzone = true;
+
+    // Vertical Inputs Parameters
+    private float _yAxis;
+    private int _latestNaturalYAxis;
 
     private void OnEnable()
     {
-        playerInput = GetComponent<PlayerInput>();
-        playerInputIndex = playerInput.playerIndex;
-        Debug.Log($"NEW PLAYER!!! : P{playerInputIndex}({playerInput.devices[0].displayName}) joined the game!");
+        _playerInput = GetComponent<PlayerInput>();
+        _playerInputIndex = _playerInput.playerIndex;
+        _playerInputDeviceName = _playerInput.devices[0].displayName;
+        if (showInputLog)
+            Debug.Log($"NEW PLAYER!!! : P{_playerInputIndex}({_playerInputDeviceName}) joined the game!");
     }
 
     private void Update()
     {
-        // if (isMoving == false && xAxis != 0f)
-        // {
-        //     Debug.Log("START MOVING");
-        //     isMoving = true;
-        // }
-        //
-        // if (isMoving == true && xAxis is > -0.01f and < 0.01f)
-        // {
-        //     Debug.Log("STOOOOOP");
-        //     isMoving = false;
-        // }
-        transform.parent.transform.Translate(xAxis * Time.deltaTime * speed, 0, 0);
-
-    }
-
-    public void OnShoot(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-            Debug.Log($"P{playerInputIndex} dropped a ball");
+        ProcessHorizontalInputs();
+        ProcessVerticalInputs();
     }
     
-    public void OnHorizontalMvt(InputAction.CallbackContext context)
+    public void OnHorizontalMvtInput(InputAction.CallbackContext context)
     {
-            xAxis = context.ReadValue<float>();
-        if (context.performed)
-        {
-            // Debug.Log($"P{playerInputIndex} strafed by {context.ReadValue<float>()}");
-        }
+        _xAxis = context.ReadValue<float>();
     }
-    
-    public void OnVerticalMvt(InputAction.CallbackContext context)
+
+    public void OnVerticalMvtInput(InputAction.CallbackContext context)
+    {
+        _yAxis = context.ReadValue<float>();
+    }
+
+    public void OnShootInput(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            Debug.Log($"P{playerInputIndex} moved on the y axis by {context.ReadValue<float>()}");
-            transform.parent.transform.Translate(0, context.ReadValue<float>() * Time.deltaTime * speed * 10, 0);
-
+            OnShoot?.Invoke();
+            if (showInputLog)
+                Debug.Log($"P{_playerInputIndex} dropped a ball");
         }
     }
     
-    public void OnPause(InputAction.CallbackContext context)
+    public void OnPauseInput(InputAction.CallbackContext context)
     {
-        if(context.performed)
-            Debug.Log($"P{playerInputIndex} paused the game");
+        if (context.started)
+        {
+            OnPause?.Invoke();
+            if (showInputLog)
+                Debug.Log($"P{_playerInputIndex} paused the game");
+        }
     }
-    
+
     public void OnDeviceLost(PlayerInput playerInput)
     {
-        Debug.Log($"P{playerInputIndex} just disconnected");
+        if (showInputLog)
+            Debug.Log($"P{_playerInputIndex} just disconnected");
     }
-    
+
     public void OnDeviceRegained(PlayerInput playerInput)
     {
-        Debug.Log($"P{playerInputIndex} reconnected");
+        if (showInputLog)
+            Debug.Log($"P{_playerInputIndex} reconnected");
     }
-    
+
     public void OnControlsChanged(PlayerInput playerInput)
     {
-        Debug.Log($"The controls of P{playerInputIndex} have changed");
+        if (showInputLog)
+            Debug.Log($"The controls of P{_playerInputIndex} have changed");
+    }
+
+    private void ProcessHorizontalInputs()
+    {
+        if (Mathf.Abs(_xAxis) < horizontalInputDeadzone)
+            return;
+        var currentXValue = useFloatforHorizontalInput ? _xAxis : (_xAxis > 0 ? 1f : -1f);
+
+        OnHorizontalMvt?.Invoke(currentXValue);
+        if (showInputLog)
+            Debug.Log($"P{_playerInputIndex} strafed by {_xAxis}");
+    }
+
+    private void ProcessVerticalInputs()
+    {
+        int currentNaturalYValue = Mathf.Abs(_yAxis) < verticalInputDeadzone ? 0 : (_yAxis > 0 ? 1 : -1);
+
+        if (_latestNaturalYAxis == currentNaturalYValue)
+            return;
+        _latestNaturalYAxis = currentNaturalYValue;
+
+        if (_latestNaturalYAxis != 0)
+        {
+            OnVerticalMvt?.Invoke(_latestNaturalYAxis);
+            if (showInputLog)
+                Debug.Log($"P{_playerInputIndex} moved on the y axis by {_latestNaturalYAxis}");
+        }
     }
 }
