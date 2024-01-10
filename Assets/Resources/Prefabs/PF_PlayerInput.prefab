@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cf7d8e9366d25418b02dc671c15f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalInputDeadzone: 0.8
-  horizontalInputDeadzone: 0.1
-  OnHorizontalMvt:
+  discreteAxistDeadzone: 0.5
+  continuousAxisDeadzone: 0.1
+  OnHorizontalMvtContinuous:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
@@ -62,9 +62,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnVerticalMvt:
+  OnHorizontalMvtDiscrete:
     m_PersistentCalls:
       m_Calls: []
+  OnVerticalMvtContinuous:
+    m_PersistentCalls:
+      m_Calls: []
+  OnVerticalMvtDiscrete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerTest, Assembly-CSharp
+        m_MethodName: MoveV
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnShoot:
     m_PersistentCalls:
       m_Calls:
@@ -83,7 +101,6 @@ MonoBehaviour:
   OnPause:
     m_PersistentCalls:
       m_Calls: []
-  useFloatforHorizontalInput: 0
   showInputLog: 0
 --- !u!114 &4422154221944265363
 MonoBehaviour:

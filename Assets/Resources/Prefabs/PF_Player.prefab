@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7301258764241297601}
   - component: {fileID: 3447960526968464632}
   - component: {fileID: 197108504056402158}
+  - component: {fileID: 2070889515478864955}
   m_Layer: 7
   m_Name: MainCannon
   m_TagString: Untagged
@@ -85,6 +86,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!114 &2070889515478864955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144794496283348094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a908160787c1834fadf8e2fa31f09cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &3521356108985077935
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +229,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3447960526968464632}
     - target: {fileID: 12671140093309043, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
-      propertyPath: OnHorizontalMvt.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: OnVerticalMvtDiscrete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2070889515478864955}
+    - target: {fileID: 12671140093309043, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
+      propertyPath: OnHorizontalMvtContinuous.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3447960526968464632}
     - target: {fileID: 5586332630141308848, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}

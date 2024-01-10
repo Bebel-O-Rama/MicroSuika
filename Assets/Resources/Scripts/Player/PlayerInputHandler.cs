@@ -4,32 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
 public class PlayerInputHandler : MonoBehaviour
 {
     [Tooltip("The vertical input of the Joystick needs to have a big deadzone, otherwise the player might switch target by accident")]
-    [SerializeField] [Range(0f, 1f)] private float verticalInputDeadzone = 0.5f;
-    [SerializeField] [Range(0f, 1f)] private float horizontalInputDeadzone = 0.1f;
-    
-    [Header("InputEvent")] public UnityEvent<float> OnHorizontalMvt;
-    public UnityEvent<int> OnVerticalMvt;
+    [SerializeField] [Range(0f, 1f)] private float discreteAxistDeadzone = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float continuousAxisDeadzone = 0.1f;
+
+    [Header("InputEvent")] 
+    public UnityEvent<float> OnHorizontalMvtContinuous;
+    public UnityEvent<int> OnHorizontalMvtDiscrete;
+    public UnityEvent<float> OnVerticalMvtContinuous;
+    public UnityEvent<int> OnVerticalMvtDiscrete;
     public UnityEvent OnShoot;
     public UnityEvent OnPause;
 
     [Header("Debug and Testing Parameters")]
     [Tooltip("It'll change the feel of the movements for players with a controllers. Might be good or bad")]
-    [SerializeField] private bool useFloatforHorizontalInput = false;
     [SerializeField] private bool showInputLog = false;
     
     // PlayerInput Parameters
     private PlayerInput _playerInput;
     private int _playerInputIndex;
     private string _playerInputDeviceName;
-
+    private bool useHorizontalContinuous = true;
+    private bool useHorizontalDiscrete = true;
+    private bool useVerticalContinuous = true;
+    private bool useVerticalDiscrete = true;
+    
     // Horizontal Inputs Parameters
     private float _xAxis;
-    private bool _isHorizontalInDeadzone = true;
+    private int _latestNaturalXAxis;
 
     // Vertical Inputs Parameters
     private float _yAxis;
@@ -42,12 +47,27 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputDeviceName = _playerInput.devices[0].displayName;
         if (showInputLog)
             Debug.Log($"NEW PLAYER!!! : P{_playerInputIndex}({_playerInputDeviceName}) joined the game!");
+
+        if (OnHorizontalMvtContinuous.GetPersistentEventCount() == 0) 
+            useHorizontalContinuous = false;
+        if (OnHorizontalMvtDiscrete.GetPersistentEventCount() == 0) 
+            useHorizontalDiscrete = false;
+        if (OnVerticalMvtContinuous.GetPersistentEventCount() == 0) 
+            useVerticalContinuous = false;
+        if (OnVerticalMvtDiscrete.GetPersistentEventCount() == 0) 
+            useVerticalDiscrete = false;
     }
 
     private void Update()
     {
-        ProcessHorizontalInputs();
-        ProcessVerticalInputs();
+        if (useHorizontalContinuous)
+            ProcessContinuousAxis(_xAxis, OnHorizontalMvtContinuous);
+        if (useHorizontalDiscrete)
+            ProcessDiscreteAxis(_xAxis, true, OnHorizontalMvtDiscrete);
+        if (useVerticalContinuous)
+            ProcessContinuousAxis(_yAxis, OnVerticalMvtContinuous);
+        if (useVerticalDiscrete)
+            ProcessDiscreteAxis(_yAxis, false, OnVerticalMvtDiscrete);
     }
     
     public void OnHorizontalMvtInput(InputAction.CallbackContext context)
@@ -98,30 +118,37 @@ public class PlayerInputHandler : MonoBehaviour
             Debug.Log($"The controls of P{_playerInputIndex} have changed");
     }
 
-    private void ProcessHorizontalInputs()
+    private void ProcessContinuousAxis(float axis, UnityEvent<float> inputEvent)
     {
-        if (Mathf.Abs(_xAxis) < horizontalInputDeadzone)
+        if (Mathf.Abs(axis) < continuousAxisDeadzone)
             return;
-        var currentXValue = useFloatforHorizontalInput ? _xAxis : (_xAxis > 0 ? 1f : -1f);
 
-        OnHorizontalMvt?.Invoke(currentXValue);
+        inputEvent?.Invoke(axis);
         if (showInputLog)
-            Debug.Log($"P{_playerInputIndex} strafed by {_xAxis}");
+            Debug.Log($"P{_playerInputIndex}, {inputEvent} by {axis} (continuous)");
     }
 
-    private void ProcessVerticalInputs()
+    private void ProcessDiscreteAxis(float axis, bool isHorizontal, UnityEvent<int> inputEvent)
     {
-        int currentNaturalYValue = Mathf.Abs(_yAxis) < verticalInputDeadzone ? 0 : (_yAxis > 0 ? 1 : -1);
-
-        if (_latestNaturalYAxis == currentNaturalYValue)
-            return;
-        _latestNaturalYAxis = currentNaturalYValue;
-
-        if (_latestNaturalYAxis != 0)
+        int currentValue = Mathf.Abs(axis) < discreteAxistDeadzone ? 0 : (axis > 0 ? 1 : -1);
+        if (isHorizontal)
         {
-            OnVerticalMvt?.Invoke(_latestNaturalYAxis);
+            if (_latestNaturalXAxis == currentValue)
+                return;
+            _latestNaturalXAxis = currentValue;
+        }
+        else
+        {
+            if (_latestNaturalYAxis == currentValue)
+                return;
+            _latestNaturalYAxis = currentValue;
+        }
+
+        if (currentValue != 0)
+        {
+            inputEvent?.Invoke(currentValue);
             if (showInputLog)
-                Debug.Log($"P{_playerInputIndex} moved on the y axis by {_latestNaturalYAxis}");
+                Debug.Log($"P{_playerInputIndex}, by {currentValue} (discrete)");
         }
     }
 }
