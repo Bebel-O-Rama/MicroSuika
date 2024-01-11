@@ -40,8 +40,7 @@ public class Player : MonoBehaviour
         horizontalMargin.x -= gameModeData.maxHorizontalDelta;
         horizontalMargin.y += gameModeData.maxHorizontalDelta;
         
-        if (gameModeData.spawnCannonAtRandomXPos)
-            spawnPosition.x = Random.Range(horizontalMargin.x, horizontalMargin.y);
+        spawnPosition.x = Random.Range(centerPosition.x - gameModeData.xRandomSpawnRangeDelta, centerPosition.x + gameModeData.xRandomSpawnRangeDelta);
         
         cannon.UpdateParameters(gameModeData.cannonData, centerPosition, spawnPosition, horizontalMargin, gameModeData.ballSetData);
         StartCoroutine(ActivateCannon(cannon, gameModeData.cooldownBeforeInputConnexion));

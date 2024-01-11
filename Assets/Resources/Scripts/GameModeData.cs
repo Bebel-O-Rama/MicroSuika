@@ -10,7 +10,7 @@ public class GameModeData : ScriptableObject
     public List<Vector2> cannonCenterPosition;
     [Min(0f)] public float maxHorizontalDelta;
     public bool isMainCannon = true;
-    public bool spawnCannonAtRandomXPos = false;
+    [Min(0f)] public float xRandomSpawnRangeDelta;
 
     [Header("Ball Parameters")]
     public BallSetData ballSetData;

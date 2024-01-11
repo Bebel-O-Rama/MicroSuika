@@ -51,8 +51,8 @@ public class Cannon : MonoBehaviour
     {
         if (isActive)
         {
-            playerInputHandler.OnHorizontalMvtContinuous.AddListener(MoveCannon);
-            playerInputHandler.OnShoot.AddListener(DropBall);
+            playerInputHandler.OnHorizontalMvtContinuous += MoveCannon;
+            playerInputHandler.OnShoot += DropBall;
             _isCannonActive = true;
             if (_currentBall == null)
                 LoadNewBall();
@@ -60,8 +60,8 @@ public class Cannon : MonoBehaviour
         }
         else
         {
-            playerInputHandler.OnHorizontalMvtContinuous.RemoveListener(MoveCannon);
-            playerInputHandler.OnShoot.RemoveListener(DropBall);
+            playerInputHandler.OnHorizontalMvtContinuous -= MoveCannon;
+            playerInputHandler.OnShoot -= DropBall;
             _isCannonActive = false;
             // TEMPORARY, It's just to better see when a cannon is active of not
             spriteObj.SetActive(false);

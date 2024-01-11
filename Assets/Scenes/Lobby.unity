@@ -2364,7 +2364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
-  lobbyData: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
 --- !u!114 &1844267127
 MonoBehaviour:
   m_ObjectHideFlags: 0
