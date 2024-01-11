@@ -37,21 +37,17 @@ public class GameData : ScriptableObject
         ResetScores();
     }
 
-    public (IntReference mainScore, IntReference miniGameScore) GetPlayerScoreReferences(int index) => (playerMainScores[index], playerMiniGameScores[index]);
+    public (IntReference mainScore, IntReference miniGameScore) GetPlayerScoreReferences(int index) => (playerMainScores[index-1], playerMiniGameScores[index-1]);
 
     public void ResetScores(bool resetEventOnly = false)
     {
         foreach (var score in playerMiniGameScores)
-        {
             score.Variable.SetValue(0);
-        }
 
         if (resetEventOnly)
             return;
         
         foreach (var score in playerMainScores)
-        {
             score.Variable.SetValue(0);
-        }
     }
 }

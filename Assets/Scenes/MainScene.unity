@@ -1479,15 +1479,16 @@ MonoBehaviour:
   playerScore:
     UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 55cedce5fc551b44cae56891210211ba, type: 2}
---- !u!4 &2069278987
-Transform:
+    Variable: {fileID: 0}
+  connectedColor: {r: 0, g: 0, b: 0, a: 0}
+  disconnectedColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!224 &2069278987
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069278985}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1496,6 +1497,11 @@ Transform:
   - {fileID: 1824269572}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &7706197347370280093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1588,5 +1594,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1582260962}
   - {fileID: 7706197347370280093}
-  - {fileID: 2069278987}
   - {fileID: 304794826}
+  - {fileID: 2069278987}

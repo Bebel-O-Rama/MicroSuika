@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
         _miniGameCannon.DestroyCurrentBall();
     }
     
+    // TODO : Refactor this once we have actual sprite and skins for the cannon  
+    public void UpdateMainCannonColor(Color color) => _mainCannon.GetComponentInChildren<SpriteRenderer>().color = color;
+    // TODO : Refactor this once we have actual sprite and skins for the cannon  
+    public Cannon GetCannon(bool isMainCannon) => isMainCannon ? _mainCannon : _miniGameCannon;
+
     private void UpdateCannonParameters(GameModeData gameModeData, Cannon cannon)
     {
         Vector2 centerPosition = gameModeData.cannonCenterPosition[_playerIndex];
