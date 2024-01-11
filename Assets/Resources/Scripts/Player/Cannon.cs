@@ -4,79 +4,104 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
-    [Header("Cannon Basic Parameters")]
-    [Min(0f)] [SerializeField] public float speed;
-    [Min(0f)] [SerializeField] public float reloadCooldown;
-    [Min(0f)] [SerializeField] public float boundariesFromCenter;
-    [Min(0f)] [SerializeField] public float shootingForce = 200f;
-    [Range(-Mathf.PI/2+0.1f, Mathf.PI/2-0.1f)] [SerializeField] public float shootingAngle = 0f;
-    [SerializeField] public Vector2 shootingDirection = Vector2.down;
+    [SerializeField] private GameObject spriteObj;
     
-    [Header("General Game Parameters")]
-    [SerializeField] public PlayerGameData playerGameData;
-    [SerializeField] public IntReference playerScore;
-
-    [Header("Cannon Modifiers")]
-    [SerializeField] public bool isDisabled = false;
-    [SerializeField] public bool isUsingPeggleMode = false;
+    // Cannon Parameters
+    private float _speed;
+    private float _reloadCooldown;
+    private float _shootingForce;
     
+    private bool _isUsingPeggleMode = false;
+    private bool _isCannonActive = false;
+    
+    // Positioning
     private Vector3 _centeredPosition;
     private Vector2 _horizontalMargin;
+    private float _shootingAngle = 0f;
+    private Vector2 _shootingDirection = Vector2.down;
+
+    // Ball Parameters
+    private BallSetData _ballSetData;
     private Ball _currentBall;
+    private IntReference _scoreReference;
     
-    private void OnEnable()
+    public void UpdateParameters(CannonData cannonData, Vector2 centerPosition, Vector2 spawnPosition , Vector2 horizontalMargin, BallSetData ballSetData)
     {
-        InitializePlayerData();
-        LoadNewBall();
+        _speed = cannonData.speed.Value;
+        _reloadCooldown = cannonData.reloadCooldown.Value;
+        _shootingForce = cannonData.shootingForce.Value;
+        _isUsingPeggleMode = cannonData.isUsingPeggleMode.Value;
+
+        _centeredPosition = centerPosition;
+        _horizontalMargin = horizontalMargin;
+        _shootingAngle = 0f;
+        _shootingDirection = Vector2.down;
+        transform.position = spawnPosition;
+
+        _ballSetData = ballSetData;
+        // TEMPORARY, It's just to better see when a cannon is active of not
+        spriteObj.SetActive(true);
     }
 
+    public bool IsCannonActive() => _isCannonActive;
+    
+    public void SetScoreReference(IntReference scoreRef) => _scoreReference = scoreRef;
+
+    public void SetCannonControlConnexion(PlayerInputHandler playerInputHandler, bool isActive)
+    {
+        if (isActive)
+        {
+            playerInputHandler.OnHorizontalMvtContinuous.AddListener(MoveCannon);
+            playerInputHandler.OnShoot.AddListener(DropBall);
+            _isCannonActive = true;
+            if (_currentBall == null)
+                LoadNewBall();
+
+        }
+        else
+        {
+            playerInputHandler.OnHorizontalMvtContinuous.RemoveListener(MoveCannon);
+            playerInputHandler.OnShoot.RemoveListener(DropBall);
+            _isCannonActive = false;
+            // TEMPORARY, It's just to better see when a cannon is active of not
+            spriteObj.SetActive(false);
+        }
+    }
+    
     public void DropBall()
     {
-        if (isDisabled || _currentBall == null)
+        if (_currentBall == null)
             return;
         
         _currentBall.EnableCollision();
-        _currentBall.rb2d.AddForce(shootingDirection * shootingForce);
+        _currentBall.rb2d.AddForce(_shootingDirection * _shootingForce);
         _currentBall = null;
-        Invoke("LoadNewBall", reloadCooldown);
+        Invoke("LoadNewBall", _reloadCooldown);
     }
     
     public void MoveCannon(float xAxis)
     {
-        if (isDisabled)
-            return;
-        
-        if (isUsingPeggleMode)
+       if (_isUsingPeggleMode)
         {
-            if (xAxis < 0 && shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && shootingAngle < Mathf.PI / 2 - 0.1f)
+            if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
             {
-                shootingAngle += xAxis * speed * Time.deltaTime;
-                shootingDirection = new Vector2(Mathf.Sin(shootingAngle), -Mathf.Cos(shootingAngle));
+                _shootingAngle += xAxis * _speed * Time.deltaTime;
+                _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
             }
         }
         else
         {
             if (xAxis < 0 && transform.position.x > _horizontalMargin.x || xAxis > 0 && transform.position.x < _horizontalMargin.y)
-                transform.Translate(xAxis*Time.deltaTime*speed, 0, 0);
+                transform.Translate(xAxis*Time.deltaTime*_speed, 0, 0);
         }
 
         if (_currentBall != null)
-            _currentBall.transform.position = (Vector2)transform.position + shootingDirection;
+            _currentBall.transform.position = (Vector2)transform.position + _shootingDirection;
     }
     
     private void LoadNewBall()
     {
-        _currentBall = playerGameData.ballSetData.SpawnNewBall((Vector2)transform.position + shootingDirection, playerScore, disableCollision: true);
+        _currentBall = _ballSetData.SpawnNewBall((Vector2)transform.position + _shootingDirection, _scoreReference, disableCollision: true);
     }
     
-    private void InitializePlayerData()
-    {
-        if (playerGameData == null)
-        {
-            Debug.LogError("The player doesn't have gameData");
-        }
-        _centeredPosition = transform.position;
-        _horizontalMargin = new Vector2(_centeredPosition.x - boundariesFromCenter,
-            _centeredPosition.x + boundariesFromCenter);
-    }
 }

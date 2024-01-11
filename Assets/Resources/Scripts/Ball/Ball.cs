@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
     private IntReference playerScore;
     private BallSetData ballSetData;
 
-    public void SetBallData(BallSetData setData, int tierIndex, IntReference score, bool disableCollision = false)
+    public void SetBallData(BallSetData setData, int tierIndex, IntReference score = null, bool disableCollision = false)
     {
         ballSetData = setData;
         var ballData = ballSetData.GetBallData(tierIndex);

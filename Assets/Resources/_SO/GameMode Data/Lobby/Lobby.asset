@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
+  m_Name: Lobby
+  m_EditorClassIdentifier: 
+  cannonData: {fileID: 11400000, guid: 815cb73abc9f87d408bff5e78d0a9615, type: 2}
+  cannonCenterPosition:
+  - {x: 0, y: 4}
+  - {x: 0, y: 4}
+  - {x: 0, y: 4}
+  - {x: 0, y: 4}
+  maxHorizontalDelta: 7.5
+  isMainCannon: 1
+  spawnCannonAtRandomXPos: 1
+  ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
+  cooldownBeforeInputConnexion: 0.5

@@ -10,12 +10,12 @@ public class PlayerGameData : ScriptableObject
 {
     public BallSetData ballSetData;
     public IntReference score;
+    public Cannon currentCannon;
 
-    // public void IncrementScore(int incrementValue) => score += incrementValue;
     public int GetScore() => score;
 
-    private void OnEnable()
-    {
-        // score.Value = 0;
-    }
+    public void AddToScore(int amountAdded) => score.Variable.ApplyChange(amountAdded);
+    
+
+    
 }
