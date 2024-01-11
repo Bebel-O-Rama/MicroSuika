@@ -29,6 +29,7 @@ public class GameData : ScriptableObject
     {
         foreach (var player in players)
         {
+            player.Value.DestroyPlayerCurrentBall();
             Destroy(player.Value.gameObject);
         }
         players.Clear();

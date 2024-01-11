@@ -44,7 +44,13 @@ public class Cannon : MonoBehaviour
     }
 
     public bool IsCannonActive() => _isCannonActive;
-    
+
+    public void DestroyCurrentBall()
+    {
+        if (_currentBall != null)
+            Destroy(_currentBall.gameObject);
+    }
+
     public void SetScoreReference(IntReference scoreRef) => _scoreReference = scoreRef;
 
     public void SetCannonControlConnexion(PlayerInputHandler playerInputHandler, bool isActive)

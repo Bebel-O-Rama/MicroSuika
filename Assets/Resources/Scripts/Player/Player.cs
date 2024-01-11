@@ -30,8 +30,13 @@ public class Player : MonoBehaviour
         DeactivateCannons();
         UpdateCannonParameters(gameModeData, cannonToUse);
     }
-    
 
+    public void DestroyPlayerCurrentBall()
+    {
+        _mainCannon.DestroyCurrentBall();
+        _miniGameCannon.DestroyCurrentBall();
+    }
+    
     private void UpdateCannonParameters(GameModeData gameModeData, Cannon cannon)
     {
         Vector2 centerPosition = gameModeData.cannonCenterPosition[_playerIndex];
