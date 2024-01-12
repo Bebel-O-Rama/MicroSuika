@@ -542,6 +542,7 @@ MonoBehaviour:
   discreteAxistDeadzone: 0.5
   continuousAxisDeadzone: 0.1
   showInputLog: 0
+  _playerInput: {fileID: 3039607834322414497}
 --- !u!114 &3039607834322414497
 MonoBehaviour:
   m_ObjectHideFlags: 0

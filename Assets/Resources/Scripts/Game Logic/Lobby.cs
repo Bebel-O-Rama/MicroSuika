@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class Lobby : MonoBehaviour
         Color randColor = Color.HSVToRGB(Random.Range(0f, 1f), 0.6f, 1f);
         AddPlayerJoinPopup(playerIndex, player, randColor);
         player.UpdateMainCannonColor(randColor);
-        ConnectToLobbyScore(gameData.GetPlayerScoreReferences(playerIndex).mainScore, lobbyScore[playerIndex-1], randColor);
+        ConnectToLobbyScore(scores.mainScore, lobbyScore[playerIndex-1], randColor);
     }
 
     public void ResetPlayers()
@@ -47,7 +48,14 @@ public class Lobby : MonoBehaviour
     {
         _playerInputManager.DisableJoining();
         gameData.ResetScores();
-        
+
+        foreach (var player in gameData.players)
+        {
+            gameData.inputDevices.Add(player.Value.playerInputHandler._playerInput.devices[0]);
+            gameData.inputUsers.Add(player.Value.playerInputHandler._playerInput.user);
+        }
+        Debug.Log("dfs");
+        SceneManager.LoadScene("MainScene");
         // Do stuff to start the game 
     }
 

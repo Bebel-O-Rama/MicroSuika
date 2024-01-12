@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
         {
             UpdateAndSwitchCannon(gameModeData);
         }
+        
     }
 
     public void UpdateAndSwitchCannon(GameModeData gameModeData)

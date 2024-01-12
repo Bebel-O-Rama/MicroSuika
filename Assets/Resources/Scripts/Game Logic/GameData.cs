@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 [CreateAssetMenu(menuName = "Game Data")]
 public class GameData : ScriptableObject
 {
     [Header("Player Data")]
-    private Dictionary<int, Player> players = new Dictionary<int, Player>();
+    // TODO : Put that back in private!!!
+    public Dictionary<int, Player> players = new Dictionary<int, Player>();
+    public List<InputDevice> inputDevices = new List<InputDevice>();
+    public List<InputUser> inputUsers = new List<InputUser>();
     public IntReference activePlayerNumber;
     public List<IntReference> playerMainScores;
     public List<IntReference> playerMiniGameScores;
@@ -33,6 +37,8 @@ public class GameData : ScriptableObject
             Destroy(player.Value.gameObject);
         }
         players.Clear();
+        inputDevices.Clear();
+        inputUsers.Clear();
         activePlayerNumber.Variable.SetValue(0);
         ResetScores();
     }

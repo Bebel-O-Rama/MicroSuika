@@ -31,7 +31,8 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private bool showInputLog = false;
     
     // PlayerInput Parameters
-    private PlayerInput _playerInput;
+    // TODO : Put that back in private!!!
+    public PlayerInput _playerInput;
     private int _playerInputIndex;
     private string _playerInputDeviceName;
 
@@ -45,9 +46,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _playerInputIndex = _playerInput.playerIndex;
-        _playerInputDeviceName = _playerInput.devices[0].displayName;
+        // _playerInput = GetComponent<PlayerInput>();
+        // _playerInputIndex = _playerInput.playerIndex;
+        // _playerInputDeviceName = _playerInput.devices[0].displayName;
         if (showInputLog)
             Debug.Log($"NEW PLAYER!!! : P{_playerInputIndex}({_playerInputDeviceName}) joined the game!");
     }
