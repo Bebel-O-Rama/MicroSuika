@@ -13,6 +13,8 @@ public class BallSetData : ScriptableObject
     [Header("The smaller the index position of the ball, the smaller its radius should be")]
     [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
     public List<BallData> ballSetData;
+
+    public BallSpriteThemeData ballSpriteData;
     
     public Object ballPF;
     

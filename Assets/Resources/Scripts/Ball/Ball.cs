@@ -10,28 +10,28 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public Rigidbody2D rb2d;
-    private int tier;
-    private int scoreValue;
-    private IntReference playerScore;
-    private BallSetData ballSetData;
+    private int _tier;
+    private int _scoreValue;
+    private IntReference _playerScore;
+    private BallSetData _ballSetData;
 
     public void SetBallData(BallSetData setData, int tierIndex, IntReference score = null, bool disableCollision = false)
     {
-        ballSetData = setData;
-        var ballData = ballSetData.GetBallData(tierIndex);
+        _ballSetData = setData;
+        var ballData = _ballSetData.GetBallData(tierIndex);
         if (ballData == null)
         {
             Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
             Destroy(gameObject);
         }
 
-        spriteRenderer.sprite = ballData.sprite;
+        spriteRenderer.sprite = _ballSetData.ballSpriteData.GetBallSprite(tierIndex);
         transform.localScale = Vector3.one * ballData.scale;
         rb2d.mass = ballData.mass;
 
-        tier = ballData.index;
-        scoreValue = ballData.GetScoreValue();
-        playerScore = score;
+        _tier = ballData.index;
+        _scoreValue = ballData.GetScoreValue();
+        _playerScore = score;
 
         if (disableCollision)
         {
@@ -48,13 +48,13 @@ public class Ball : MonoBehaviour
         ApplyRotationForce();
     }
 
-    public int GetBallTier() => tier;
+    public int GetBallTier() => _tier;
     public float GetBallRadius() => transform.localScale.x / 2f;
     public Vector2 GetBallPosition() => transform.position;
 
     public void ClearBall()
     {
-        playerScore?.Variable.ApplyChange(scoreValue);
+        _playerScore?.Variable.ApplyChange(_scoreValue);
         rb2d.simulated = false;
         Destroy(gameObject);
     }
@@ -69,7 +69,7 @@ public class Ball : MonoBehaviour
     {
         if (!collision.transform.CompareTag("Ball")) return;
         var otherBall = collision.gameObject.GetComponent<Ball>();
-        if (otherBall.GetBallTier() == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
+        if (otherBall.GetBallTier() == _tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
         {
             FuseWithOtherBall(otherBall, collision.GetContact(0).point);
         }
@@ -79,7 +79,7 @@ public class Ball : MonoBehaviour
     {
         other.ClearBall();
         ClearBall();
-        if (tier < ballSetData.GetMaxTier)
-            ballSetData.SpawnNewBall(contactPosition, tier + 1, playerScore);
+        if (_tier < _ballSetData.GetMaxTier)
+            _ballSetData.SpawnNewBall(contactPosition, _tier + 1, _playerScore);
     }
 }

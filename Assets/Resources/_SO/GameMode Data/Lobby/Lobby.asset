@@ -20,6 +20,6 @@ MonoBehaviour:
   - {x: 0, y: 4}
   maxHorizontalDelta: 7.5
   isMainCannon: 1
-  randomXSpawnRangeFromCenter: 3.5
+  xRandomSpawnRangeDelta: 3.5
   ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   cooldownBeforeInputConnexion: 0

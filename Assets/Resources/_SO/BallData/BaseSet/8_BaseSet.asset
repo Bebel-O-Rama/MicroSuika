@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d677d34eb0d562d41ba92e49ad9e9b08, type: 3}
-  m_Name: 4_YellowBall
+  m_Name: 8_BaseSet
   m_EditorClassIdentifier: 
-  index: 4
-  scale: 2.4
+  index: 8
+  scale: 2.73
   mass: 1
-  sprite: {fileID: 21300000, guid: 34172fe8b236e4c48bf7b16272e5bfd2, type: 3}
-  spawnChance: 0.01
+  sprite: {fileID: 21300000, guid: cfe1a48c50d6b1448b573aef5eb0b5c0, type: 3}
+  spawnChance: 0

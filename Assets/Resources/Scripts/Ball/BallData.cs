@@ -9,7 +9,6 @@ public class BallData : ScriptableObject
     [Min(0)] public int index;
     public float scale;
     public float mass;
-    public Sprite sprite;
     [Tooltip("1 is the baseline here")] [Range(0f, 4f)]
     public float spawnChance = 1f;
 

@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d677d34eb0d562d41ba92e49ad9e9b08, type: 3}
-  m_Name: 1_GreenBall
+  m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
+  m_Name: MainGameData
   m_EditorClassIdentifier: 
-  index: 1
-  scale: 0.595
-  mass: 1
-  sprite: {fileID: 21300000, guid: 46e3c76cca644bb4cbc0c839ba7b39dd, type: 3}
+  cannonData: {fileID: 0}
+  cannonCenterPosition: []
+  maxHorizontalDelta: 0
+  isMainCannon: 1
+  xRandomSpawnRangeDelta: 0
+  ballSetData: {fileID: 0}
+  cooldownBeforeInputConnexion: 0

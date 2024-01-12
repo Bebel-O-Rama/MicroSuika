@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballSetName: Default balls
   ballSetData:
-  - {fileID: 11400000, guid: b9d914af43d1f5448aa7b7a29d8fe684, type: 2}
-  - {fileID: 11400000, guid: 95c250bbda7851b4997f45db5402a578, type: 2}
-  - {fileID: 11400000, guid: 1f270c33f29c6134ebfce33674afdd3e, type: 2}
-  - {fileID: 11400000, guid: 237b251180a5c2345afefb6895240232, type: 2}
-  - {fileID: 11400000, guid: 40862ea02f9167b4cb5db99a67d018fa, type: 2}
+  - {fileID: 11400000, guid: 3dda429f0486fcd41a0fb453ec330aff, type: 2}
+  - {fileID: 11400000, guid: 5112460ee4b40184999666fcb05e7351, type: 2}
+  - {fileID: 11400000, guid: 3f4db0c2d4cdb0141b8aacf746fc921a, type: 2}
+  - {fileID: 11400000, guid: fa9d9671e4cac3241a820a5be1edfaae, type: 2}
+  - {fileID: 11400000, guid: 9c918717b2305a44086e92f8f8294e44, type: 2}
+  ballSpriteData: {fileID: 11400000, guid: f7ed3a69622c0cb46b40c6a62fcae6c9, type: 2}
   ballPF: {fileID: 2164191203452481615, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
