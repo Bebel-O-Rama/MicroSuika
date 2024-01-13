@@ -11,8 +11,9 @@ public class GameData : ScriptableObject
 {
     [Header("Player Data")]
     // TODO : Put that back in private!!!
+    private List<Player> _players = new List<Player>();
     public List<PlayerData> playerDataList = new List<PlayerData>(4);
-    public List<Player> players = new List<Player>();
+    public GameObject playerPf;
 
     [Header("Game Mode Data")]
     public GameModeData lobby;
@@ -35,14 +36,35 @@ public class GameData : ScriptableObject
         if (newPlayerData.playerIndexNumber != playerIndex)
             Debug.LogError($"Wrong player index when registering a new player, playerData : {{newPlayerData.playerIndexNumber}} and playerIndex : {playerIndex}");
         
-        newPlayerData.SetInputParameters(playerInput.devices[0], playerInput.user);
-        players.Add(playerRegistered);
+        newPlayerData.SetInputParameters(playerInput.devices[0]);
+        _players.Add(playerRegistered);
+
+        playerRegistered.InitializePlayer(newPlayerData, lobby);
+
         return (playerRegistered, newPlayerData);
     }
 
+    public void InstantiatePlayers(GameModeData gameModeData)
+    {
+        _players.Clear();
+        foreach (var playerData in playerDataList)
+        {
+            if (!playerData.IsPlayerConnected())
+                break;
+            var playerObj = PlayerInput.Instantiate(playerPf, playerData.playerIndexNumber, pairWithDevice: playerData.inputDevice);
+            var player = playerObj.GetComponentInParent<Player>();
+            
+            _players.Add(player);
+            
+            player.InitializePlayer(playerData, gameModeData);
+        }
+    }
+
+    public void ClearPlayerList() => _players.Clear();
+    
     public void DisconnectPlayers()
     {
-        foreach (var player in players)
+        foreach (var player in _players)
         {
             if (player != null)
             {
@@ -50,7 +72,7 @@ public class GameData : ScriptableObject
                 Destroy(player.gameObject);
             }
         }
-        players.Clear();
+        _players.Clear();
 
         foreach (var playerData in playerDataList)
         {

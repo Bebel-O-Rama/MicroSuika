@@ -28,8 +28,7 @@ public class Lobby : MonoBehaviour
     public void NewPlayerDetected(PlayerInput playerInput)
     {
         var (player, playerData) = gameData.RegisterPlayer(playerInput);
-        player.InitializePlayer(playerData, _lobbyData);
-
+        
         // Do custom stuff when a player joins in the lobby
         Color randColor = Color.HSVToRGB(Random.Range(0f, 1f), 0.6f, 1f);
         AddPlayerJoinPopup(playerData.playerIndexNumber, player, randColor);
@@ -50,6 +49,7 @@ public class Lobby : MonoBehaviour
     public void StartGame()
     {
         _playerInputManager.DisableJoining();
+        gameData.ClearPlayerList();
         SceneManager.LoadScene("MainScene");
     }
 

@@ -15,7 +15,6 @@ public class PlayerData : ScriptableObject
     
     [Header(("Input Parameters"))]
     public InputDevice inputDevice;
-    public InputUser inputUser;
     private bool _isConnected = false;
     
     [Header("Score References")]
@@ -24,10 +23,9 @@ public class PlayerData : ScriptableObject
     
     public bool IsPlayerConnected() => _isConnected;
     
-    public void SetInputParameters(InputDevice device, InputUser user)
+    public void SetInputParameters(InputDevice device)
     {
         inputDevice = device;
-        inputUser = user;
         _isConnected = true;
     }
 

@@ -17,11 +17,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67c6e8c41eb5dd34b81fb77a977694a5, type: 2}
   - {fileID: 11400000, guid: a84744a0d00f07f4f81fb82dab237561, type: 2}
   - {fileID: 11400000, guid: 95af0635235e9534c8984725d5e518e6, type: 2}
-  players: []
-  numberActivePlayer:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: fd6dbeb3a9ce8b341befe6244c87c73f, type: 2}
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerPf: {fileID: 6472537476770901546, guid: 1a587ee8e07c16846bdf92e1ce961190, type: 3}
   lobby: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
   mainGame: {fileID: 0}
   miniGame: {fileID: 0}

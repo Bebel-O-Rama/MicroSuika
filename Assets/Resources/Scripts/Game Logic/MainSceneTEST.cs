@@ -14,14 +14,6 @@ public class MainSceneTEST : MonoBehaviour
     
     private void OnEnable()
     {
-        foreach (var playerData in gameData.playerDataList)
-        {
-            if (!playerData.IsPlayerConnected())
-                break;
-            var playerObj = PlayerInput.Instantiate(playerPf, playerData.playerIndexNumber, pairWithDevice: playerData.inputDevice);
-            var player = playerObj.GetComponentInParent<Player>();
-
-            player.InitializePlayer(playerData, gameData.lobby);
-        }
+        gameData.InstantiatePlayers(gameData.lobby);
     }
 }
