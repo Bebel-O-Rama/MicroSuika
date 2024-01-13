@@ -12,11 +12,11 @@ public class Player : MonoBehaviour
     
     private int _playerIndex;
 
-    public void InitializePlayer(int playerIndex, IntReference mainScore, IntReference miniGameScore, GameModeData gameModeData = null)
+    public void InitializePlayer(PlayerData playerData, GameModeData gameModeData = null)
     {
-        _mainCannon.SetScoreReference(mainScore);
-        _miniGameCannon.SetScoreReference(miniGameScore);
-        _playerIndex = playerIndex;
+        _mainCannon.SetScoreReference(playerData.mainScore);
+        _miniGameCannon.SetScoreReference(playerData.miniGameScore);
+        _playerIndex = playerData.playerIndexNumber;
 
         if (gameModeData != null)
         {

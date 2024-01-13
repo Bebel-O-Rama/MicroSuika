@@ -2358,12 +2358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b248f0e4be2fe469b622b6ad7de109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberActivePlayer:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: fd6dbeb3a9ce8b341befe6244c87c73f, type: 2}
-  textEnoughPlayers: {fileID: 1816893765}
-  lidCollider: {fileID: 1877129155}
+  playerNumberThreshold: 2
+  _textEnoughPlayers: {fileID: 1816893765}
+  _lidCollider: {fileID: 1877129155}
   OnTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -4629,6 +4626,9 @@ MonoBehaviour:
   - {fileID: 316798128}
   - {fileID: 320478238}
   - {fileID: 2076844590}
+  lobbyContainerTriggers:
+  - {fileID: 1956928707}
+  - {fileID: 949013666}
 --- !u!114 &1844267127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4883,12 +4883,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b248f0e4be2fe469b622b6ad7de109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberActivePlayer:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: fd6dbeb3a9ce8b341befe6244c87c73f, type: 2}
-  textEnoughPlayers: {fileID: 1562296369}
-  lidCollider: {fileID: 1680409432}
+  playerNumberThreshold: 2
+  _textEnoughPlayers: {fileID: 1562296369}
+  _lidCollider: {fileID: 1680409432}
   OnTrigger:
     m_PersistentCalls:
       m_Calls:

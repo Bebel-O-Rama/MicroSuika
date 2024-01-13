@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 public class PlayerData : ScriptableObject
 {
     [Header("Player number")]
-    [Range(0, 3)] public int playerNumber;
+    [Range(0, 3)] public int playerIndexNumber;
     
     [Header(("Input Parameters"))]
     public InputDevice inputDevice;

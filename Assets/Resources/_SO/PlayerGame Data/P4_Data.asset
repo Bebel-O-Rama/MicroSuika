@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260f93e6a383ee642a2a17c768d8432d, type: 3}
   m_Name: P4_Data
   m_EditorClassIdentifier: 
-  playerNumber: 3
+  playerIndexNumber: 3
   mainScore:
     UseConstant: 0
     ConstantValue: 0
@@ -21,6 +21,3 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: deab88d2c88d2624c95e848795e7b731, type: 2}
-  lobbyCannonSpawnPositionData: {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
-  mainCannonSpawnPositionData: {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
-  miniGameCannonSpawnPositionData: {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}

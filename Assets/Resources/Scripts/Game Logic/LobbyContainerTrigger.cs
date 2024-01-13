@@ -10,31 +10,23 @@ using UnityEngine.Events;
 public class LobbyContainerTrigger : MonoBehaviour
 {
     // Trash code, but for now it'll get the job done to test a few things
+    [Range(1, 4)][SerializeField] public int playerNumberThreshold;
+    [SerializeField] private GameObject _textEnoughPlayers;
+    [SerializeField] private GameObject _lidCollider;
     
-    [SerializeField] public IntReference numberActivePlayer; 
-    [SerializeField] private GameObject textEnoughPlayers;
-    [SerializeField] private GameObject lidCollider;
-
-    private int _previousPlayerNumber;
-    
-    private Collider2D collider;
+    private Collider2D _collider;
     public UnityEvent OnTrigger;
 
     private void OnEnable()
     {
-        _previousPlayerNumber = 0;
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
     }
 
-    private void Update()
+    public void UpdateContainerBehavior(int playersNumber)
     {
-        if (numberActivePlayer.Value != _previousPlayerNumber)
-        {
-            _previousPlayerNumber = numberActivePlayer.Value;
-            lidCollider.SetActive(_previousPlayerNumber < 2);
-            textEnoughPlayers.SetActive(_previousPlayerNumber >= 2);
-            collider.enabled = _previousPlayerNumber >= 2;
-        }
+        _lidCollider.SetActive(playersNumber < playerNumberThreshold);
+        _textEnoughPlayers.SetActive(playersNumber >= playerNumberThreshold);
+        _collider.enabled = playersNumber >= playerNumberThreshold;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

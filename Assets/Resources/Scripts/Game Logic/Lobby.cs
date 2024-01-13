@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ public class Lobby : MonoBehaviour
     [SerializeField] public GameData gameData;
     [SerializeField] public GameObject onJoinPopup;
     [SerializeField] public List<Scoreboard> lobbyScore;
-    
+    private List<LobbyContainerTrigger> _lobbyContainerTriggers;
     private GameModeData _lobbyData;
     private PlayerInputManager _playerInputManager;
     
@@ -19,20 +20,22 @@ public class Lobby : MonoBehaviour
         _playerInputManager = FindObjectOfType<PlayerInputManager>();
         _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
         _lobbyData = gameData.lobby;
+        _lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
         gameData.DisconnectPlayers();
         _playerInputManager.EnableJoining();
     }
 
     public void NewPlayerDetected(PlayerInput playerInput)
     {
-        var (playerIndex, player, playerData) = gameData.RegisterPlayer(playerInput);
-        player.InitializePlayer(playerIndex, playerData.mainScore, playerData.miniGameScore, _lobbyData);
+        var (player, playerData) = gameData.RegisterPlayer(playerInput);
+        player.InitializePlayer(playerData, _lobbyData);
 
         // Do custom stuff when a player joins in the lobby
         Color randColor = Color.HSVToRGB(Random.Range(0f, 1f), 0.6f, 1f);
-        AddPlayerJoinPopup(playerIndex, player, randColor);
+        AddPlayerJoinPopup(playerData.playerIndexNumber, player, randColor);
         player.UpdateMainCannonColor(randColor);
-        ConnectToLobbyScore(playerData.mainScore, lobbyScore[playerIndex-1], randColor);
+        ConnectToLobbyScore(playerData.mainScore, lobbyScore[playerData.playerIndexNumber], randColor);
+        UpdateLobbyTriggers(gameData.GetCurrentPlayerQuantity());
     }
 
     public void ResetPlayers()
@@ -40,21 +43,14 @@ public class Lobby : MonoBehaviour
         gameData.DisconnectPlayers();
         foreach (var ls in lobbyScore)
             ls.playerScore = null;
+
+        UpdateLobbyTriggers(0);
     }
 
     public void StartGame()
     {
         _playerInputManager.DisableJoining();
-        // gameData.ResetScores();
-        //
-        // foreach (var player in gameData.players)
-        // {
-        //     gameData.inputDevices.Add(player.Value.playerInputHandler._playerInput.devices[0]);
-        //     gameData.inputUsers.Add(player.Value.playerInputHandler._playerInput.user);
-        // }
-        Debug.Log("dfs");
         SceneManager.LoadScene("MainScene");
-        // Do stuff to start the game 
     }
 
     private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
@@ -69,5 +65,13 @@ public class Lobby : MonoBehaviour
         var tmp = popup.GetComponent<TextMeshPro>();
         tmp.color = randColor;
         tmp.text = $"P{playerIndex}";
+    }
+
+    private void UpdateLobbyTriggers(int newPlayerNumber)
+    {
+        foreach (var containerTrigger in _lobbyContainerTriggers)
+        {
+            containerTrigger.UpdateContainerBehavior(newPlayerNumber);
+        }
     }
 }
