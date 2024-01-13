@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Cannon/Cannon Data")]
 public class CannonData : ScriptableObject
 {
     [Header("Cannon Basic Parameters")]

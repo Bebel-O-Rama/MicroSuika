@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Mode Data")]
+[CreateAssetMenu(menuName = "Game Logic/Game Mode Data")]
 public class GameModeData : ScriptableObject
 {
     [Header("Cannon Parameters")]

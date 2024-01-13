@@ -6,7 +6,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "Ball Set Data")]
+[CreateAssetMenu(menuName = "Ball/Ball Set Data")]
 public class BallSetData : ScriptableObject
 {
     public string ballSetName;

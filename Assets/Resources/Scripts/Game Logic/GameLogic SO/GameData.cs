@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
-[CreateAssetMenu(menuName = "Game Data")]
+[CreateAssetMenu(menuName = "Game Logic/Game Data")]
 public class GameData : ScriptableObject
 {
     [Header("Player Data")]

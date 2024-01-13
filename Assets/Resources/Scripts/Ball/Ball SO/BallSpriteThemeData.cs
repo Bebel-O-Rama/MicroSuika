@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Ball/Ball Sprite Theme Data")]
 public class BallSpriteThemeData : ScriptableObject
 {
     public List<Sprite> ballSprites;

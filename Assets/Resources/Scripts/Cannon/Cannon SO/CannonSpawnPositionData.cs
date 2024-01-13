@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Cannon/Cannon Spawn Position Data")]
 public class CannonSpawnPositionData : ScriptableObject
 {
     public Vector2 centerPosition;
