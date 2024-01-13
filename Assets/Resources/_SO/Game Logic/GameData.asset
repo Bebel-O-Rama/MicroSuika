@@ -12,36 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce46f37c728e504da70bd0cff2b01c3, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  activePlayerNumber:
+  playerDataList:
+  - {fileID: 11400000, guid: 4fc7db104139c294f864e22e59088dd3, type: 2}
+  - {fileID: 11400000, guid: 67c6e8c41eb5dd34b81fb77a977694a5, type: 2}
+  - {fileID: 11400000, guid: a84744a0d00f07f4f81fb82dab237561, type: 2}
+  - {fileID: 11400000, guid: 95af0635235e9534c8984725d5e518e6, type: 2}
+  numberPlayerActive:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: fd6dbeb3a9ce8b341befe6244c87c73f, type: 2}
-  playerMainScores:
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 55cedce5fc551b44cae56891210211ba, type: 2}
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 0a1a3baace89fcc46a64f3e6bd99da18, type: 2}
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: f26dbf0f79843e841a66562d77c186cb, type: 2}
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 30943320874868a4787a20fd3c6e3977, type: 2}
-  playerMiniGameScores:
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 7fdb3ea7abbd57a48a2df91c702d43ef, type: 2}
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 21adaccc5a1b3cc4789e453771830121, type: 2}
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 282a1a7c65478de4381fa3f2aa2e8a96, type: 2}
-  - UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: deab88d2c88d2624c95e848795e7b731, type: 2}
   lobby: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
   mainGame: {fileID: 0}
   miniGame: {fileID: 0}

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
@@ -9,12 +11,14 @@ public class GameData : ScriptableObject
 {
     [Header("Player Data")]
     // TODO : Put that back in private!!!
-    public Dictionary<int, Player> players = new Dictionary<int, Player>();
-    public List<InputDevice> inputDevices = new List<InputDevice>();
-    public List<InputUser> inputUsers = new List<InputUser>();
-    public IntReference activePlayerNumber;
-    public List<IntReference> playerMainScores;
-    public List<IntReference> playerMiniGameScores;
+    public List<PlayerData> playerDataList = new List<PlayerData>(4);
+    public List<Player> players = new List<Player>();
+    // public List<InputDevice> inputDevices = new List<InputDevice>();
+    // public List<InputUser> inputUsers = new List<InputUser>();
+    public IntReference numberPlayerActive;
+    // public int numberPlayerConnected;
+    // public List<IntReference> playerMainScores;
+    // public List<IntReference> playerMiniGameScores;
 
     [Header("Game Mode Data")]
     public GameModeData lobby;
@@ -22,38 +26,55 @@ public class GameData : ScriptableObject
     public GameModeData miniGame;
     public GameModeData scoreBoard;
     
-    public (int, Player) AddPlayer(Player player)
+    public (int, Player, PlayerData) RegisterPlayer(PlayerInput playerInput)
     {
-        players.Add(activePlayerNumber, player);
-        activePlayerNumber.Variable.ApplyChange(1);
-        return (activePlayerNumber, player);
+        numberPlayerActive.Variable.ApplyChange(1);
+        if (numberPlayerActive.Value >= 4)
+        {
+            Debug.LogError("Something went awfully wrong, you're trying to register a fifth+ player");
+            return (-1, null, null);
+        }
+
+        var playerRegistered = playerInput.GetComponentInParent<Player>(); 
+        playerDataList[numberPlayerActive.Value].SetInputParameters(playerInput.devices[0], playerInput.user);
+        players.Add(playerRegistered);
+        return (numberPlayerActive.Value, playerRegistered, playerDataList[numberPlayerActive.Value]);
+
+
+
+
+        // for (int playerIndex = 0; playerIndex < playerDataList.Count - 1; playerIndex++)
+        // {
+        //     if (!playerDataList[playerIndex].IsPlayerConnected())
+        //     {
+        //         var playerRegistered = playerInput.GetComponentInParent<Player>(); 
+        //         playerDataList[playerIndex].SetInputParameters(playerInput.devices[0], playerInput.user);
+        //         _players.Add(playerRegistered);
+        //         return (playerIndex, playerRegistered, playerDataList[playerIndex]);
+        //     }
+        // }
+        // Debug.LogError("Couldn't register a player! Might be missing some PlayerData in the GameData");
+        // return (-1, null, null);
     }
 
-    public void ClearPlayers()
+    public void DisconnectPlayers()
     {
         foreach (var player in players)
         {
-            player.Value.DestroyPlayerCurrentBall();
-            Destroy(player.Value.gameObject);
+            player.DestroyPlayerCurrentBall();
+            Destroy(player.gameObject);
         }
         players.Clear();
-        inputDevices.Clear();
-        inputUsers.Clear();
-        activePlayerNumber.Variable.SetValue(0);
-        ResetScores();
+        numberPlayerActive.Variable.SetValue(0);
+
+        foreach (var playerData in playerDataList)
+        {
+            playerData.ResetInputParameters();
+            playerData.ResetMainScore();
+            playerData.ResetMiniGameScore();
+        }
     }
+    
 
-    public (IntReference mainScore, IntReference miniGameScore) GetPlayerScoreReferences(int index) => (playerMainScores[index-1], playerMiniGameScores[index-1]);
-
-    public void ResetScores(bool resetEventOnly = false)
-    {
-        foreach (var score in playerMiniGameScores)
-            score.Variable.SetValue(0);
-
-        if (resetEventOnly)
-            return;
-        
-        foreach (var score in playerMainScores)
-            score.Variable.SetValue(0);
-    }
+    // public (IntReference mainScore, IntReference miniGameScore) GetPlayerScoreReferences(int index) => (playerMainScores[index-1], playerMiniGameScores[index-1]);
 }

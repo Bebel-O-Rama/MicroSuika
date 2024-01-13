@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Lobby
   m_EditorClassIdentifier: 
   cannonData: {fileID: 11400000, guid: 815cb73abc9f87d408bff5e78d0a9615, type: 2}
+  cannonSpawnPositionData:
+  - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
+  - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
+  - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
+  - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
   cannonCenterPosition:
   - {x: 0, y: 4}
   - {x: 0, y: 4}

@@ -6,9 +6,9 @@ using UnityEngine;
 public class CannonData : ScriptableObject
 {
     [Header("Cannon Basic Parameters")]
-    [Min(0f)] public FloatReference speed;
-    [Min(0f)] public FloatReference reloadCooldown;
-    [Min(0f)] public FloatReference shootingForce;
+    public FloatReference speed;
+    public FloatReference reloadCooldown;
+    public FloatReference shootingForce;
     
     [Header("Cannon Modifiers")]
     public BoolReference isUsingPeggleMode;

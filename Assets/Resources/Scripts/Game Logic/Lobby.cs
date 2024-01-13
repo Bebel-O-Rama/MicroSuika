@@ -19,27 +19,25 @@ public class Lobby : MonoBehaviour
         _playerInputManager = FindObjectOfType<PlayerInputManager>();
         _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
         _lobbyData = gameData.lobby;
-        gameData.ResetScores();
-        ResetPlayers();
+        gameData.DisconnectPlayers();
         _playerInputManager.EnableJoining();
     }
 
     public void NewPlayerDetected(PlayerInput playerInput)
     {
-        var (playerIndex, player) = gameData.AddPlayer(playerInput.GetComponentInParent<Player>());
-        var scores = gameData.GetPlayerScoreReferences(playerIndex);
-        player.InitializePlayer(playerIndex, scores.mainScore, scores.miniGameScore, _lobbyData);
-        
+        var (playerIndex, player, playerData) = gameData.RegisterPlayer(playerInput);
+        player.InitializePlayer(playerIndex, playerData.mainScore, playerData.miniGameScore, _lobbyData);
+
         // Do custom stuff when a player joins in the lobby
         Color randColor = Color.HSVToRGB(Random.Range(0f, 1f), 0.6f, 1f);
         AddPlayerJoinPopup(playerIndex, player, randColor);
         player.UpdateMainCannonColor(randColor);
-        ConnectToLobbyScore(scores.mainScore, lobbyScore[playerIndex-1], randColor);
+        ConnectToLobbyScore(playerData.mainScore, lobbyScore[playerIndex-1], randColor);
     }
 
     public void ResetPlayers()
     {
-        gameData.ClearPlayers();
+        gameData.DisconnectPlayers();
         foreach (var ls in lobbyScore)
             ls.playerScore = null;
     }
@@ -47,13 +45,13 @@ public class Lobby : MonoBehaviour
     public void StartGame()
     {
         _playerInputManager.DisableJoining();
-        gameData.ResetScores();
-
-        foreach (var player in gameData.players)
-        {
-            gameData.inputDevices.Add(player.Value.playerInputHandler._playerInput.devices[0]);
-            gameData.inputUsers.Add(player.Value.playerInputHandler._playerInput.user);
-        }
+        // gameData.ResetScores();
+        //
+        // foreach (var player in gameData.players)
+        // {
+        //     gameData.inputDevices.Add(player.Value.playerInputHandler._playerInput.devices[0]);
+        //     gameData.inputUsers.Add(player.Value.playerInputHandler._playerInput.user);
+        // }
         Debug.Log("dfs");
         SceneManager.LoadScene("MainScene");
         // Do stuff to start the game 

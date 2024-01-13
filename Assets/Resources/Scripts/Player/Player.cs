@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
         {
             UpdateAndSwitchCannon(gameModeData);
         }
-        
     }
 
     public void UpdateAndSwitchCannon(GameModeData gameModeData)
@@ -45,13 +44,14 @@ public class Player : MonoBehaviour
 
     private void UpdateCannonParameters(GameModeData gameModeData, Cannon cannon)
     {
-        Vector2 centerPosition = gameModeData.cannonCenterPosition[_playerIndex];
+        var cannonPositionData = gameModeData.cannonSpawnPositionData[_playerIndex];
+        Vector2 centerPosition = cannonPositionData.centerPosition;
         Vector2 spawnPosition = centerPosition;
         Vector2 horizontalMargin = centerPosition;
-        horizontalMargin.x -= gameModeData.maxHorizontalDelta;
-        horizontalMargin.y += gameModeData.maxHorizontalDelta;
+        horizontalMargin.x -= cannonPositionData.maxHorizontalDelta;
+        horizontalMargin.y += cannonPositionData.maxHorizontalDelta;
         
-        spawnPosition.x = Random.Range(centerPosition.x - gameModeData.xRandomSpawnRangeDelta, centerPosition.x + gameModeData.xRandomSpawnRangeDelta);
+        spawnPosition.x = Random.Range(centerPosition.x - cannonPositionData.xRandomSpawnRangeDelta, centerPosition.x + cannonPositionData.xRandomSpawnRangeDelta);
         
         cannon.UpdateParameters(gameModeData.cannonData, centerPosition, spawnPosition, horizontalMargin, gameModeData.ballSetData);
         StartCoroutine(ActivateCannon(cannon, gameModeData.cooldownBeforeInputConnexion));
