@@ -16,19 +16,11 @@ public class PlayerData : ScriptableObject
     [Header(("Input Parameters"))]
     public InputDevice inputDevice;
     public InputUser inputUser;
-    private bool _isConnected;
+    private bool _isConnected = false;
     
     [Header("Score References")]
     public IntReference mainScore;
     public IntReference miniGameScore;
-
-    [Header("Cannon Position Data")]
-    public CannonSpawnPositionData lobbyCannonSpawnPositionData;
-    public CannonSpawnPositionData mainCannonSpawnPositionData;
-    public CannonSpawnPositionData miniGameCannonSpawnPositionData;
-
-
-
     
     public bool IsPlayerConnected() => _isConnected;
     

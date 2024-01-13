@@ -13,12 +13,7 @@ public class GameData : ScriptableObject
     // TODO : Put that back in private!!!
     public List<PlayerData> playerDataList = new List<PlayerData>(4);
     public List<Player> players = new List<Player>();
-    // public List<InputDevice> inputDevices = new List<InputDevice>();
-    // public List<InputUser> inputUsers = new List<InputUser>();
     public IntReference numberPlayerActive;
-    // public int numberPlayerConnected;
-    // public List<IntReference> playerMainScores;
-    // public List<IntReference> playerMiniGameScores;
 
     [Header("Game Mode Data")]
     public GameModeData lobby;
@@ -39,30 +34,17 @@ public class GameData : ScriptableObject
         playerDataList[numberPlayerActive.Value].SetInputParameters(playerInput.devices[0], playerInput.user);
         players.Add(playerRegistered);
         return (numberPlayerActive.Value, playerRegistered, playerDataList[numberPlayerActive.Value]);
-
-
-
-
-        // for (int playerIndex = 0; playerIndex < playerDataList.Count - 1; playerIndex++)
-        // {
-        //     if (!playerDataList[playerIndex].IsPlayerConnected())
-        //     {
-        //         var playerRegistered = playerInput.GetComponentInParent<Player>(); 
-        //         playerDataList[playerIndex].SetInputParameters(playerInput.devices[0], playerInput.user);
-        //         _players.Add(playerRegistered);
-        //         return (playerIndex, playerRegistered, playerDataList[playerIndex]);
-        //     }
-        // }
-        // Debug.LogError("Couldn't register a player! Might be missing some PlayerData in the GameData");
-        // return (-1, null, null);
     }
 
     public void DisconnectPlayers()
     {
         foreach (var player in players)
         {
-            player.DestroyPlayerCurrentBall();
-            Destroy(player.gameObject);
+            if (player != null)
+            {
+                player.DestroyPlayerCurrentBall();
+                Destroy(player.gameObject);
+            }
         }
         players.Clear();
         numberPlayerActive.Variable.SetValue(0);
@@ -74,7 +56,4 @@ public class GameData : ScriptableObject
             playerData.ResetMiniGameScore();
         }
     }
-    
-
-    // public (IntReference mainScore, IntReference miniGameScore) GetPlayerScoreReferences(int index) => (playerMainScores[index-1], playerMiniGameScores[index-1]);
 }
