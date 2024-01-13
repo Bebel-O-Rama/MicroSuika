@@ -64,7 +64,7 @@ public class Lobby : MonoBehaviour
         var popup = Instantiate(onJoinPopup, player.GetCannon(true).transform);
         var tmp = popup.GetComponent<TextMeshPro>();
         tmp.color = randColor;
-        tmp.text = $"P{playerIndex}";
+        tmp.text = $"P{playerIndex + 1}";
     }
 
     private void UpdateLobbyTriggers(int newPlayerNumber)
