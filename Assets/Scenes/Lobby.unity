@@ -4626,9 +4626,6 @@ MonoBehaviour:
   - {fileID: 316798128}
   - {fileID: 320478238}
   - {fileID: 2076844590}
-  lobbyContainerTriggers:
-  - {fileID: 1956928707}
-  - {fileID: 949013666}
 --- !u!114 &1844267127
 MonoBehaviour:
   m_ObjectHideFlags: 0

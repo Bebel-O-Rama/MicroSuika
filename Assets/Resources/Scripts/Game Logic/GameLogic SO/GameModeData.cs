@@ -7,7 +7,7 @@ public class GameModeData : ScriptableObject
 {
     [Header("Cannon Parameters")]
     public CannonData cannonData;
-    public List<CannonSpawnPositionData> cannonSpawnPositionData;
+    public CannonSpawnPositionSetData cannonSpawnPositionSetData;
     public bool isMainCannon = true;
 
     [Header("Ball Parameters")]

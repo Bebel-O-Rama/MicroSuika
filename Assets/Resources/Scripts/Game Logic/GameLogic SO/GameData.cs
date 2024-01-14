@@ -44,7 +44,7 @@ public class GameData : ScriptableObject
         return (playerRegistered, newPlayerData);
     }
 
-    public void InstantiatePlayers(GameModeData gameModeData)
+    public void InstantiatePlayers(GameModeData gameModeData, int numberPlayerConnected = 0)
     {
         _players.Clear();
         foreach (var playerData in playerDataList)
@@ -56,7 +56,7 @@ public class GameData : ScriptableObject
             
             _players.Add(player);
             
-            player.InitializePlayer(playerData, gameModeData);
+            player.InitializePlayer(playerData, gameModeData, numberPlayerConnected);
         }
     }
 

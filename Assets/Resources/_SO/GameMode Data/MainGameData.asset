@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
   m_Name: MainGameData
   m_EditorClassIdentifier: 
-  cannonData: {fileID: 0}
-  cannonCenterPosition: []
-  maxHorizontalDelta: 0
+  cannonData: {fileID: 11400000, guid: 815cb73abc9f87d408bff5e78d0a9615, type: 2}
+  cannonSpawnPositionSetData: {fileID: 11400000, guid: 32ddbe42367e5e04388e2c206e48d7b7, type: 2}
   isMainCannon: 1
-  xRandomSpawnRangeDelta: 0
-  ballSetData: {fileID: 0}
+  ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   cooldownBeforeInputConnexion: 0
