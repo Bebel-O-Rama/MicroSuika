@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     
     private int _playerIndex;
 
-    public void InitializePlayer(PlayerData playerData, GameModeData gameModeData = null, int numberPlayerConnected = 0)
+    public void InitializePlayer(PlayerData playerData, GameModeData gameModeData = null)
     {
         _mainCannon.SetScoreReference(playerData.mainScore);
         _miniGameCannon.SetScoreReference(playerData.miniGameScore);
@@ -20,15 +20,15 @@ public class Player : MonoBehaviour
 
         if (gameModeData != null)
         {
-            UpdateAndSwitchCannon(gameModeData, numberPlayerConnected);
+            UpdateAndSwitchCannon(gameModeData);
         }
     }
 
-    public void UpdateAndSwitchCannon(GameModeData gameModeData, int numberPlayerConnected = 0)
+    public void UpdateAndSwitchCannon(GameModeData gameModeData)
     {
         var cannonToUse = gameModeData.isMainCannon ? _mainCannon : _miniGameCannon;
         DeactivateCannons();
-        UpdateCannonParameters(gameModeData, cannonToUse, numberPlayerConnected);
+        UpdateCannonParameters(gameModeData, cannonToUse);
     }
 
     public void DestroyPlayerCurrentBall()
@@ -42,19 +42,16 @@ public class Player : MonoBehaviour
     // TODO : Refactor this once we have actual sprite and skins for the cannon  
     public Cannon GetCannon(bool isMainCannon) => isMainCannon ? _mainCannon : _miniGameCannon;
 
-    private void UpdateCannonParameters(GameModeData gameModeData, Cannon cannon, int numberPlayerConnected = 0)
+    private void UpdateCannonParameters(GameModeData gameModeData, Cannon cannon)
     {
-        // TODO : Cleanup how we fetch the initial position list for the cannon (it's a bit sketchy right now)
-        var cannonSpawnSetData = gameModeData.cannonSpawnPositionSetData.GetCannonSpawnPositionData(numberPlayerConnected);
-
-        // var cannonPositionData = gameModeData.cannonSpawnPositionSetData[_playerIndex];
-        Vector2 centerPosition = cannonSpawnSetData[_playerIndex].centerPosition;
+        var cannonPositionData = gameModeData.cannonSpawnPositionData[_playerIndex];
+        Vector2 centerPosition = cannonPositionData.centerPosition;
         Vector2 spawnPosition = centerPosition;
         Vector2 horizontalMargin = centerPosition;
-        horizontalMargin.x -= cannonSpawnSetData[_playerIndex].maxHorizontalDelta;
-        horizontalMargin.y += cannonSpawnSetData[_playerIndex].maxHorizontalDelta;
+        horizontalMargin.x -= cannonPositionData.maxHorizontalDelta;
+        horizontalMargin.y += cannonPositionData.maxHorizontalDelta;
         
-        spawnPosition.x = Random.Range(centerPosition.x - cannonSpawnSetData[_playerIndex].xRandomSpawnRangeDelta, centerPosition.x + cannonSpawnSetData[_playerIndex].xRandomSpawnRangeDelta);
+        spawnPosition.x = Random.Range(centerPosition.x - cannonPositionData.xRandomSpawnRangeDelta, centerPosition.x + cannonPositionData.xRandomSpawnRangeDelta);
         
         cannon.UpdateParameters(gameModeData.cannonData, centerPosition, spawnPosition, horizontalMargin, gameModeData.ballSetData);
         StartCoroutine(ActivateCannon(cannon, gameModeData.cooldownBeforeInputConnexion));

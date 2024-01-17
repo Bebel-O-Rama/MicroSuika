@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67589453bcb7b474c97db6ea87faa2b2, type: 3}
-  m_Name: Main_P1_4_CannonPos
+  m_Name: CannonPos_Lobby
   m_EditorClassIdentifier: 
-  centerPosition: {x: -8, y: 3.2}
-  maxHorizontalDelta: 2
-  xRandomSpawnRangeDelta: 0
+  centerPosition: {x: 0, y: 4}
+  maxHorizontalDelta: 7.5
+  xRandomSpawnRangeDelta: 3.5
