@@ -49,8 +49,6 @@ public class Ball : MonoBehaviour
     }
 
     public int GetBallTier() => _tier;
-    public float GetBallRadius() => transform.localScale.x / 2f;
-    public Vector2 GetBallPosition() => transform.position;
 
     public void ClearBall()
     {
