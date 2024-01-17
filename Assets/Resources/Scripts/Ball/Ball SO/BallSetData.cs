@@ -20,8 +20,14 @@ public class BallSetData : ScriptableObject
     
     private float totalWeight;
         
+    public int GetTierOfBall(BallData tier) => ballSetData.IndexOf(tier);
     public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
     public int GetMaxTier => ballSetData.Count - 1;
+    public BallData GetBallUpgrade(int currentIndex)
+    {
+        if (ballSetData.Count - 1 >= currentIndex) return null;
+        return ballSetData[currentIndex + 1];
+    }
 
     public Ball SpawnNewBall(Vector3 position, int tierIndex, IntReference score, bool disableCollision = false)
     {
