@@ -6,20 +6,23 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(PlayerInputManager))]
 public class Lobby : MonoBehaviour
 {
     [SerializeField] public GameData gameData;
+    [SerializeField] public GameModeData lobbyData;
     [SerializeField] public GameObject onJoinPopup;
     [SerializeField] public List<Scoreboard> lobbyScore;
     private List<LobbyContainerTrigger> _lobbyContainerTriggers;
-    private GameModeData _lobbyData;
+    // private GameModeData _lobbyData;
     private PlayerInputManager _playerInputManager;
     
     private void Awake()
     {
+        // Fetch and connect to the PlayerInputManager
         _playerInputManager = FindObjectOfType<PlayerInputManager>();
         _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
-        _lobbyData = gameData.lobby;
+        // _lobbyData = gameData.lobby;
         _lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
         gameData.DisconnectPlayers();
         _playerInputManager.EnableJoining();
@@ -50,7 +53,7 @@ public class Lobby : MonoBehaviour
     {
         _playerInputManager.DisableJoining();
         gameData.ClearPlayerList();
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Versus");
     }
 
     private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
@@ -69,6 +72,8 @@ public class Lobby : MonoBehaviour
 
     private void UpdateLobbyTriggers(int newPlayerNumber)
     {
+        if (_lobbyContainerTriggers == null)
+            return;
         foreach (var containerTrigger in _lobbyContainerTriggers)
         {
             containerTrigger.UpdateContainerBehavior(newPlayerNumber);
