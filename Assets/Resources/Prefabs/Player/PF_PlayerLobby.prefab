@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 3390122420269146065}
   - component: {fileID: 6564062527898344956}
   m_Layer: 7
-  m_Name: PF_Player
+  m_Name: PF_PlayerLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

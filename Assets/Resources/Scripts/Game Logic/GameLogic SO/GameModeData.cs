@@ -15,4 +15,7 @@ public class GameModeData : ScriptableObject
     
     [Header("Player Parameters")]
     public float cooldownBeforeInputConnexion;
+    
+    [Header("Container")]
+    public ContainerInitializationData containerInitializationData;
 }

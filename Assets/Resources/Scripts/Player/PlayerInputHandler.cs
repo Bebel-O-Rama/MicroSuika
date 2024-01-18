@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     [Tooltip("The vertical input of the Joystick needs to have a big deadzone, otherwise the player might switch target by accident")]
-    [SerializeField] [Range(0f, 1f)] private float discreteAxistDeadzone = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float discreteAxisDeadzone = 0.5f;
     [SerializeField] [Range(0f, 1f)] private float continuousAxisDeadzone = 0.1f;
     
     public OnHorizontalMvtContinuousDelegate OnHorizontalMvtContinuous;
@@ -123,7 +123,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void ProcessDiscreteAxis(float axis, bool isHorizontal)
     {
-        int currentValue = Mathf.Abs(axis) < discreteAxistDeadzone ? 0 : (axis > 0 ? 1 : -1);
+        int currentValue = Mathf.Abs(axis) < discreteAxisDeadzone ? 0 : (axis > 0 ? 1 : -1);
         if (isHorizontal)
         {
             if (_latestNaturalXAxis == currentValue)

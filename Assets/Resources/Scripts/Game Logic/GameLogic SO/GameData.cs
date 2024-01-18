@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,20 +20,22 @@ public class GameData : ScriptableObject
     // public GameModeData miniGame;
     // public GameModeData scoreBoard;
 
-    public void InstantiatePlayers(GameModeData gameModeData)
-    {
-        foreach (var playerData in playerDataList)
-        {
-            if (!playerData.IsPlayerConnected())
-                break;
-            var playerObj = PlayerInput.Instantiate(playerPf, playerData.playerIndexNumber, pairWithDevice: playerData.inputDevice);
-            var player = playerObj.GetComponentInParent<Player>();
-            
-            player.InitializePlayer(playerData, gameModeData);
-        }
-    }
+    // public void InstantiatePlayers(GameModeData gameModeData)
+    // {
+    //     foreach (var playerData in playerDataList)
+    //     {
+    //         if (!playerData.IsPlayerConnected())
+    //             break;
+    //         var playerObj = PlayerInput.Instantiate(playerPf, playerData.playerIndexNumber, pairWithDevice: playerData.inputDevice);
+    //         var player = playerObj.GetComponentInParent<Player>();
+    //         
+    //         player.InitializePlayer(playerData, gameModeData);
+    //     }
+    // }
 
-    public int GetCurrentPlayerQuantity()
+    public List<PlayerData> GetConnectedPlayerData() => playerDataList.Where(pd => pd.IsPlayerConnected()).ToList();
+
+    public int GetConnectedPlayerQuantity()
     {
         var playerNumber = 0;
         foreach (var playerData in playerDataList)

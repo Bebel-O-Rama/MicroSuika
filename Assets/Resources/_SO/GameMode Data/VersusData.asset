@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: VersusData
   m_EditorClassIdentifier: 
   cannonData: {fileID: 0}
-  cannonCenterPosition: []
-  maxHorizontalDelta: 0
+  cannonSpawnPositionData: []
+  ContainerAndCameraData: {fileID: 11400000, guid: 4c53e8bec8bda984e8ae622c01d5af8e, type: 2}
   isMainCannon: 1
-  xRandomSpawnRangeDelta: 0
   ballSetData: {fileID: 0}
   cooldownBeforeInputConnexion: 0

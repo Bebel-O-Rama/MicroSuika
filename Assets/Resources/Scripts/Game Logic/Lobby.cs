@@ -38,7 +38,7 @@ public class Lobby : MonoBehaviour
         AddPlayerJoinPopup(playerData.playerIndexNumber, player, randColor);
         player.UpdateMainCannonColor(randColor);
         ConnectToLobbyScore(playerData.mainScore, lobbyScore[playerData.playerIndexNumber], randColor);
-        UpdateLobbyTriggers(gameData.GetCurrentPlayerQuantity());
+        UpdateLobbyTriggers(gameData.GetConnectedPlayerQuantity());
     }
 
     public void ResetPlayers()
@@ -64,7 +64,7 @@ public class Lobby : MonoBehaviour
 
     private (Player, PlayerData) RegisterPlayer(PlayerInput playerInput)
     {
-        var playerIndex = gameData.GetCurrentPlayerQuantity();
+        var playerIndex = gameData.GetConnectedPlayerQuantity();
         if (playerIndex >= 4)
         {
             Debug.LogError("Something went awfully wrong, you're trying to register a fifth+ player");

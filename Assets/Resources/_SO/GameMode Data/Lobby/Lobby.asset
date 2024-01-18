@@ -18,13 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
   - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
   - {fileID: 11400000, guid: 883cae15ebfa0f247ba5e398ded9d9be, type: 2}
-  cannonCenterPosition:
-  - {x: 0, y: 4}
-  - {x: 0, y: 4}
-  - {x: 0, y: 4}
-  - {x: 0, y: 4}
-  maxHorizontalDelta: 7.5
+  containerInitializationData: {fileID: 11400000, guid: 4c53e8bec8bda984e8ae622c01d5af8e, type: 2}
   isMainCannon: 1
-  xRandomSpawnRangeDelta: 3.5
   ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   cooldownBeforeInputConnexion: 0
