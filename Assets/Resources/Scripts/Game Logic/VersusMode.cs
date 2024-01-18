@@ -8,13 +8,14 @@ using Random = UnityEngine.Random;
 public class VersusMode : MonoBehaviour
 {
     [SerializeField] public GameData gameData;
+    [SerializeField] public GameModeData versusData;
     [SerializeField] public GameObject playerPf;
 
     public List<Player> players;
     
     private void Awake()
     {
-        gameData.InstantiatePlayers(gameData.lobby);
+        gameData.InstantiatePlayers(versusData);
         
         // 1. Fetch the initial game parameters
         // 1.1 Get the number of active player
