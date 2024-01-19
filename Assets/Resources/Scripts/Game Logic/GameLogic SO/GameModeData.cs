@@ -6,15 +6,40 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(menuName = "Game Logic/Game Mode Data")]
 public class GameModeData : ScriptableObject
 {
-    [Header("Cannon Parameters")]
-    public CannonInitializationData cannonInitializationData;
+    // Container parameters
+    [Header("----- CONTAINER -----")]
+    public GameObject containerPrefab;
+    public string containerParentName;
 
-    [Header("Ball Parameters")]
+    [Header("Container Scaling and Position Parameters")]
+    [Tooltip("This distances goes from one container center point to the other")]
+    public List<Vector2> leftmostContainerPositions;
+    public List<float> containerGeneralScaling;
+    
+    [Header("Other Parameters")]
+    [Min(1)] public int playerPerContainer = 1;
+    
+    // Cannon parameters
+    [Header("---- CANNON -----")]
+    public GameObject cannonPrefab;
+    
+    [Header("Spawn Position Data")] 
+    public bool randomXSpawn = false;
+    [Min(0f)] public float yDistanceFromContainer;
+    
+    [Header("Cannon Basic Parameters")]
+    public float speed;
+    public float reloadCooldown;
+    public float shootingForce;
+    
+    [Header("Cannon Modifiers")]
+    public bool isUsingPeggleMode;
+
+    // Ball parameters
+    [Header("----- BALL -----")]
     public BallSetData ballSetData;
     
-    [Header("Player Parameters")]
-    public float cooldownBeforeInputConnexion;
-    
-    [Header("Container Parameters")]
-    public ContainerInitializationData containerInitializationData;
+    // Player parameters
+    [Header("----- PLAYER -----")]
+    public GameObject playerPrefab;
 }

@@ -12,9 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
   m_Name: VersusData
   m_EditorClassIdentifier: 
-  cannonData: {fileID: 0}
-  cannonSpawnPositionData: []
-  ContainerAndCameraData: {fileID: 11400000, guid: 4c53e8bec8bda984e8ae622c01d5af8e, type: 2}
-  isMainCannon: 1
-  ballSetData: {fileID: 0}
-  cooldownBeforeInputConnexion: 0
+  containerPrefab: {fileID: 4793840066780438698, guid: d5bc03dc1ef652c43976355e7d0fb316, type: 3}
+  containerParentName: ContainerVersus
+  leftmostContainerPositions:
+  - {x: 0, y: -0.3}
+  - {x: -5, y: -0.5}
+  - {x: -7, y: -1}
+  - {x: -7.5, y: -2}
+  containerGeneralScaling:
+  - 1.1
+  - 1
+  - 0.9
+  - 0.7
+  playerPerContainer: 2
+  cannonPrefab: {fileID: 8209449368855194967, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
+  randomXSpawn: 0
+  yDistanceFromContainer: 0
+  speed: 5
+  reloadCooldown: 0.5
+  shootingForce: 200
+  isUsingPeggleMode: 0
+  ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
+  playerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}

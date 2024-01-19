@@ -1,29 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
-[CreateAssetMenu]
-public class Initializer : ScriptableObject
+public static class Initializer
 {
-    [Header("Object Prefabs")] public GameObject playerPf;
-    public GameObject cannonPf;
-
-    [Header("Other Parameters")] public string containerParentName;
-
     /// <summary>
     /// Instantiate the player(s).
     /// Connect each playerInput with the correct input device. 
     /// </summary>
     /// <param name="connectedPlayerData"></param>
     /// <returns></returns>
-    public List<Player> InstantiatePlayers(List<PlayerData> connectedPlayerData)
+    public static List<Player> InstantiatePlayers(List<PlayerData> connectedPlayerData, GameModeData gameModeData)
     {
         List<Player> instantiatedPlayers = new List<Player>();
         foreach (var playerData in connectedPlayerData)
         {
-            var playerObj = PlayerInput.Instantiate(playerPf, playerData.playerIndexNumber,
+            var playerObj = PlayerInput.Instantiate(gameModeData.playerPrefab, playerData.playerIndexNumber,
                 pairWithDevice: playerData.inputDevice);
             instantiatedPlayers.Add(playerObj.GetComponentInParent<Player>());
         }
@@ -36,38 +32,37 @@ public class Initializer : ScriptableObject
     /// Set them under a unique parent and move/scale them at the right place.
     /// </summary>
     /// <param name="playerCount"></param>
-    /// <param name="containerInitializationData"></param>
+    /// <param name="gameModeData"></param>
     /// <returns></returns>
-    public (List<Container>, List<GameObject>) InstantiateContainers(int playerCount,
-        ContainerInitializationData containerInitializationData)
+    public static (List<Container>, List<GameObject>) InstantiateContainers(int playerCount,
+        GameModeData gameModeData)
     {
-        int containerToSpawn = containerInitializationData.usingSingleContainer ? 1 : playerCount;
-        if (containerToSpawn <= 0 && !containerInitializationData.usingSingleContainer)
+        int containerToSpawn = playerCount / gameModeData.playerPerContainer + (playerCount % gameModeData.playerPerContainer > 0 ? 1 : 0);
+        if (containerToSpawn <= 0)
             return (null, null);
 
         List<Container> instantiatedContainers = new List<Container>();
         List<GameObject> containerParents = new List<GameObject>();
-
         Vector2 distanceBetweenContainers = Vector2.zero;
 
         distanceBetweenContainers.x = (containerToSpawn > 1)
-            ? Mathf.Abs(containerInitializationData.leftmostContainerPositions[containerToSpawn - 1].x) * 2f /
+            ? Mathf.Abs(gameModeData.leftmostContainerPositions[containerToSpawn - 1].x) * 2f /
               (containerToSpawn - 1)
             : 0f;
 
         for (int i = 0; i < containerToSpawn; i++)
         {
-            GameObject containerParent = new GameObject($"{containerParentName}_{(i + 1)}");
+            GameObject containerParent = new GameObject($"{gameModeData.containerParentName}_{(i + 1)}");
             containerParents.Add(containerParent);
             GameObject containerObj =
-                Instantiate(containerInitializationData.containerPrefab, containerParent.transform);
+                Object.Instantiate(gameModeData.containerPrefab, containerParent.transform);
             instantiatedContainers.Add(containerObj.GetComponent<Container>());
 
             containerParent.transform.position =
-                containerInitializationData.leftmostContainerPositions[playerCount - 1] +
+                gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
                 (i * distanceBetweenContainers);
             containerParent.transform.localScale =
-                Vector2.one * containerInitializationData.containerGeneralScaling[playerCount - 1];
+                Vector2.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
         }
 
         return (instantiatedContainers, containerParents);
@@ -77,10 +72,10 @@ public class Initializer : ScriptableObject
     /// Instantiate the cannon(s).
     /// Move them under the appropriate containerParent and set the appropriate cannon attributes.
     /// </summary>
-    /// <param name="cannonInitData"></param>
+    /// <param name="gameModeData"></param>
     /// <param name="containerParent"></param>
     /// <returns></returns>
-    public List<Cannon> InstantiateCannons(int playerCount, CannonInitializationData cannonInitData,
+    public static List<Cannon> InstantiateCannons(int playerCount, GameModeData gameModeData,
         List<GameObject> containerParent)
     {
         if (!containerParent.Any())

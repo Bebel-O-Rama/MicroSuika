@@ -9,8 +9,7 @@ using Random = UnityEngine.Random;
 public class VersusMode : MonoBehaviour
 {
     [SerializeField] public GameData gameData;
-    [SerializeField] public Initializer initializer;
-    [SerializeField] public GameModeData versusData;
+    [SerializeField] public GameModeData gameModeData;
     
     private int _numberPlayerConnected;
     private List<Player> _players;
@@ -42,12 +41,12 @@ public class VersusMode : MonoBehaviour
         // 2.1 Spawn the containers
         // 2.2 Put each of them in a parent and move/scale them accordingly
         // 2.3 Keep a reference for each container
-        (_containers, _containerParents) = initializer.InstantiateContainers(_numberPlayerConnected, versusData.containerInitializationData);
+        (_containers, _containerParents) = Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData);
         // 2.4 Set the theme for each container (don't forget to also edit them based on the playerNumber)
         // TODO
         
         // 3. Spawn the Cannons
-        _cannons = initializer.InstantiateCannons(_numberPlayerConnected, versusData.cannonInitializationData,
+        _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
             _containerParents);
         // 3.1 Use the information of each container (position, horizontal length, etc.) to spawn the cannon at the correct position
         // 3.2 Assign the data for the balls to each cannon
@@ -56,7 +55,7 @@ public class VersusMode : MonoBehaviour
 
         // 4. Spawn the Players (just the player with it's player input, no visual or cannon)
         // 4.1 Assign the correct device to each player
-        _players = initializer.InstantiatePlayers(gameData.GetConnectedPlayerData());
+        _players = Initializer.InstantiatePlayers(gameData.GetConnectedPlayerData(), gameModeData);
         // 4.2 Disable the PlayerInputs for now (we'll enable it when the loading is done)
 
     }
