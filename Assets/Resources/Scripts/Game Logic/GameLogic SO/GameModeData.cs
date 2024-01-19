@@ -24,8 +24,8 @@ public class GameModeData : ScriptableObject
     public GameObject cannonPrefab;
     
     [Header("Spawn Position Data")] 
-    public bool randomXSpawn = false;
-    [Min(0f)] public float yDistanceFromContainer;
+    [Range(0f, 0.85f)] public float randomXRange = 0f;
+    [Min(0f)] public float cannonVerticalDistanceFromCenter;
     
     [Header("Cannon Basic Parameters")]
     public float speed;

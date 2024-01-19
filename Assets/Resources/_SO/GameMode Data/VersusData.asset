@@ -26,8 +26,8 @@ MonoBehaviour:
   - 0.7
   playerPerContainer: 2
   cannonPrefab: {fileID: 8209449368855194967, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
-  randomXSpawn: 0
-  yDistanceFromContainer: 0
+  randomXRange: 0
+  cannonVerticalDistanceFromCenter: 5.6
   speed: 5
   reloadCooldown: 0.5
   shootingForce: 200
