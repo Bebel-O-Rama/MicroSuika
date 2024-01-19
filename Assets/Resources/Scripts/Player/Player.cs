@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // private bool areInputsActive = false;
-
     [SerializeField] private Cannon _mainCannon;
     [SerializeField] private Cannon _miniGameCannon;
     [SerializeField] public PlayerInputHandler playerInputHandler;
@@ -44,7 +42,7 @@ public class Player : MonoBehaviour
 
     private void UpdateCannonParameters(GameModeData gameModeData, Cannon cannon)
     {
-        var cannonPositionData = gameModeData.cannonSpawnPositionData[_playerIndex];
+        var cannonPositionData = gameModeData.cannonInitializationData[_playerIndex];
         Vector2 centerPosition = cannonPositionData.centerPosition;
         Vector2 spawnPosition = centerPosition;
         Vector2 horizontalMargin = centerPosition;

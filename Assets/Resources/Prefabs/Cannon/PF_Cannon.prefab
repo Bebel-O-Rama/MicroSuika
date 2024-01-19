@@ -130,20 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b12e2e8242808e489ae5a618747e039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  reloadCooldown: 0.5
-  boundariesFromCenter: 3.2
-  shootingForce: 0
-  shootingAngle: 0
-  shootingDirection: {x: 0, y: -1}
-  playerGameData: {fileID: 0}
-  playerScore:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  cannonSpriteObj: {fileID: 0}
-  isDisabled: 0
-  isUsingPeggleMode: 0
+  spriteObj: {fileID: 4841903817118757254}
 --- !u!50 &8166150119548268999
 Rigidbody2D:
   serializedVersion: 4

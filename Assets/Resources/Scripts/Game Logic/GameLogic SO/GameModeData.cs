@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Game Logic/Game Mode Data")]
 public class GameModeData : ScriptableObject
 {
     [Header("Cannon Parameters")]
-    public CannonData cannonData;
-    public List<CannonSpawnPositionData> cannonSpawnPositionData;
-    public bool isMainCannon = true;
+    public CannonInitializationData cannonInitializationData;
 
     [Header("Ball Parameters")]
     public BallSetData ballSetData;
@@ -16,6 +15,6 @@ public class GameModeData : ScriptableObject
     [Header("Player Parameters")]
     public float cooldownBeforeInputConnexion;
     
-    [Header("Container")]
+    [Header("Container Parameters")]
     public ContainerInitializationData containerInitializationData;
 }

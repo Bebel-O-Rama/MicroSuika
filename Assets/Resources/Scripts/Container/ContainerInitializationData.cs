@@ -8,10 +8,12 @@ public class ContainerInitializationData : ScriptableObject
 {
     [Header("Container Prefab")] 
     public GameObject containerPrefab;
-    
+
+    [Header("Container Scaling and Position Parameters")]
     [Tooltip("This distances goes from one container center point to the other")]
     public List<Vector2> leftmostContainerPositions;
-
-    [Header("Container Parent Scaling Parameters")]
     public List<float> containerGeneralScaling;
+    
+    [Header("Other Parameters")]
+    public bool usingSingleContainer = false;
 }
