@@ -15,10 +15,10 @@ public class VersusMode : MonoBehaviour
     private int _numberPlayerConnected;
     private List<Container> _containers;
     private List<GameObject> _containerParents;
-    
 
-    [Header("DEBUG DEBUG DEBUG")]
-    [Range(0, 4)][SerializeField] public int debugSpawnContainerNumber = 0;
+
+    [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
+    [Range(0, 4)][SerializeField] public int debugSpawnContainerNumber = 2;
     
     private void Awake()
     {
@@ -36,7 +36,9 @@ public class VersusMode : MonoBehaviour
         // 2.2 Move the camera accordingly
         // 2.3 Set the theme for each container (don't forget to also edit them based on the playerNumber)
         // 2.4 Keep a reference for each container
-        (_containers, _containerParents) = initializer.InstantiateContainers(debugSpawnContainerNumber, versusData.containerInitializationData);
+        int containerToSpawn = useDebugSpawnContainer ? debugSpawnContainerNumber : _numberPlayerConnected;
+        
+        (_containers, _containerParents) = initializer.InstantiateContainers(containerToSpawn, versusData.containerInitializationData);
         
         
         
