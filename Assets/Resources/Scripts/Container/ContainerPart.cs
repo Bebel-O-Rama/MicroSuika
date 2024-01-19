@@ -13,27 +13,4 @@ public class ContainerPart : MonoBehaviour
         Right,
         Bottom
     }
-
-    // public void AdjustContainerSide(float horizontalLength, float verticalLength)
-    // {
-    //     Vector2 positionModifier = Vector2.zero;
-    //     Vector2 sizeModifier = Vector2.one;
-    //     switch (containerSide)
-    //     {
-    //         case ContainerSide.Left:
-    //             positionModifier = new Vector2(-horizontalLength / 2f, 0f);
-    //             sizeModifier = new Vector2(1f, verticalLength);
-    //             break;
-    //         case ContainerSide.Right:
-    //             positionModifier = new Vector2(horizontalLength / 2f, 0f);
-    //             sizeModifier = new Vector2(1f, verticalLength);
-    //             break;
-    //         case ContainerSide.Bottom:
-    //             positionModifier = new Vector2(0f, - verticalLength / 2f);
-    //             sizeModifier = new Vector2(horizontalLength, 1f);
-    //             break;
-    //     }
-    //     transform.position = positionModifier;
-    //     collider2D.transform.localScale = sizeModifier;
-    // }
 }

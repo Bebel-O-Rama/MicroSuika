@@ -32,15 +32,13 @@ public class VersusMode : MonoBehaviour
         // TODO
         
         // 2. Spawn the Container(s)
-        // 2.1 Use the correct placement for each container based on the player number (don't scale them!)
-        // 2.2 Move the camera accordingly
-        // 2.3 Set the theme for each container (don't forget to also edit them based on the playerNumber)
-        // 2.4 Keep a reference for each container
+        // 2.1 Spawn the containers
+        // 2.2 Put each of them in a parent and move/scale them accordingly
+        // 2.3 Keep a reference for each container
         int containerToSpawn = useDebugSpawnContainer ? debugSpawnContainerNumber : _numberPlayerConnected;
-        
         (_containers, _containerParents) = initializer.InstantiateContainers(containerToSpawn, versusData.containerInitializationData);
-        
-        
+        // 2.4 Set the theme for each container (don't forget to also edit them based on the playerNumber)
+        // TODO
         
         // 3. Spawn the Cannons
         // 3.1 Use the information of each container (position, horizontal length, etc.) to spawn the cannon at the correct position
