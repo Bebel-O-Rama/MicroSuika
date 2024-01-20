@@ -1011,7 +1011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &277731116
 Transform:
   m_ObjectHideFlags: 0
@@ -4620,7 +4620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
-  lobbyData: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
+  gameModeData: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
   onJoinPopup: {fileID: 7707874888000536716, guid: c05f9afffd133304981240e865d0ad69, type: 3}
   lobbyScore:
   - {fileID: 1833672427}
@@ -4661,7 +4661,7 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 6472537476770901546, guid: 1a587ee8e07c16846bdf92e1ce961190, type: 3}
+  m_PlayerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1

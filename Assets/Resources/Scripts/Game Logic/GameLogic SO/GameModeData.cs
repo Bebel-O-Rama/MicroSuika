@@ -22,18 +22,18 @@ public class GameModeData : ScriptableObject
     // Cannon parameters
     [Header("---- CANNON -----")]
     public GameObject cannonPrefab;
-    
-    [Header("Spawn Position Data")] 
-    [Range(0f, 0.85f)] public float randomXRange = 0f;
+
+    [Header("Position Data")] 
+    public bool isCannonSpawnXPosRandom = false;
     [Min(0f)] public float cannonVerticalDistanceFromCenter;
     
     [Header("Cannon Basic Parameters")]
-    public float speed;
-    public float reloadCooldown;
-    public float shootingForce;
+    public float cannonSpeed;
+    public float cannonReloadCooldown;
+    public float cannonShootingForce;
     
     [Header("Cannon Modifiers")]
-    public bool isUsingPeggleMode;
+    public bool isCannonUsingPeggleMode;
 
     // Ball parameters
     [Header("----- BALL -----")]

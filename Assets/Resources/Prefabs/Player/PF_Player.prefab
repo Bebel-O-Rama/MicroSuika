@@ -46,9 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e41bc18b561664a889b35caaec8ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCannon: {fileID: 0}
-  _miniGameCannon: {fileID: 0}
-  playerInputHandler: {fileID: 0}
+  cannon: {fileID: 0}
+  score:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  playerInputHandler: {fileID: 12671140093309043}
 --- !u!114 &12671140093309043
 MonoBehaviour:
   m_ObjectHideFlags: 0

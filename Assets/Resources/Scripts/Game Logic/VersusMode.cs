@@ -16,7 +16,8 @@ public class VersusMode : MonoBehaviour
     private List<Cannon> _cannons;
     private List<Container> _containers;
 
-
+    private List<int> _scoreSave;
+    
     [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
     [Range(0, 4)][SerializeField] public int debugFakeNumberCount = 2;
     
@@ -47,6 +48,8 @@ public class VersusMode : MonoBehaviour
         // 3. Spawn the Cannons
         _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
             _containers);
+        Initializer.SetCannonsParameters(_cannons, _containers, gameModeData, gameData.playerDataList);
+        
         // 3.1 Use the information of each container (position, horizontal length, etc.) to spawn the cannon at the correct position
         // 3.2 Assign the data for the balls to each cannon
         // 3.3 Set the theme for each cannon (don't forget to also edit them based on the playerNumber)

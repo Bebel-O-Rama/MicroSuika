@@ -9,6 +9,10 @@ public class Container : MonoBehaviour
     [SerializeField] public ContainerPart rightPart;
     [SerializeField] public ContainerPart bottomPart;
     
+    [SerializeField] [Min(0f)] public float horizontalMvtHalfLength;
+    
+    private GameObject _containerParent;
+    
     public GameObject containerParent
     {
         get => _containerParent;
@@ -19,7 +23,6 @@ public class Container : MonoBehaviour
         }
     }
 
-    private GameObject _containerParent;
     
-    public float GetContainerHorizontalLength() => bottomPart.collider2D.transform.localScale.x;
+    public float GetContainerHorizontalHalfLength() => horizontalMvtHalfLength;
 }

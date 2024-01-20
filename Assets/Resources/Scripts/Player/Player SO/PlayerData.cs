@@ -17,9 +17,8 @@ public class PlayerData : ScriptableObject
     public InputDevice inputDevice;
     private bool _isConnected = false;
     
-    [Header("Score References")]
+    [Header("Score Reference")]
     public IntReference mainScore;
-    public IntReference miniGameScore;
     
     public bool IsPlayerConnected() => _isConnected;
     
@@ -32,7 +31,6 @@ public class PlayerData : ScriptableObject
     public void ResetInputParameters() => _isConnected = false;
 
     public void ResetMainScore() => mainScore.Variable.SetValue(0);
-    public void ResetMiniGameScore() => miniGameScore.Variable.SetValue(0);
 
     private void OnEnable()
     {

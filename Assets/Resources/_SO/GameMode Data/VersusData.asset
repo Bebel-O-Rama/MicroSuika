@@ -26,11 +26,11 @@ MonoBehaviour:
   - 0.7
   playerPerContainer: 2
   cannonPrefab: {fileID: 8209449368855194967, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
-  randomXRange: 0
+  cannonRandomXRange: 0.85
   cannonVerticalDistanceFromCenter: 5.6
-  speed: 5
-  reloadCooldown: 0.5
-  shootingForce: 200
-  isUsingPeggleMode: 0
+  cannonSpeed: 5
+  cannonReloadCooldown: 0.5
+  cannonShootingForce: 200
+  isCannonUsingPeggleMode: 0
   ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   playerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}

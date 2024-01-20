@@ -3,16 +3,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
-using Random = System.Random;
 
 public static class Initializer
 {
-    /// <summary>
-    /// Instantiate the player(s).
-    /// Connect each playerInput with the correct input device. 
-    /// </summary>
-    /// <param name="connectedPlayerData"></param>
-    /// <returns></returns>
+    #region Player
     public static List<Player> InstantiatePlayers(List<PlayerData> connectedPlayerData, GameModeData gameModeData)
     {
         List<Player> instantiatedPlayers = new List<Player>();
@@ -26,16 +20,26 @@ public static class Initializer
         return instantiatedPlayers;
     }
 
-    /// <summary>
-    /// Instantiate the container(s).
-    /// Set them under a unique parent and move/scale them at the right place.
-    /// </summary>
-    /// <param name="playerCount"></param>
-    /// <param name="gameModeData"></param>
-    /// <returns></returns>
+    public static void SetPlayersParameters(List<PlayerData> playerDatas, List<Player> players)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            SetPlayerParameters(playerDatas[i], players[i]);
+        }
+    }
+
+    public static void SetPlayerParameters(PlayerData playerData, Player player)
+    {
+        player.score = playerData.mainScore;
+    }
+
+    #endregion
+
+    #region Container
     public static List<Container> InstantiateContainers(int playerCount,
         GameModeData gameModeData)
     {
+        playerCount = playerCount <= 0 ? 1 : playerCount; // For cases like the lobby
         int containerToSpawn = DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
         if (containerToSpawn <= 0)
             return null;
@@ -67,18 +71,12 @@ public static class Initializer
         return instantiatedContainers;
     }
 
-    /// <summary>
-    /// Instantiate the cannon(s).
-    /// Move them under the appropriate containerParent, move them at the correct starting position and set the
-    /// appropriate cannon attributes.
-    /// </summary>
-    /// <param name="gameModeData"></param>
-    /// <param name="containerParent"></param>
-    /// <returns></returns>
+    #endregion
+
+    #region Cannon
     public static List<Cannon> InstantiateCannons(int playerCount, GameModeData gameModeData,
         List<Container> containers)
     {
-        // int cannonToSpawn = DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
         if (!containers.Any() || playerCount <= 0)
             return null;
 
@@ -87,19 +85,63 @@ public static class Initializer
         for (int i = 0; i < playerCount; i++)
         {
             Container cannonContainer = containers[DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1];
-            GameObject cannonObj =
-                Object.Instantiate(gameModeData.cannonPrefab, cannonContainer.containerParent.transform);
-            ResetLocalTransform(cannonObj.transform);
-
-            float xPos = UnityEngine.Random.Range(-cannonContainer.GetContainerHorizontalLength() * gameModeData.randomXRange / 2f,
-                cannonContainer.GetContainerHorizontalLength() * gameModeData.randomXRange / 2f);
-
-            cannonObj.transform.localPosition = new Vector2(xPos, gameModeData.cannonVerticalDistanceFromCenter);
-
-            instantiatedCannons.Add(cannonObj.GetComponent<Cannon>());
+            instantiatedCannons.Add(InstantiateCannon(gameModeData, cannonContainer));
         }
+
         return instantiatedCannons;
     }
+
+    public static Cannon InstantiateCannon(GameModeData gameModeData, Container container)
+    {
+        GameObject cannonObj = Object.Instantiate(gameModeData.cannonPrefab, container.containerParent.transform);
+        ResetLocalTransform(cannonObj.transform);
+        
+        float xPos = gameModeData.isCannonSpawnXPosRandom ? Random.Range(-container.GetContainerHorizontalHalfLength(),
+            container.GetContainerHorizontalHalfLength()) : 0f;
+        cannonObj.transform.localPosition = new Vector2(xPos, gameModeData.cannonVerticalDistanceFromCenter);
+
+        return cannonObj.GetComponent<Cannon>();
+    }
+
+    public static void SetCannonsParameters(List<Cannon> cannons, List<Container> containers, GameModeData gameModeData, List<PlayerData> playerData)
+    {
+        for (int i = 0; i < cannons.Count; ++i)
+        {
+            SetCannonParameters(cannons[i], containers[i], gameModeData, playerData[i]);
+        }
+    }
+
+    public static void SetCannonParameters(Cannon cannon, Container container, GameModeData gameModeData, PlayerData playerData)
+    {
+        cannon.speed = gameModeData.cannonSpeed;
+        cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
+        cannon.shootingForce = gameModeData.cannonShootingForce;
+        cannon.isUsingPeggleMode = gameModeData.isCannonUsingPeggleMode;
+        cannon.horizontalMargin = container.GetContainerHorizontalHalfLength();
+        
+        cannon.ballSetData = gameModeData.ballSetData;
+        cannon.scoreReference = playerData.mainScore;
+        
+        
+        // TODO: Remove that when we'll add real skins
+        cannon.spriteObj.SetActive(true);
+    }
+
+    public static void ConnectCannonsToPlayers(List<Cannon> cannons, List<Player> players, bool isActive)
+    {
+        for (int i = 0; i < cannons.Count; ++i)
+        {
+            ConnectCannonToPlayer(cannons[i], players[i], isActive);
+        }
+    }
+
+    public static void ConnectCannonToPlayer(Cannon cannon, Player player, bool isActive)
+    {
+        cannon.SetCannonControlConnexion(player.playerInputHandler, isActive);
+        
+    }
+    #endregion
+
 
     public static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
 
