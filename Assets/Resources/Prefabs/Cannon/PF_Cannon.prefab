@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -131,6 +131,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteObj: {fileID: 4841903817118757254}
+  speed: 0
+  reloadCooldown: 0
+  shootingForce: 0
+  isUsingPeggleMode: 0
+  horizontalMargin: 0
+  ballSetData: {fileID: 0}
+  scoreReference:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
 --- !u!50 &8166150119548268999
 Rigidbody2D:
   serializedVersion: 4
