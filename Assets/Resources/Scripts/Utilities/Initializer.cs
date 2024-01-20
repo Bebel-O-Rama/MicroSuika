@@ -107,7 +107,7 @@ public static class Initializer
     {
         for (int i = 0; i < cannons.Count; ++i)
         {
-            SetCannonParameters(cannons[i], containers[i], gameModeData, playerData[i]);
+            SetCannonParameters(cannons[i], containers[DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1], gameModeData, playerData[i]);
         }
     }
 
