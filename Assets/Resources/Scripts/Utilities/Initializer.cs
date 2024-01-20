@@ -55,6 +55,8 @@ public static class Initializer
         for (int i = 0; i < containerToSpawn; i++)
         {
             GameObject containerObj = Object.Instantiate(gameModeData.containerPrefab);
+            ResetLocalTransform(containerObj.transform);
+            
             Container newContainer = containerObj.GetComponent<Container>();
             instantiatedContainers.Add(newContainer);
 
@@ -65,7 +67,7 @@ public static class Initializer
                 gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
                 (i * distanceBetweenContainers);
             containerParent.transform.localScale =
-                Vector2.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
+                Vector3.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
         }
 
         return instantiatedContainers;
