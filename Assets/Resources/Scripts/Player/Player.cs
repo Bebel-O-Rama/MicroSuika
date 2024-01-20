@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public Cannon cannon;
     public IntReference score;
+    public int playerIndex;
     [SerializeField] 
     public PlayerInputHandler playerInputHandler;
     

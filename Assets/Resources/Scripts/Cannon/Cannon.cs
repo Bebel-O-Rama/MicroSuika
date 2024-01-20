@@ -21,8 +21,11 @@ public class Cannon : MonoBehaviour
 
     // Ball Parameters
     private Ball _currentBall;
+    private float _currentBallDistanceFromCannon;
     public BallSetData ballSetData;
     public IntReference scoreReference;
+    
+    public Container container;
     
     public void DestroyCurrentBall()
     {
@@ -38,7 +41,6 @@ public class Cannon : MonoBehaviour
             playerInputHandler.OnShoot += DropBall;
             if (_currentBall == null)
                 LoadNewBall();
-
         }
         else
         {
@@ -65,7 +67,7 @@ public class Cannon : MonoBehaviour
            if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
            {
                _shootingAngle += xAxis * speed * Time.deltaTime;
-               _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
+               _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle)) * _currentBallDistanceFromCannon;
            }
        }
        else
@@ -75,12 +77,15 @@ public class Cannon : MonoBehaviour
        }
 
        if (_currentBall != null)
-           _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection;
+           _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection * _currentBallDistanceFromCannon;
     }
     
     private void LoadNewBall()
     {
-        _currentBall = ballSetData.SpawnNewBall((Vector2)transform.localPosition + _shootingDirection, scoreReference, disableCollision: true);
+        int newBallIndex = ballSetData.GetRandomBallTier();
+        _currentBall = Initializer.InstantiateBall(ballSetData, container,
+            (Vector2)transform.localPosition + _shootingDirection);
+        Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, container, true);
     }
     
 }

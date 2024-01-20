@@ -9,28 +9,31 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public Rigidbody2D rb2d;
-    private int _tier;
-    private int _scoreValue;
-    private IntReference _playerScore;
-    private BallSetData _ballSetData;
-
+    
+    [FormerlySerializedAs("_tier")] public int tier;
+    [FormerlySerializedAs("_scoreValue")] public int scoreValue;
+    [FormerlySerializedAs("playerScore")] [FormerlySerializedAs("_playerScore")] public IntReference ballScoreRef;
+    [FormerlySerializedAs("_ballSetData")] public BallSetData ballSetData;
+    public GameModeData gameModeData;
+    public Container container;
+    
     public void SetBallData(BallSetData setData, int tierIndex, IntReference score = null, bool disableCollision = false)
     {
-        _ballSetData = setData;
-        var ballData = _ballSetData.GetBallData(tierIndex);
+        ballSetData = setData;
+        var ballData = ballSetData.GetBallData(tierIndex);
         if (ballData == null)
         {
             Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
             Destroy(gameObject);
         }
 
-        spriteRenderer.sprite = _ballSetData.ballSpriteData.GetBallSprite(tierIndex);
+        spriteRenderer.sprite = ballSetData.ballSpriteData.GetBallSprite(tierIndex);
         transform.localScale = Vector3.one * ballData.scale;
         rb2d.mass = ballData.mass;
 
-        _tier = ballData.index;
-        _scoreValue = ballData.GetScoreValue();
-        _playerScore = score;
+        tier = ballData.index;
+        scoreValue = ballData.GetScoreValue();
+        ballScoreRef = score;
 
         if (disableCollision)
         {
@@ -47,11 +50,11 @@ public class Ball : MonoBehaviour
         ApplyRotationForce();
     }
 
-    public int GetBallTier() => _tier;
+    public int GetBallTier() => tier;
 
     public void ClearBall()
     {
-        _playerScore?.Variable.ApplyChange(_scoreValue);
+        ballScoreRef?.Variable.ApplyChange(scoreValue);
         rb2d.simulated = false;
         Destroy(gameObject);
     }
@@ -66,7 +69,7 @@ public class Ball : MonoBehaviour
     {
         if (!collision.transform.CompareTag("Ball")) return;
         var otherBall = collision.gameObject.GetComponent<Ball>();
-        if (otherBall.GetBallTier() == _tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
+        if (otherBall.GetBallTier() == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
         {
             FuseWithOtherBall(otherBall, collision.GetContact(0).point);
         }
@@ -76,7 +79,10 @@ public class Ball : MonoBehaviour
     {
         other.ClearBall();
         ClearBall();
-        if (_tier < _ballSetData.GetMaxTier)
-            _ballSetData.SpawnNewBall(contactPosition, _tier + 1, _playerScore);
+        if (tier < ballSetData.GetMaxTier)
+        {
+            var newBall = Initializer.InstantiateBall(ballSetData, container, contactPosition);
+            Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, container, false);
+        }
     }
 }

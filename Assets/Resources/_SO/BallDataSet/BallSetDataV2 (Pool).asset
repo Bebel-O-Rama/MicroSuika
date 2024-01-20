@@ -26,4 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7745bf13856cddf4bbc7775efbb84951, type: 2}
   - {fileID: 11400000, guid: 6f0dc4419768a434c8228dc97c1d2194, type: 2}
   ballSpriteData: {fileID: 11400000, guid: 41419f2158bf6d541831e11913a8d4ad, type: 2}
-  ballPF: {fileID: 2164191203452481615, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
+  ballPrefab: {fileID: 2164191203452481615, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}

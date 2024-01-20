@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -16,14 +17,14 @@ public class BallSetData : ScriptableObject
 
     public BallSpriteThemeData ballSpriteData;
     
-    public Object ballPF;
+    public GameObject ballPrefab;
     
     private float totalWeight;
         
     public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
     public int GetMaxTier => ballSetData.Count - 1;
 
-    public Ball SpawnNewBall(Vector3 position, int tierIndex, IntReference score, bool disableCollision = false)
+    public Ball SpawnNewBall(Vector3 position, IntReference score, int tierIndex, bool disableCollision = false)
     {
         return SpawnBall(position, tierIndex, score, disableCollision);
     }
@@ -50,7 +51,7 @@ public class BallSetData : ScriptableObject
 
     private Ball SpawnBall(Vector2 position, int tierIndex, IntReference score, bool disableCollision)
     {
-        GameObject spawnedBall = Instantiate(ballPF, position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))) as GameObject;
+        GameObject spawnedBall = Instantiate(ballPrefab, position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))) as GameObject;
         var newBall = spawnedBall.GetComponent<Ball>();
         newBall.SetBallData(this, tierIndex, score, disableCollision);
         return newBall;
@@ -82,7 +83,7 @@ public class BallSetData : ScriptableObject
     {
         TestingAndCleaningSet();
         SetWeight();
-        if (ballPF == null)
+        if (ballPrefab == null)
             Debug.LogError("The Ball Prefab in the BallSetData is null!");
     }
 }

@@ -37,6 +37,7 @@ public class GameModeData : ScriptableObject
 
     // Ball parameters
     [Header("----- BALL -----")]
+    public GameObject ballPrefab;
     public BallSetData ballSetData;
     
     // Player parameters

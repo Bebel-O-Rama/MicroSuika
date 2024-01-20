@@ -7,6 +7,7 @@ using Object = UnityEngine.Object;
 public static class Initializer
 {
     #region Player
+
     public static List<Player> InstantiatePlayers(List<PlayerData> connectedPlayerData, GameModeData gameModeData)
     {
         List<Player> instantiatedPlayers = new List<Player>();
@@ -31,11 +32,13 @@ public static class Initializer
     public static void SetPlayerParameters(PlayerData playerData, Player player)
     {
         player.score = playerData.mainScore;
+        player.playerIndex = playerData.playerIndexNumber;
     }
 
     #endregion
 
     #region Container
+
     public static List<Container> InstantiateContainers(int playerCount,
         GameModeData gameModeData)
     {
@@ -56,7 +59,7 @@ public static class Initializer
         {
             GameObject containerObj = Object.Instantiate(gameModeData.containerPrefab);
             ResetLocalTransform(containerObj.transform);
-            
+
             Container newContainer = containerObj.GetComponent<Container>();
             instantiatedContainers.Add(newContainer);
 
@@ -76,6 +79,7 @@ public static class Initializer
     #endregion
 
     #region Cannon
+
     public static List<Cannon> InstantiateCannons(int playerCount, GameModeData gameModeData,
         List<Container> containers)
     {
@@ -86,7 +90,7 @@ public static class Initializer
 
         for (int i = 0; i < playerCount; i++)
         {
-            Container cannonContainer = containers[DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1];
+            Container cannonContainer = containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)];
             instantiatedCannons.Add(InstantiateCannon(gameModeData, cannonContainer));
         }
 
@@ -97,34 +101,40 @@ public static class Initializer
     {
         GameObject cannonObj = Object.Instantiate(gameModeData.cannonPrefab, container.containerParent.transform);
         ResetLocalTransform(cannonObj.transform);
-        
-        float xPos = gameModeData.isCannonSpawnXPosRandom ? Random.Range(-container.GetContainerHorizontalHalfLength(),
-            container.GetContainerHorizontalHalfLength()) : 0f;
+
+        float xPos = gameModeData.isCannonSpawnXPosRandom
+            ? Random.Range(-container.GetContainerHorizontalHalfLength(),
+                container.GetContainerHorizontalHalfLength())
+            : 0f;
         cannonObj.transform.localPosition = new Vector2(xPos, gameModeData.cannonVerticalDistanceFromCenter);
 
         return cannonObj.GetComponent<Cannon>();
     }
 
-    public static void SetCannonsParameters(List<Cannon> cannons, List<Container> containers, GameModeData gameModeData, List<PlayerData> playerData)
+    public static void SetCannonsParameters(List<Cannon> cannons, List<Container> containers, GameModeData gameModeData,
+        List<PlayerData> playerData)
     {
         for (int i = 0; i < cannons.Count; ++i)
         {
-            SetCannonParameters(cannons[i], containers[DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1], gameModeData, playerData[i]);
+            SetCannonParameters(cannons[i], containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
+                gameModeData, playerData[i]);
         }
     }
 
-    public static void SetCannonParameters(Cannon cannon, Container container, GameModeData gameModeData, PlayerData playerData)
+    public static void SetCannonParameters(Cannon cannon, Container container, GameModeData gameModeData,
+        PlayerData playerData)
     {
         cannon.speed = gameModeData.cannonSpeed;
         cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
         cannon.shootingForce = gameModeData.cannonShootingForce;
         cannon.isUsingPeggleMode = gameModeData.isCannonUsingPeggleMode;
         cannon.horizontalMargin = container.GetContainerHorizontalHalfLength();
-        
+
         cannon.ballSetData = gameModeData.ballSetData;
         cannon.scoreReference = playerData.mainScore;
-        
-        
+        cannon.container = container;
+
+
         // TODO: Remove that when we'll add real skins
         cannon.spriteObj.SetActive(true);
     }
@@ -141,8 +151,47 @@ public static class Initializer
     {
         cannon.SetCannonControlConnexion(player.playerInputHandler, isActive);
     }
+
     #endregion
 
+    #region MyRegion
+
+    public static Ball InstantiateBall(BallSetData ballSetData, Container container,
+        Vector3 position, float randomRotationRange = 35f)
+    {
+        GameObject ballObj = Object.Instantiate(ballSetData.ballPrefab, position,
+            Quaternion.Euler(0f, 0f, Random.Range(-randomRotationRange, randomRotationRange)),
+            container.containerParent.transform);
+        return ballObj.GetComponent<Ball>();
+    }
+
+    public static void SetBallParameters(Ball ball, int ballTierIndex, IntReference scoreRef, BallSetData ballSetData, Container container, bool disableCollision = false)
+    {
+        var ballData = ballSetData.GetBallData(ballTierIndex);
+        if (ballData == null)
+        {
+            Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
+            Object.Destroy(ball.gameObject);
+        }
+        
+        ball.spriteRenderer.sprite = ballSetData.ballSpriteData.GetBallSprite(ballTierIndex);
+        ball.transform.localScale = Vector3.one * ballData.scale;
+        ball.rb2d.mass = ballData.mass;
+
+        ball.tier = ballData.index;
+        ball.scoreValue = ballData.GetScoreValue();
+        ball.ballScoreRef = scoreRef;
+
+        if (disableCollision)
+            ball.rb2d.simulated = false;
+
+        ball.container = container;
+    }
+
+    #endregion
+
+    public static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
+        DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
 
     public static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
 
