@@ -39,14 +39,13 @@ public class Lobby : MonoBehaviour
     public void NewPlayerDetected(PlayerInput playerInput)
     {
         var (newPlayer, playerIndex) = ConnectPlayerToInputDevice(playerInput);
+        _players.Add(newPlayer);
         Initializer.SetPlayerParameters(gameData.playerDataList[playerIndex], newPlayer);
         Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
+        _cannons.Add(newCannon);
         Initializer.SetCannonParameters(newCannon, _containers[0], gameModeData, gameData.playerDataList[playerIndex]);
         Initializer.ConnectCannonToPlayer(newCannon, newPlayer, true);
-        
-        
-        
-        
+
         // Do custom stuff when a player joins in the lobby
         Color randColor = Color.HSVToRGB(Random.Range(0f, 1f), 0.6f, 1f);
         AddPlayerJoinPopup(playerIndex, newCannon, randColor);
@@ -99,11 +98,15 @@ public class Lobby : MonoBehaviour
     
     private void DisconnectPlayers()
     {
-        for (int i = 0; i < _players.Count; ++i)
+        foreach (var cannon in _cannons)
         {
-            _cannons[i].DestroyCurrentBall();
-            Destroy(_cannons[i].gameObject);
-            Destroy(_players[i].gameObject);
+            cannon.DestroyCurrentBall();
+            Destroy(cannon.gameObject);
+        }
+
+        foreach (var player in _players)
+        {
+            Destroy(player.gameObject);
         }
         _cannons.Clear();
         _players.Clear();

@@ -13,7 +13,6 @@ public class Cannon : MonoBehaviour
     public float shootingForce;
     
     public bool isUsingPeggleMode = false;
-    public bool isCannonActive = false;
     
     // Positioning
     public float horizontalMargin;
@@ -25,8 +24,6 @@ public class Cannon : MonoBehaviour
     public BallSetData ballSetData;
     public IntReference scoreReference;
     
-    public bool IsCannonActive() => isCannonActive;
-
     public void DestroyCurrentBall()
     {
         if (_currentBall != null)
@@ -39,7 +36,6 @@ public class Cannon : MonoBehaviour
         {
             playerInputHandler.OnHorizontalMvtContinuous += MoveCannon;
             playerInputHandler.OnShoot += DropBall;
-            isCannonActive = true;
             if (_currentBall == null)
                 LoadNewBall();
 
@@ -48,11 +44,10 @@ public class Cannon : MonoBehaviour
         {
             playerInputHandler.OnHorizontalMvtContinuous -= MoveCannon;
             playerInputHandler.OnShoot -= DropBall;
-            isCannonActive = false;
         }
     }
     
-    public void DropBall()
+    private void DropBall()
     {
         if (_currentBall == null)
             return;
@@ -63,24 +58,24 @@ public class Cannon : MonoBehaviour
         Invoke("LoadNewBall", reloadCooldown);
     }
     
-    public void MoveCannon(float xAxis)
+    private void MoveCannon(float xAxis)
     {
        if (isUsingPeggleMode)
-        {
-            if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
-            {
-                _shootingAngle += xAxis * speed * Time.deltaTime;
-                _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
-            }
-        }
-        else
-        {
-            if (xAxis < 0 && transform.localPosition.x > -horizontalMargin || xAxis > 0 && transform.localPosition.x < horizontalMargin)
-                transform.Translate(xAxis*Time.deltaTime*speed, 0, 0);
-        }
+       {
+           if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
+           {
+               _shootingAngle += xAxis * speed * Time.deltaTime;
+               _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
+           }
+       }
+       else
+       {
+           if (xAxis < 0 && transform.localPosition.x > -horizontalMargin || xAxis > 0 && transform.localPosition.x < horizontalMargin)
+               transform.Translate(xAxis*Time.deltaTime*speed, 0, 0);
+       }
 
-        if (_currentBall != null)
-            _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection;
+       if (_currentBall != null)
+           _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection;
     }
     
     private void LoadNewBall()

@@ -17,7 +17,4 @@ public class CannonInitializationData : ScriptableObject
     
     [Header("Cannon Modifiers")]
     public BoolReference isUsingPeggleMode;
-    // public Vector2 centerPosition;
-    // [Min(0f)] public float maxHorizontalDelta;
-    // [Min(0f)] public float xRandomSpawnRangeDelta;
 }

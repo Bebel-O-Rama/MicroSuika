@@ -138,7 +138,6 @@ public static class Initializer
     public static void ConnectCannonToPlayer(Cannon cannon, Player player, bool isActive)
     {
         cannon.SetCannonControlConnexion(player.playerInputHandler, isActive);
-        
     }
     #endregion
 

@@ -607,8 +607,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
   gameModeData: {fileID: 11400000, guid: 83feb21c40e481f498668025e276ca14, type: 2}
-  useDebugSpawnContainer: 1
-  debugFakeNumberCount: 3
+  useDebugSpawnContainer: 0
+  debugFakeNumberCount: 2
 --- !u!4 &825600732
 Transform:
   m_ObjectHideFlags: 0
