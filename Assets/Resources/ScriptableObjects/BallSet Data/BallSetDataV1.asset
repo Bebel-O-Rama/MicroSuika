@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36eeacb4215eee4585d029a799aacd7, type: 3}
+  m_Name: BallSetDataV1
+  m_EditorClassIdentifier: 
+  ballSetName: Default balls
+  ballSetData:
+  - {fileID: 11400000, guid: 3dda429f0486fcd41a0fb453ec330aff, type: 2}
+  - {fileID: 11400000, guid: 5112460ee4b40184999666fcb05e7351, type: 2}
+  - {fileID: 11400000, guid: 3f4db0c2d4cdb0141b8aacf746fc921a, type: 2}
+  - {fileID: 11400000, guid: fa9d9671e4cac3241a820a5be1edfaae, type: 2}
+  - {fileID: 11400000, guid: 9c918717b2305a44086e92f8f8294e44, type: 2}
+  ballSpriteData: {fileID: 11400000, guid: f7ed3a69622c0cb46b40c6a62fcae6c9, type: 2}
+  ballPrefab: {fileID: 2164191203452481615, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
