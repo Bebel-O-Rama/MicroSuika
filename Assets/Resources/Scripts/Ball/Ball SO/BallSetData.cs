@@ -19,20 +19,10 @@ public class BallSetData : ScriptableObject
     
     public GameObject ballPrefab;
     
-    private float totalWeight;
+    private float _totalWeight;
         
     public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
     public int GetMaxTier => ballSetData.Count - 1;
-
-    public Ball SpawnNewBall(Vector3 position, IntReference score, int tierIndex, bool disableCollision = false)
-    {
-        return SpawnBall(position, tierIndex, score, disableCollision);
-    }
-    
-    public Ball SpawnNewBall(Vector3 position, IntReference score, bool useWeightedRandom = true, bool disableCollision = false)
-    {
-        return SpawnBall(position, GetRandomBallTier(useWeightedRandom), score, disableCollision);
-    }
     
     public int GetRandomBallTier(bool usingWeight = true)
     {
@@ -42,21 +32,13 @@ public class BallSetData : ScriptableObject
         float randValue = Random.Range(0f, 1f);
         foreach (var ballData in ballSetData)
         {
-            randValue -= ballData.spawnChance / totalWeight;
+            randValue -= ballData.spawnChance / _totalWeight;
             if (randValue <= 0)
                 return ballData.index;
         }
         return 0;
     }
 
-    private Ball SpawnBall(Vector2 position, int tierIndex, IntReference score, bool disableCollision)
-    {
-        GameObject spawnedBall = Instantiate(ballPrefab, position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))) as GameObject;
-        var newBall = spawnedBall.GetComponent<Ball>();
-        newBall.SetBallData(this, tierIndex, score, disableCollision);
-        return newBall;
-    }
-    
     private void TestingAndCleaningSet()
     {
         // It's not flawless, but at least it takes care of null elements and duplicates. The OnValidate should already take care of the order of the BallData
@@ -71,7 +53,7 @@ public class BallSetData : ScriptableObject
         ballSetData = tempSet;
     }
 
-    private void SetWeight() => totalWeight = ballSetData.Sum(b => b.spawnChance);
+    private void SetWeight() => _totalWeight = ballSetData.Sum(b => b.spawnChance);
 
     private void OnValidate()
     {

@@ -14,6 +14,7 @@ public class CannonInitializationData : ScriptableObject
     public FloatReference speed;
     public FloatReference reloadCooldown;
     public FloatReference shootingForce;
+    [Min(0f)] public float emptyDistanceBetweenBallAndCannon;
     
     [Header("Cannon Modifiers")]
     public BoolReference isUsingPeggleMode;

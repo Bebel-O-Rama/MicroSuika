@@ -11,7 +11,7 @@ public class Cannon : MonoBehaviour
     public float speed;
     public float reloadCooldown;
     public float shootingForce;
-    
+    public float emptyDistanceBetweenBallAndCannon;
     public bool isUsingPeggleMode = false;
     
     // Positioning
@@ -20,12 +20,11 @@ public class Cannon : MonoBehaviour
     private Vector2 _shootingDirection = Vector2.down;
 
     // Ball Parameters
-    private Ball _currentBall;
-    private float _currentBallDistanceFromCannon;
     public BallSetData ballSetData;
     public IntReference scoreReference;
-    
     public Container container;
+    private Ball _currentBall;
+    private float _currentBallDistanceFromCannon;
     
     public void DestroyCurrentBall()
     {
@@ -55,7 +54,7 @@ public class Cannon : MonoBehaviour
             return;
         
         _currentBall.EnableCollision();
-        _currentBall.rb2d.AddForce(_shootingDirection * shootingForce);
+        _currentBall.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
         _currentBall = null;
         Invoke("LoadNewBall", reloadCooldown);
     }
@@ -67,7 +66,7 @@ public class Cannon : MonoBehaviour
            if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
            {
                _shootingAngle += xAxis * speed * Time.deltaTime;
-               _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle)) * _currentBallDistanceFromCannon;
+               _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
            }
        }
        else
@@ -77,14 +76,15 @@ public class Cannon : MonoBehaviour
        }
 
        if (_currentBall != null)
-           _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection * _currentBallDistanceFromCannon;
+           _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon;
     }
     
     private void LoadNewBall()
     {
         int newBallIndex = ballSetData.GetRandomBallTier();
+        _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
         _currentBall = Initializer.InstantiateBall(ballSetData, container,
-            (Vector2)transform.localPosition + _shootingDirection);
+            (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
         Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, container, true);
     }
     

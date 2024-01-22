@@ -127,6 +127,7 @@ public static class Initializer
         cannon.speed = gameModeData.cannonSpeed;
         cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
         cannon.shootingForce = gameModeData.cannonShootingForce;
+        cannon.emptyDistanceBetweenBallAndCannon = gameModeData.emptyDistanceBetweenBallAndCannon;
         cannon.isUsingPeggleMode = gameModeData.isCannonUsingPeggleMode;
         cannon.horizontalMargin = container.GetContainerHorizontalHalfLength();
 
@@ -159,9 +160,13 @@ public static class Initializer
     public static Ball InstantiateBall(BallSetData ballSetData, Container container,
         Vector3 position, float randomRotationRange = 35f)
     {
-        GameObject ballObj = Object.Instantiate(ballSetData.ballPrefab, position,
-            Quaternion.Euler(0f, 0f, Random.Range(-randomRotationRange, randomRotationRange)),
-            container.containerParent.transform);
+        GameObject ballObj = Object.Instantiate(ballSetData.ballPrefab, container.containerParent.transform);
+        ResetLocalTransform(ballObj.transform);
+
+        ballObj.transform.localPosition = position;
+        ballObj.transform.localRotation =
+            Quaternion.Euler(0f, 0f, Random.Range(-randomRotationRange, randomRotationRange));
+        
         return ballObj.GetComponent<Ball>();
     }
 

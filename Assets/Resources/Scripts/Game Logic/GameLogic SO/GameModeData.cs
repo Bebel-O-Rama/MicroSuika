@@ -31,6 +31,8 @@ public class GameModeData : ScriptableObject
     public float cannonSpeed;
     public float cannonReloadCooldown;
     public float cannonShootingForce;
+    [Min(0f)] public float emptyDistanceBetweenBallAndCannon;
+
     
     [Header("Cannon Modifiers")]
     public bool isCannonUsingPeggleMode;

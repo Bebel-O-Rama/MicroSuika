@@ -12,6 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67589453bcb7b474c97db6ea87faa2b2, type: 3}
   m_Name: CannonPos_Lobby
   m_EditorClassIdentifier: 
-  centerPosition: {x: 0, y: 4}
-  maxHorizontalDelta: 7.5
-  xRandomSpawnRangeDelta: 3.5
+  cannonPerContainer: 1
+  randomXSpawn: 0
+  yDistanceFromContainer: 0.5
+  speed:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  reloadCooldown:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  shootingForce:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  isUsingPeggleMode:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}

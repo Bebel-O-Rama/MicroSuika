@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   scale: 0.5
+  distanceFromCannon: 1
   mass: 1
-  sprite: {fileID: 21300000, guid: 2840a696a20ed424489cbc440c9a3c0d, type: 3}
   spawnChance: 1

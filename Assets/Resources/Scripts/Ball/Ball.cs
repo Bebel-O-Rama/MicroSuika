@@ -17,32 +17,32 @@ public class Ball : MonoBehaviour
     public GameModeData gameModeData;
     public Container container;
     
-    public void SetBallData(BallSetData setData, int tierIndex, IntReference score = null, bool disableCollision = false)
-    {
-        ballSetData = setData;
-        var ballData = ballSetData.GetBallData(tierIndex);
-        if (ballData == null)
-        {
-            Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
-            Destroy(gameObject);
-        }
-
-        spriteRenderer.sprite = ballSetData.ballSpriteData.GetBallSprite(tierIndex);
-        transform.localScale = Vector3.one * ballData.scale;
-        rb2d.mass = ballData.mass;
-
-        tier = ballData.index;
-        scoreValue = ballData.GetScoreValue();
-        ballScoreRef = score;
-
-        if (disableCollision)
-        {
-            rb2d.simulated = false;
-            return;
-        }
-
-        ApplyRotationForce();
-    }
+    // public void SetBallData(BallSetData setData, int tierIndex, IntReference score = null, bool disableCollision = false)
+    // {
+    //     ballSetData = setData;
+    //     var ballData = ballSetData.GetBallData(tierIndex);
+    //     if (ballData == null)
+    //     {
+    //         Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
+    //         Destroy(gameObject);
+    //     }
+    //
+    //     spriteRenderer.sprite = ballSetData.ballSpriteData.GetBallSprite(tierIndex);
+    //     transform.localScale = Vector3.one * ballData.scale;
+    //     rb2d.mass = ballData.mass;
+    //
+    //     tier = ballData.index;
+    //     scoreValue = ballData.GetScoreValue();
+    //     ballScoreRef = score;
+    //
+    //     if (disableCollision)
+    //     {
+    //         rb2d.simulated = false;
+    //         return;
+    //     }
+    //
+    //     ApplyRotationForce();
+    // }
 
     public void EnableCollision()
     {

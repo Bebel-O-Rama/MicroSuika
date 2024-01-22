@@ -31,6 +31,8 @@ MonoBehaviour:
   cannonSpeed: 5
   cannonReloadCooldown: 0.5
   cannonShootingForce: 200
+  emptyDistanceBetweenBallAndCannon: 0.5
   isCannonUsingPeggleMode: 0
+  ballPrefab: {fileID: 0}
   ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   playerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
