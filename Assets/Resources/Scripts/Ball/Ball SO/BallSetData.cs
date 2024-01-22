@@ -10,13 +10,10 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "Ball/Ball Set Data")]
 public class BallSetData : ScriptableObject
 {
-    public string ballSetName;
     [Header("The smaller the index position of the ball, the smaller its radius should be")]
     [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
     public List<BallData> ballSetData;
-
     public BallSpriteThemeData ballSpriteData;
-    
     public GameObject ballPrefab;
     
     private float _totalWeight;
@@ -48,8 +45,6 @@ public class BallSetData : ScriptableObject
             if (ballData != null && !tempSet.Contains(ballData))
                 tempSet.Add(ballData);
         }
-        // if (tempSet != ballSetData)
-        //     Debug.LogWarning("Modifications have been made to the BallSetData " + ballSetName);
         ballSetData = tempSet;
     }
 
