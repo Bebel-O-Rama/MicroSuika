@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PlayerInputManager))]
-public class Lobby : MonoBehaviour
+public class LobbyMode : MonoBehaviour
 {
     [SerializeField] public GameData gameData;
     [SerializeField] public GameModeData gameModeData;
