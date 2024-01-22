@@ -11,9 +11,8 @@ public class GameData : ScriptableObject
 {
     [Header("Player Data")]
     public List<PlayerData> playerDataList = new List<PlayerData>(4);
-    public GameObject playerPf;
 
-    public List<PlayerData> GetConnectedPlayerData() => playerDataList.Where(pd => pd.IsPlayerConnected()).ToList();
+    public List<PlayerData> GetConnectedPlayersData() => playerDataList.Where(pd => pd.IsPlayerConnected()).ToList();
 
     public int GetConnectedPlayerQuantity()
     {

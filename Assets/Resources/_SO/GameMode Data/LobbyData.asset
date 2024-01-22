@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
-  m_Name: Lobby
+  m_Name: LobbyData
   m_EditorClassIdentifier: 
   containerPrefab: {fileID: 4793840066780438698, guid: a7c10ebe55f7dfc43a37bc33ce8ec063, type: 3}
   containerParentName: ContainerLobby

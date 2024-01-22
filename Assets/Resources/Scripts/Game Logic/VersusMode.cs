@@ -57,7 +57,7 @@ public class VersusMode : MonoBehaviour
 
         // 4. Spawn the Players (just the player with it's player input, no visual or cannon)
         // 4.1 Assign the correct device to each player
-        _players = Initializer.InstantiatePlayers(gameData.GetConnectedPlayerData(), gameModeData);
+        _players = Initializer.InstantiatePlayers(gameData.GetConnectedPlayersData(), gameModeData);
         Initializer.SetPlayersParameters(gameData.playerDataList, _players);
         Initializer.ConnectCannonsToPlayers(_cannons, _players, true);
         // 4.2 Disable the PlayerInputs for now (we'll enable it when the loading is done)
