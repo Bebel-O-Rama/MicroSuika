@@ -9,40 +9,12 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
     [SerializeField] public Rigidbody2D rb2d;
-    
-    [FormerlySerializedAs("_tier")] public int tier;
-    [FormerlySerializedAs("_scoreValue")] public int scoreValue;
-    [FormerlySerializedAs("playerScore")] [FormerlySerializedAs("_playerScore")] public IntReference ballScoreRef;
-    [FormerlySerializedAs("_ballSetData")] public BallSetData ballSetData;
-    public GameModeData gameModeData;
+
+    public int tier;
+    public int scoreValue;
+    public IntReference ballScoreRef;
+    public BallSetData ballSetData;
     public Container container;
-    
-    // public void SetBallData(BallSetData setData, int tierIndex, IntReference score = null, bool disableCollision = false)
-    // {
-    //     ballSetData = setData;
-    //     var ballData = ballSetData.GetBallData(tierIndex);
-    //     if (ballData == null)
-    //     {
-    //         Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
-    //         Destroy(gameObject);
-    //     }
-    //
-    //     spriteRenderer.sprite = ballSetData.ballSpriteData.GetBallSprite(tierIndex);
-    //     transform.localScale = Vector3.one * ballData.scale;
-    //     rb2d.mass = ballData.mass;
-    //
-    //     tier = ballData.index;
-    //     scoreValue = ballData.GetScoreValue();
-    //     ballScoreRef = score;
-    //
-    //     if (disableCollision)
-    //     {
-    //         rb2d.simulated = false;
-    //         return;
-    //     }
-    //
-    //     ApplyRotationForce();
-    // }
 
     public void EnableCollision()
     {
@@ -50,9 +22,9 @@ public class Ball : MonoBehaviour
         ApplyRotationForce();
     }
 
-    public int GetBallTier() => tier;
+    private int GetBallTier() => tier;
 
-    public void ClearBall()
+    private void ClearBall()
     {
         ballScoreRef?.Variable.ApplyChange(scoreValue);
         rb2d.simulated = false;
@@ -81,7 +53,8 @@ public class Ball : MonoBehaviour
         ClearBall();
         if (tier < ballSetData.GetMaxTier)
         {
-            var newBall = Initializer.InstantiateBall(ballSetData, container, contactPosition);
+            var newBall = Initializer.InstantiateBall(ballSetData, container,
+                Initializer.WorldToLocalPosition(container.containerParent.transform, contactPosition));
             Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, container, false);
         }
     }

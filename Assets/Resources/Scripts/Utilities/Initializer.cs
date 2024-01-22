@@ -155,7 +155,7 @@ public static class Initializer
 
     #endregion
 
-    #region MyRegion
+    #region Ball
 
     public static Ball InstantiateBall(BallSetData ballSetData, Container container,
         Vector3 position, float randomRotationRange = 35f)
@@ -186,11 +186,11 @@ public static class Initializer
         ball.tier = ballData.index;
         ball.scoreValue = ballData.GetScoreValue();
         ball.ballScoreRef = scoreRef;
+        ball.ballSetData = ballSetData;
+        ball.container = container;
 
         if (disableCollision)
             ball.rb2d.simulated = false;
-
-        ball.container = container;
     }
 
     #endregion
@@ -206,4 +206,7 @@ public static class Initializer
         child.localRotation = Quaternion.identity;
         child.localScale = Vector3.one;
     }
+
+    public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
+        relativeTargetTransform.InverseTransformPoint(worldPosition);
 }
