@@ -195,12 +195,12 @@ public static class Initializer
 
     #endregion
 
-    public static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
+    private static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
         DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
 
-    public static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
+    private static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
 
-    public static void ResetLocalTransform(Transform child)
+    private static void ResetLocalTransform(Transform child)
     {
         child.localPosition = Vector3.zero;
         child.localRotation = Quaternion.identity;
