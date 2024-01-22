@@ -15,13 +15,13 @@ MonoBehaviour:
   containerPrefab: {fileID: 4793840066780438698, guid: a7c10ebe55f7dfc43a37bc33ce8ec063, type: 3}
   containerParentName: ContainerLobby
   leftmostContainerPositions:
-  - {x: 0, y: -0.5}
+  - {x: 0, y: -0.875}
   containerGeneralScaling:
   - 1
   playerPerContainer: 4
   cannonPrefab: {fileID: 8209449368855194967, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
   isCannonSpawnXPosRandom: 1
-  cannonVerticalDistanceFromCenter: 4.5
+  cannonVerticalDistanceFromCenter: 4.875
   cannonSpeed: 5
   cannonReloadCooldown: 0.5
   cannonShootingForce: 200
