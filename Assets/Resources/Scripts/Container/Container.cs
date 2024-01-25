@@ -8,6 +8,9 @@ public class Container : MonoBehaviour
     [SerializeField] public ContainerPart leftPart;
     [SerializeField] public ContainerPart rightPart;
     [SerializeField] public ContainerPart bottomPart;
+
+    [SerializeField] public Sprite containerSideSkin;
+    [SerializeField] public Sprite containerBackgroundSkin;
     
     [SerializeField] [Min(0f)] public float horizontalMvtHalfLength;
     

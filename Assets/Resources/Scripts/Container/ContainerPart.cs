@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ContainerPart : MonoBehaviour
 {
-    [SerializeField] public Collider2D collider2D;
-    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public List<Collider2D> colliders2D;
     [SerializeField] public ContainerSide containerSide;
     public enum ContainerSide
     {
