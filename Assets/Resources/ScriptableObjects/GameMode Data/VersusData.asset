@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
   m_Name: VersusData
   m_EditorClassIdentifier: 
+  skinData: {fileID: 11400000, guid: 76e42279798bbab49a5e29b00fc86590, type: 2}
   containerPrefab: {fileID: 4793840066780438698, guid: d5bc03dc1ef652c43976355e7d0fb316, type: 3}
   containerParentName: ContainerVersus
   leftmostContainerPositions:
@@ -33,6 +34,5 @@ MonoBehaviour:
   cannonShootingForce: 200
   emptyDistanceBetweenBallAndCannon: 0.5
   isCannonUsingPeggleMode: 0
-  ballPrefab: {fileID: 0}
   ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
   playerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}

@@ -28,13 +28,16 @@ public class VersusMode : MonoBehaviour
         // TODO: REMOVE THIS TEMP LINE (fake the player count)
         _numberPlayerConnected = useDebugSpawnContainer ? debugFakeNumberCount : _numberPlayerConnected;
         
+        //// Init and set containers
         _containers = Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData);
-
+        Initializer.SetContainersParameters(_containers, gameModeData);
+        
+        //// Init and set cannons
         _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
             _containers);
         Initializer.SetCannonsParameters(_cannons, _containers, gameModeData, gameData.playerDataList);
         
-
+        //// Init and set players
         _players = Initializer.InstantiatePlayers(gameData.GetConnectedPlayersData(), gameModeData);
         Initializer.SetPlayersParameters(gameData.playerDataList, _players);
         Initializer.ConnectCannonsToPlayers(_cannons, _players, true);

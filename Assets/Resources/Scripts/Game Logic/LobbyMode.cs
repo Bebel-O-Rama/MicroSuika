@@ -43,15 +43,14 @@ public class LobbyMode : MonoBehaviour
         Initializer.SetPlayerParameters(gameData.playerDataList[playerIndex], newPlayer);
         Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
         _cannons.Add(newCannon);
-        Initializer.SetCannonParameters(newCannon, _containers[0], gameModeData, gameData.playerDataList[playerIndex]);
+        Initializer.SetCannonParameters(newCannon, _containers[0], gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex]);
         Initializer.ConnectCannonToPlayer(newCannon, newPlayer, true);
 
         // Do custom stuff when a player joins in the lobby
-        Color randColor = Color.HSVToRGB(Random.Range(0f, 1f), 0.6f, 1f);
-        AddPlayerJoinPopup(playerIndex, newCannon, randColor);
-        newCannon.GetComponentInChildren<SpriteRenderer>().color = randColor;
+        Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
+        AddPlayerJoinPopup(playerIndex, newCannon, popupColor);
         
-        ConnectToLobbyScore(gameData.playerDataList[playerIndex].mainScore, lobbyScore[playerIndex], randColor);
+        ConnectToLobbyScore(gameData.playerDataList[playerIndex].mainScore, lobbyScore[playerIndex], popupColor);
         UpdateLobbyTriggers(gameData.GetConnectedPlayerQuantity());
     }
 

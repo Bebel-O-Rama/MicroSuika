@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36eeacb4215eee4585d029a799aacd7, type: 3}
   m_Name: DefaultBallSet
   m_EditorClassIdentifier: 
-  ballSetName: Pool balls
   ballSetData:
   - {fileID: 11400000, guid: 3dda429f0486fcd41a0fb453ec330aff, type: 2}
   - {fileID: 11400000, guid: 5112460ee4b40184999666fcb05e7351, type: 2}

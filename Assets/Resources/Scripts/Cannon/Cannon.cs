@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class Cannon : MonoBehaviour
 {
-    [SerializeField] public GameObject spriteObj;
+    [SerializeField] public SpriteRenderer spriteRenderer;
     
     // Cannon Parameters
     public float speed;
@@ -21,6 +21,7 @@ public class Cannon : MonoBehaviour
 
     // Ball Parameters
     public BallSetData ballSetData;
+    public BallSpriteThemeData ballSpriteData;
     public IntReference scoreReference;
     public Container container;
     private Ball _currentBall;
@@ -85,7 +86,7 @@ public class Cannon : MonoBehaviour
         _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
         _currentBall = Initializer.InstantiateBall(ballSetData, container,
             (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
-        Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, container, true);
+        Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballSpriteData, container, true);
     }
     
 }

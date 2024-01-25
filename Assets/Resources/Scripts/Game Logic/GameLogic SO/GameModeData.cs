@@ -6,6 +6,10 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(menuName = "Game Logic/Game Mode Data")]
 public class GameModeData : ScriptableObject
 {
+    // Skin parameters
+    [Header("---- SKIN ----")] 
+    public SkinData skinData;
+    
     // Container parameters
     [Header("----- CONTAINER -----")]
     public GameObject containerPrefab;
@@ -15,12 +19,12 @@ public class GameModeData : ScriptableObject
     [Tooltip("This distances goes from one container center point to the other")]
     public List<Vector2> leftmostContainerPositions;
     public List<float> containerGeneralScaling;
-    
+
     [Header("Other Parameters")]
     [Min(1)] public int playerPerContainer = 1;
     
     // Cannon parameters
-    [Header("---- CANNON -----")]
+    [Header("----- CANNON -----")]
     public GameObject cannonPrefab;
 
     [Header("Position Data")] 
@@ -39,7 +43,6 @@ public class GameModeData : ScriptableObject
 
     // Ball parameters
     [Header("----- BALL -----")]
-    public GameObject ballPrefab;
     public BallSetData ballSetData;
     
     // Player parameters

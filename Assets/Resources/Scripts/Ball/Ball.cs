@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
     public int scoreValue;
     public IntReference ballScoreRef;
     public BallSetData ballSetData;
+    public BallSpriteThemeData ballSpriteThemeData;
     public Container container;
 
     public void EnableCollision()
@@ -55,7 +56,7 @@ public class Ball : MonoBehaviour
         {
             var newBall = Initializer.InstantiateBall(ballSetData, container,
                 Initializer.WorldToLocalPosition(container.containerParent.transform, contactPosition));
-            Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, container, false);
+            Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballSpriteThemeData, container, false);
         }
     }
 }
