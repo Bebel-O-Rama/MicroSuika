@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="16" SoundBankVersion="150">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Mac</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{FC638488-71A1-CB76-6750-16DB6634CF90}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="393239870" Name="SFX"/>
+				<Bus Id="1117531639" Name="Amb"/>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="4071417932" Name="Player_State">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="2582085496" Name="Exploration"/>
+						<State Id="2764240573" Name="Combat"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+			<SwitchGroups>
+				<SwitchGroup Id="2942832789" Name="Switch_sound">
+					<Switches>
+						<Switch Id="290285391" Name="Lobby"/>
+						<Switch Id="491961918" Name="Forest"/>
+						<Switch Id="4164838345" Name="Space"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{6B47598F-0AE2-6A46-634B-C8DB6F15E5CA}">
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
+			<Plugins>
+				<Custom>
+					<Plugin Id="266429384" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+				</Custom>
+			</Plugins>
+			<Events>
+				<Event Id="1256202815" Name="Play" DurationType="OneShot" DurationMin="1" DurationMax="1">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="266429384"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{04A886B7-8148-0EE4-91D3-5C85DC9DC33C}</FileHash>
+</SoundBanksInfo>

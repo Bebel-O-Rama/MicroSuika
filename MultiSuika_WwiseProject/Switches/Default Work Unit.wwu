@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{591EBEB0-8908-4ECD-A8CF-C09377620307}" SchemaVersion="119">
 	<Switches>
-		<WorkUnit Name="Default Work Unit" ID="{591EBEB0-8908-4ECD-A8CF-C09377620307}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{591EBEB0-8908-4ECD-A8CF-C09377620307}" PersistMode="Standalone">
+			<ChildrenList>
+				<SwitchGroup Name="Switch_sound" ID="{62574ADE-D05F-4F45-A756-2BE858572162}">
+					<ChildrenList>
+						<Switch Name="Space" ID="{5C468BBE-CC6E-474C-80CE-1534D6089587}"/>
+						<Switch Name="Lobby" ID="{241202E6-B748-46F9-B972-66303071F588}"/>
+						<Switch Name="Forest" ID="{154E33E6-1707-4E32-91B4-7527A7B7A903}"/>
+					</ChildrenList>
+				</SwitchGroup>
+			</ChildrenList>
+		</WorkUnit>
 	</Switches>
 </WwiseDocument>

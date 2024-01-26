@@ -9,6 +9,32 @@
 							<ObjectRef Name="System" ID="{74AC74E2-3613-42C5-A242-780356888EFF}" WorkUnitID="{5561ABAC-03F6-4557-AA0F-13126B4FE532}"/>
 						</Reference>
 					</ReferenceList>
+					<ChildrenList>
+						<Bus Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}"/>
+						<Bus Name="Amb" ID="{C6B57395-3305-42CF-B6DD-4CE185CAAC4A}">
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Player_State" ID="{B84A3DF8-9B82-466C-9297-FA4E6D1E61AC}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="Combat" ID="{F4D127F1-25FE-4935-A995-B78491AED00C}"/>
+										<CustomState Name="" ID="{5664F43C-4D3A-461F-A32D-0F9A2FABBD55}" ShortID="587150994">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64" Value="-108"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="Exploration" ID="{60DAFD5F-ABEC-4FE7-8E5F-E2EF5E24D056}"/>
+										<CustomState Name="" ID="{95376133-7949-4711-A1F6-0DBFA5692DAA}" ShortID="988304185"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
+						</Bus>
+					</ChildrenList>
 				</Bus>
 			</ChildrenList>
 		</WorkUnit>
