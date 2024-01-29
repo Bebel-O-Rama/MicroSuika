@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -54,9 +55,29 @@ public class Ball : MonoBehaviour
         ClearBall();
         if (tier < ballSetData.GetMaxTier)
         {
+            AddFusionImpulse(tier + 1, contactPosition);
             var newBall = Initializer.InstantiateBall(ballSetData, container,
                 Initializer.WorldToLocalPosition(container.containerParent.transform, contactPosition));
             Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballSpriteThemeData, container, false);
+        }
+    }
+
+    private void AddFusionImpulse(int newBallTier, Vector3 contactPosition)
+    {
+        float impulseRadius = ballSetData.GetBallData(newBallTier).scale / 2f;
+        var ballsInRange =
+            from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius, Vector2.zero, Mathf.Infinity,
+                LayerMask.GetMask("Ball"))
+            select raycast.collider;
+
+        foreach (var ball in ballsInRange)
+        {
+            Vector2 pushDirection = ball.transform.position - contactPosition;
+            pushDirection.Normalize();
+
+            float pushLength = Mathf.Abs(impulseRadius - Vector2.Distance(ball.ClosestPoint(contactPosition), contactPosition));
+
+            ball.GetComponent<Rigidbody2D>().AddForce(pushLength * 5f * pushDirection, ForceMode2D.Impulse);
         }
     }
 }
