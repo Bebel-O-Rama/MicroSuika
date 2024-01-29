@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3314332754506479891}
   - component: {fileID: 8019856753539834341}
   m_Layer: 0
-  m_Name: Right box collider
+  m_Name: Bottom box collider
   m_TagString: Container
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,7 +451,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 1cfb3a45ad3e6f64abc5003a3fdc5c45, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -683,7 +683,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 1cfb3a45ad3e6f64abc5003a3fdc5c45, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
