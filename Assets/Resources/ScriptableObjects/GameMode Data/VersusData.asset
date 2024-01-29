@@ -17,14 +17,14 @@ MonoBehaviour:
   containerParentName: ContainerVersus
   leftmostContainerPositions:
   - {x: 0, y: -0.3}
-  - {x: -4.25, y: -0.5}
-  - {x: -7, y: -0.5}
-  - {x: -7.5, y: -1.4}
+  - {x: -3.4, y: -0.5}
+  - {x: -5.6, y: -0.4}
+  - {x: -6.3, y: -1.05}
   containerGeneralScaling:
-  - 0.9
-  - 0.8
-  - 0.8
+  - 0.7
+  - 0.65
   - 0.6
+  - 0.48
   playerPerContainer: 1
   cannonPrefab: {fileID: 8209449368855194967, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
   isCannonSpawnXPosRandom: 0
