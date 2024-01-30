@@ -191,14 +191,24 @@ public static class Initializer
         
         ball.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
         ball.transform.localScale = Vector3.one * ballData.scale;
+        
         ball.rb2d.mass = ballData.mass;
-
+        ball.rb2d.sharedMaterial.bounciness = ballSetData.bounciness;
+        ball.rb2d.sharedMaterial.friction = ballSetData.friction;
+        ball.rb2d.gravityScale = ballSetData.gravityScale;
+        
+        
         ball.tier = ballData.index;
         ball.scoreValue = ballData.GetScoreValue();
         ball.ballScoreRef = scoreRef;
         ball.ballSetData = ballSetData;
         ball.ballSpriteThemeData = ballSpriteThemeData;
         ball.container = container;
+
+        ball.impulseMultiplier = ballSetData.impulseMultiplier;
+        ball.impulseExpPower = ballSetData.impulseExpPower;
+        ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
+        
 
         if (disableCollision)
             ball.rb2d.simulated = false;

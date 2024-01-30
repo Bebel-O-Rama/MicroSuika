@@ -59,7 +59,7 @@ MonoBehaviour:
   ballSpriteThemeData: {fileID: 0}
   container: {fileID: 0}
   impulseMultiplier: 5
-  impulsePower: 2
+  impulseExpPower: 0
   impulseRangeMultiplier: 1.1
 --- !u!58 &2341846513916466983
 CircleCollider2D:
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.3
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 9d05da920b4d450449c32c9b61fd0336, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

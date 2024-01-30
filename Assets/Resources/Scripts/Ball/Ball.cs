@@ -18,9 +18,9 @@ public class Ball : MonoBehaviour
     public BallSpriteThemeData ballSpriteThemeData;
     public Container container;
 
-    public float impulseMultiplier = 3f;
-    public float impulsePower = 2f;
-    public float impulseRangeMultiplier = 1.1f;
+    public float impulseMultiplier;
+    public float impulseExpPower;
+    public float impulseRangeMultiplier;
     
     public void EnableCollision()
     {
@@ -62,7 +62,7 @@ public class Ball : MonoBehaviour
             AddFusionImpulse(tier + 1, contactPosition);
             var newBall = Initializer.InstantiateBall(ballSetData, container,
                 Initializer.WorldToLocalPosition(container.containerParent.transform, contactPosition));
-            Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballSpriteThemeData, container, false);
+            Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballSpriteThemeData, container);
         }
     }
 
@@ -70,16 +70,17 @@ public class Ball : MonoBehaviour
     {
         float impulseRadius = ballSetData.GetBallData(newBallTier).scale / 2f;
         var ballsInRange =
-            from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
+            from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * container.containerParent.transform.localScale.x * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
                 LayerMask.GetMask("Ball"))
             select raycast.collider;
+        
 
         foreach (var ball in ballsInRange)
         {
             Vector2 pushDirection = ball.transform.position - contactPosition;
             pushDirection.Normalize();
 
-            float pushIntensity = Mathf.Pow(Mathf.Abs(impulseRadius * impulseRangeMultiplier - Vector2.Distance(ball.ClosestPoint(contactPosition), contactPosition)) * impulseMultiplier, impulsePower);
+            float pushIntensity = Mathf.Pow(Mathf.Abs(impulseRadius * impulseRangeMultiplier - Vector2.Distance(ball.ClosestPoint(contactPosition), contactPosition)) * impulseMultiplier, impulseExpPower);
 
             ball.GetComponent<Rigidbody2D>().AddForce(pushIntensity * pushDirection, ForceMode2D.Impulse);
         }

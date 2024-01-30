@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 1
   scale: 0.66
-  distanceFromCannon: 0.75
-  mass: 1
+  mass:
+    UseConstant: 1
+    ConstantValue: 0.5
+    UseRandomRange: 1
+    RandomCoefficient: 0.1
+    Variable: {fileID: 0}
   spawnChance: 1

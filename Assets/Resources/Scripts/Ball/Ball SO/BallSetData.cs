@@ -15,6 +15,17 @@ public class BallSetData : ScriptableObject
     public List<BallData> ballSetData;
     public GameObject ballPrefab;
     
+    [Header("Impulse parameters")]
+    public FloatReference impulseMultiplier;
+    public FloatReference impulseExpPower;
+    public FloatReference impulseRangeMultiplier;
+    
+    [Header("Physic parameters")]
+    public FloatReference bounciness;
+    public FloatReference friction;
+    public FloatReference gravityScale;
+    
+    
     private float _totalWeight;
         
     public BallData GetBallData(int index) => ballSetData.Count > index ? ballSetData[index] : null;
