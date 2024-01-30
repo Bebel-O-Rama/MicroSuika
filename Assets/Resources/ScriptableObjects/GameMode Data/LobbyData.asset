@@ -25,7 +25,7 @@ MonoBehaviour:
   cannonVerticalDistanceFromCenter: 4.875
   cannonSpeed: 5
   cannonReloadCooldown: 0.5
-  cannonShootingForce: 100
+  cannonShootingForce: 200
   emptyDistanceBetweenBallAndCannon: 0.5
   isCannonUsingPeggleMode: 0
   ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}

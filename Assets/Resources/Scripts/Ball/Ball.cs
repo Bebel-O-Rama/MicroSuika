@@ -18,6 +18,10 @@ public class Ball : MonoBehaviour
     public BallSpriteThemeData ballSpriteThemeData;
     public Container container;
 
+    public float impulseMultiplier = 3f;
+    public float impulsePower = 2f;
+    public float impulseRangeMultiplier = 1.1f;
+    
     public void EnableCollision()
     {
         rb2d.simulated = true;
@@ -66,7 +70,7 @@ public class Ball : MonoBehaviour
     {
         float impulseRadius = ballSetData.GetBallData(newBallTier).scale / 2f;
         var ballsInRange =
-            from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius, Vector2.zero, Mathf.Infinity,
+            from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
                 LayerMask.GetMask("Ball"))
             select raycast.collider;
 
@@ -75,9 +79,9 @@ public class Ball : MonoBehaviour
             Vector2 pushDirection = ball.transform.position - contactPosition;
             pushDirection.Normalize();
 
-            float pushLength = Mathf.Abs(impulseRadius - Vector2.Distance(ball.ClosestPoint(contactPosition), contactPosition));
+            float pushIntensity = Mathf.Pow(Mathf.Abs(impulseRadius * impulseRangeMultiplier - Vector2.Distance(ball.ClosestPoint(contactPosition), contactPosition)) * impulseMultiplier, impulsePower);
 
-            ball.GetComponent<Rigidbody2D>().AddForce(pushLength * 5f * pushDirection, ForceMode2D.Impulse);
+            ball.GetComponent<Rigidbody2D>().AddForce(pushIntensity * pushDirection, ForceMode2D.Impulse);
         }
     }
 }
