@@ -14,6 +14,164 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Folder Name="Play_Ball_Fusion" ID="{40B26069-3A5C-4425-8D0F-FDC71CD4FCF7}" ShortID="241948254">
+					<ChildrenList>
+						<Event Name="Play_PH_Ball_Fusion_01" ID="{6320E65E-D544-45D6-B411-4C3E2E386CD6}">
+							<ChildrenList>
+								<Action Name="" ID="{4390DA70-A7BA-44D9-BFF4-26913AE776F4}" ShortID="702348639">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_01" ID="{BC3B5617-8AA8-4400-9A1F-D773230676FE}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_08" ID="{53122377-B280-4E9C-AEC4-E7C1F234E3E1}">
+							<ChildrenList>
+								<Action Name="" ID="{6F3DEFC9-3AA1-488A-A4BD-0DF59C2B9B53}" ShortID="870010090">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_08" ID="{02EB51F9-B4F9-49B0-A3FF-90A9632266E4}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_07" ID="{5A1DEC24-4934-4BF1-A849-2D61413BEA5C}">
+							<ChildrenList>
+								<Action Name="" ID="{0A405BDA-A38E-4589-8D48-31C56E0D4BEF}" ShortID="443057821">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_07" ID="{E5BB5DE3-8767-4621-9D70-90C268F65D19}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_06" ID="{917ED30E-A7D7-4D8E-B28F-6543D7BDC67D}">
+							<ChildrenList>
+								<Action Name="" ID="{1E092E8A-DCB3-45F5-BA7F-ADFD84FB0505}" ShortID="326095247">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_06" ID="{60ED4C64-CCF7-4328-91D3-E0DE0BC549AE}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_10" ID="{D1C8849B-0EB5-401B-B05B-740BDE64F3C9}">
+							<ChildrenList>
+								<Action Name="" ID="{86DDC6E9-C7F3-4477-87FD-7B3D2AA41EEF}" ShortID="339398071">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_10" ID="{3C39D2CC-812C-47A2-91C2-4E7B66E08BDB}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_03" ID="{8C88C47F-F263-4FBD-B263-CB41FA322814}">
+							<ChildrenList>
+								<Action Name="" ID="{14F49087-37B9-47FE-8F7D-716C1BAA5A1A}" ShortID="200384582">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_03" ID="{A0EF72CE-7D84-434A-9342-8C0095DA60D1}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_02" ID="{BC7C7600-3D68-4F5F-8139-C9315013F7D7}">
+							<ChildrenList>
+								<Action Name="" ID="{B51A7CF0-3EC8-4686-AAEC-3251CABC4291}" ShortID="367028308">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_02" ID="{63D55591-392B-49FC-A62F-6393C77F7E5F}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_09" ID="{D53D11AF-4088-478A-BDE6-EE7646A79AA6}">
+							<ChildrenList>
+								<Action Name="" ID="{CBF2C193-442F-4E6C-B931-3961587D7AA9}" ShortID="677484747">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_09" ID="{06E231F4-3EF9-4CC7-87D9-CA61ECB1504D}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_04" ID="{FA84B047-3C41-45B2-A60B-C444E790ECE7}">
+							<ChildrenList>
+								<Action Name="" ID="{CF14F906-8AC6-4D18-807E-8AFF47CA005E}" ShortID="39808200">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_04" ID="{EA8D3744-547B-47F6-9197-FCBA5E88311E}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_05" ID="{E4939319-5B86-42EE-84C1-03A52CD3601B}">
+							<ChildrenList>
+								<Action Name="" ID="{05D813C1-2B01-4FD0-9C8B-271D23D04C09}" ShortID="169245562">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_05" ID="{07D9ABA7-78D3-4AEA-84D1-CE63A4371593}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Event Name="Play_PH_Amb_Space" ID="{FC519B69-FC08-4E6A-9A2B-6531369F6302}">
+					<ChildrenList>
+						<Action Name="" ID="{180952CA-10EC-42EA-A957-ADD16F9C5E9D}" ShortID="417271475">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PH_Amb_Space_LP" ID="{4E87E571-FA42-4157-94A0-D4BCFA1F9D45}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_PH_Ball_Drop" ID="{B123E5F4-6C63-49C4-B3F9-D7C12348E9A2}">
+					<ChildrenList>
+						<Action Name="" ID="{E18D6CD9-DDA8-4877-8F5B-0E12335518ED}" ShortID="708245559">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PH_Ball_Drop" ID="{BF7F698C-864A-4D8A-A588-DF2572CE0A97}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_PH_Ball_Bounce" ID="{D2950A70-3ABF-4C3E-9D3B-E9DCCF8F799D}">
+					<ChildrenList>
+						<Action Name="" ID="{AF60843D-86E8-4849-BF17-CD30B2430A7B}" ShortID="938132366">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PH_Ball_Bounce" ID="{77051EB8-F8C6-469C-B52B-068159FC60F1}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_SFX_Cannon_Appears" ID="{BCE2A6D3-18BE-426C-B6EC-42328553E8C6}">
+					<ChildrenList>
+						<Action Name="" ID="{C631DD99-2D7D-47C7-B6EB-3D1EFD69AA49}" ShortID="533657731">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SFX_Cannon_Appears" ID="{B1E56C2E-49C1-4744-BACD-F318849B2598}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

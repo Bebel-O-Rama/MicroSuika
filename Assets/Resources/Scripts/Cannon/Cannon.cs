@@ -25,7 +25,12 @@ public class Cannon : MonoBehaviour
     public Container container;
     private Ball _currentBall;
     private float _currentBallDistanceFromCannon;
-    
+
+    //Wwise Event
+    public AK.Wwise.Event WwiseEventCannonShoot;
+
+
+
     public void DestroyCurrentBall()
     {
         if (_currentBall != null)
@@ -57,6 +62,8 @@ public class Cannon : MonoBehaviour
         _currentBall.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
         _currentBall = null;
         Invoke("LoadNewBall", reloadCooldown);
+        Debug.Log("Drop");
+        WwiseEventCannonShoot.Post(gameObject);
     }
     
     private void MoveCannon(float xAxis)

@@ -14,6 +14,20 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID PLAY = 1256202815U;
+        static const AkUniqueID PLAY_PH_AMB_SPACE = 738730148U;
+        static const AkUniqueID PLAY_PH_BALL_BOUNCE = 942049713U;
+        static const AkUniqueID PLAY_PH_BALL_DROP = 408353238U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_01 = 2448210565U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_02 = 2448210566U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_03 = 2448210567U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_04 = 2448210560U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_05 = 2448210561U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_06 = 2448210562U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_07 = 2448210563U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_08 = 2448210572U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_09 = 2448210573U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_10 = 2464988279U;
+        static const AkUniqueID PLAY_SFX_CANNON_APPEARS = 1141855710U;
     } // namespace EVENTS
 
     namespace STATES
@@ -62,8 +76,10 @@ namespace AK
     namespace BUSSES
     {
         static const AkUniqueID AMB = 1117531639U;
+        static const AkUniqueID BGM = 412724365U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID SFX = 393239870U;
+        static const AkUniqueID UI = 1551306167U;
     } // namespace BUSSES
 
     namespace AUDIO_DEVICES

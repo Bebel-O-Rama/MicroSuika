@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 1638451884337578472}
   - component: {fileID: 6644540852985890257}
   - component: {fileID: 8166150119548268999}
+  - component: {fileID: 6789699022388938096}
+  - component: {fileID: 1662450970523499341}
   m_Layer: 7
   m_Name: PF_Cannon
   m_TagString: Untagged
@@ -134,6 +136,7 @@ MonoBehaviour:
   speed: 0
   reloadCooldown: 0
   shootingForce: 0
+  emptyDistanceBetweenBallAndCannon: 0
   isUsingPeggleMode: 0
   horizontalMargin: 0
   ballSetData: {fileID: 0}
@@ -141,6 +144,11 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 0
     Variable: {fileID: 0}
+  container: {fileID: 0}
+  WwiseEventCannonShoot:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: bf39f8c109abc62428bfa845644e2bd5, type: 2}
 --- !u!50 &8166150119548268999
 Rigidbody2D:
   serializedVersion: 4
@@ -168,3 +176,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!114 &6789699022388938096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209449368855194967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0097200769cbdd8459d23f0338a425f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &1662450970523499341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209449368855194967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2deab649f990ab945b565537915b4afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  enableActionOnEvent: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 3f0e3fb94b9efb644a82f9298d3f3b4f, type: 2}
+  useCallbacks: 0
+  Callbacks: []
+  playingId: 0
+  soundEmitterObject: {fileID: 0}
+  transitionDuration: 0
+  eventIdInternal: 0
+  valueGuidInternal: 
+  m_callbackDataInternal: {fileID: 0}

@@ -8,6 +8,30 @@
 						<Property Name="InitialValue" Type="Real64" Value="0"/>
 					</PropertyList>
 				</GameParameter>
+				<GameParameter Name="RTPC_Vol_SFX" ID="{DDA3B535-2D37-42DE-A04E-79FD6738A575}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="100"/>
+					</PropertyList>
+				</GameParameter>
+				<GameParameter Name="RTPC_Vol_BGM" ID="{65E8CABA-94B3-4CB9-8AA7-0841DFD7CD62}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="100"/>
+					</PropertyList>
+				</GameParameter>
+				<GameParameter Name="RTPC_Vol_Master" ID="{F791F929-344C-4E0A-8E25-26B19D52DF57}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="100"/>
+					</PropertyList>
+				</GameParameter>
+				<GameParameter Name="RTPC_Sidechain" ID="{04C7338A-C74C-46BB-810A-4FDD41BEE2AE}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="0"/>
+						<Property Name="Max" Type="Real64" Value="0"/>
+						<Property Name="Min" Type="Real64" Value="-48"/>
+						<Property Name="SlewRateDown" Type="Real64" Value="100"/>
+						<Property Name="SlewRateUp" Type="Real64" Value="100"/>
+					</PropertyList>
+				</GameParameter>
 			</ChildrenList>
 		</WorkUnit>
 	</GameParameters>

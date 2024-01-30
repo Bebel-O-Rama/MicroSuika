@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{E6E8C0E9-B48D-4817-8E34-59AF35F40193}" SchemaVersion="119">
 	<SoundcasterSessions>
-		<WorkUnit Name="Default Work Unit" ID="{E6E8C0E9-B48D-4817-8E34-59AF35F40193}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{E6E8C0E9-B48D-4817-8E34-59AF35F40193}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="Test" ID="{A69EE4EE-7682-4DA9-9017-D98DD7F07068}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Play_PH_Amb_Space" ID="{FC519B69-FC08-4E6A-9A2B-6531369F6302}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_SFX_Cannon_Appears" ID="{BCE2A6D3-18BE-426C-B6EC-42328553E8C6}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="0" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Bounce" ID="{D2950A70-3ABF-4C3E-9D3B-E9DCCF8F799D}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="0" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Drop" ID="{B123E5F4-6C63-49C4-B3F9-D7C12348E9A2}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="0" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_01" ID="{6320E65E-D544-45D6-B411-4C3E2E386CD6}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_03" ID="{8C88C47F-F263-4FBD-B263-CB41FA322814}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="1" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_05" ID="{E4939319-5B86-42EE-84C1-03A52CD3601B}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="1" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_07" ID="{5A1DEC24-4934-4BF1-A849-2D61413BEA5C}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="1" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_09" ID="{D53D11AF-4088-478A-BDE6-EE7646A79AA6}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="1" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_02" ID="{BC7C7600-3D68-4F5F-8139-C9315013F7D7}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="2" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_04" ID="{FA84B047-3C41-45B2-A60B-C444E790ECE7}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="2" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_06" ID="{917ED30E-A7D7-4D8E-B28F-6543D7BDC67D}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="2" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_08" ID="{53122377-B280-4E9C-AEC4-E7C1F234E3E1}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="2" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_PH_Ball_Fusion_10" ID="{D1C8849B-0EB5-401B-B05B-740BDE64F3C9}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="2" Y="4"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true">
+						<RTPCValue>
+							<GameParameterRef Name="RTPC_Vol_SFX" ID="{DDA3B535-2D37-42DE-A04E-79FD6738A575}"/>
+							<Value>100</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="RTPC_Sidechain" ID="{04C7338A-C74C-46BB-810A-4FDD41BEE2AE}"/>
+							<Value>0</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="RTPC_Vol_BGM" ID="{65E8CABA-94B3-4CB9-8AA7-0841DFD7CD62}"/>
+							<Value>100</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="RTPC_Vol_Master" ID="{F791F929-344C-4E0A-8E25-26B19D52DF57}"/>
+							<Value>100</Value>
+						</RTPCValue>
+					</RTPCValueList>
+					<CurrentStateList ShowAll="true"/>
+					<CurrentSwitchList ShowAll="true"/>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundcasterSessions>
 </WwiseDocument>

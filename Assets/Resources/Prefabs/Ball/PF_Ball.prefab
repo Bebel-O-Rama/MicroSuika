@@ -49,6 +49,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4711732001261019832}
   rb2d: {fileID: 7345287644621296678}
+  tier: 0
+  scoreValue: 0
+  ballScoreRef:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  ballSetData: {fileID: 0}
+  container: {fileID: 0}
 --- !u!58 &2341846513916466983
 CircleCollider2D:
   m_ObjectHideFlags: 0
