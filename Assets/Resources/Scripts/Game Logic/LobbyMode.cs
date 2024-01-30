@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PlayerInputManager))]
 public class LobbyMode : MonoBehaviour
@@ -35,8 +33,23 @@ public class LobbyMode : MonoBehaviour
         DisconnectPlayers();
         _playerInputManager.EnableJoining();
     }
+    
+    public void ResetPlayers()
+    {
+        DisconnectPlayers();
+        foreach (var ls in lobbyScore)
+            ls.playerScore = null;
 
-    public void NewPlayerDetected(PlayerInput playerInput)
+        UpdateLobbyTriggers(0);
+    }
+
+    public void StartGame()
+    {
+        _playerInputManager.DisableJoining();
+        SceneManager.LoadScene("Versus");
+    }
+
+    private void NewPlayerDetected(PlayerInput playerInput)
     {
         var (newPlayer, playerIndex) = ConnectPlayerToInputDevice(playerInput);
         _players.Add(newPlayer);
@@ -53,22 +66,7 @@ public class LobbyMode : MonoBehaviour
         ConnectToLobbyScore(gameData.playerDataList[playerIndex].mainScore, lobbyScore[playerIndex], popupColor);
         UpdateLobbyTriggers(gameData.GetConnectedPlayerQuantity());
     }
-
-    public void ResetPlayers()
-    {
-        DisconnectPlayers();
-        foreach (var ls in lobbyScore)
-            ls.playerScore = null;
-
-        UpdateLobbyTriggers(0);
-    }
-
-    public void StartGame()
-    {
-        _playerInputManager.DisableJoining();
-        SceneManager.LoadScene("Versus");
-    }
-
+    
     private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
     {
         scoreboard.playerScore = scoreRef.Variable;
