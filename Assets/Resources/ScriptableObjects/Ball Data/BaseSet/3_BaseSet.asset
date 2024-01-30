@@ -16,7 +16,7 @@ MonoBehaviour:
   scale: 1.04
   mass:
     UseConstant: 1
-    ConstantValue: 0.5
+    ConstantValue: 1
     UseRandomRange: 1
     RandomCoefficient: 0.1
     Variable: {fileID: 0}
