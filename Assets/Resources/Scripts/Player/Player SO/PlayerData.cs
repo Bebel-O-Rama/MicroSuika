@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Player/Player Game Data")]
 public class PlayerData : ScriptableObject

@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Ball/Ball Set Data")]
@@ -13,8 +9,18 @@ public class BallSetData : ScriptableObject
     [Header("The smaller the index position of the ball, the smaller its radius should be")]
     [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
     public List<BallData> ballSetData;
-    public BallSpriteThemeData ballSpriteData;
     public GameObject ballPrefab;
+    
+    [Header("Impulse parameters")]
+    public FloatReference impulseMultiplier;
+    public FloatReference impulseExpPower;
+    public FloatReference impulseRangeMultiplier;
+    
+    [Header("Physic parameters")]
+    public FloatReference bounciness;
+    public FloatReference friction;
+    public FloatReference gravityScale;
+    
     
     private float _totalWeight;
         

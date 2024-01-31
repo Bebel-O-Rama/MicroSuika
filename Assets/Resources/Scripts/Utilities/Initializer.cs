@@ -76,6 +76,17 @@ public static class Initializer
         return instantiatedContainers;
     }
 
+    public static void SetContainersParameters(List<Container> containers, GameModeData gameModeData)
+    {
+        for (int i = 0; i < containers.Count; ++i)
+            SetContainerParameters(containers[i], gameModeData.skinData.playersSkinData[i]);
+    }
+    
+    private static void SetContainerParameters(Container container, PlayerSkinData playerSkinData)
+    {
+        container.backgroundSpriteRenderer.sprite = playerSkinData.containerBackground;
+    }
+
     #endregion
 
     #region Cannon
@@ -117,12 +128,12 @@ public static class Initializer
         for (int i = 0; i < cannons.Count; ++i)
         {
             SetCannonParameters(cannons[i], containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
-                gameModeData, playerData[i]);
+                gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i]);
         }
     }
 
     public static void SetCannonParameters(Cannon cannon, Container container, GameModeData gameModeData,
-        PlayerData playerData)
+        PlayerData playerData, PlayerSkinData playerSkinData)
     {
         cannon.speed = gameModeData.cannonSpeed;
         cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
@@ -132,12 +143,11 @@ public static class Initializer
         cannon.horizontalMargin = container.GetContainerHorizontalHalfLength();
 
         cannon.ballSetData = gameModeData.ballSetData;
+        cannon.ballSpriteData = playerSkinData.ballTheme;
         cannon.scoreReference = playerData.mainScore;
         cannon.container = container;
 
-
-        // TODO: Remove that when we'll add real skins
-        cannon.spriteObj.SetActive(true);
+        cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
     }
 
     public static void ConnectCannonsToPlayers(List<Cannon> cannons, List<Player> players, bool isActive)
@@ -170,7 +180,7 @@ public static class Initializer
         return ballObj.GetComponent<Ball>();
     }
 
-    public static void SetBallParameters(Ball ball, int ballTierIndex, IntReference scoreRef, BallSetData ballSetData, Container container, bool disableCollision = false)
+    public static void SetBallParameters(Ball ball, int ballTierIndex, IntReference scoreRef, BallSetData ballSetData, BallSpriteThemeData ballSpriteThemeData, Container container, bool disableCollision = false)
     {
         var ballData = ballSetData.GetBallData(ballTierIndex);
         if (ballData == null)
@@ -179,15 +189,26 @@ public static class Initializer
             Object.Destroy(ball.gameObject);
         }
         
-        ball.spriteRenderer.sprite = ballSetData.ballSpriteData.GetBallSprite(ballTierIndex);
+        ball.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
         ball.transform.localScale = Vector3.one * ballData.scale;
+        
         ball.rb2d.mass = ballData.mass;
-
+        ball.rb2d.sharedMaterial.bounciness = ballSetData.bounciness;
+        ball.rb2d.sharedMaterial.friction = ballSetData.friction;
+        ball.rb2d.gravityScale = ballSetData.gravityScale;
+        
+        
         ball.tier = ballData.index;
         ball.scoreValue = ballData.GetScoreValue();
         ball.ballScoreRef = scoreRef;
         ball.ballSetData = ballSetData;
+        ball.ballSpriteThemeData = ballSpriteThemeData;
         ball.container = container;
+
+        ball.impulseMultiplier = ballSetData.impulseMultiplier;
+        ball.impulseExpPower = ballSetData.impulseExpPower;
+        ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
+        
 
         if (disableCollision)
             ball.rb2d.simulated = false;

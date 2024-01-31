@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class Container : MonoBehaviour
 {
-    [SerializeField] public ContainerPart leftPart;
-    [SerializeField] public ContainerPart rightPart;
-    [SerializeField] public ContainerPart bottomPart;
-    
     [SerializeField] [Min(0f)] public float horizontalMvtHalfLength;
+    [SerializeField] public SpriteRenderer sideSpriteRenderer;
+    [SerializeField] public SpriteRenderer backgroundSpriteRenderer;
     
     private GameObject _containerParent;
     
@@ -22,7 +17,6 @@ public class Container : MonoBehaviour
             transform.SetParent(_containerParent.transform);
         }
     }
-
     
     public float GetContainerHorizontalHalfLength() => horizontalMvtHalfLength;
 }
