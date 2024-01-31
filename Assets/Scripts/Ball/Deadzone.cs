@@ -1,11 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-public class Deadzone : MonoBehaviour
+namespace MultiSuika.Ball
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    [RequireComponent(typeof(Collider2D))]
+    public class Deadzone : MonoBehaviour
     {
-        if (other.CompareTag("Ball"))
-            Destroy(other.gameObject);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Ball"))
+                Destroy(other.gameObject);
+        }
     }
 }

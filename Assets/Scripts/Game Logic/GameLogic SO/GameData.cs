@@ -1,22 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
+using MultiSuika.Player;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Logic/Game Data")]
-public class GameData : ScriptableObject
+namespace MultiSuika.Game_Logic
 {
-    [Header("Player Data")]
-    public List<PlayerData> playerDataList = new List<PlayerData>(4);
-
-    public List<PlayerData> GetConnectedPlayersData() => playerDataList.Where(pd => pd.IsPlayerConnected()).ToList();
-
-    public int GetConnectedPlayerQuantity()
+    [CreateAssetMenu(menuName = "Game Logic/Game Data")]
+    public class GameData : ScriptableObject
     {
-        var playerNumber = 0;
-        foreach (var playerData in playerDataList)
+        [Header("Player Data")]
+        public List<PlayerData> playerDataList = new List<PlayerData>(4);
+
+        public List<PlayerData> GetConnectedPlayersData() => playerDataList.Where(pd => pd.IsPlayerConnected()).ToList();
+
+        public int GetConnectedPlayerQuantity()
         {
-            playerNumber += playerData.IsPlayerConnected() ? 1 : 0;
+            var playerNumber = 0;
+            foreach (var playerData in playerDataList)
+            {
+                playerNumber += playerData.IsPlayerConnected() ? 1 : 0;
+            }
+            return playerNumber;
         }
-        return playerNumber;
     }
 }
