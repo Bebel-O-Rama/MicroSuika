@@ -27,11 +27,11 @@ namespace MultiSuika.Utilities
             return instantiatedPlayers;
         }
 
-        public static void SetPlayersParameters(List<PlayerData> playerDatas, List<Player.Player> players)
+        public static void SetPlayersParameters(List<PlayerData> playersData, List<Player.Player> players)
         {
             for (int i = 0; i < players.Count; i++)
             {
-                SetPlayerParameters(playerDatas[i], players[i]);
+                SetPlayerParameters(playersData[i], players[i]);
             }
         }
 
@@ -176,7 +176,7 @@ namespace MultiSuika.Utilities
         public static Ball.Ball InstantiateBall(BallSetData ballSetData, Container.Container container,
             Vector3 position, float randomRotationRange = 35f)
         {
-            GameObject ballObj = Object.Instantiate(ballSetData.ballPrefab, container.containerParent.transform);
+            var ballObj = Object.Instantiate(ballSetData.ballPrefab, container.containerParent.transform);
             ResetLocalTransform(ballObj.transform);
 
             ballObj.transform.localPosition = position;
@@ -199,11 +199,13 @@ namespace MultiSuika.Utilities
             ball.transform.localScale = Vector3.one * ballData.scale;
         
             ball.rb2d.mass = ballData.mass;
-            ball.rb2d.sharedMaterial.bounciness = ballSetData.bounciness;
-            ball.rb2d.sharedMaterial.friction = ballSetData.friction;
-            ball.rb2d.gravityScale = ballSetData.gravityScale;
-        
-        
+            var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
+            {
+                bounciness = ballSetData.bounciness,
+                friction = ballSetData.friction
+            };
+            ball.rb2d.sharedMaterial = ballPhysMat;
+
             ball.tier = ballData.index;
             ball.scoreValue = ballData.GetScoreValue();
             ball.ballScoreRef = scoreRef;
