@@ -25,7 +25,7 @@
 				</GameParameter>
 				<GameParameter Name="RTPC_Sidechain" ID="{04C7338A-C74C-46BB-810A-4FDD41BEE2AE}">
 					<PropertyList>
-						<Property Name="InitialValue" Type="Real64" Value="0"/>
+						<Property Name="InitialValue" Type="Real64" Value="-48"/>
 						<Property Name="Max" Type="Real64" Value="0"/>
 						<Property Name="Min" Type="Real64" Value="-48"/>
 						<Property Name="SlewRateDown" Type="Real64" Value="100"/>

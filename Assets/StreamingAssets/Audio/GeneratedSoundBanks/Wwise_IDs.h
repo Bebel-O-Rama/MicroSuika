@@ -55,9 +55,6 @@ namespace AK
 
             namespace SWITCH
             {
-                static const AkUniqueID FOREST = 491961918U;
-                static const AkUniqueID LOBBY = 290285391U;
-                static const AkUniqueID SPACE = 4164838345U;
             } // namespace SWITCH
         } // namespace SWITCH_SOUND
 

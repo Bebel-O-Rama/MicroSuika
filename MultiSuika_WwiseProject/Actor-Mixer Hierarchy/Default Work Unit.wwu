@@ -651,36 +651,31 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Sound Name="PH_Amb_Space_LP" ID="{4E87E571-FA42-4157-94A0-D4BCFA1F9D45}" ShortID="883422314">
+						<Sound Name="PH_Amb_Space" ID="{D8C1F1DA-FF66-416F-AAEC-A8BD9875A590}" ShortID="238746765">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 								<Property Name="Lowpass" Type="int16">
 									<ValueList>
-										<Value>71</Value>
+										<Value>64</Value>
 									</ValueList>
 								</Property>
-								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>-5</Value>
-									</ValueList>
-								</Property>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
 								</Reference>
 								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+									<ObjectRef Name="Amb" ID="{C6B57395-3305-42CF-B6DD-4CE185CAAC4A}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="PH_Amb_Space" ID="{2D082427-12B5-4EE7-91BE-18D1D0352FF6}">
+								<AudioFileSource Name="PH_Amb_Space" ID="{D3F8C348-A5CB-45DF-A079-8F5720540AA6}">
 									<PropertyList>
-										<Property Name="CrossfadeDuration" Type="Real64" Value="864.51889756129"/>
-										<Property Name="FadeInDuration" Type="Real64" Value="1.10395017333533"/>
-										<Property Name="FadeInShape" Type="int16" Value="6"/>
-										<Property Name="LoopBegin" Type="Real64" Value="1.69648442453189"/>
-										<Property Name="LoopEnd" Type="Real64" Value="29.5677405512194"/>
+										<Property Name="CrossfadeDuration" Type="Real64" Value="2052.631"/>
+										<Property Name="FadeInDuration" Type="Real64" Value="1.77464788732394"/>
+										<Property Name="LoopBegin" Type="Real64" Value="3.2112676056338"/>
+										<Property Name="LoopEnd" Type="Real64" Value="27.7183098591549"/>
 										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
 									</PropertyList>
 									<Language>SFX</Language>
@@ -690,33 +685,8 @@
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
-							<StateInfo>
-								<StateGroupList>
-									<StateGroupInfo>
-										<StateGroupRef Name="Game_State" ID="{B84A3DF8-9B82-466C-9297-FA4E6D1E61AC}"/>
-									</StateGroupInfo>
-								</StateGroupList>
-								<CustomStateList>
-									<CustomState>
-										<StateRef Name="InGame" ID="{5B9BD4F8-34BC-471E-B25C-900D7C455623}"/>
-										<CustomState Name="" ID="{C87AFB28-428C-4D69-B381-62AC5126A1F9}" ShortID="66197047">
-											<PropertyList>
-												<Property Name="Pitch" Type="int32" Value="2400"/>
-											</PropertyList>
-										</CustomState>
-									</CustomState>
-									<CustomState>
-										<StateRef Name="InPauseMenu" ID="{7ECA49E2-276A-4729-BEC0-4A2751976AE0}"/>
-										<CustomState Name="" ID="{F6929CDE-AE1B-45E9-A179-2EE4B5F00685}" ShortID="96348350"/>
-									</CustomState>
-									<CustomState>
-										<StateRef Name="InMainMenu" ID="{F4D127F1-25FE-4935-A995-B78491AED00C}"/>
-										<CustomState Name="" ID="{D4B0586D-79C1-42CF-AC9C-534899EC6354}" ShortID="511675074"/>
-									</CustomState>
-								</CustomStateList>
-							</StateInfo>
 							<ActiveSourceList>
-								<ActiveSource Name="PH_Amb_Space" ID="{2D082427-12B5-4EE7-91BE-18D1D0352FF6}" Platform="Linked"/>
+								<ActiveSource Name="PH_Amb_Space" ID="{D3F8C348-A5CB-45DF-A079-8F5720540AA6}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>

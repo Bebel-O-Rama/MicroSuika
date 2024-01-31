@@ -133,7 +133,7 @@
 						<Action Name="" ID="{180952CA-10EC-42EA-A957-ADD16F9C5E9D}" ShortID="417271475">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PH_Amb_Space_LP" ID="{4E87E571-FA42-4157-94A0-D4BCFA1F9D45}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+									<ObjectRef Name="PH_Amb_Space" ID="{D8C1F1DA-FF66-416F-AAEC-A8BD9875A590}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

@@ -12,38 +12,12 @@
 					<ChildrenList>
 						<Bus Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}">
 							<ChildrenList>
-								<Bus Name="UI" ID="{00C9A77A-5068-431E-A6EB-446C6CC30E90}"/>
-								<Bus Name="Amb" ID="{C6B57395-3305-42CF-B6DD-4CE185CAAC4A}">
-									<StateInfo>
-										<StateGroupList>
-											<StateGroupInfo>
-												<StateGroupRef Name="Game_State" ID="{B84A3DF8-9B82-466C-9297-FA4E6D1E61AC}"/>
-											</StateGroupInfo>
-										</StateGroupList>
-										<CustomStateList>
-											<CustomState>
-												<StateRef Name="InGame" ID="{5B9BD4F8-34BC-471E-B25C-900D7C455623}"/>
-												<CustomState Name="" ID="{F33B6BE9-C8EE-4D3F-A2EB-84C831F710BB}" ShortID="155581396"/>
-											</CustomState>
-											<CustomState>
-												<StateRef Name="InPauseMenu" ID="{7ECA49E2-276A-4729-BEC0-4A2751976AE0}"/>
-												<CustomState Name="" ID="{F77BB7BC-BA80-4279-9161-95E6DC68B10C}" ShortID="244975431"/>
-											</CustomState>
-											<CustomState>
-												<StateRef Name="InMainMenu" ID="{F4D127F1-25FE-4935-A995-B78491AED00C}"/>
-												<CustomState Name="" ID="{5664F43C-4D3A-461F-A32D-0F9A2FABBD55}" ShortID="587150994">
-													<PropertyList>
-														<Property Name="Volume" Type="Real64" Value="-108"/>
-													</PropertyList>
-												</CustomState>
-											</CustomState>
-										</CustomStateList>
-									</StateInfo>
+								<Bus Name="UI" ID="{00C9A77A-5068-431E-A6EB-446C6CC30E90}">
 									<ObjectLists>
 										<ObjectList Name="RTPC">
 											<Reference>
 												<Local>
-													<RTPC Name="" ID="{A6517256-5B84-42AD-91A8-807526F02EE8}" ShortID="213498403">
+													<RTPC Name="" ID="{7F6AC851-BE71-4108-BC5C-0B50653D1CE2}" ShortID="675668105">
 														<PropertyList>
 															<Property Name="PropertyName" Type="string" Value="Pitch"/>
 														</PropertyList>
@@ -53,14 +27,14 @@
 															</Reference>
 															<Reference Name="Curve">
 																<Custom>
-																	<Curve Name="" ID="{983172D3-F05D-4AD2-ACED-437E12180634}">
+																	<Curve Name="" ID="{F9E9D7F0-0DA2-4AF1-BA84-CCF3CACEFF91}">
 																		<PropertyList>
 																			<Property Name="Flags" Type="int32" Value="65537"/>
 																		</PropertyList>
 																		<PointList>
 																			<Point>
 																				<XPos>-48</XPos>
-																				<YPos>-0</YPos>
+																				<YPos>0</YPos>
 																				<Flags>5</Flags>
 																				<SegmentShape>SCurve</SegmentShape>
 																			</Point>
@@ -91,7 +65,7 @@
 											</Reference>
 											<Reference>
 												<Local>
-													<RTPC Name="" ID="{6A91362B-B968-4282-8E9C-D0AB565D5070}" ShortID="24267844">
+													<RTPC Name="" ID="{5E9CA4EB-420F-4E21-BC8C-CE5826BCA8D7}" ShortID="175004153">
 														<PropertyList>
 															<Property Name="PropertyName" Type="string" Value="BusVolume"/>
 														</PropertyList>
@@ -101,14 +75,14 @@
 															</Reference>
 															<Reference Name="Curve">
 																<Custom>
-																	<Curve Name="" ID="{8C4484CF-CD72-447F-A06E-8D623040D07E}">
+																	<Curve Name="" ID="{F1646D19-6D2C-42FE-A72E-385361FC6C21}">
 																		<PropertyList>
 																			<Property Name="Flags" Type="int32" Value="3"/>
 																		</PropertyList>
 																		<PointList>
 																			<Point>
 																				<XPos>-48</XPos>
-																				<YPos>-0</YPos>
+																				<YPos>0</YPos>
 																				<Flags>5</Flags>
 																				<SegmentShape>SCurve</SegmentShape>
 																			</Point>
@@ -197,6 +171,127 @@
 																	<Point>
 																		<XPos>100</XPos>
 																		<YPos>0</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+						</Bus>
+						<Bus Name="Amb" ID="{C6B57395-3305-42CF-B6DD-4CE185CAAC4A}">
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Game_State" ID="{B84A3DF8-9B82-466C-9297-FA4E6D1E61AC}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="InGame" ID="{5B9BD4F8-34BC-471E-B25C-900D7C455623}"/>
+										<CustomState Name="" ID="{F33B6BE9-C8EE-4D3F-A2EB-84C831F710BB}" ShortID="155581396">
+											<PropertyList>
+												<Property Name="Highpass" Type="int16" Value="35"/>
+												<Property Name="Pitch" Type="int32" Value="1200"/>
+												<Property Name="Volume" Type="Real64" Value="-3"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="InPauseMenu" ID="{7ECA49E2-276A-4729-BEC0-4A2751976AE0}"/>
+										<CustomState Name="" ID="{F77BB7BC-BA80-4279-9161-95E6DC68B10C}" ShortID="244975431"/>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="InMainMenu" ID="{F4D127F1-25FE-4935-A995-B78491AED00C}"/>
+										<CustomState Name="" ID="{5664F43C-4D3A-461F-A32D-0F9A2FABBD55}" ShortID="587150994">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64" Value="-3"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{4C0C6BBA-FA18-44CB-86C6-8B795D494ABC}" ShortID="757200539">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_Sidechain" ID="{04C7338A-C74C-46BB-810A-4FDD41BEE2AE}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{4CE14280-0227-4AFF-AAA3-74C2922DB642}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>-48</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																		<SegmentShape>SCurve</SegmentShape>
+																	</Point>
+																	<Point>
+																		<XPos>-30.32029</XPos>
+																		<YPos>1378</YPos>
+																		<Flags>0</Flags>
+																		<SegmentShape>SCurve</SegmentShape>
+																	</Point>
+																	<Point>
+																		<XPos>-9.99188</XPos>
+																		<YPos>-1127</YPos>
+																		<Flags>0</Flags>
+																		<SegmentShape>SCurve</SegmentShape>
+																	</Point>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>-4800</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{A133910B-E982-4E9D-BB93-5610FC4CF17F}" ShortID="842805532">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="BusVolume"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_Sidechain" ID="{04C7338A-C74C-46BB-810A-4FDD41BEE2AE}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{171B9F15-1854-48E2-86A3-23E7D74D290F}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="3"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>-48</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																		<SegmentShape>SCurve</SegmentShape>
+																	</Point>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>-200</YPos>
 																		<Flags>37</Flags>
 																	</Point>
 																</PointList>

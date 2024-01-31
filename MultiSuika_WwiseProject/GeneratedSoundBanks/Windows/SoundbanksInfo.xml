@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{E0FB35EF-0BBA-29C9-F3F8-FE939AC49007}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{EC04E93E-4786-B06D-7E28-BBF2653A33AE}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -44,15 +44,11 @@
 			</StateGroups>
 			<SwitchGroups>
 				<SwitchGroup Id="2942832789" Name="Switch_sound">
-					<Switches>
-						<Switch Id="290285391" Name="Lobby"/>
-						<Switch Id="491961918" Name="Forest"/>
-						<Switch Id="4164838345" Name="Space"/>
-					</Switches>
+					<Switches/>
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{357EC893-E1D8-9262-E6EA-E086A4A308F3}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{CFFA38F3-9E34-1163-9DB2-4A64EF6A86A8}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -78,7 +74,7 @@
 				</File>
 				<File Id="307977073" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Amb_Space.wav</ShortName>
-					<CachePath>SFX/PH_Amb_Space_0E83BFFC.wem</CachePath>
+					<CachePath>SFX/PH_Amb_Space_818980D0.wem</CachePath>
 				</File>
 				<File Id="334275636" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_03.wav</ShortName>
@@ -198,5 +194,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{8348F2F3-5ED9-ED9D-A8F8-10A3224C858B}</FileHash>
+	<FileHash>{4EA12328-9637-A9A6-3F16-0411D2669358}</FileHash>
 </SoundBanksInfo>
