@@ -654,6 +654,16 @@
 						<Sound Name="PH_Amb_Space_LP" ID="{4E87E571-FA42-4157-94A0-D4BCFA1F9D45}" ShortID="883422314">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>71</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-5</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -680,6 +690,31 @@
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Game_State" ID="{B84A3DF8-9B82-466C-9297-FA4E6D1E61AC}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="InGame" ID="{5B9BD4F8-34BC-471E-B25C-900D7C455623}"/>
+										<CustomState Name="" ID="{C87AFB28-428C-4D69-B381-62AC5126A1F9}" ShortID="66197047">
+											<PropertyList>
+												<Property Name="Pitch" Type="int32" Value="2400"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="InPauseMenu" ID="{7ECA49E2-276A-4729-BEC0-4A2751976AE0}"/>
+										<CustomState Name="" ID="{F6929CDE-AE1B-45E9-A179-2EE4B5F00685}" ShortID="96348350"/>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="InMainMenu" ID="{F4D127F1-25FE-4935-A995-B78491AED00C}"/>
+										<CustomState Name="" ID="{D4B0586D-79C1-42CF-AC9C-534899EC6354}" ShortID="511675074"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
 							<ActiveSourceList>
 								<ActiveSource Name="PH_Amb_Space" ID="{2D082427-12B5-4EE7-91BE-18D1D0352FF6}" Platform="Linked"/>
 							</ActiveSourceList>

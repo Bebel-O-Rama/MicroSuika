@@ -17,7 +17,19 @@ public class Ball : MonoBehaviour
     public float impulseMultiplier;
     public float impulseExpPower;
     public float impulseRangeMultiplier;
-    
+
+    public AK.Wwise.Event WwiseEventBallFuseT0;
+    public AK.Wwise.Event WwiseEventBallFuseT1;
+    public AK.Wwise.Event WwiseEventBallFuseT2;
+    public AK.Wwise.Event WwiseEventBallFuseT3;
+    public AK.Wwise.Event WwiseEventBallFuseT4;
+    public AK.Wwise.Event WwiseEventBallFuseT5;
+    public AK.Wwise.Event WwiseEventBallFuseT6;
+    public AK.Wwise.Event WwiseEventBallFuseT7;
+    public AK.Wwise.Event WwiseEventBallFuseT8;
+    public AK.Wwise.Event WwiseEventBallFuseT9;
+    public AK.Wwise.Event WwiseEventBallFuseT10;
+
     public void EnableCollision()
     {
         rb2d.simulated = true;
@@ -59,6 +71,7 @@ public class Ball : MonoBehaviour
             var newBall = Initializer.InstantiateBall(ballSetData, container,
                 Initializer.WorldToLocalPosition(container.containerParent.transform, contactPosition));
             Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballSpriteThemeData, container);
+            CallFuseSFX(tier, newBall.gameObject);
         }
     }
 
@@ -79,6 +92,45 @@ public class Ball : MonoBehaviour
             float pushIntensity = Mathf.Pow(Mathf.Abs(impulseRadius * impulseRangeMultiplier - Vector2.Distance(ball.ClosestPoint(contactPosition), contactPosition)) * impulseMultiplier, impulseExpPower);
 
             ball.GetComponent<Rigidbody2D>().AddForce(pushIntensity * pushDirection, ForceMode2D.Impulse);
+        }
+    }
+    private void CallFuseSFX(int tier, GameObject newBallObj)
+    {
+        switch (tier)
+        {
+            case 0:
+                WwiseEventBallFuseT0.Post(newBallObj);
+                break;
+            case 1:
+                WwiseEventBallFuseT1.Post(newBallObj);
+                break;
+            case 2:
+                WwiseEventBallFuseT2.Post(newBallObj);
+                break;
+            case 3:
+                WwiseEventBallFuseT3.Post(newBallObj);
+                break;
+            case 4:
+                WwiseEventBallFuseT4.Post(newBallObj);
+                break;
+            case 5:
+                WwiseEventBallFuseT5.Post(newBallObj);
+                break;
+            case 6:
+                WwiseEventBallFuseT6.Post(newBallObj);
+                break;
+            case 7:
+                WwiseEventBallFuseT7.Post(newBallObj);
+                break;
+            case 8:
+                WwiseEventBallFuseT8.Post(newBallObj);
+                break;
+            case 9:
+                WwiseEventBallFuseT9.Post(newBallObj);
+                break;
+            case 10:
+                WwiseEventBallFuseT10.Post(newBallObj);
+                break;
         }
     }
 }

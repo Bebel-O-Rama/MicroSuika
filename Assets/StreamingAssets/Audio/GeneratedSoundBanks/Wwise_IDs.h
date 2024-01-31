@@ -32,17 +32,18 @@ namespace AK
 
     namespace STATES
     {
-        namespace PLAYER_STATE
+        namespace GAME_STATE
         {
-            static const AkUniqueID GROUP = 4071417932U;
+            static const AkUniqueID GROUP = 766723505U;
 
             namespace STATE
             {
-                static const AkUniqueID COMBAT = 2764240573U;
-                static const AkUniqueID EXPLORATION = 2582085496U;
+                static const AkUniqueID INGAME = 984691642U;
+                static const AkUniqueID INMAINMENU = 2679786610U;
+                static const AkUniqueID INPAUSEMENU = 2876317275U;
                 static const AkUniqueID NONE = 748895195U;
             } // namespace STATE
-        } // namespace PLAYER_STATE
+        } // namespace GAME_STATE
 
     } // namespace STATES
 
@@ -64,7 +65,11 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID RTPC_SIDECHAIN = 3336838409U;
         static const AkUniqueID RTPC_SPEED = 1381474336U;
+        static const AkUniqueID RTPC_VOL_BGM = 160087661U;
+        static const AkUniqueID RTPC_VOL_MASTER = 3961043687U;
+        static const AkUniqueID RTPC_VOL_SFX = 140602910U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS

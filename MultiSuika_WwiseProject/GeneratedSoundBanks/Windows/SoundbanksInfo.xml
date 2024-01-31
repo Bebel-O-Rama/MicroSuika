@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{3AF7E30C-B78F-7B50-D526-8D22F25C0FEA}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{E0FB35EF-0BBA-29C9-F3F8-FE939AC49007}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -26,14 +26,19 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
 			<GameParameters>
+				<GameParameter Id="140602910" Name="RTPC_Vol_SFX"/>
+				<GameParameter Id="160087661" Name="RTPC_Vol_BGM"/>
 				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+				<GameParameter Id="3336838409" Name="RTPC_Sidechain"/>
+				<GameParameter Id="3961043687" Name="RTPC_Vol_Master"/>
 			</GameParameters>
 			<StateGroups>
-				<StateGroup Id="4071417932" Name="Player_State">
+				<StateGroup Id="766723505" Name="Game_State">
 					<States>
 						<State Id="748895195" Name="None"/>
-						<State Id="2582085496" Name="Exploration"/>
-						<State Id="2764240573" Name="Combat"/>
+						<State Id="984691642" Name="InGame"/>
+						<State Id="2679786610" Name="InMainMenu"/>
+						<State Id="2876317275" Name="InPauseMenu"/>
 					</States>
 				</StateGroup>
 			</StateGroups>
@@ -47,7 +52,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C337CF08-6276-2D6E-7BA2-297B3BAF08FD}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{357EC893-E1D8-9262-E6EA-E086A4A308F3}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -79,6 +84,10 @@
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_03.wav</ShortName>
 					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_03_818F3B66.wem</CachePath>
 				</File>
+				<File Id="335258020" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_1E2D210B.wem</CachePath>
+				</File>
 				<File Id="355877884" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Transient_Var_01.wav</ShortName>
 					<CachePath>SFX/SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem</CachePath>
@@ -95,6 +104,7 @@
 			<Plugins>
 				<Custom>
 					<Plugin Id="266429384" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="1047714122" Name="Meter (Custom)" LibName="Wwise Meter" LibId="8454147"/>
 				</Custom>
 			</Plugins>
 			<Events>
@@ -122,7 +132,7 @@
 				</Event>
 				<Event Id="2448210565" Name="Play_PH_Ball_Fusion_01" DurationType="OneShot" DurationMin="0.24720807" DurationMax="0.24720807">
 					<MediaRefs>
-						<MediaRef Id="95099025"/>
+						<MediaRef Id="335258020"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2448210566" Name="Play_PH_Ball_Fusion_02" DurationType="OneShot" DurationMin="0.23333333" DurationMax="0.23333333">
@@ -179,9 +189,14 @@
 						<MediaRef Id="460676898"/>
 						<MediaRef Id="918024247"/>
 					</MediaRefs>
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1047714122"/>
+						</Custom>
+					</PluginRefs>
 				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{F6E8D3A8-C1C4-7E83-9C33-BF0D38F7F54A}</FileHash>
+	<FileHash>{8348F2F3-5ED9-ED9D-A8F8-10A3224C858B}</FileHash>
 </SoundBanksInfo>

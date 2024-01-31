@@ -2,8 +2,9 @@
 <PluginInfo Platform="Linux" BasePlatform="Linux">
 	<PluginLibs>
 		<PluginLib LibName="Wwise Sine" LibId="6553602" Type="Source" DLL="AkSineTone" StaticLib="AkSineSource"/>
+		<PluginLib LibName="Wwise Meter" LibId="8454147" Type="Effect" DLL="AkSoundEngineDLL" StaticLib="AkMeterFX"/>
 		<PluginLib LibName="System" LibId="11403271" Type="AudioDevice"/>
 		<PluginLib LibName="No Output" LibId="11862023" Type="AudioDevice"/>
 	</PluginLibs>
-	<FileHash>{59C0D2B5-CCCA-53DD-366E-C1ACF585286C}</FileHash>
+	<FileHash>{B582169A-58AB-3A8D-8BB0-0862D2A11F66}</FileHash>
 </PluginInfo>

@@ -15,17 +15,21 @@ Event	ID	Name			Wwise Object Path	Notes
 	2448210573	Play_PH_Ball_Fusion_09			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_09	
 	2464988279	Play_PH_Ball_Fusion_10			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_10	
 
+Effect plug-ins	ID	Name	Type				Notes
+	1047714122	Meter (Custom)	Wwise Meter			
+
 Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
 	266429384	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test\Sine	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	73572143	SFX_Cannon_Appears_Whoosh_Var_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\SFX_Cannon_Appears_Whoosh_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Whoosh_Var_01		70496
-	95099025	PH_Ball_Fusion_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Ball_Fusion_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_01		44896
+	95099025	PH_Ball_Fusion_08	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Ball_Fusion_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_08		44896
 	175014415	SFX_Cannon_Appears_Beeps_Var_02	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\SFX_Cannon_Appears_Beeps_Var_02_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_02		70496
 	178144736	PH_Ball_Bounce	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Ball_Bounce_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Bounce\PH_Ball_Bounce		19296
 	288952451	PH_Ball_Drop	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Ball_Drop_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\PH_Ball_Drop		153696
-	307977073	PH_Amb_Space	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Amb_Space_0E83BFFC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Amb\PH_Amb_Space		5760144
+	307977073	PH_Amb_Space_LP	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Amb_Space_0E83BFFC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Amb\PH_Amb_Space_LP		5760144
 	334275636	SFX_Cannon_Appears_Beeps_Var_03	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\SFX_Cannon_Appears_Beeps_Var_03_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_03		70496
+	335258020	PH_Ball_Fusion_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\PH_Ball_Fusion_1E2D210B.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_01		44896
 	355877884	SFX_Cannon_Appears_Transient_Var_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Transient_Var_01		70496
 	460676898	SFX_Cannon_Appears_Beeps_Var_04	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\SFX_Cannon_Appears_Beeps_Var_04_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_04		70496
 	918024247	SFX_Cannon_Appears_Beeps_Var_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Windows\SFX\SFX_Cannon_Appears_Beeps_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_01		70496
