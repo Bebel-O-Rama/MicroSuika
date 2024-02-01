@@ -27,20 +27,6 @@ namespace MultiSuika.Utilities
             return instantiatedPlayerInputHandlers;
         }
 
-        // public static void SetPlayersParameters(List<PlayerData> playersData, List<Player.Player> players)
-        // {
-        //     for (int i = 0; i < players.Count; i++)
-        //     {
-        //         SetPlayerParameters(playersData[i], players[i]);
-        //     }
-        // }
-        //
-        // public static void SetPlayerParameters(PlayerData playerData, Player.Player player)
-        // {
-        //     player.score = playerData.mainScore;
-        //     player.playerIndex = playerData.playerIndexNumber;
-        // }
-
         #endregion
 
         #region Container
@@ -70,7 +56,7 @@ namespace MultiSuika.Utilities
                 instantiatedContainers.Add(newContainer);
 
                 GameObject containerParent = new GameObject($"{gameModeData.containerParentName}_{(i + 1)}");
-                newContainer.containerParent = containerParent;
+                newContainer.ContainerParent = containerParent;
 
                 containerParent.transform.position =
                     gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
@@ -116,7 +102,7 @@ namespace MultiSuika.Utilities
 
         public static Cannon.Cannon InstantiateCannon(GameModeData gameModeData, Container.Container container)
         {
-            GameObject cannonObj = Object.Instantiate(gameModeData.cannonPrefab, container.containerParent.transform);
+            GameObject cannonObj = Object.Instantiate(gameModeData.cannonPrefab, container.ContainerParent.transform);
             ResetLocalTransform(cannonObj.transform);
 
             float xPos = gameModeData.isCannonSpawnXPosRandom
@@ -128,17 +114,17 @@ namespace MultiSuika.Utilities
             return cannonObj.GetComponent<Cannon.Cannon>();
         }
 
-        public static void SetCannonsParameters(List<Cannon.Cannon> cannons, List<Container.Container> containers, GameModeData gameModeData,
+        public static void SetCannonsParameters(List<Cannon.Cannon> cannons, List<Container.Container> containers, BallTracker balltracker, GameModeData gameModeData,
             List<PlayerData> playerData)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
-                SetCannonParameters(cannons[i], containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
+                SetCannonParameters(cannons[i], containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], balltracker,
                     gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i]);
             }
         }
 
-        public static void SetCannonParameters(Cannon.Cannon cannon, Container.Container container, GameModeData gameModeData,
+        public static void SetCannonParameters(Cannon.Cannon cannon, Container.Container container, BallTracker ballTracker, GameModeData gameModeData,
             PlayerData playerData, PlayerSkinData playerSkinData)
         {
             cannon.speed = gameModeData.cannonSpeed;
@@ -152,11 +138,11 @@ namespace MultiSuika.Utilities
             cannon.ballSpriteData = playerSkinData.ballTheme;
             cannon.scoreReference = playerData.mainScore;
             cannon.container = container;
-
+            cannon.ballTracker = ballTracker;
             cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
         }
 
-        public static void ConnectCannonsToPlayers(List<Cannon.Cannon> cannons, List<PlayerInputHandler> playerInputHandlers, bool isActive)
+        public static void ConnectCannonsToPlayerInputs(List<Cannon.Cannon> cannons, List<PlayerInputHandler> playerInputHandlers, bool isActive)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
@@ -176,7 +162,7 @@ namespace MultiSuika.Utilities
         public static Ball.Ball InstantiateBall(BallSetData ballSetData, Container.Container container,
             Vector3 position, float randomRotationRange = 35f)
         {
-            var ballObj = Object.Instantiate(ballSetData.ballPrefab, container.containerParent.transform);
+            var ballObj = Object.Instantiate(ballSetData.ballPrefab, container.ContainerParent.transform);
             ResetLocalTransform(ballObj.transform);
 
             ballObj.transform.localPosition = position;
@@ -186,7 +172,7 @@ namespace MultiSuika.Utilities
             return ballObj.GetComponent<Ball.Ball>();
         }
 
-        public static void SetBallParameters(Ball.Ball ball, int ballTierIndex, IntReference scoreRef, BallSetData ballSetData, BallSpriteThemeData ballSpriteThemeData, Container.Container container, bool disableCollision = false)
+        public static void SetBallParameters(Ball.Ball ball, int ballTierIndex, IntReference scoreRef, BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData, Container.Container container, bool disableCollision = false)
         {
             var ballData = ballSetData.GetBallData(ballTierIndex);
             if (ballData == null)
@@ -212,6 +198,7 @@ namespace MultiSuika.Utilities
             ball.ballSetData = ballSetData;
             ball.ballSpriteThemeData = ballSpriteThemeData;
             ball.container = container;
+            ball.ballTracker = ballTracker;
 
             ball.impulseMultiplier = ballSetData.impulseMultiplier;
             ball.impulseExpPower = ballSetData.impulseExpPower;

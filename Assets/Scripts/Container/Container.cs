@@ -7,10 +7,10 @@ namespace MultiSuika.Container
         [SerializeField] [Min(0f)] public float horizontalMvtHalfLength;
         [SerializeField] public SpriteRenderer sideSpriteRenderer;
         [SerializeField] public SpriteRenderer backgroundSpriteRenderer;
-    
+
         private GameObject _containerParent;
     
-        public GameObject containerParent
+        public GameObject ContainerParent
         {
             get => _containerParent;
             set

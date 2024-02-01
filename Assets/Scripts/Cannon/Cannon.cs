@@ -26,14 +26,13 @@ namespace MultiSuika.Cannon
         public BallSpriteThemeData ballSpriteData;
         public IntReference scoreReference;
         public Container.Container container;
+        public BallTracker ballTracker;
         private Ball.Ball _currentBall;
         private float _currentBallDistanceFromCannon;
 
-        //Wwise Event
+        // Wwise Event
         public AK.Wwise.Event WwiseEventCannonShoot;
-
-
-
+        
         public void DestroyCurrentBall()
         {
             if (_currentBall != null)
@@ -61,7 +60,7 @@ namespace MultiSuika.Cannon
             if (_currentBall == null)
                 return;
         
-            _currentBall.EnableCollision();
+            _currentBall.DropBallFromCannon();
             _currentBall.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
             _currentBall = null;
             Invoke("LoadNewBall", reloadCooldown);
@@ -95,7 +94,7 @@ namespace MultiSuika.Cannon
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
             _currentBall = Initializer.InstantiateBall(ballSetData, container,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballSpriteData, container, true);
+            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, true);
         }
     
     }

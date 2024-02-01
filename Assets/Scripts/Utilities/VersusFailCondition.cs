@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
-    public class TriggerConditionHandler : MonoBehaviour
+    public class VersusFailCondition : MonoBehaviour
     {
         [SerializeField] public List<TriggerConditionComponent> triggers;
         [SerializeField] public SpriteRenderer indicator;
@@ -27,13 +27,19 @@ namespace MultiSuika.Utilities
 
         public void TriggerConditionEnter(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Ball"))
-                indicator.color = Color.red;
+            if (!other.gameObject.CompareTag("Ball"))
+                return;
+            indicator.enabled = true;
+            var ball = other.GetComponent<Ball.Ball>();
+            var balls = ball.ballTracker.GetBallsForContainer(ball.container);
+            foreach (var b in balls)
+            {
+                b.SetBallFreeze(true);
+            }
         }
 
         public void TriggerConditionExit(Collider2D other)
         {
-            
         }
     }
 }

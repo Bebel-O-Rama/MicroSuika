@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using MultiSuika.Ball;
 using MultiSuika.GameLogic.GameLogic_SO;
 using MultiSuika.Player;
 using MultiSuika.UI;
@@ -25,7 +26,8 @@ namespace MultiSuika.GameLogic
         private List<PlayerInputHandler> _playerInputHandlers = new List<PlayerInputHandler>();
         private List<Cannon.Cannon> _cannons = new List<Cannon.Cannon>();
         private List<Container.Container> _containers = new List<Container.Container>();
-    
+        private BallTracker _ballTracker = new BallTracker();
+
         private void Awake()
         {
             // Connect to the PlayerInputManager and Set the lobbyContainerTrigger
@@ -61,7 +63,7 @@ namespace MultiSuika.GameLogic
             _playerInputHandlers.Add(newPlayerInputHandler);
             Cannon.Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
             _cannons.Add(newCannon);
-            Initializer.SetCannonParameters(newCannon, _containers[0], gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex]);
+            Initializer.SetCannonParameters(newCannon, _containers[0], _ballTracker, gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex]);
             Initializer.ConnectCannonToPlayer(newCannon, newPlayerInputHandler, true);
 
             // Do custom stuff when a player joins in the lobby
