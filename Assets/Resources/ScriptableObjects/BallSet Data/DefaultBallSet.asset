@@ -33,15 +33,15 @@ MonoBehaviour:
     Variable: {fileID: 0}
   impulseExpPower:
     UseConstant: 1
-    ConstantValue: 2
+    ConstantValue: 2.3
     UseRandomRange: 1
-    RandomCoefficient: 0.05
+    RandomCoefficient: 0.15
     Variable: {fileID: 0}
   impulseRangeMultiplier:
     UseConstant: 1
     ConstantValue: 1.2
     UseRandomRange: 1
-    RandomCoefficient: 0.05
+    RandomCoefficient: 0.1
     Variable: {fileID: 0}
   bounciness:
     UseConstant: 1
@@ -52,12 +52,6 @@ MonoBehaviour:
   friction:
     UseConstant: 1
     ConstantValue: 0.3
-    UseRandomRange: 1
-    RandomCoefficient: 0.1
-    Variable: {fileID: 0}
-  mass:
-    UseConstant: 1
-    ConstantValue: 1
     UseRandomRange: 1
     RandomCoefficient: 0.1
     Variable: {fileID: 0}

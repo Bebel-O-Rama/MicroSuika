@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
-using MultiSuika.Game_Logic;
+using MultiSuika.GameLogic.GameLogic_SO;
 using MultiSuika.Player;
 using MultiSuika.Skin;
 using UnityEngine;
@@ -14,32 +14,32 @@ namespace MultiSuika.Utilities
     {
         #region Player
 
-        public static List<Player.Player> InstantiatePlayers(List<PlayerData> connectedPlayerData, GameModeData gameModeData)
+        public static List<PlayerInputHandler> InstantiatePlayerInputHandlers(List<PlayerData> connectedPlayerData, GameModeData gameModeData)
         {
-            List<Player.Player> instantiatedPlayers = new List<Player.Player>();
+            List<PlayerInputHandler> instantiatedPlayerInputHandlers = new List<PlayerInputHandler>();
             foreach (var playerData in connectedPlayerData)
             {
                 var playerInputObj = PlayerInput.Instantiate(gameModeData.playerPrefab, playerData.playerIndexNumber,
                     pairWithDevice: playerData.inputDevice);
-                instantiatedPlayers.Add(playerInputObj.GetComponentInParent<Player.Player>());
+                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputHandler>());
             }
 
-            return instantiatedPlayers;
+            return instantiatedPlayerInputHandlers;
         }
 
-        public static void SetPlayersParameters(List<PlayerData> playersData, List<Player.Player> players)
-        {
-            for (int i = 0; i < players.Count; i++)
-            {
-                SetPlayerParameters(playersData[i], players[i]);
-            }
-        }
-
-        public static void SetPlayerParameters(PlayerData playerData, Player.Player player)
-        {
-            player.score = playerData.mainScore;
-            player.playerIndex = playerData.playerIndexNumber;
-        }
+        // public static void SetPlayersParameters(List<PlayerData> playersData, List<Player.Player> players)
+        // {
+        //     for (int i = 0; i < players.Count; i++)
+        //     {
+        //         SetPlayerParameters(playersData[i], players[i]);
+        //     }
+        // }
+        //
+        // public static void SetPlayerParameters(PlayerData playerData, Player.Player player)
+        // {
+        //     player.score = playerData.mainScore;
+        //     player.playerIndex = playerData.playerIndexNumber;
+        // }
 
         #endregion
 
@@ -156,17 +156,17 @@ namespace MultiSuika.Utilities
             cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
         }
 
-        public static void ConnectCannonsToPlayers(List<Cannon.Cannon> cannons, List<Player.Player> players, bool isActive)
+        public static void ConnectCannonsToPlayers(List<Cannon.Cannon> cannons, List<PlayerInputHandler> playerInputHandlers, bool isActive)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
-                ConnectCannonToPlayer(cannons[i], players[i], isActive);
+                ConnectCannonToPlayer(cannons[i], playerInputHandlers[i], isActive);
             }
         }
 
-        public static void ConnectCannonToPlayer(Cannon.Cannon cannon, Player.Player player, bool isActive)
+        public static void ConnectCannonToPlayer(Cannon.Cannon cannon, PlayerInputHandler playerInputHandler, bool isActive)
         {
-            cannon.SetCannonControlConnexion(player.playerInputHandler, isActive);
+            cannon.SetCannonControlConnexion(playerInputHandler, isActive);
         }
 
         #endregion

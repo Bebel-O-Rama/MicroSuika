@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using MultiSuika.GameLogic.GameLogic_SO;
+using MultiSuika.Player;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
 using TMPro;
@@ -7,7 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace MultiSuika.Game_Logic
+namespace MultiSuika.GameLogic
 {
     [RequireComponent(typeof(PlayerInputManager))]
     public class LobbyMode : MonoBehaviour
@@ -20,7 +22,7 @@ namespace MultiSuika.Game_Logic
         private List<LobbyContainerTrigger> _lobbyContainerTriggers;
         private PlayerInputManager _playerInputManager;
     
-        private List<Player.Player> _players = new List<Player.Player>();
+        private List<PlayerInputHandler> _playerInputHandlers = new List<PlayerInputHandler>();
         private List<Cannon.Cannon> _cannons = new List<Cannon.Cannon>();
         private List<Container.Container> _containers = new List<Container.Container>();
     
@@ -55,13 +57,12 @@ namespace MultiSuika.Game_Logic
 
         private void NewPlayerDetected(PlayerInput playerInput)
         {
-            var (newPlayer, playerIndex) = ConnectPlayerToInputDevice(playerInput);
-            _players.Add(newPlayer);
-            Initializer.SetPlayerParameters(gameData.playerDataList[playerIndex], newPlayer);
+            var (newPlayerInputHandler, playerIndex) = ConnectPlayerToInputDevice(playerInput);
+            _playerInputHandlers.Add(newPlayerInputHandler);
             Cannon.Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
             _cannons.Add(newCannon);
             Initializer.SetCannonParameters(newCannon, _containers[0], gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex]);
-            Initializer.ConnectCannonToPlayer(newCannon, newPlayer, true);
+            Initializer.ConnectCannonToPlayer(newCannon, newPlayerInputHandler, true);
 
             // Do custom stuff when a player joins in the lobby
             Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
@@ -77,7 +78,7 @@ namespace MultiSuika.Game_Logic
             scoreboard.connectedColor = color;
         }
 
-        private (Player.Player, int) ConnectPlayerToInputDevice(PlayerInput playerInput)
+        private (PlayerInputHandler, int) ConnectPlayerToInputDevice(PlayerInput playerInput)
         {
             var playerIndex = gameData.GetConnectedPlayerQuantity();
             if (playerIndex >= 4)
@@ -86,7 +87,7 @@ namespace MultiSuika.Game_Logic
                 return (null, -1);
             }
 
-            var playerRegistered = playerInput.GetComponentInParent<Player.Player>();
+            var playerInputRegistered = playerInput.GetComponentInParent<PlayerInputHandler>();
             var newPlayerData = gameData.playerDataList[playerIndex];
         
             if (newPlayerData.playerIndexNumber != playerIndex)
@@ -94,7 +95,7 @@ namespace MultiSuika.Game_Logic
         
             newPlayerData.SetInputParameters(playerInput.devices[0]);
 
-            return (playerRegistered, playerIndex);
+            return (playerInputRegistered, playerIndex);
         }
     
         private void DisconnectPlayers()
@@ -105,12 +106,12 @@ namespace MultiSuika.Game_Logic
                 Destroy(cannon.gameObject);
             }
 
-            foreach (var player in _players)
+            foreach (var playerInputHandler in _playerInputHandlers)
             {
-                Destroy(player.gameObject);
+                Destroy(playerInputHandler.gameObject);
             }
             _cannons.Clear();
-            _players.Clear();
+            _playerInputHandlers.Clear();
 
             foreach (var playerData in gameData.playerDataList)
             {

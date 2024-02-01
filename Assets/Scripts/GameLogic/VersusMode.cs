@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using MultiSuika.GameLogic.GameLogic_SO;
 using MultiSuika.Utilities;
+using MultiSuika.Player;
 using UnityEngine;
 
-namespace MultiSuika.Game_Logic
+namespace MultiSuika.GameLogic
 {
     public class VersusMode : MonoBehaviour
     {
@@ -10,7 +12,7 @@ namespace MultiSuika.Game_Logic
         [SerializeField] public GameModeData gameModeData;
     
         private int _numberPlayerConnected;
-        private List<Player.Player> _players;
+        private List<PlayerInputHandler> _playerInputHandlers;
         private List<Cannon.Cannon> _cannons;
         private List<Container.Container> _containers;
 
@@ -36,10 +38,11 @@ namespace MultiSuika.Game_Logic
             Initializer.SetCannonsParameters(_cannons, _containers, gameModeData, gameData.playerDataList);
         
             //// Init and set players
-            _players = Initializer.InstantiatePlayers(gameData.GetConnectedPlayersData(), gameModeData);
-            Initializer.SetPlayersParameters(gameData.playerDataList, _players);
-            Initializer.ConnectCannonsToPlayers(_cannons, _players, true);
+            _playerInputHandlers = Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
+            // Initializer.SetPlayersParameters(gameData.playerDataList, _players);
+            Initializer.ConnectCannonsToPlayers(_cannons, _playerInputHandlers, true);
 
         }
+        
     }
 }

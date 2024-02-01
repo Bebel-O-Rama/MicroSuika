@@ -44,15 +44,15 @@ namespace MultiSuika.Cannon
         {
             if (isActive)
             {
-                playerInputHandler.OnHorizontalMvtContinuous += MoveCannon;
-                playerInputHandler.OnShoot += DropBall;
+                playerInputHandler.onHorizontalMvtContinuous += MoveCannon;
+                playerInputHandler.onShoot += DropBall;
                 if (_currentBall == null)
                     LoadNewBall();
             }
             else
             {
-                playerInputHandler.OnHorizontalMvtContinuous -= MoveCannon;
-                playerInputHandler.OnShoot -= DropBall;
+                playerInputHandler.onHorizontalMvtContinuous -= MoveCannon;
+                playerInputHandler.onShoot -= DropBall;
             }
         }
     

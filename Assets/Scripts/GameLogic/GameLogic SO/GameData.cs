@@ -3,7 +3,7 @@ using System.Linq;
 using MultiSuika.Player;
 using UnityEngine;
 
-namespace MultiSuika.Game_Logic
+namespace MultiSuika.GameLogic.GameLogic_SO
 {
     [CreateAssetMenu(menuName = "Game Logic/Game Data")]
     public class GameData : ScriptableObject

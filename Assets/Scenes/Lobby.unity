@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b248f0e4be2fe469b622b6ad7de109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumberThreshold: 2
+  playerNumberThreshold: 1
   _textEnoughPlayers: {fileID: 1816893765}
   _lidCollider: {fileID: 1877129155}
   OnTrigger:
@@ -4600,7 +4600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b248f0e4be2fe469b622b6ad7de109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumberThreshold: 2
+  playerNumberThreshold: 1
   _textEnoughPlayers: {fileID: 1562296369}
   _lidCollider: {fileID: 1680409432}
   OnTrigger:
