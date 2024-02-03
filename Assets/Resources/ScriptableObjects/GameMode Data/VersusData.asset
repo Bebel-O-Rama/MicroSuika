@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
   m_Name: VersusData
   m_EditorClassIdentifier: 
-  skinData: {fileID: 11400000, guid: 76e42279798bbab49a5e29b00fc86590, type: 2}
+  skinData: {fileID: 11400000, guid: 24bae13bea630494e9209e686c988956, type: 2}
   containerPrefab: {fileID: 4793840066780438698, guid: d5bc03dc1ef652c43976355e7d0fb316, type: 3}
   containerParentName: ContainerVersus
   leftmostContainerPositions:
-  - {x: 0, y: -0.3}
-  - {x: -3.4, y: -0.5}
-  - {x: -5.6, y: -0.4}
-  - {x: -6.3, y: -1.05}
+  - {x: 0, y: 0.5}
+  - {x: -3.4, y: 0.5}
+  - {x: -5.6, y: 0.5}
+  - {x: -6.3, y: 0.5}
   containerGeneralScaling:
-  - 0.7
-  - 0.65
-  - 0.6
-  - 0.48
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
   playerPerContainer: 1
   cannonPrefab: {fileID: 8209449368855194967, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
   isCannonSpawnXPosRandom: 0
