@@ -69,7 +69,7 @@
 						</RTPCValue>
 						<RTPCValue>
 							<GameParameterRef Name="RTPC_Sidechain" ID="{04C7338A-C74C-46BB-810A-4FDD41BEE2AE}"/>
-							<Value>0</Value>
+							<Value>-48</Value>
 						</RTPCValue>
 						<RTPCValue>
 							<GameParameterRef Name="RTPC_Vol_BGM" ID="{65E8CABA-94B3-4CB9-8AA7-0841DFD7CD62}"/>

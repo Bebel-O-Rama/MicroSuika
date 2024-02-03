@@ -21,7 +21,7 @@
 								<Action Name="" ID="{4390DA70-A7BA-44D9-BFF4-26913AE776F4}" ShortID="702348639">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_01" ID="{BC3B5617-8AA8-4400-9A1F-D773230676FE}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_02" ID="{63D55591-392B-49FC-A62F-6393C77F7E5F}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -32,7 +32,7 @@
 								<Action Name="" ID="{6F3DEFC9-3AA1-488A-A4BD-0DF59C2B9B53}" ShortID="870010090">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_08" ID="{02EB51F9-B4F9-49B0-A3FF-90A9632266E4}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_09" ID="{06E231F4-3EF9-4CC7-87D9-CA61ECB1504D}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -43,7 +43,7 @@
 								<Action Name="" ID="{0A405BDA-A38E-4589-8D48-31C56E0D4BEF}" ShortID="443057821">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_07" ID="{E5BB5DE3-8767-4621-9D70-90C268F65D19}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_08" ID="{02EB51F9-B4F9-49B0-A3FF-90A9632266E4}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -54,7 +54,7 @@
 								<Action Name="" ID="{1E092E8A-DCB3-45F5-BA7F-ADFD84FB0505}" ShortID="326095247">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_06" ID="{60ED4C64-CCF7-4328-91D3-E0DE0BC549AE}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_07" ID="{E5BB5DE3-8767-4621-9D70-90C268F65D19}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -65,7 +65,7 @@
 								<Action Name="" ID="{86DDC6E9-C7F3-4477-87FD-7B3D2AA41EEF}" ShortID="339398071">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_10" ID="{3C39D2CC-812C-47A2-91C2-4E7B66E08BDB}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_11" ID="{E7C6856F-DFF3-464E-92DC-64140B64BA10}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -76,7 +76,7 @@
 								<Action Name="" ID="{14F49087-37B9-47FE-8F7D-716C1BAA5A1A}" ShortID="200384582">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_03" ID="{A0EF72CE-7D84-434A-9342-8C0095DA60D1}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_04" ID="{EA8D3744-547B-47F6-9197-FCBA5E88311E}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -87,7 +87,7 @@
 								<Action Name="" ID="{B51A7CF0-3EC8-4686-AAEC-3251CABC4291}" ShortID="367028308">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_02" ID="{63D55591-392B-49FC-A62F-6393C77F7E5F}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_03" ID="{A0EF72CE-7D84-434A-9342-8C0095DA60D1}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -98,7 +98,7 @@
 								<Action Name="" ID="{CBF2C193-442F-4E6C-B931-3961587D7AA9}" ShortID="677484747">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_09" ID="{06E231F4-3EF9-4CC7-87D9-CA61ECB1504D}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_10" ID="{3C39D2CC-812C-47A2-91C2-4E7B66E08BDB}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -109,7 +109,7 @@
 								<Action Name="" ID="{CF14F906-8AC6-4D18-807E-8AFF47CA005E}" ShortID="39808200">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_04" ID="{EA8D3744-547B-47F6-9197-FCBA5E88311E}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_05" ID="{07D9ABA7-78D3-4AEA-84D1-CE63A4371593}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -120,7 +120,18 @@
 								<Action Name="" ID="{05D813C1-2B01-4FD0-9C8B-271D23D04C09}" ShortID="169245562">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="PH_Ball_Fusion_05" ID="{07D9ABA7-78D3-4AEA-84D1-CE63A4371593}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+											<ObjectRef Name="PH_Ball_Fusion_06" ID="{60ED4C64-CCF7-4328-91D3-E0DE0BC549AE}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PH_Ball_Fusion_00" ID="{A20F98E3-C97F-4E50-A0BA-6EF55B44D28B}">
+							<ChildrenList>
+								<Action Name="" ID="{B087E0FB-FCCE-429B-81CE-9F45675C63B9}" ShortID="131360491">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="PH_Ball_Fusion_01" ID="{BC3B5617-8AA8-4400-9A1F-D773230676FE}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -167,6 +178,17 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="SFX_Cannon_Appears" ID="{B1E56C2E-49C1-4744-BACD-F318849B2598}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_PH_UI_Gamemode_Transition_01" ID="{3DD44563-4D12-4C22-B95C-12D00759575B}">
+					<ChildrenList>
+						<Action Name="" ID="{F361B68C-E7E7-4A2F-B1D2-3B184C3DF02D}" ShortID="27227097">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PH_UI_Gamemode_Transition_01" ID="{D1087831-7B09-4201-8696-6F0826A0F845}" WorkUnitID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

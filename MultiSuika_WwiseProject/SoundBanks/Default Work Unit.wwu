@@ -9,6 +9,7 @@
 						<ObjectRef Name="Play_SFX_Cannon_Appears" ID="{BCE2A6D3-18BE-426C-B6EC-42328553E8C6}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Ball_Fusion" ID="{40B26069-3A5C-4425-8D0F-FDC71CD4FCF7}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_PH_Ball_Drop" ID="{B123E5F4-6C63-49C4-B3F9-D7C12348E9A2}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_PH_UI_Gamemode_Transition_01" ID="{3DD44563-4D12-4C22-B95C-12D00759575B}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_PH_Ball_Bounce" ID="{D2950A70-3ABF-4C3E-9D3B-E9DCCF8F799D}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_PH_Amb_Space" ID="{FC519B69-FC08-4E6A-9A2B-6531369F6302}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>

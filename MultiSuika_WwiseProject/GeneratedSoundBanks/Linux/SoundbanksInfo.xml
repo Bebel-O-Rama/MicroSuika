@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{D6E04ED5-3C2C-0B73-70ED-52760EC733FB}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{1B09AC74-E053-ED08-491F-9663AE23A7A3}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -52,7 +52,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{357EC893-E1D8-9262-E6EA-E086A4A308F3}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{112AB31A-0B3E-8578-C08B-427ADC0888AC}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -62,7 +62,7 @@
 				</File>
 				<File Id="95099025" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_818F3B66.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_826C8E1B.wem</CachePath>
 				</File>
 				<File Id="175014415" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_02.wav</ShortName>
@@ -72,13 +72,29 @@
 					<ShortName>PH_Ball_Bounce.wav</ShortName>
 					<CachePath>SFX/PH_Ball_Bounce_818F3B66.wem</CachePath>
 				</File>
+				<File Id="185255546" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_231C4929.wem</CachePath>
+				</File>
+				<File Id="227426752" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_9FED295C.wem</CachePath>
+				</File>
+				<File Id="264829482" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_64B56AC4.wem</CachePath>
+				</File>
 				<File Id="288952451" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Drop.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Drop_818F3B66.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Drop_D199326F.wem</CachePath>
 				</File>
 				<File Id="307977073" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Amb_Space.wav</ShortName>
-					<CachePath>SFX/PH_Amb_Space_0E83BFFC.wem</CachePath>
+					<CachePath>SFX/PH_Amb_Space_0B0B871A.wem</CachePath>
+				</File>
+				<File Id="323463379" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_030A1B7A.wem</CachePath>
 				</File>
 				<File Id="334275636" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_03.wav</ShortName>
@@ -86,19 +102,43 @@
 				</File>
 				<File Id="335258020" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_1E2D210B.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_41D9B077.wem</CachePath>
 				</File>
 				<File Id="355877884" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Transient_Var_01.wav</ShortName>
 					<CachePath>SFX/SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem</CachePath>
 				</File>
+				<File Id="356072598" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_62F16CFE.wem</CachePath>
+				</File>
 				<File Id="460676898" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_04.wav</ShortName>
 					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_04_818F3B66.wem</CachePath>
 				</File>
+				<File Id="594276553" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_8F6E0247.wem</CachePath>
+				</File>
+				<File Id="641987909" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_E15ECE2A.wem</CachePath>
+				</File>
+				<File Id="816961611" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_C8F0F6EA.wem</CachePath>
+				</File>
 				<File Id="918024247" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_01.wav</ShortName>
 					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_01_818F3B66.wem</CachePath>
+				</File>
+				<File Id="1058423354" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_32A52F12.wem</CachePath>
+				</File>
+				<File Id="1072983843" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_UI_Gamemode_Transition_01.wav</ShortName>
+					<CachePath>SFX/PH_UI_Gamemode_Transition_01_818F3B66.wem</CachePath>
 				</File>
 			</Media>
 			<Plugins>
@@ -125,59 +165,69 @@
 						<MediaRef Id="178144736"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="408353238" Name="Play_PH_Ball_Drop" DurationType="OneShot" DurationMin="0.8" DurationMax="0.8">
+				<Event Id="408353238" Name="Play_PH_Ball_Drop" DurationType="OneShot" DurationMin="0.13087071" DurationMax="0.13087071">
 					<MediaRefs>
 						<MediaRef Id="288952451"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2448210565" Name="Play_PH_Ball_Fusion_01" DurationType="OneShot" DurationMin="0.24720807" DurationMax="0.24720807">
+				<Event Id="2448210564" Name="Play_PH_Ball_Fusion_00" DurationType="OneShot" DurationMin="0.048909094" DurationMax="0.048909094">
 					<MediaRefs>
 						<MediaRef Id="335258020"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2448210566" Name="Play_PH_Ball_Fusion_02" DurationType="OneShot" DurationMin="0.23333333" DurationMax="0.23333333">
+				<Event Id="2448210565" Name="Play_PH_Ball_Fusion_01" DurationType="OneShot" DurationMin="0.0358301" DurationMax="0.0358301">
+					<MediaRefs>
+						<MediaRef Id="594276553"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210566" Name="Play_PH_Ball_Fusion_02" DurationType="OneShot" DurationMin="0.05020224" DurationMax="0.05020224">
+					<MediaRefs>
+						<MediaRef Id="264829482"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210567" Name="Play_PH_Ball_Fusion_03" DurationType="OneShot" DurationMin="0.054425158" DurationMax="0.054425158">
+					<MediaRefs>
+						<MediaRef Id="641987909"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210560" Name="Play_PH_Ball_Fusion_04" DurationType="OneShot" DurationMin="0.067144156" DurationMax="0.067144156">
+					<MediaRefs>
+						<MediaRef Id="356072598"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210561" Name="Play_PH_Ball_Fusion_05" DurationType="OneShot" DurationMin="0.09638435" DurationMax="0.09638435">
+					<MediaRefs>
+						<MediaRef Id="1058423354"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210562" Name="Play_PH_Ball_Fusion_06" DurationType="OneShot" DurationMin="0.12258686" DurationMax="0.12258686">
+					<MediaRefs>
+						<MediaRef Id="816961611"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210563" Name="Play_PH_Ball_Fusion_07" DurationType="OneShot" DurationMin="0.13017312" DurationMax="0.13017312">
+					<MediaRefs>
+						<MediaRef Id="323463379"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210572" Name="Play_PH_Ball_Fusion_08" DurationType="OneShot" DurationMin="0.13532741" DurationMax="0.13532741">
 					<MediaRefs>
 						<MediaRef Id="95099025"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2448210567" Name="Play_PH_Ball_Fusion_03" DurationType="OneShot" DurationMin="0.22023733" DurationMax="0.22023733">
+				<Event Id="2448210573" Name="Play_PH_Ball_Fusion_09" DurationType="OneShot" DurationMin="0.15079917" DurationMax="0.15079917">
 					<MediaRefs>
-						<MediaRef Id="95099025"/>
+						<MediaRef Id="185255546"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2448210560" Name="Play_PH_Ball_Fusion_04" DurationType="OneShot" DurationMin="0.20787637" DurationMax="0.20787637">
+				<Event Id="2464988279" Name="Play_PH_Ball_Fusion_10" DurationType="OneShot" DurationMin="0.15116394" DurationMax="0.15116394">
 					<MediaRefs>
-						<MediaRef Id="95099025"/>
+						<MediaRef Id="227426752"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2448210561" Name="Play_PH_Ball_Fusion_05" DurationType="OneShot" DurationMin="0.19620916" DurationMax="0.19620916">
+				<Event Id="3103249001" Name="Play_PH_UI_Gamemode_Transition_01" DurationType="OneShot" DurationMin="1.0333333" DurationMax="1.0333333">
 					<MediaRefs>
-						<MediaRef Id="95099025"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="2448210562" Name="Play_PH_Ball_Fusion_06" DurationType="OneShot" DurationMin="0.18519679" DurationMax="0.18519679">
-					<MediaRefs>
-						<MediaRef Id="95099025"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="2448210563" Name="Play_PH_Ball_Fusion_07" DurationType="OneShot" DurationMin="0.1748025" DurationMax="0.1748025">
-					<MediaRefs>
-						<MediaRef Id="95099025"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="2448210572" Name="Play_PH_Ball_Fusion_08" DurationType="OneShot" DurationMin="0.16499159" DurationMax="0.16499159">
-					<MediaRefs>
-						<MediaRef Id="95099025"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="2448210573" Name="Play_PH_Ball_Fusion_09" DurationType="OneShot" DurationMin="0.15573132" DurationMax="0.15573132">
-					<MediaRefs>
-						<MediaRef Id="95099025"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="2464988279" Name="Play_PH_Ball_Fusion_10" DurationType="OneShot" DurationMin="0.12360404" DurationMax="0.12360404">
-					<MediaRefs>
-						<MediaRef Id="95099025"/>
+						<MediaRef Id="1072983843"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="1141855710" Name="Play_SFX_Cannon_Appears" DurationType="OneShot" DurationMin="0.36666667" DurationMax="0.46197107">
@@ -198,5 +248,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{33AF04F9-4B10-D8CC-012F-04497EAF8F8E}</FileHash>
+	<FileHash>{5BC66B63-A649-ABB9-472C-2489B166303E}</FileHash>
 </SoundBanksInfo>

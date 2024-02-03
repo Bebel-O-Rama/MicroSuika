@@ -31,11 +31,7 @@
 											</CustomState>
 											<CustomState>
 												<StateRef Name="InMainMenu" ID="{F4D127F1-25FE-4935-A995-B78491AED00C}"/>
-												<CustomState Name="" ID="{5664F43C-4D3A-461F-A32D-0F9A2FABBD55}" ShortID="587150994">
-													<PropertyList>
-														<Property Name="Volume" Type="Real64" Value="-108"/>
-													</PropertyList>
-												</CustomState>
+												<CustomState Name="" ID="{5664F43C-4D3A-461F-A32D-0F9A2FABBD55}" ShortID="587150994"/>
 											</CustomState>
 										</CustomStateList>
 									</StateInfo>
@@ -60,7 +56,7 @@
 																		<PointList>
 																			<Point>
 																				<XPos>-48</XPos>
-																				<YPos>-0</YPos>
+																				<YPos>0</YPos>
 																				<Flags>5</Flags>
 																				<SegmentShape>SCurve</SegmentShape>
 																			</Point>
@@ -108,7 +104,7 @@
 																		<PointList>
 																			<Point>
 																				<XPos>-48</XPos>
-																				<YPos>-0</YPos>
+																				<YPos>0</YPos>
 																				<Flags>5</Flags>
 																				<SegmentShape>SCurve</SegmentShape>
 																			</Point>

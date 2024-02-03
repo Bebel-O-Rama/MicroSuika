@@ -17,6 +17,7 @@ namespace AK
         static const AkUniqueID PLAY_PH_AMB_SPACE = 738730148U;
         static const AkUniqueID PLAY_PH_BALL_BOUNCE = 942049713U;
         static const AkUniqueID PLAY_PH_BALL_DROP = 408353238U;
+        static const AkUniqueID PLAY_PH_BALL_FUSION_00 = 2448210564U;
         static const AkUniqueID PLAY_PH_BALL_FUSION_01 = 2448210565U;
         static const AkUniqueID PLAY_PH_BALL_FUSION_02 = 2448210566U;
         static const AkUniqueID PLAY_PH_BALL_FUSION_03 = 2448210567U;
@@ -27,6 +28,7 @@ namespace AK
         static const AkUniqueID PLAY_PH_BALL_FUSION_08 = 2448210572U;
         static const AkUniqueID PLAY_PH_BALL_FUSION_09 = 2448210573U;
         static const AkUniqueID PLAY_PH_BALL_FUSION_10 = 2464988279U;
+        static const AkUniqueID PLAY_PH_UI_GAMEMODE_TRANSITION_01 = 3103249001U;
         static const AkUniqueID PLAY_SFX_CANNON_APPEARS = 1141855710U;
     } // namespace EVENTS
 

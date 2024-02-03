@@ -4,6 +4,10 @@
 		<WorkUnit Name="Default Work Unit" ID="{1E14609E-AF95-49FA-ACF2-E38E4A7A99BB}" PersistMode="Standalone">
 			<ChildrenList>
 				<ActorMixer Name="SFX" ID="{9F8F708E-5C49-4BC4-8A5A-D6125D500E23}" ShortID="323405142">
+					<PropertyList>
+						<Property Name="3DSpatialization" Type="int16" Value="1"/>
+						<Property Name="EnableAttenuation" Type="bool" Value="False"/>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
@@ -43,9 +47,14 @@
 							<ChildrenList>
 								<Sound Name="PH_Ball_Fusion_01" ID="{BC3B5617-8AA8-4400-9A1F-D773230676FE}" ShortID="145900208">
 									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
-												<Value>-100</Value>
+												<Value>1800</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -60,10 +69,12 @@
 									<ChildrenList>
 										<AudioFileSource Name="PH_Ball_Fusion" ID="{E8EAEF92-7BEF-45D0-B18A-24D3CC6E8C19}">
 											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="0.0790528233151184"/>
-												<Property Name="FadeOutDuration" Type="Real64" Value="0.128819444444444"/>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.019419341393375"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0830542141324083"/>
 												<Property Name="FadeOutShape" Type="int16" Value="0"/>
 												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0461119366022784"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.184447746409113"/>
 											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
@@ -77,6 +88,18 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="PH_Ball_Fusion_02" ID="{63D55591-392B-49FC-A62F-6393C77F7E5F}" ShortID="367442001">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>1400</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
@@ -87,10 +110,17 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="PH_Ball_Fusion" ID="{F7293EFE-39A2-4491-B401-DDA4A5FF6C8B}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0273897969291729"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0270430906389302"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0440316988608222"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.124467558197127"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
 											<MediaIDList>
-												<MediaID ID="95099025"/>
+												<MediaID ID="594276553"/>
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
@@ -100,9 +130,14 @@
 								</Sound>
 								<Sound Name="PH_Ball_Fusion_03" ID="{A0EF72CE-7D84-434A-9342-8C0095DA60D1}" ShortID="397293990">
 									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-4</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
-												<Value>100</Value>
+												<Value>1000</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -116,10 +151,17 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="PH_Ball_Fusion" ID="{EAF2AAF3-C217-444C-A4A1-0A1CB50262CC}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0256562654779594"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0412580485388806"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0481921743437345"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.13764239722635"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
 											<MediaIDList>
-												<MediaID ID="95099025"/>
+												<MediaID ID="264829482"/>
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
@@ -129,122 +171,11 @@
 								</Sound>
 								<Sound Name="PH_Ball_Fusion_04" ID="{EA8D3744-547B-47F6-9197-FCBA5E88311E}" ShortID="256361027">
 									<PropertyList>
-										<Property Name="Pitch" Type="int32">
+										<Property Name="MakeUpGain" Type="Real64">
 											<ValueList>
-												<Value>200</Value>
+												<Value>-4</Value>
 											</ValueList>
 										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PH_Ball_Fusion" ID="{145FFE71-B5D2-4B28-B4B2-632C209093B5}">
-											<Language>SFX</Language>
-											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="95099025"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PH_Ball_Fusion" ID="{145FFE71-B5D2-4B28-B4B2-632C209093B5}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PH_Ball_Fusion_05" ID="{07D9ABA7-78D3-4AEA-84D1-CE63A4371593}" ShortID="589358239">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ValueList>
-												<Value>300</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PH_Ball_Fusion" ID="{89021EEE-8BBC-41DA-9ED8-8B191E9C9DA8}">
-											<Language>SFX</Language>
-											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="95099025"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PH_Ball_Fusion" ID="{89021EEE-8BBC-41DA-9ED8-8B191E9C9DA8}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PH_Ball_Fusion_06" ID="{60ED4C64-CCF7-4328-91D3-E0DE0BC549AE}" ShortID="456629687">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ValueList>
-												<Value>400</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PH_Ball_Fusion" ID="{A60161EE-E88B-4696-ADBB-3F646364DF5F}">
-											<Language>SFX</Language>
-											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="95099025"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PH_Ball_Fusion" ID="{A60161EE-E88B-4696-ADBB-3F646364DF5F}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PH_Ball_Fusion_07" ID="{E5BB5DE3-8767-4621-9D70-90C268F65D19}" ShortID="869559652">
-									<PropertyList>
-										<Property Name="Pitch" Type="int32">
-											<ValueList>
-												<Value>500</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PH_Ball_Fusion" ID="{517E3EB8-79F5-42DF-A924-10C9A527F416}">
-											<Language>SFX</Language>
-											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="95099025"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PH_Ball_Fusion" ID="{517E3EB8-79F5-42DF-A924-10C9A527F416}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PH_Ball_Fusion_08" ID="{02EB51F9-B4F9-49B0-A3FF-90A9632266E4}" ShortID="767764231">
-									<PropertyList>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
 												<Value>600</Value>
@@ -260,11 +191,177 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="PH_Ball_Fusion" ID="{38ECB59D-D25C-424F-866E-8972A985BA93}">
+										<AudioFileSource Name="PH_Ball_Fusion" ID="{145FFE71-B5D2-4B28-B4B2-632C209093B5}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0166419019316493"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0384843982169391"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.054432887568103"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.131401684001981"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
 											<MediaIDList>
-												<MediaID ID="95099025"/>
+												<MediaID ID="641987909"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Fusion" ID="{145FFE71-B5D2-4B28-B4B2-632C209093B5}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Fusion_05" ID="{07D9ABA7-78D3-4AEA-84D1-CE63A4371593}" ShortID="589358239">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>400</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Fusion" ID="{89021EEE-8BBC-41DA-9ED8-8B191E9C9DA8}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0277365032194156"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0402179296681526"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0495789995047053"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.134175334323923"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="356072598"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Fusion" ID="{89021EEE-8BBC-41DA-9ED8-8B191E9C9DA8}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Fusion_06" ID="{60ED4C64-CCF7-4328-91D3-E0DE0BC549AE}" ShortID="456629687">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Fusion" ID="{A60161EE-E88B-4696-ADBB-3F646364DF5F}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.032937097573056"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0367508667657256"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0377909856364537"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.134175334323923"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1058423354"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Fusion" ID="{A60161EE-E88B-4696-ADBB-3F646364DF5F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Fusion_07" ID="{E5BB5DE3-8767-4621-9D70-90C268F65D19}" ShortID="869559652">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-200</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Fusion" ID="{517E3EB8-79F5-42DF-A924-10C9A527F416}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0308568598315998"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0513125309559188"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.037444279346211"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.14665676077266"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="816961611"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Fusion" ID="{517E3EB8-79F5-42DF-A924-10C9A527F416}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Fusion_08" ID="{02EB51F9-B4F9-49B0-A3FF-90A9632266E4}" ShortID="767764231">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-400</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Fusion" ID="{38ECB59D-D25C-424F-866E-8972A985BA93}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0266963843486875"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0488855869242199"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0426448736998514"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.145963348192174"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="323463379"/>
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
@@ -274,9 +371,14 @@
 								</Sound>
 								<Sound Name="PH_Ball_Fusion_09" ID="{06E231F4-3EF9-4CC7-87D9-CA61ECB1504D}" ShortID="700750439">
 									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
-												<Value>700</Value>
+												<Value>-600</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -290,6 +392,13 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="PH_Ball_Fusion" ID="{9E06B98B-8BAD-433E-B380-9BCBCB71273F}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0214957899950471"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0478454680534918"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0492322932144626"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.144923229321446"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
 											<MediaIDList>
@@ -305,7 +414,7 @@
 									<PropertyList>
 										<Property Name="Pitch" Type="int32">
 											<ValueList>
-												<Value>1100</Value>
+												<Value>-800</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -319,15 +428,59 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="PH_Ball_Fusion" ID="{F87F6BAC-AB9D-46A6-B6C6-308491695B62}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0270430906389302"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0436849925705795"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0436849925705795"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.138682516097078"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
 											<MediaIDList>
-												<MediaID ID="95099025"/>
+												<MediaID ID="185255546"/>
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
 										<ActiveSource Name="PH_Ball_Fusion" ID="{F87F6BAC-AB9D-46A6-B6C6-308491695B62}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Fusion_11" ID="{E7C6856F-DFF3-464E-92DC-64140B64BA10}" ShortID="186717160">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-1200</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Fusion" ID="{F8EF694D-A6FE-45D7-9AA1-FFB2E7073152}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0142187470397347"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.03694227753013"/>
+												<Property Name="FadeOutShape" Type="int16" Value="0"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0585933630510154"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.134175334323923"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Fusion.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="227426752"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Fusion" ID="{F8EF694D-A6FE-45D7-9AA1-FFB2E7073152}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -370,6 +523,13 @@
 							</ChildrenList>
 						</RandomSequenceContainer>
 						<Sound Name="PH_Ball_Drop" ID="{BF7F698C-864A-4D8A-A588-DF2572CE0A97}" ShortID="77592351">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
@@ -380,6 +540,12 @@
 							</ReferenceList>
 							<ChildrenList>
 								<AudioFileSource Name="PH_Ball_Drop" ID="{2571BFD7-4444-4E59-998F-6B71C7E4197A}">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="0.0401055408970978"/>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.0569920844327189"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+										<Property Name="TrimEnd" Type="Real64" Value="0.130870712401057"/>
+									</PropertyList>
 									<Language>SFX</Language>
 									<AudioFile>PH_Ball_Drop.wav</AudioFile>
 									<MediaIDList>
@@ -639,6 +805,35 @@
 								</Reference>
 							</ReferenceList>
 						</ActorMixer>
+						<Sound Name="PH_UI_Gamemode_Transition_01" ID="{D1087831-7B09-4201-8696-6F0826A0F845}" ShortID="659538061">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="PH_UI_Gamemode_Transition_01" ID="{F52C1A74-0410-4E7C-8D29-F243B2C2D97A}">
+									<Language>SFX</Language>
+									<AudioFile>PH_UI_Gamemode_Transition_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1072983843"/>
+									</MediaIDList>
+								</AudioFileSource>
+								<AudioFileSource Name="PH_UI_Gamemode_Transition_02" ID="{DDE54A7C-63E2-49FE-8F5B-3B4A6E5B74F5}">
+									<Language>SFX</Language>
+									<AudioFile>PH_UI_Gamemode_Transition_01.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1072983843"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="PH_UI_Gamemode_Transition_02" ID="{DDE54A7C-63E2-49FE-8F5B-3B4A6E5B74F5}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</ActorMixer>
 				<ActorMixer Name="Amb" ID="{6A60B70A-E7D2-4B98-96BC-E6EC85FE4678}" ShortID="564042542">
@@ -677,10 +872,10 @@
 								<AudioFileSource Name="PH_Amb_Space" ID="{2D082427-12B5-4EE7-91BE-18D1D0352FF6}">
 									<PropertyList>
 										<Property Name="CrossfadeDuration" Type="Real64" Value="864.51889756129"/>
-										<Property Name="FadeInDuration" Type="Real64" Value="1.10395017333533"/>
+										<Property Name="FadeInDuration" Type="Real64" Value="0.458157609734548"/>
 										<Property Name="FadeInShape" Type="int16" Value="6"/>
-										<Property Name="LoopBegin" Type="Real64" Value="1.69648442453189"/>
-										<Property Name="LoopEnd" Type="Real64" Value="29.5677405512194"/>
+										<Property Name="LoopBegin" Type="Real64" Value="1.4029423501679"/>
+										<Property Name="LoopEnd" Type="Real64" Value="28.7207866136265"/>
 										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
 									</PropertyList>
 									<Language>SFX</Language>
@@ -702,6 +897,7 @@
 										<CustomState Name="" ID="{C87AFB28-428C-4D69-B381-62AC5126A1F9}" ShortID="66197047">
 											<PropertyList>
 												<Property Name="Pitch" Type="int32" Value="2400"/>
+												<Property Name="Volume" Type="Real64" Value="-10"/>
 											</PropertyList>
 										</CustomState>
 									</CustomState>
