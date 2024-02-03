@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 3425124505406010505}
   - component: {fileID: 3314332754506479891}
   - component: {fileID: 8019856753539834341}
+  - component: {fileID: 1369687737639963913}
   m_Layer: 0
   m_Name: Bottom box collider
   m_TagString: Container
@@ -275,6 +276,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1369687737639963913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317518681830604624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd22870650c8bc4ca4174c3480c522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2323795891185231754
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +300,7 @@ GameObject:
   - component: {fileID: 6388973159806171733}
   - component: {fileID: 6306947713206764096}
   - component: {fileID: 507826419284896022}
+  - component: {fileID: 8174861649814768761}
   m_Layer: 0
   m_Name: Right box collider
   m_TagString: Container
@@ -433,6 +447,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8174861649814768761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323795891185231754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd22870650c8bc4ca4174c3480c522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2455346982190158426
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +471,7 @@ GameObject:
   - component: {fileID: 6379253795380901775}
   - component: {fileID: 1344592019207423871}
   - component: {fileID: 3242966102360760220}
+  - component: {fileID: 3332955270826213363}
   m_Layer: 0
   m_Name: Right circle collider
   m_TagString: Container
@@ -581,6 +608,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &3332955270826213363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2455346982190158426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd22870650c8bc4ca4174c3480c522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2590421054729633576
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +800,7 @@ GameObject:
   - component: {fileID: 932557986160693434}
   - component: {fileID: 4865772241084644888}
   - component: {fileID: 5142846415193640384}
+  - component: {fileID: 4087372065987209706}
   m_Layer: 0
   m_Name: Left circle collider
   m_TagString: Container
@@ -897,6 +937,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4087372065987209706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3984780701125469758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd22870650c8bc4ca4174c3480c522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4793840066780438698
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +1000,57 @@ MonoBehaviour:
   sideSpriteRenderer: {fileID: 6222359354290259836}
   failureSpriteRenderer: {fileID: 5278633054098832820}
   successSpriteRenderer: {fileID: 6842298208973169298}
+  collisionChecks:
+  - {fileID: 4087372065987209706}
+  - {fileID: 4798963516257272101}
+  - {fileID: 3332955270826213363}
+  - {fileID: 8174861649814768761}
+  - {fileID: 1369687737639963913}
+  ballAudioVelocityMin: 3
+  WwiseEventBallContainerCollisionT0:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT1:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT2:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT3:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT4:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT5:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT6:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT7:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT8:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT9:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  WwiseEventBallContainerCollisionT10:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1 &5507564291842480337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,6 +1165,7 @@ GameObject:
   - component: {fileID: 2222085351641799421}
   - component: {fileID: 4964924520522397776}
   - component: {fileID: 7156290174030537690}
+  - component: {fileID: 4798963516257272101}
   m_Layer: 0
   m_Name: Left box collider
   m_TagString: Container
@@ -1208,6 +1312,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4798963516257272101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7377525045170321306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd22870650c8bc4ca4174c3480c522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8676716460630896164
 GameObject:
   m_ObjectHideFlags: 0

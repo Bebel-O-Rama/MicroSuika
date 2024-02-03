@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using MultiSuika.Utilities;
+using MultiSuika.GameLogic;
 using UnityEngine;
 
-namespace MultiSuika.GameLogic
+namespace MultiSuika.Utilities
 {
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Rigidbody2D))]

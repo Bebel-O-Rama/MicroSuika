@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace MultiSuika
+namespace MultiSuika.Utilities
 {
     public class TimeScaleSlider : MonoBehaviour
     {

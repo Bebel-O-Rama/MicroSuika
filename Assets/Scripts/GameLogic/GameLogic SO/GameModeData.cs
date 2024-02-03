@@ -3,7 +3,7 @@ using MultiSuika.Ball;
 using MultiSuika.Skin;
 using UnityEngine;
 
-namespace MultiSuika.GameLogic.GameLogic_SO
+namespace MultiSuika.GameLogic
 {
     [CreateAssetMenu(menuName = "Game Logic/Game Mode Data")]
     public class GameModeData : ScriptableObject

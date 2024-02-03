@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using MultiSuika.GameLogic;
+using MultiSuika.Utilities;
 using UnityEngine;
 
-namespace MultiSuika.Utilities
+namespace MultiSuika.GameLogic
 {
     public class VersusFailCondition : MonoBehaviour
     {
