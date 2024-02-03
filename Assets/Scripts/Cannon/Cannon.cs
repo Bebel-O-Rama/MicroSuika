@@ -64,7 +64,6 @@ namespace MultiSuika.Cannon
             _currentBall.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
             _currentBall = null;
             Invoke("LoadNewBall", reloadCooldown);
-            Debug.Log("Drop");
             WwiseEventCannonShoot.Post(gameObject);
         }
     

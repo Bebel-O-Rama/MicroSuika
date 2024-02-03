@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: VersusSkin_P3
   m_EditorClassIdentifier: 
   containerBackground: {fileID: 21300000, guid: 3320107218f8c4a4cbff50a1dcb18f1b, type: 3}
+  containerSide: {fileID: 21300000, guid: c44d246d2c33858488a389e060830bec, type: 3}
+  containerFailure: {fileID: 21300000, guid: 619deb81d1b4aea488b63049e99a2039, type: 3}
   cannonSprite: {fileID: 21300000, guid: afad4fdffaf1f9345915a905ddaaa02b, type: 3}
   ballTheme: {fileID: 11400000, guid: 41419f2158bf6d541831e11913a8d4ad, type: 2}
   baseColor: {r: 1, g: 0.7058824, b: 0.8352941, a: 1}

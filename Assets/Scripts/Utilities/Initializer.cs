@@ -32,7 +32,7 @@ namespace MultiSuika.Utilities
         #region Container
 
         public static List<Container.Container> InstantiateContainers(int playerCount,
-            GameModeData gameModeData)
+            GameModeData gameModeData, Transform gameModeParent = null)
         {
             playerCount = playerCount <= 0 ? 1 : playerCount; // For cases like the lobby
             int containerToSpawn = DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
@@ -56,6 +56,8 @@ namespace MultiSuika.Utilities
                 instantiatedContainers.Add(newContainer);
 
                 GameObject containerParent = new GameObject($"{gameModeData.containerParentName}_{(i + 1)}");
+                if (gameModeParent != null)
+                    containerParent.transform.SetParent(gameModeParent, false);
                 newContainer.ContainerParent = containerParent;
 
                 containerParent.transform.position =
@@ -77,6 +79,8 @@ namespace MultiSuika.Utilities
         private static void SetContainerParameters(Container.Container container, PlayerSkinData playerSkinData)
         {
             container.backgroundSpriteRenderer.sprite = playerSkinData.containerBackground;
+            container.sideSpriteRenderer.sprite = playerSkinData.containerSide;
+            container.failureSpriteRenderer.sprite = playerSkinData.containerFailure;
         }
 
         #endregion
@@ -142,18 +146,17 @@ namespace MultiSuika.Utilities
             cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
         }
 
-        public static void ConnectCannonsToPlayerInputs(List<Cannon.Cannon> cannons, List<PlayerInputHandler> playerInputHandlers, bool isActive)
+        public static void ConnectCannonsToPlayerInputs(List<Cannon.Cannon> cannons, List<PlayerInputHandler> playerInputHandlers)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
-                ConnectCannonToPlayer(cannons[i], playerInputHandlers[i], isActive);
+                ConnectCannonToPlayer(cannons[i], playerInputHandlers[i]);
             }
         }
 
-        public static void ConnectCannonToPlayer(Cannon.Cannon cannon, PlayerInputHandler playerInputHandler, bool isActive)
-        {
-            cannon.SetCannonControlConnexion(playerInputHandler, isActive);
-        }
+        public static void ConnectCannonToPlayer(Cannon.Cannon cannon, PlayerInputHandler playerInputHandler) => cannon.SetCannonControlConnexion(playerInputHandler, true);
+        public static void DisconnectCannonFromPlayer(Cannon.Cannon cannon, PlayerInputHandler playerInputHandler) => cannon.SetCannonControlConnexion(playerInputHandler, false);
+        
 
         #endregion
 

@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6044589810484534833, guid: 432972428d9cb49418e7dab4a70f0570, type: 3}
       propertyPath: m_Name
-      value: PF_Deadzone
+      value: PF_Deathzone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

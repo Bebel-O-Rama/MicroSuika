@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3062123810034737300}
   m_Layer: 0
-  m_Name: PF_Deadzone
+  m_Name: PF_Deathzone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
