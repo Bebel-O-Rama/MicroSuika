@@ -52,7 +52,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{112AB31A-0B3E-8578-C08B-427ADC0888AC}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E4889B5E-4884-AA1B-FD13-69DB10C0008E}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -62,7 +62,7 @@
 				</File>
 				<File Id="95099025" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_826C8E1B.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_A9494242.wem</CachePath>
 				</File>
 				<File Id="175014415" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_02.wav</ShortName>
@@ -74,27 +74,27 @@
 				</File>
 				<File Id="185255546" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_231C4929.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_AAA28F61.wem</CachePath>
 				</File>
 				<File Id="227426752" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_9FED295C.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_6158BE32.wem</CachePath>
 				</File>
 				<File Id="264829482" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_64B56AC4.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_89FDD0DC.wem</CachePath>
 				</File>
 				<File Id="288952451" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Drop.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Drop_D199326F.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Drop_74632B8C.wem</CachePath>
 				</File>
 				<File Id="307977073" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Amb_Space.wav</ShortName>
-					<CachePath>SFX/PH_Amb_Space_0B0B871A.wem</CachePath>
+					<CachePath>SFX/PH_Amb_Space_1387AF9C.wem</CachePath>
 				</File>
 				<File Id="323463379" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_030A1B7A.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_95913DAA.wem</CachePath>
 				</File>
 				<File Id="334275636" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_03.wav</ShortName>
@@ -102,7 +102,7 @@
 				</File>
 				<File Id="335258020" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_41D9B077.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_78250ADB.wem</CachePath>
 				</File>
 				<File Id="355877884" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Transient_Var_01.wav</ShortName>
@@ -110,7 +110,7 @@
 				</File>
 				<File Id="356072598" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_62F16CFE.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_7A974858.wem</CachePath>
 				</File>
 				<File Id="460676898" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_04.wav</ShortName>
@@ -118,15 +118,15 @@
 				</File>
 				<File Id="594276553" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_8F6E0247.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_FF53E0EA.wem</CachePath>
 				</File>
 				<File Id="641987909" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_E15ECE2A.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_01113E63.wem</CachePath>
 				</File>
 				<File Id="816961611" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_C8F0F6EA.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_18BE48CA.wem</CachePath>
 				</File>
 				<File Id="918024247" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_01.wav</ShortName>
@@ -134,7 +134,7 @@
 				</File>
 				<File Id="1058423354" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Fusion_32A52F12.wem</CachePath>
+					<CachePath>SFX/PH_Ball_Fusion_FB836219.wem</CachePath>
 				</File>
 				<File Id="1072983843" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_UI_Gamemode_Transition_01.wav</ShortName>
@@ -154,6 +154,25 @@
 							<PluginRef Id="266429384"/>
 						</Custom>
 					</PluginRefs>
+				</Event>
+				<Event Id="1823612792" Name="Play_Gamemode_Switch_InGame" DurationType="OneShot" DurationMin="1.0333333" DurationMax="1.0333333">
+					<MediaRefs>
+						<MediaRef Id="1072983843"/>
+					</MediaRefs>
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="766723505" Id="984691642" Name="InGame"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="3684788607" Name="Play_Gamemode_Switch_InMenu" DurationType="OneShot" DurationMin="1.0333333" DurationMax="1.0333333">
+					<MediaRefs>
+						<MediaRef Id="1072983843"/>
+					</MediaRefs>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="738730148" Name="Play_PH_Amb_Space"/>
+					</ActionPostEvent>
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="766723505" Id="2679786610" Name="InMainMenu"/>
+					</ActionSetState>
 				</Event>
 				<Event Id="738730148" Name="Play_PH_Amb_Space" DurationType="Infinite">
 					<MediaRefs>
@@ -246,7 +265,20 @@
 					</PluginRefs>
 				</Event>
 			</Events>
+			<GameParameters>
+				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="766723505" Name="Game_State">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="984691642" Name="InGame"/>
+						<State Id="2679786610" Name="InMainMenu"/>
+						<State Id="2876317275" Name="InPauseMenu"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{5BC66B63-A649-ABB9-472C-2489B166303E}</FileHash>
+	<FileHash>{1DC51064-C35D-FD47-281B-694F070C9DC3}</FileHash>
 </SoundBanksInfo>

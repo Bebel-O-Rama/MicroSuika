@@ -61,6 +61,14 @@
 							<ObjectRef Name="Play_PH_Ball_Fusion_10" ID="{D1C8849B-0EB5-401B-B05B-740BDE64F3C9}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
 							<Position X="2" Y="4"/>
 						</Module>
+						<Module>
+							<ObjectRef Name="Play_Gamemode_Switch_InGame" ID="{68D2A2A3-ADF3-4DE7-9FCB-81FE41D0A775}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="3" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_Gamemode_Switch_InMenu" ID="{2C86801B-C163-41D2-B5C8-274C475192C6}" WorkUnitID="{1C02EFF9-9890-4012-855A-4DA3BBE4A1A6}"/>
+							<Position X="4" Y="0"/>
+						</Module>
 					</ModuleList>
 					<RTPCValueList ShowAll="true">
 						<RTPCValue>

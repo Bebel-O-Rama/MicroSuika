@@ -18,6 +18,13 @@
 					</ReferenceList>
 					<ChildrenList>
 						<Sound Name="Test" ID="{CF4DFE48-580B-4905-9530-5710B35451BA}" ShortID="855504147">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
@@ -28,9 +35,51 @@
 							</ReferenceList>
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{651DCB9C-A0F3-47CC-8E85-82E9F38DCA64}" ShortID="266429384" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
 							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{8B96AC22-8258-4B8A-94BE-DCE00EBC09E5}" ShortID="604839092">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{9B673DF6-669A-4747-B23E-4F0DC2A0C5F0}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
 							<ActiveSourceList>
 								<ActiveSource Name="Sine" ID="{651DCB9C-A0F3-47CC-8E85-82E9F38DCA64}" Platform="Linked"/>
 							</ActiveSourceList>
@@ -485,7 +534,7 @@
 								</Sound>
 							</ChildrenList>
 						</ActorMixer>
-						<RandomSequenceContainer Name="SFX_Ball_Bounce" ID="{338A5539-2E76-4754-ADEF-D489CBD7C5BF}" ShortID="709019208">
+						<RandomSequenceContainer Name="SFX_Ball_Bounce_T0" ID="{338A5539-2E76-4754-ADEF-D489CBD7C5BF}" ShortID="709019208">
 							<PropertyList>
 								<Property Name="GlobalOrPerObject" Type="int16" Value="0"/>
 							</PropertyList>
@@ -498,7 +547,14 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="PH_Ball_Bounce" ID="{77051EB8-F8C6-469C-B52B-068159FC60F1}" ShortID="421253656">
+								<Sound Name="PH_Ball_Bounce_Tier__01" ID="{9D5A7825-CE75-4650-A148-B46E877A90AF}" ShortID="122204757">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>2200</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
@@ -508,7 +564,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="PH_Ball_Bounce" ID="{B29E1AE9-A6B7-4D07-8056-14AF08C01255}">
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{AF661E22-683A-49B3-A4ED-94C2527318B2}">
 											<Language>SFX</Language>
 											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
 											<MediaIDList>
@@ -517,10 +573,331 @@
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="PH_Ball_Bounce" ID="{B29E1AE9-A6B7-4D07-8056-14AF08C01255}" Platform="Linked"/>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{AF661E22-683A-49B3-A4ED-94C2527318B2}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__02" ID="{0612FE65-6C24-444A-A69C-4FB142A036A3}" ShortID="9170517">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>2000</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{E2AD1BFC-7D03-4CAA-A388-FCA199474DAB}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{E2AD1BFC-7D03-4CAA-A388-FCA199474DAB}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__03" ID="{5A7AB699-7D93-4CCB-8F94-D4F234EBF589}" ShortID="696987848">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>1800</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{8DAB9305-B6E3-41CA-A7AE-64BFC994CEF0}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{8DAB9305-B6E3-41CA-A7AE-64BFC994CEF0}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__04" ID="{5B26E436-9A0E-4CE7-B00F-EFB484ACA718}" ShortID="1025482774">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>1600</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{B3624BEA-CAFA-4B72-A92F-746B1CBDCD52}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{B3624BEA-CAFA-4B72-A92F-746B1CBDCD52}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__05" ID="{6A97CA06-3350-43E2-920B-F9409FACC4E2}" ShortID="308676583">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{94A7CA01-58FD-431F-BB41-75680DF1B20F}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{94A7CA01-58FD-431F-BB41-75680DF1B20F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__06" ID="{5F35B4B1-E338-4DBE-AE77-E79CBD5B39C5}" ShortID="748370577">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{DB61B187-330B-4F2B-B6D7-3AD8216F24AB}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{DB61B187-330B-4F2B-B6D7-3AD8216F24AB}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__07" ID="{44AC9836-109A-4552-A52C-0248E4D9040A}" ShortID="361496673">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{A975F28E-69F6-44FC-A571-C7940E8E9CB1}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{A975F28E-69F6-44FC-A571-C7940E8E9CB1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__08" ID="{67C15FB0-2175-4D8D-A756-8B35321B2C94}" ShortID="529251760">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{6D46B1B4-4603-4891-9A8D-AE85EA5FCA7B}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{6D46B1B4-4603-4891-9A8D-AE85EA5FCA7B}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__09" ID="{6D6E95C7-5DBE-49A6-A4FC-79619C011BEF}" ShortID="673109202">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{80C165D8-B30A-4870-855C-64AC77BEDC83}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{80C165D8-B30A-4870-855C-64AC77BEDC83}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__10" ID="{D375357D-7E9C-4399-9FB7-B8507F172531}" ShortID="875551583">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{2AABB5DF-D589-4654-BE17-96079673121F}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{2AABB5DF-D589-4654-BE17-96079673121F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PH_Ball_Bounce_Tier__11" ID="{125142AB-A388-4E66-9FB6-6F0BA259F75A}" ShortID="888329885">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{090E2F92-8926-4083-81E9-92F80EC584F1}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PH_Ball_Bounce" ID="{F37C044D-EFEE-41F8-92B6-4B42068EE0D8}">
+											<Language>SFX</Language>
+											<AudioFile>PH_Ball_Bounce.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="178144736"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PH_Ball_Bounce" ID="{F37C044D-EFEE-41F8-92B6-4B42068EE0D8}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{90FB850A-F6B8-450F-90C2-7AF344C204F2}" ShortID="1072679505">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{ADDF20D2-B0DA-492B-ADE1-0F1AA363F0AF}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>0</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{2AB7D2D4-9EE7-4F65-857F-65BFA86FF3DA}" ShortID="489295566">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Volume"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{2DC7A6B2-9644-4701-BFBA-070E7A40606E}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="3"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>-200</YPos>
+																		<Flags>5</Flags>
+																		<SegmentShape>SCurve</SegmentShape>
+																	</Point>
+																	<Point>
+																		<XPos>14.017304</XPos>
+																		<YPos>-0.00062</YPos>
+																		<Flags>0</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>0</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
 						</RandomSequenceContainer>
 						<Sound Name="PH_Ball_Drop" ID="{BF7F698C-864A-4D8A-A588-DF2572CE0A97}" ShortID="77592351">
 							<PropertyList>
@@ -783,6 +1160,726 @@
 								</ObjectList>
 							</ObjectLists>
 						</BlendContainer>
+						<Sound Name="Test_01" ID="{3B608AB3-B00A-49B8-B52E-8CFCDF46BC46}" ShortID="598355228">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-200</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{BD659004-618F-4DB3-879C-1D2DB9AB3B05}" ShortID="76144842" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{3A1DEBAC-8C07-4B01-A66E-839463943376}" ShortID="10683892">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{C22E1131-0A52-4D6A-9EEB-03537A71B1E4}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{BD659004-618F-4DB3-879C-1D2DB9AB3B05}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_02" ID="{934B716E-ABB8-424C-9085-B38F062F60B9}" ShortID="983783581">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-400</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{7D4D05D2-D07C-49CE-8A1A-75321ED47E70}" ShortID="1006777763" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{C3FBCEB0-E871-40AF-8220-D81F721C09F3}" ShortID="843032535">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{3F582F30-7C13-41A7-BC4C-146B9780D21A}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{7D4D05D2-D07C-49CE-8A1A-75321ED47E70}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_03" ID="{06F5A5DF-8788-4EC9-B7E6-B1AAC1C5D8CD}" ShortID="234987705">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-600</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{773238BE-1DBE-4F8C-8B85-A9E967FC08B2}" ShortID="852678014" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{C022541C-4077-4832-B709-40054830D37D}" ShortID="629887223">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{E5457994-27F0-4AA3-A698-7ECC261C5EE5}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{773238BE-1DBE-4F8C-8B85-A9E967FC08B2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_04" ID="{801D3D24-D568-4DF2-A810-74E19A41419C}" ShortID="326872728">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-800</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{323CC4F7-8B32-4323-AC8A-A9F4EA2E651B}" ShortID="816370044" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{158674BA-C8DF-4ABF-B282-8C6BEE390F43}" ShortID="161150653">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{002189C9-0B9B-4630-9594-8BE3FFA11F4D}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{323CC4F7-8B32-4323-AC8A-A9F4EA2E651B}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_05" ID="{CA58A1DB-F095-4ED2-B855-A460D8D72605}" ShortID="920454121">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-1000</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{06588A92-07ED-4162-B727-1390C8224909}" ShortID="1030862755" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{0A4E2FD5-447E-43E1-B3DE-AB133093E3F0}" ShortID="742852845">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{EDC9E2AD-7196-4B52-83C3-481658781AD5}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{06588A92-07ED-4162-B727-1390C8224909}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_06" ID="{B201969C-E205-4D7C-87E7-CFADDFA89F3B}" ShortID="362195985">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-1200</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{4AD98395-DFFD-4EF2-9EC7-08D0CECDB281}" ShortID="222047041" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{9FB30978-45C0-4E6F-B3DC-CB90CEC906D0}" ShortID="18335474">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{B21B9F13-1260-46DF-9EAD-8003B85DE181}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{4AD98395-DFFD-4EF2-9EC7-08D0CECDB281}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_07" ID="{0B6B9783-6A0B-4070-B5E9-91FB0EFBB17E}" ShortID="845150151">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-1400</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{A967CC59-9CD7-462E-85D7-A8917AF4FA33}" ShortID="429707094" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{1333149A-36B6-4F0D-BEC6-9E6C2AF421E1}" ShortID="376224267">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{2FD0555C-8367-4615-A0B0-42845F58DB1C}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{A967CC59-9CD7-462E-85D7-A8917AF4FA33}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_08" ID="{ADC9D16A-7A7D-49C2-9932-971E341ACB9B}" ShortID="598902113">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-1600</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{B9F32A2B-F9F3-4F79-AC8E-576EAB880B03}" ShortID="1066427951" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{C4B972C8-C2FD-429A-B774-F8F6533A52A0}" ShortID="533674927">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{DF721F2A-6A6E-41D7-93D3-7575472A8F0E}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{B9F32A2B-F9F3-4F79-AC8E-576EAB880B03}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_09" ID="{AAA776A7-2A17-4B05-8BC1-4E72DE62549E}" ShortID="885721092">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-1800</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{16C787B5-19F8-4E18-8D6E-EF33E3826843}" ShortID="527276681" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{155FE25D-E0D2-4DAF-BF33-ACC6BCEDF862}" ShortID="810925429">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{9DD6AD35-194A-4E43-A239-EB0CB5A5F755}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{16C787B5-19F8-4E18-8D6E-EF33E3826843}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Test_10" ID="{27C99565-BB7F-467A-AD6F-5E4C7F247B1F}" ShortID="375559306">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-2000</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{9528ECD9-4A67-4D91-BCFB-C36910CBA967}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{43C8235F-3B3C-41CA-A376-B4EDA9DC4783}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<SourcePlugin Name="Sine" ID="{EAF22803-D9FB-426B-BFC8-36FFFEA7D4C9}" ShortID="591550250" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+									<PropertyList>
+										<Property Name="SineDuration" Type="Real32" Value="5"/>
+									</PropertyList>
+									<Language>SFX</Language>
+								</SourcePlugin>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="RTPC">
+									<Reference>
+										<Local>
+											<RTPC Name="" ID="{5485DE75-4178-4606-A537-B5FA717E247C}" ShortID="1017527621">
+												<PropertyList>
+													<Property Name="PropertyName" Type="string" Value="Pitch"/>
+												</PropertyList>
+												<ReferenceList>
+													<Reference Name="ControlInput">
+														<ObjectRef Name="RTPC_BallImpactVelocity" ID="{4D8A30EB-1E3D-4730-93CE-8601770B96F3}" WorkUnitID="{CFC2F48F-4040-495E-9574-3B7C159D9B2B}"/>
+													</Reference>
+													<Reference Name="Curve">
+														<Custom>
+															<Curve Name="" ID="{547900F7-125C-4E10-8718-2AFC94278DDE}">
+																<PropertyList>
+																	<Property Name="Flags" Type="int32" Value="65537"/>
+																</PropertyList>
+																<PointList>
+																	<Point>
+																		<XPos>0</XPos>
+																		<YPos>0</YPos>
+																		<Flags>5</Flags>
+																	</Point>
+																	<Point>
+																		<XPos>20</XPos>
+																		<YPos>1078</YPos>
+																		<Flags>37</Flags>
+																	</Point>
+																</PointList>
+															</Curve>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</RTPC>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+							<ActiveSourceList>
+								<ActiveSource Name="Sine" ID="{EAF22803-D9FB-426B-BFC8-36FFFEA7D4C9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</ActorMixer>
 				<ActorMixer Name="UI" ID="{D26E3C25-C406-42FA-9987-3C08C2E1D55F}" ShortID="472842372">

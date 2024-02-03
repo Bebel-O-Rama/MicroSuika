@@ -14,6 +14,8 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID PLAY = 1256202815U;
+        static const AkUniqueID PLAY_GAMEMODE_SWITCH_INGAME = 1823612792U;
+        static const AkUniqueID PLAY_GAMEMODE_SWITCH_INMENU = 3684788607U;
         static const AkUniqueID PLAY_PH_AMB_SPACE = 738730148U;
         static const AkUniqueID PLAY_PH_BALL_BOUNCE = 942049713U;
         static const AkUniqueID PLAY_PH_BALL_DROP = 408353238U;
