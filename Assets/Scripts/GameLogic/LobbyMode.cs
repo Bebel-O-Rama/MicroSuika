@@ -64,8 +64,8 @@ namespace MultiSuika.GameLogic
             Cannon.Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
             _cannons.Add(newCannon);
             Initializer.SetCannonParameters(newCannon, _containers[0], _ballTracker, gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex]);
-            Initializer.ConnectCannonToPlayer(newCannon, newPlayerInputHandler);
-
+            newCannon.ConnectCannonToPlayer(newPlayerInputHandler);
+            
             // Do custom stuff when a player joins in the lobby
             Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
             AddPlayerJoinPopup(playerIndex, newCannon, popupColor);

@@ -22,11 +22,6 @@ namespace MultiSuika.GameLogic
 
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
         [Range(0, 4)][SerializeField] public int debugFakeNumberCount = 2;
-        // [SerializeField] public bool isSimulatedToggleA = true;
-        // [SerializeField] public bool isSimulatedToggleB = true;
-        // private bool _simulatedToggleLastFrameA = true;
-        // private bool _simulatedToggleLastFrameB = true;
-
     
         private void Awake()
         {
@@ -58,34 +53,43 @@ namespace MultiSuika.GameLogic
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
         }
 
-        public void TriggerPlayerFail(Container.Container container)
+        public void PlayerFailure(Container.Container container)
         {
-            // 1. Freeze all the balls in the container
             var balls = _ballTracker.GetBallsForContainer(container);
+            
             foreach (var b in balls)
             {
                 b.SetBallFreeze(true);
             }
-            // 2. Disconnect the cannon(s) in the container from any PlayerInputHandler
-            var cannonsToRemove = new List<Cannon.Cannon>();
+
+            var cannonsToRemove = _cannons.Where(cannon => cannon.container == container).ToList();
+
             for (int i = 0; i < _cannons.Count; i++)
             {
                 if (_cannons[i].container != container)
                     break;
-                Initializer.DisconnectCannonFromPlayer(_cannons[i], _playerInputHandlers[i]);
+                _cannons[i].DisconnectCannonToPlayer();
                 cannonsToRemove.Add(_cannons[i]);
             }
 
             foreach (var cannon in cannonsToRemove)
             {
+                cannon.DisconnectCannonToPlayer();
                 _cannons.Remove(cannon);
                 Destroy(cannon);
             }
+
+            container.ContainerFailure();
+            LookForPlayerSuccess();
+        }
+
+        private void LookForPlayerSuccess()
+        {
+            if (_cannons.Count != 1)
+                return;
             
-            // 2.2. Make sure the cannon can't load a ball after the player lost
-            
-            // 3. Pop the death img on the container
-            container.TriggerContainerFailure();
+            _cannons[0].DisconnectCannonToPlayer();
+            _cannons[0].container.ContainerSuccess();
         }
     }
 }

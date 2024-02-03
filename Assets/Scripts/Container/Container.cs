@@ -8,6 +8,7 @@ namespace MultiSuika.Container
         [SerializeField] public SpriteRenderer backgroundSpriteRenderer;
         [SerializeField] public SpriteRenderer sideSpriteRenderer;
         [SerializeField] public SpriteRenderer failureSpriteRenderer;
+        [SerializeField] public SpriteRenderer successSpriteRenderer;
 
         private GameObject _containerParent;
     
@@ -23,9 +24,14 @@ namespace MultiSuika.Container
     
         public float GetContainerHorizontalHalfLength() => horizontalMvtHalfLength;
 
-        public void TriggerContainerFailure()
+        public void ContainerFailure()
         {
             failureSpriteRenderer.enabled = true;
+        }
+        
+        public void ContainerSuccess()
+        {
+            successSpriteRenderer.enabled = true;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace MultiSuika.Skin
         public Sprite containerBackground;
         public Sprite containerSide;
         public Sprite containerFailure;
+        public Sprite containerSuccess;
 
         // Cannon skin parameters
         [Header("----- CANNON -----")]

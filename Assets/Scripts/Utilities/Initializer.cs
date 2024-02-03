@@ -81,6 +81,7 @@ namespace MultiSuika.Utilities
             container.backgroundSpriteRenderer.sprite = playerSkinData.containerBackground;
             container.sideSpriteRenderer.sprite = playerSkinData.containerSide;
             container.failureSpriteRenderer.sprite = playerSkinData.containerFailure;
+            container.successSpriteRenderer.sprite = playerSkinData.containerSuccess;
         }
 
         #endregion
@@ -150,14 +151,10 @@ namespace MultiSuika.Utilities
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
-                ConnectCannonToPlayer(cannons[i], playerInputHandlers[i]);
+                cannons[i].ConnectCannonToPlayer(playerInputHandlers[i]);
             }
         }
-
-        public static void ConnectCannonToPlayer(Cannon.Cannon cannon, PlayerInputHandler playerInputHandler) => cannon.SetCannonControlConnexion(playerInputHandler, true);
-        public static void DisconnectCannonFromPlayer(Cannon.Cannon cannon, PlayerInputHandler playerInputHandler) => cannon.SetCannonControlConnexion(playerInputHandler, false);
         
-
         #endregion
 
         #region Ball
