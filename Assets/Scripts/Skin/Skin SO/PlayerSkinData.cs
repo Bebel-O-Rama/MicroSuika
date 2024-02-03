@@ -9,7 +9,10 @@ namespace MultiSuika.Skin
         // Container skin parameters
         [Header("----- CONTAINER -----")] 
         public Sprite containerBackground;
-    
+        public Sprite containerSide;
+        public Sprite containerFailure;
+        public Sprite containerSuccess;
+
         // Cannon skin parameters
         [Header("----- CANNON -----")]
         public Sprite cannonSprite;

@@ -8,7 +8,7 @@ namespace MultiSuika.Ball
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Ball"))
-                Destroy(other.gameObject);
+                other.GetComponent<Ball>().ClearBall(false);
         }
     }
 }

@@ -9,12 +9,12 @@ namespace MultiSuika.Player
         [SerializeField] [Range(0f, 1f)] private float discreteAxisDeadzone = 0.5f;
         [SerializeField] [Range(0f, 1f)] private float continuousAxisDeadzone = 0.1f;
     
-        public OnHorizontalMvtContinuousDelegate OnHorizontalMvtContinuous;
-        public OnHorizontalMvtDiscreteDelegate OnHorizontalMvtDiscrete;
-        public OnVerticalMvtContinuousDelegate OnVerticalMvtContinuous;
-        public OnVerticalMvtDiscreteDelegate OnVerticalMvtDiscrete;
-        public OnShootDelegate OnShoot;
-        public OnPauseDelegate OnPause;
+        public OnHorizontalMvtContinuousDelegate onHorizontalMvtContinuous;
+        public OnHorizontalMvtDiscreteDelegate onHorizontalMvtDiscrete;
+        public OnVerticalMvtContinuousDelegate onVerticalMvtContinuous;
+        public OnVerticalMvtDiscreteDelegate onVerticalMvtDiscrete;
+        public OnShootDelegate onShoot;
+        public OnPauseDelegate onPause;
 
         public delegate void OnHorizontalMvtContinuousDelegate(float axis);
         public delegate void OnHorizontalMvtDiscreteDelegate(int axis);
@@ -72,7 +72,7 @@ namespace MultiSuika.Player
         {
             if (context.started)
             {
-                OnShoot?.Invoke();
+                onShoot?.Invoke();
                 if (showInputLog)
                     Debug.Log($"P{_playerInputIndex} dropped a ball");
             }
@@ -82,7 +82,7 @@ namespace MultiSuika.Player
         {
             if (context.started)
             {
-                OnPause?.Invoke();
+                onPause?.Invoke();
                 if (showInputLog)
                     Debug.Log($"P{_playerInputIndex} paused the game");
             }
@@ -111,10 +111,10 @@ namespace MultiSuika.Player
             if (Mathf.Abs(axis) < continuousAxisDeadzone)
                 return;
             if (isHorizontal)
-                OnHorizontalMvtContinuous?.Invoke(axis);
+                onHorizontalMvtContinuous?.Invoke(axis);
             else
             {
-                OnVerticalMvtContinuous?.Invoke(axis);
+                onVerticalMvtContinuous?.Invoke(axis);
             }
         }
 
@@ -137,10 +137,10 @@ namespace MultiSuika.Player
             if (currentValue != 0)
             {
                 if (isHorizontal)
-                    OnHorizontalMvtDiscrete?.Invoke(currentValue);
+                    onHorizontalMvtDiscrete?.Invoke(currentValue);
                 else
                 {
-                    OnVerticalMvtDiscrete?.Invoke(currentValue);
+                    onVerticalMvtDiscrete?.Invoke(currentValue);
                 }
                 if (showInputLog)
                     Debug.Log($"P{_playerInputIndex}, by {currentValue} (discrete)");

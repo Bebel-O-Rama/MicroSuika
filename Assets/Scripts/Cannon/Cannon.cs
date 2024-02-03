@@ -15,6 +15,7 @@ namespace MultiSuika.Cannon
         public float shootingForce;
         public float emptyDistanceBetweenBallAndCannon;
         public bool isUsingPeggleMode = false;
+        private PlayerInputHandler _playerInputHandler;
     
         // Positioning
         public float horizontalMargin;
@@ -26,46 +27,58 @@ namespace MultiSuika.Cannon
         public BallSpriteThemeData ballSpriteData;
         public IntReference scoreReference;
         public Container.Container container;
+        public BallTracker ballTracker;
         private Ball.Ball _currentBall;
         private float _currentBallDistanceFromCannon;
 
-        //Wwise Event
+        // Wwise Event
         public AK.Wwise.Event WwiseEventCannonShoot;
-
-
-
+        
         public void DestroyCurrentBall()
         {
             if (_currentBall != null)
                 Destroy(_currentBall.gameObject);
         }
     
-        public void SetCannonControlConnexion(PlayerInputHandler playerInputHandler, bool isActive)
+        public void SetCannonInputConnexion(bool isActive)
         {
+            if (_playerInputHandler == null)
+                return;
             if (isActive)
             {
-                playerInputHandler.OnHorizontalMvtContinuous += MoveCannon;
-                playerInputHandler.OnShoot += DropBall;
+                _playerInputHandler.onHorizontalMvtContinuous += MoveCannon;
+                _playerInputHandler.onShoot += DropBall;
                 if (_currentBall == null)
                     LoadNewBall();
             }
             else
             {
-                playerInputHandler.OnHorizontalMvtContinuous -= MoveCannon;
-                playerInputHandler.OnShoot -= DropBall;
+                _playerInputHandler.onHorizontalMvtContinuous -= MoveCannon;
+                _playerInputHandler.onShoot -= DropBall;
             }
         }
-    
+
+        public void ConnectCannonToPlayer(PlayerInputHandler playerInputHandler)
+        {
+            _playerInputHandler = playerInputHandler;
+            SetCannonInputConnexion(true);
+        }
+
+        public void DisconnectCannonToPlayer()
+        {
+            SetCannonInputConnexion(false);
+            _playerInputHandler = null;
+        }
+        
         private void DropBall()
         {
             if (_currentBall == null)
                 return;
         
-            _currentBall.EnableCollision();
+            _currentBall.DropBallFromCannon();
             _currentBall.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
             _currentBall = null;
             Invoke("LoadNewBall", reloadCooldown);
-            Debug.Log("Drop");
             WwiseEventCannonShoot.Post(gameObject);
         }
     
@@ -95,7 +108,7 @@ namespace MultiSuika.Cannon
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
             _currentBall = Initializer.InstantiateBall(ballSetData, container,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballSpriteData, container, true);
+            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, true);
         }
     
     }

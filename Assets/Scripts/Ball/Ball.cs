@@ -16,6 +16,7 @@ namespace MultiSuika.Ball
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteThemeData;
         public Container.Container container;
+        public BallTracker ballTracker;
 
         public float impulseMultiplier;
         public float impulseExpPower;
@@ -33,17 +34,22 @@ namespace MultiSuika.Ball
         public AK.Wwise.Event WwiseEventBallFuseT9;
         public AK.Wwise.Event WwiseEventBallFuseT10;
 
-        public void EnableCollision()
+        public void DropBallFromCannon()
         {
+            ballTracker.RegisterBall(this, container);
             rb2d.simulated = true;
             ApplyRotationForce();
         }
 
+        public void SetBallFreeze(bool isFrozen) => rb2d.simulated = !isFrozen; 
+        
         private int GetBallTier() => tier;
 
-        private void ClearBall()
+        public void ClearBall(bool addToScore = true)
         {
-            ballScoreRef?.Variable.ApplyChange(scoreValue);
+            if (addToScore)
+                ballScoreRef?.Variable.ApplyChange(scoreValue);
+            ballTracker.UnregisterBall(this, container);
             rb2d.simulated = false;
             Destroy(gameObject);
         }
@@ -72,8 +78,9 @@ namespace MultiSuika.Ball
             {
                 AddFusionImpulse(tier + 1, contactPosition);
                 var newBall = Initializer.InstantiateBall(ballSetData, container,
-                    Initializer.WorldToLocalPosition(container.containerParent.transform, contactPosition));
-                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballSpriteThemeData, container);
+                    Initializer.WorldToLocalPosition(container.ContainerParent.transform, contactPosition));
+                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container);
+                newBall.ballTracker.RegisterBall(newBall, container);
                 CallFuseSFX(tier, newBall.gameObject);
             }
         }
@@ -82,7 +89,7 @@ namespace MultiSuika.Ball
         {
             float impulseRadius = ballSetData.GetBallData(newBallTier).scale / 2f;
             var ballsInRange =
-                from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * container.containerParent.transform.localScale.x * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
+                from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * container.ContainerParent.transform.localScale.x * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
                     LayerMask.GetMask("Ball"))
                 select raycast.collider;
         
@@ -97,9 +104,9 @@ namespace MultiSuika.Ball
                 ball.GetComponent<Rigidbody2D>().AddForce(pushIntensity * pushDirection, ForceMode2D.Impulse);
             }
         }
-        private void CallFuseSFX(int tier, GameObject newBallObj)
+        private void CallFuseSFX(int ballTier, GameObject newBallObj)
         {
-            switch (tier)
+            switch (ballTier)
             {
                 case 0:
                     WwiseEventBallFuseT0.Post(newBallObj);

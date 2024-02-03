@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: LobbySkin_P4
   m_EditorClassIdentifier: 
   containerBackground: {fileID: 0}
+  containerSide: {fileID: 21300000, guid: 5d2d8415e0ceb504fb60e462cbfdfd88, type: 3}
+  containerFailure: {fileID: 0}
   cannonSprite: {fileID: 21300000, guid: a263c2526835f174f99a12e506a12d20, type: 3}
   ballTheme: {fileID: 11400000, guid: de107eb12ca0aec46a0aac98148b5e00, type: 2}
   baseColor: {r: 0.6039216, g: 0.9882353, b: 0.7647059, a: 1}
