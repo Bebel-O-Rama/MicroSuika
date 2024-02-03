@@ -17,13 +17,12 @@ namespace MultiSuika.Container
         
         private void OnCollisionEnter2D(Collision2D col)
         {
-            var otherObj = col.otherCollider.gameObject;
-            if (!otherObj.CompareTag("Ball"))
+            if (!col.gameObject.CompareTag("Ball"))
                 return;
-            
+
             var velocity = col.relativeVelocity.magnitude;
             if (velocity > _velocityThreshold)
-                _container.OnBallCollision(velocity, otherObj.GetComponent<Ball.Ball>());
+                _container.OnBallCollision(velocity, col.gameObject.GetComponent<Ball.Ball>());
         }
     }
 }
