@@ -36,7 +36,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{651DCB9C-A0F3-47CC-8E85-82E9F38DCA64}" ShortID="266429384" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1184,7 +1184,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{BD659004-618F-4DB3-879C-1D2DB9AB3B05}" ShortID="76144842" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1256,7 +1256,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{7D4D05D2-D07C-49CE-8A1A-75321ED47E70}" ShortID="1006777763" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1328,7 +1328,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{773238BE-1DBE-4F8C-8B85-A9E967FC08B2}" ShortID="852678014" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1400,7 +1400,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{323CC4F7-8B32-4323-AC8A-A9F4EA2E651B}" ShortID="816370044" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1472,7 +1472,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{06588A92-07ED-4162-B727-1390C8224909}" ShortID="1030862755" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1544,7 +1544,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{4AD98395-DFFD-4EF2-9EC7-08D0CECDB281}" ShortID="222047041" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1616,7 +1616,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{A967CC59-9CD7-462E-85D7-A8917AF4FA33}" ShortID="429707094" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1688,7 +1688,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{B9F32A2B-F9F3-4F79-AC8E-576EAB880B03}" ShortID="1066427951" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1760,7 +1760,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{16C787B5-19F8-4E18-8D6E-EF33E3826843}" ShortID="527276681" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>
@@ -1832,7 +1832,7 @@
 							<ChildrenList>
 								<SourcePlugin Name="Sine" ID="{EAF22803-D9FB-426B-BFC8-36FFFEA7D4C9}" ShortID="591550250" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
 									<PropertyList>
-										<Property Name="SineDuration" Type="Real32" Value="5"/>
+										<Property Name="SineDuration" Type="Real32" Value="0.1"/>
 									</PropertyList>
 									<Language>SFX</Language>
 								</SourcePlugin>

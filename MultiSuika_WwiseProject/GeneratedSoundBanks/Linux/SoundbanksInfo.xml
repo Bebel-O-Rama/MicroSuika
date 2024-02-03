@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{1B09AC74-E053-ED08-491F-9663AE23A7A3}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{6B88C410-7BA0-B31F-1337-176018C08E17}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -28,7 +28,7 @@
 			<GameParameters>
 				<GameParameter Id="140602910" Name="RTPC_Vol_SFX"/>
 				<GameParameter Id="160087661" Name="RTPC_Vol_BGM"/>
-				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+				<GameParameter Id="2444185415" Name="RTPC_BallImpactVelocity"/>
 				<GameParameter Id="3336838409" Name="RTPC_Sidechain"/>
 				<GameParameter Id="3961043687" Name="RTPC_Vol_Master"/>
 			</GameParameters>
@@ -52,7 +52,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E4889B5E-4884-AA1B-FD13-69DB10C0008E}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{03A2E39C-7F4F-4E0F-3CC1-48B1CB20C421}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -67,10 +67,6 @@
 				<File Id="175014415" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Cannon_Appears_Beeps_Var_02.wav</ShortName>
 					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_02_818F3B66.wem</CachePath>
-				</File>
-				<File Id="178144736" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PH_Ball_Bounce.wav</ShortName>
-					<CachePath>SFX/PH_Ball_Bounce_818F3B66.wem</CachePath>
 				</File>
 				<File Id="185255546" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PH_Ball_Fusion.wav</ShortName>
@@ -143,12 +139,22 @@
 			</Media>
 			<Plugins>
 				<Custom>
+					<Plugin Id="76144842" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="222047041" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
 					<Plugin Id="266429384" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="429707094" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="527276681" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="591550250" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="816370044" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="852678014" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="1006777763" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="1030862755" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
 					<Plugin Id="1047714122" Name="Meter (Custom)" LibName="Wwise Meter" LibId="8454147"/>
+					<Plugin Id="1066427951" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
 				</Custom>
 			</Plugins>
 			<Events>
-				<Event Id="1256202815" Name="Play" DurationType="OneShot" DurationMin="1" DurationMax="1">
+				<Event Id="1256202815" Name="Play" DurationType="OneShot" DurationMin="0.1" DurationMax="0.1">
 					<PluginRefs>
 						<Custom>
 							<PluginRef Id="266429384"/>
@@ -179,11 +185,7 @@
 						<MediaRef Id="307977073"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="942049713" Name="Play_PH_Ball_Bounce" DurationType="OneShot" DurationMin="0.1" DurationMax="0.1">
-					<MediaRefs>
-						<MediaRef Id="178144736"/>
-					</MediaRefs>
-				</Event>
+				<Event Id="942049713" Name="Play_PH_Ball_Bounce" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="408353238" Name="Play_PH_Ball_Drop" DurationType="OneShot" DurationMin="0.13087071" DurationMax="0.13087071">
 					<MediaRefs>
 						<MediaRef Id="288952451"/>
@@ -264,9 +266,86 @@
 						</Custom>
 					</PluginRefs>
 				</Event>
+				<Event Id="3187507146" Name="Play_Test" DurationType="OneShot" DurationMin="0.1" DurationMax="0.1">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="266429384"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420168" Name="Play_Test_01" DurationType="OneShot" DurationMin="0.11224621" DurationMax="0.11224621">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="76144842"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420171" Name="Play_Test_02" DurationType="OneShot" DurationMin="0.1259921" DurationMax="0.1259921">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1006777763"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420170" Name="Play_Test_03" DurationType="OneShot" DurationMin="0.14142136" DurationMax="0.14142136">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="852678014"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420173" Name="Play_Test_04" DurationType="OneShot" DurationMin="0.1587401" DurationMax="0.1587401">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="816370044"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420172" Name="Play_Test_05" DurationType="OneShot" DurationMin="0.17817974" DurationMax="0.17817974">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1030862755"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420175" Name="Play_Test_06" DurationType="OneShot" DurationMin="0.2" DurationMax="0.2">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="222047041"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420174" Name="Play_Test_07" DurationType="OneShot" DurationMin="0.22449242" DurationMax="0.22449242">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="429707094"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420161" Name="Play_Test_08" DurationType="OneShot" DurationMin="0.2519842" DurationMax="0.2519842">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1066427951"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420160" Name="Play_Test_09" DurationType="OneShot" DurationMin="0.28284273" DurationMax="0.28284273">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="527276681"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2771642582" Name="Play_Test_10" DurationType="OneShot" DurationMin="0.3174802" DurationMax="0.3174802">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="591550250"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
 			</Events>
 			<GameParameters>
-				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+				<GameParameter Id="2444185415" Name="RTPC_BallImpactVelocity"/>
 			</GameParameters>
 			<StateGroups>
 				<StateGroup Id="766723505" Name="Game_State">
@@ -280,5 +359,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{1DC51064-C35D-FD47-281B-694F070C9DC3}</FileHash>
+	<FileHash>{A5921BC2-8026-1319-8B3C-4D8CE00CF7A8}</FileHash>
 </SoundBanksInfo>

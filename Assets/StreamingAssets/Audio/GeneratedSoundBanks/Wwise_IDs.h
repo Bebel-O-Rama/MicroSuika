@@ -32,6 +32,17 @@ namespace AK
         static const AkUniqueID PLAY_PH_BALL_FUSION_10 = 2464988279U;
         static const AkUniqueID PLAY_PH_UI_GAMEMODE_TRANSITION_01 = 3103249001U;
         static const AkUniqueID PLAY_SFX_CANNON_APPEARS = 1141855710U;
+        static const AkUniqueID PLAY_TEST = 3187507146U;
+        static const AkUniqueID PLAY_TEST_01 = 2788420168U;
+        static const AkUniqueID PLAY_TEST_02 = 2788420171U;
+        static const AkUniqueID PLAY_TEST_03 = 2788420170U;
+        static const AkUniqueID PLAY_TEST_04 = 2788420173U;
+        static const AkUniqueID PLAY_TEST_05 = 2788420172U;
+        static const AkUniqueID PLAY_TEST_06 = 2788420175U;
+        static const AkUniqueID PLAY_TEST_07 = 2788420174U;
+        static const AkUniqueID PLAY_TEST_08 = 2788420161U;
+        static const AkUniqueID PLAY_TEST_09 = 2788420160U;
+        static const AkUniqueID PLAY_TEST_10 = 2771642582U;
     } // namespace EVENTS
 
     namespace STATES
@@ -69,8 +80,8 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID RTPC_BALLIMPACTVELOCITY = 2444185415U;
         static const AkUniqueID RTPC_SIDECHAIN = 3336838409U;
-        static const AkUniqueID RTPC_SPEED = 1381474336U;
         static const AkUniqueID RTPC_VOL_BGM = 160087661U;
         static const AkUniqueID RTPC_VOL_MASTER = 3961043687U;
         static const AkUniqueID RTPC_VOL_SFX = 140602910U;

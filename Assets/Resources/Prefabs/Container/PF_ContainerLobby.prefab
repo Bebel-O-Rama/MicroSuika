@@ -1006,51 +1006,55 @@ MonoBehaviour:
   - {fileID: 3332955270826213363}
   - {fileID: 8174861649814768761}
   - {fileID: 1369687737639963913}
-  ballAudioVelocityMin: 3
+  ballAudioVelocityMin: 1
+  rtpc_ballImpactVelocity:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: fda2d2c2f06bd474893c00b281988bf2, type: 2}
   WwiseEventBallContainerCollisionT0:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 8d9de1ce17c3cc94ab8ee514c2c38844, type: 2}
   WwiseEventBallContainerCollisionT1:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 0d2d6a50924d0db44ab8b0a0f7db02e6, type: 2}
   WwiseEventBallContainerCollisionT2:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 27dffb2858fdd8f4d81190a8f27d072e, type: 2}
   WwiseEventBallContainerCollisionT3:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: f92d985ad7efca94d9925c490945a766, type: 2}
   WwiseEventBallContainerCollisionT4:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: d82022c5ecd8fe14d88e7c05ad89a970, type: 2}
   WwiseEventBallContainerCollisionT5:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 25c472f5713facd4e95e3f0936c2bc42, type: 2}
   WwiseEventBallContainerCollisionT6:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 02f1578803788884dae14fe7abc75066, type: 2}
   WwiseEventBallContainerCollisionT7:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 5f079b7320359984692b7baab20537bf, type: 2}
   WwiseEventBallContainerCollisionT8:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 0ad525f3479b8824fae55f2bb12a7d9c, type: 2}
   WwiseEventBallContainerCollisionT9:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: bde245bb47a7bbf4eadc222714c188b4, type: 2}
   WwiseEventBallContainerCollisionT10:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: eaadc6e006fd02442a131aa6d01fe144, type: 2}
 --- !u!1 &5507564291842480337
 GameObject:
   m_ObjectHideFlags: 0
