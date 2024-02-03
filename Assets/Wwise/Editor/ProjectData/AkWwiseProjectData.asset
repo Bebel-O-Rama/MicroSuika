@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Virtual Acoustics\Default Work Unit
     guid: d82c61e4a37fba4e86e23280bfff0c4d
     GuidInternal: 
-    m_lastTime: -8584949426887649148
+    m_lastTime: -8584946310225881724
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 5f23c8433c3bca41a376b4eda9dc4783
     GuidInternal: 
-    m_lastTime: -8584949426888199300
+    m_lastTime: -8584946310226052705
     List:
     - name: Amb
       guid: 9573b5c60533cf42b6dd4ce185caac4a
@@ -140,7 +140,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 6b8986443b2daf42954c240143100b08
     GuidInternal: 
-    m_lastTime: -8584949426887676807
+    m_lastTime: -8584946310225907331
     List:
     - name: Main
       guid: 986e743f244da040ab57113df2a0b1a1
@@ -168,7 +168,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: f9ef021c90981240855a4da3bbe4a1a6
     GuidInternal: 
-    m_lastTime: -8584949426889640608
+    m_lastTime: -8584946310228735544
     List:
     - name: Play
       guid: 10d96c49e3940d429ed3b9bb37c24296
@@ -273,8 +273,8 @@ MonoBehaviour:
         guid: 5ee6206344d5d645b4114c3e2e386cd6
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_01
       maxAttenuation: 0
-      maxDuration: 0.24720807
-      minDuration: 0.24720807
+      maxDuration: 0.21617647
+      minDuration: 0.21617647
     - name: Play_PH_Ball_Fusion_02
       guid: 00767cbc683d5f4f8139c9315013f7d7
       id: 2448210566
@@ -293,8 +293,8 @@ MonoBehaviour:
         guid: 00767cbc683d5f4f8139c9315013f7d7
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_02
       maxAttenuation: 0
-      maxDuration: 0.23333333
-      minDuration: 0.23333333
+      maxDuration: 0.18851532
+      minDuration: 0.18851532
     - name: Play_PH_Ball_Fusion_03
       guid: 7fc4888c63f2bd4fb263cb41fa322814
       id: 2448210567
@@ -313,8 +313,8 @@ MonoBehaviour:
         guid: 7fc4888c63f2bd4fb263cb41fa322814
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_03
       maxAttenuation: 0
-      maxDuration: 0.22023733
-      minDuration: 0.22023733
+      maxDuration: 0.1924594
+      minDuration: 0.1924594
     - name: Play_PH_Ball_Fusion_04
       guid: 47b084fa413cb245a60bc444e790ece7
       id: 2448210560
@@ -333,8 +333,8 @@ MonoBehaviour:
         guid: 47b084fa413cb245a60bc444e790ece7
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_04
       maxAttenuation: 0
-      maxDuration: 0.20787637
-      minDuration: 0.20787637
+      maxDuration: 0.14153689
+      minDuration: 0.14153689
     - name: Play_PH_Ball_Fusion_05
       guid: 199393e4865bee4284c103a52cd3601b
       id: 2448210561
@@ -353,8 +353,8 @@ MonoBehaviour:
         guid: 199393e4865bee4284c103a52cd3601b
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_05
       maxAttenuation: 0
-      maxDuration: 0.19620916
-      minDuration: 0.19620916
+      maxDuration: 0.11600744
+      minDuration: 0.11600744
     - name: Play_PH_Ball_Fusion_06
       guid: 0ed37e91d7a78e4db28f6543d7bdc67d
       id: 2448210562
@@ -373,8 +373,8 @@ MonoBehaviour:
         guid: 0ed37e91d7a78e4db28f6543d7bdc67d
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_06
       maxAttenuation: 0
-      maxDuration: 0.18519679
-      minDuration: 0.18519679
+      maxDuration: 0.10912825
+      minDuration: 0.10912825
     - name: Play_PH_Ball_Fusion_07
       guid: 24ec1d5a3449f14ba8492d61413bea5c
       id: 2448210563
@@ -393,8 +393,8 @@ MonoBehaviour:
         guid: 24ec1d5a3449f14ba8492d61413bea5c
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_07
       maxAttenuation: 0
-      maxDuration: 0.1748025
-      minDuration: 0.1748025
+      maxDuration: 0.076257505
+      minDuration: 0.076257505
     - name: Play_PH_Ball_Fusion_08
       guid: 7723125380b29c4eaec4e7c1f234e3e1
       id: 2448210572
@@ -413,8 +413,8 @@ MonoBehaviour:
         guid: 7723125380b29c4eaec4e7c1f234e3e1
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_08
       maxAttenuation: 0
-      maxDuration: 0.16499159
-      minDuration: 0.16499159
+      maxDuration: 0.06268725
+      minDuration: 0.06268725
     - name: Play_PH_Ball_Fusion_09
       guid: af113dd588408a47bde6ee7646a79aa6
       id: 2448210573
@@ -433,8 +433,8 @@ MonoBehaviour:
         guid: af113dd588408a47bde6ee7646a79aa6
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_09
       maxAttenuation: 0
-      maxDuration: 0.15573132
-      minDuration: 0.15573132
+      maxDuration: 0.055026095
+      minDuration: 0.055026095
     - name: Play_PH_Ball_Fusion_10
       guid: 9b84c8d1b50e1b40b05b740bde64f3c9
       id: 2464988279
@@ -453,8 +453,8 @@ MonoBehaviour:
         guid: 9b84c8d1b50e1b40b05b740bde64f3c9
       Path: Events\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_10
       maxAttenuation: 0
-      maxDuration: 0.12360404
-      minDuration: 0.12360404
+      maxDuration: 0.03821496
+      minDuration: 0.03821496
     - name: Play_SFX_Cannon_Appears
       guid: d3a6e2bcbe186c42b6ec42328553e8c6
       id: 1141855710
@@ -484,7 +484,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: 8ff4c2cf40405e4995743b7c159d9b2b
     GuidInternal: 
-    m_lastTime: -8584949426889630605
+    m_lastTime: -8584946310228725566
     List:
     - name: RTPC_Sidechain
       guid: 8a33c7044cc7bb46810a4fdd41bee2ae
@@ -568,7 +568,7 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: 0d117aedf699234b9f246bafff27d40e
     GuidInternal: 
-    m_lastTime: -8584949426887659073
+    m_lastTime: -8584946310225897096
     List:
     - name: Game_State
       guid: f83d4ab8829b6c469297fa4e6d1e61ac
@@ -664,7 +664,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: b0be1e590889cd4ea8cfc09377620307
     GuidInternal: 
-    m_lastTime: -8584949426887659073
+    m_lastTime: -8584946310225897096
     List:
     - name: Switch_sound
       guid: de4a57625fd0454fa7562be858572162
@@ -744,11 +744,11 @@ MonoBehaviour:
     ParentPath: Triggers\Default Work Unit
     guid: fabed00e54c47b4fa40ef262e0f8c352
     GuidInternal: 
-    m_lastTime: -8584949426887649148
+    m_lastTime: -8584946310225886845
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0200000003000000
+  ExpandedWaapiItemIds: 010000000500000006000000080000000d0000000e0000000f00000010000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
-  currentDataSource: 1
+  currentDataSource: 0
   CurrentPluginConfig: 

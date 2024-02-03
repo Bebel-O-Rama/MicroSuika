@@ -15,6 +15,18 @@ Event	ID	Name			Wwise Object Path	Notes
 	2448210573	Play_PH_Ball_Fusion_09			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_09	
 	2464988279	Play_PH_Ball_Fusion_10			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_10	
 
+State Group	ID	Name			Wwise Object Path	Notes
+	766723505	Game_State			\Default Work Unit\Game_State	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Game_State			
+	984691642	InGame	Game_State			
+	2679786610	InMainMenu	Game_State			
+	2876317275	InPauseMenu	Game_State			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	1381474336	RTPC_Speed			\Default Work Unit\RTPC_Speed	
+
 Effect plug-ins	ID	Name	Type				Notes
 	1047714122	Meter (Custom)	Wwise Meter			
 
@@ -22,15 +34,23 @@ Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
 	266429384	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test\Sine	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	73572143	SFX_Cannon_Appears_Whoosh_Var_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Whoosh_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Whoosh_Var_01		70496
-	95099025	PH_Ball_Fusion_08	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_08		44896
-	175014415	SFX_Cannon_Appears_Beeps_Var_02	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_02_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_02		70496
-	178144736	PH_Ball_Bounce	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Bounce_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Bounce\PH_Ball_Bounce		19296
-	288952451	PH_Ball_Drop	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Drop_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\PH_Ball_Drop		153696
-	307977073	PH_Amb_Space_LP	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Amb_Space_0E83BFFC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Amb\PH_Amb_Space_LP		5760144
-	334275636	SFX_Cannon_Appears_Beeps_Var_03	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_03_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_03		70496
-	335258020	PH_Ball_Fusion_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_1E2D210B.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_01		44896
-	355877884	SFX_Cannon_Appears_Transient_Var_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Transient_Var_01		70496
-	460676898	SFX_Cannon_Appears_Beeps_Var_04	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_04_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_04		70496
-	918024247	SFX_Cannon_Appears_Beeps_Var_01	G:\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_01		70496
+	73572143	SFX_Cannon_Appears_Whoosh_Var_01	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Whoosh_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Whoosh_Var_01		70496
+	95099025	PH_Ball_Fusion_06	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_4B90273D.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_06		18760
+	175014415	SFX_Cannon_Appears_Beeps_Var_02	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_02_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_02		70496
+	178144736	PH_Ball_Bounce	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Bounce_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Bounce\PH_Ball_Bounce		19296
+	185255546	PH_Ball_Fusion_02	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_6EC9D678.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_02		20408
+	227426752	PH_Ball_Fusion_03	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_A8133D49.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_03		23372
+	264829482	PH_Ball_Fusion_05	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_E19A143A.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_05		17772
+	288952451	PH_Ball_Drop	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Drop_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\PH_Ball_Drop		153696
+	307977073	PH_Amb_Space_LP	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Amb_Space_0E83BFFC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Amb\PH_Amb_Space_LP		5760144
+	323463379	PH_Ball_Fusion_10	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_3274BBB1.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_10		20848
+	334275636	SFX_Cannon_Appears_Beeps_Var_03	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_03_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_03		70496
+	335258020	PH_Ball_Fusion_01	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_81CB4B6F.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_01		20848
+	355877884	SFX_Cannon_Appears_Transient_Var_01	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Transient_Var_01		70496
+	356072598	PH_Ball_Fusion_09	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_66049380.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_09		23812
+	460676898	SFX_Cannon_Appears_Beeps_Var_04	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_04_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_04		70496
+	594276553	PH_Ball_Fusion_04	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_97EB026D.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_04		19312
+	641987909	PH_Ball_Fusion_07	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_E3E35112.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_07		18544
+	816961611	PH_Ball_Fusion_08	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\PH_Ball_Fusion_67B268D5.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_08		19200
+	918024247	SFX_Cannon_Appears_Beeps_Var_01	D:\Game Development\MultiSuika\MultiSuika\MultiSuika_WwiseProject\.cache\Linux\SFX\SFX_Cannon_Appears_Beeps_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_01		70496
 
