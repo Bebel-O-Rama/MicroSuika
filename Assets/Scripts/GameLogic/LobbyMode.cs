@@ -53,7 +53,7 @@ namespace MultiSuika.GameLogic
         public void StartGame()
         {
             _playerInputManager.DisableJoining();
-            SceneManager.LoadScene("Versus");
+            SceneManager.LoadScene("PrototypeRacing");
         }
 
         private void NewPlayerDetected(PlayerInput playerInput)
