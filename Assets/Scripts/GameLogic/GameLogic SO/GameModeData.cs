@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using MultiSuika.Ball;
+using MultiSuika.Player;
 using MultiSuika.Skin;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
@@ -14,7 +16,7 @@ namespace MultiSuika.GameLogic
     
         // Container parameters
         [Header("----- CONTAINER -----")]
-        public GameObject containerPrefab;
+        public Container.Container containerPrefab;
         public string containerParentName;
 
         [Header("Container Scaling and Position Parameters")]
@@ -27,7 +29,7 @@ namespace MultiSuika.GameLogic
     
         // Cannon parameters
         [Header("----- CANNON -----")]
-        public GameObject cannonPrefab;
+        public Cannon.Cannon cannonPrefab;
 
         [Header("Position Data")] 
         public bool isCannonSpawnXPosRandom = false;
@@ -48,7 +50,7 @@ namespace MultiSuika.GameLogic
         public BallSetData ballSetData;
     
         // Player parameters
-        [Header("----- PLAYER -----")]
-        public GameObject playerPrefab;
+        [FormerlySerializedAs("playerPrefab")] [Header("----- PLAYER -----")]
+        public GameObject playerInputPrefab;
     }
 }

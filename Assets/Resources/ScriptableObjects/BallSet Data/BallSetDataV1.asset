@@ -18,7 +18,40 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3f4db0c2d4cdb0141b8aacf746fc921a, type: 2}
   - {fileID: 11400000, guid: fa9d9671e4cac3241a820a5be1edfaae, type: 2}
   - {fileID: 11400000, guid: 9c918717b2305a44086e92f8f8294e44, type: 2}
-  ballPrefab: {fileID: 2164191203452481615, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
-  impulseMultiplier: 3
-  impulseExpPower: 2
-  impulseRangeMultiplier: 1.2
+  ballPrefab: {fileID: 2597736224161766, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
+  impulseMultiplier:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  impulseExpPower:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  impulseRangeMultiplier:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  bounciness:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  friction:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  gravityScale:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}

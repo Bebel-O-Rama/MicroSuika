@@ -11,32 +11,32 @@ namespace MultiSuika.UI
         [SerializeField] public Color connectedColor;
         [SerializeField] public Color disconnectedColor;
     
-        private bool isConnected;
+        private bool _isConnected;
     
         private void Start()
         {
-            isConnected = playerScore != null;
-            tmp.color = isConnected ? connectedColor : disconnectedColor;
+            _isConnected = playerScore != null;
+            tmp.color = _isConnected ? connectedColor : disconnectedColor;
         }
 
         private void Update()
         {
             if (playerScore != null)
             {
-                if (!isConnected)
+                if (!_isConnected)
                 {
                     tmp.color = connectedColor;
-                    isConnected = true;
+                    _isConnected = true;
                 }
                 tmp.text = string.Format($"{playerScore.Value}");
                 return;
             }
 
-            if (isConnected)
+            if (_isConnected)
             {
                 tmp.text = "0";
                 tmp.color = disconnectedColor;
-                isConnected = false;
+                _isConnected = false;
             }
         }
     }

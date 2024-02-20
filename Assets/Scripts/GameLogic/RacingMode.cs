@@ -40,57 +40,17 @@ namespace MultiSuika.GameLogic
             _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
                 _containers);
             Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.playerDataList);
-        
-            //// Link conditions to the VersusMode instance
-            var versusFailConditions = _versusGameInstance.GetComponentsInChildren<VersusFailCondition>().ToList();
-            foreach (var failCond in versusFailConditions)
-            {
-                // TODO : FIX THIS I GUESS
-                // failCond.SetCondition(this);
-            }
-            
+
             //// Init and set playerInputHandlers
             _playerInputHandlers = Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
         }
 
-        public void PlayerFailure(Container.Container container)
+        private void SetupRacingDataUI()
         {
-            var balls = _ballTracker.GetBallsForContainer(container);
             
-            foreach (var b in balls)
-            {
-                b.SetBallFreeze(true);
-            }
-
-            var cannonsToRemove = _cannons.Where(cannon => cannon.container == container).ToList();
-
-            for (int i = 0; i < _cannons.Count; i++)
-            {
-                if (_cannons[i].container != container)
-                    break;
-                _cannons[i].DisconnectCannonToPlayer();
-                cannonsToRemove.Add(_cannons[i]);
-            }
-
-            foreach (var cannon in cannonsToRemove)
-            {
-                cannon.DisconnectCannonToPlayer();
-                _cannons.Remove(cannon);
-                Destroy(cannon);
-            }
-
-            container.ContainerFailure();
-            LookForPlayerSuccess();
         }
-
-        private void LookForPlayerSuccess()
-        {
-            if (_cannons.Count != 1)
-                return;
-            
-            _cannons[0].DisconnectCannonToPlayer();
-            _cannons[0].container.ContainerSuccess();
-        }
+        
+        
     }
 }

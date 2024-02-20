@@ -539,6 +539,10 @@ MonoBehaviour:
   - {fileID: 5027265918265091953}
   - {fileID: 2857971382045761281}
   ballAudioVelocityMin: 3
+  rtpc_ballImpactVelocity:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
   WwiseEventBallContainerCollisionT0:
     idInternal: 0
     valueGuidInternal: 
@@ -880,6 +884,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6596092875295609343}
+  - component: {fileID: 2266527481712865718}
   m_Layer: 0
   m_Name: Skin
   m_TagString: Untagged
@@ -906,6 +911,18 @@ Transform:
   - {fileID: 9149298751147402137}
   m_Father: {fileID: 4564159779651758605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &2266527481712865718
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342473328361483207}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &7644088955231544433
 GameObject:
   m_ObjectHideFlags: 0

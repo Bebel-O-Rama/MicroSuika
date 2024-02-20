@@ -12,7 +12,7 @@ namespace MultiSuika.Ball
         [Header("The smaller the index position of the ball, the smaller its radius should be")]
         [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
         public List<BallData> ballSetData;
-        public GameObject ballPrefab;
+        public Ball ballPrefab;
     
         [Header("Impulse parameters")]
         public FloatReference impulseMultiplier;
@@ -69,8 +69,6 @@ namespace MultiSuika.Ball
         {
             TestingAndCleaningSet();
             SetWeight();
-            if (ballPrefab == null)
-                Debug.LogError("The Ball Prefab in the BallSetData is null!");
         }
     }
 }
