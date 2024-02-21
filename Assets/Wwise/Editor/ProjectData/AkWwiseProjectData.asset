@@ -140,7 +140,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 6b8986443b2daf42954c240143100b08
     GuidInternal: 
-    m_lastTime: -8584946103805065093
+    m_lastTime: -8584946074029553856
     List:
     - name: Main
       guid: 986e743f244da040ab57113df2a0b1a1
@@ -168,7 +168,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: f9ef021c90981240855a4da3bbe4a1a6
     GuidInternal: 
-    m_lastTime: -8584946093652664835
+    m_lastTime: -8584946074031369054
     List:
     - name: Play
       guid: 10d96c49e3940d429ed3b9bb37c24296
@@ -219,8 +219,8 @@ MonoBehaviour:
         guid: a3a2d268f3ade74d9fcb81fe41d0a775
       Path: Events\Default Work Unit\Play_Gamemode_Switch_InGame
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.0333333
+      minDuration: 1.0333333
     - name: Play_Gamemode_Switch_InMenu
       guid: 1b80862c63c1d241b5c8274c475192c6
       id: 3684788607
@@ -236,8 +236,8 @@ MonoBehaviour:
         guid: 1b80862c63c1d241b5c8274c475192c6
       Path: Events\Default Work Unit\Play_Gamemode_Switch_InMenu
       maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+      maxDuration: 1.0333333
+      minDuration: 1.0333333
     - name: Play_PH_Amb_Space
       guid: 699b51fc08fc6a4e9a2b6531369f6302
       id: 738730148
@@ -543,6 +543,243 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.46197107
       minDuration: 0.36666667
+    - name: Play_Test
+      guid: a2c488b679059b4e916b63c43763eea1
+      id: 3187507146
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test
+        ObjectType: 3
+        guid: a2c488b679059b4e916b63c43763eea1
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_01
+      guid: effef46d5d511f4d96839d46b44939a5
+      id: 2788420168
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_01
+        ObjectType: 3
+        guid: effef46d5d511f4d96839d46b44939a5
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_01
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_02
+      guid: 8b0f9f689ae7dd4881ab0039f158558d
+      id: 2788420171
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_02
+        ObjectType: 3
+        guid: 8b0f9f689ae7dd4881ab0039f158558d
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_02
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_03
+      guid: b6f11014b4da224ebfe32eb489c4f33a
+      id: 2788420170
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_03
+        ObjectType: 3
+        guid: b6f11014b4da224ebfe32eb489c4f33a
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_03
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_04
+      guid: 0d84a795e9ba2b489f217bcfa6f3b837
+      id: 2788420173
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_04
+        ObjectType: 3
+        guid: 0d84a795e9ba2b489f217bcfa6f3b837
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_04
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_05
+      guid: f680597e1eebf54bbec97aef3258ad84
+      id: 2788420172
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_05
+        ObjectType: 3
+        guid: f680597e1eebf54bbec97aef3258ad84
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_05
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_06
+      guid: 5f635dd3f095e445acc75ae6b092db53
+      id: 2788420175
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_06
+        ObjectType: 3
+        guid: 5f635dd3f095e445acc75ae6b092db53
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_06
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_07
+      guid: 30952b536b3f19449786a0452e7710cb
+      id: 2788420174
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_07
+        ObjectType: 3
+        guid: 30952b536b3f19449786a0452e7710cb
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_07
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_08
+      guid: d0893ce1011b944faa21a0ff6e724b91
+      id: 2788420161
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_08
+        ObjectType: 3
+        guid: d0893ce1011b944faa21a0ff6e724b91
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_08
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_09
+      guid: fcf46daacc605c459c1af649927acac3
+      id: 2788420160
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_09
+        ObjectType: 3
+        guid: fcf46daacc605c459c1af649927acac3
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_09
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Test_10
+      guid: 22263071017caf47bb3358aae5e10900
+      id: 2771642582
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      - ElementName: Play_Test_10
+        ObjectType: 3
+        guid: 22263071017caf47bb3358aae5e10900
+      Path: Events\Default Work Unit\Test_Ball_Impact\Play_Test_10
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Test_Ball_Impact
+      guid: e1bd4f078e43734f8016bbc83f60ce80
+      id: 2006817232
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f9ef021c90981240855a4da3bbe4a1a6
+      - ElementName: Test_Ball_Impact
+        ObjectType: 4
+        guid: e1bd4f078e43734f8016bbc83f60ce80
+      Path: Events\Default Work Unit\Test_Ball_Impact
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -555,8 +792,22 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: 8ff4c2cf40405e4995743b7c159d9b2b
     GuidInternal: 
-    m_lastTime: -8584946310228725566
+    m_lastTime: -8584946074031329029
     List:
+    - name: RTPC_BallImpactVelocity
+      guid: eb308a4d3d1e304793ce8601770b96f3
+      id: 2444185415
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 8ff4c2cf40405e4995743b7c159d9b2b
+      - ElementName: RTPC_BallImpactVelocity
+        ObjectType: 13
+        guid: eb308a4d3d1e304793ce8601770b96f3
+      Path: Game Parameters\Default Work Unit\RTPC_BallImpactVelocity
     - name: RTPC_Sidechain
       guid: 8a33c7044cc7bb46810a4fdd41bee2ae
       id: 3336838409
@@ -571,20 +822,6 @@ MonoBehaviour:
         ObjectType: 13
         guid: 8a33c7044cc7bb46810a4fdd41bee2ae
       Path: Game Parameters\Default Work Unit\RTPC_Sidechain
-    - name: RTPC_Speed
-      guid: eb308a4d3d1e304793ce8601770b96f3
-      id: 1381474336
-      PathAndIcons:
-      - ElementName: Game Parameters
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: 8ff4c2cf40405e4995743b7c159d9b2b
-      - ElementName: RTPC_Speed
-        ObjectType: 13
-        guid: eb308a4d3d1e304793ce8601770b96f3
-      Path: Game Parameters\Default Work Unit\RTPC_Speed
     - name: RTPC_Vol_BGM
       guid: bacae865b394b94c8aa70841dfd7cd62
       id: 160087661

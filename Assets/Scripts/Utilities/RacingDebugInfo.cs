@@ -13,7 +13,8 @@ namespace MultiSuika.Utilities
         [SerializeField] private float _accelerationValue;
         [SerializeField] private float _maxSpeed;
         [SerializeField] private float _speedBarMax;
-        [SerializeField] private float _comboDefaultMargin;
+        [SerializeField] private float _comboBarMax;
+        [SerializeField] private float _comboTimerDuration;
         
         [SerializeField] private TMP_Text _tmpScore;
         [SerializeField] private TMP_Text _tmpCombo;
@@ -21,15 +22,16 @@ namespace MultiSuika.Utilities
         [SerializeField] private TMP_Text _tmpSpeed;
 
         [SerializeField] private UIBlock2D _speedBar;
+        [SerializeField] private UIBlock2D _comboBar;
         
         public FloatReference ballAreaRef;
         private IntReference _playerScore;
 
         private float _percentageFilled = 0f;
-        private int _ballFusedCombo = 1;
+        private int _combo = 1;
         private float _currentSpeed = 0f;
         // private float _speedTarget = 0f;
-
+        private Vector2 _currentComboTimer;
         
         
         
@@ -48,13 +50,15 @@ namespace MultiSuika.Utilities
 
         public async void NewBallFused()
         {
-            _ballFusedCombo += 1;
-            int newComboValue = _ballFusedCombo;
-            
-            await Task.Delay((int)(_comboDefaultMargin * 1000));
-            
-            if (newComboValue == _ballFusedCombo)
-                _ballFusedCombo = 1;
+            _combo += 1;
+            _currentComboTimer = new Vector2(_comboTimerDuration, _comboTimerDuration);
+
+            // int newComboValue = _combo;
+
+            // await Task.Delay((int)(_comboDefaultMargin * 1000));
+            //
+            // if (newComboValue == _combo)
+            //     _combo = 1;
         }
         
         
@@ -62,8 +66,15 @@ namespace MultiSuika.Utilities
         {
             _percentageFilled = ballAreaRef.Value * 100 / _containerMaxArea;
 
+            if (_combo > 1)
+            {
+                _currentComboTimer.x -= Time.deltaTime;
+                if (_currentComboTimer.x <= 0)
+                    _combo = 1;
+            }
+            
             if (_currentSpeed < _playerScore)
-                _currentSpeed += _accelerationValue * _ballFusedCombo * Time.deltaTime;
+                _currentSpeed += _accelerationValue * _combo * Time.deltaTime;
         }
         
         private void UpdateDebugVisual()
@@ -72,17 +83,17 @@ namespace MultiSuika.Utilities
             _tmpScore.text = string.Format($"{_playerScore.Value}");
             
             // Combo value
-            _tmpCombo.text = string.Format($"{_ballFusedCombo}");
+            _tmpCombo.text = string.Format($"{_combo}");
+            _comboBar.Size.Y = (_currentComboTimer.x / _currentComboTimer.y) * _comboBarMax;
+            _comboBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
 
             // Area Filled value
-            _tmpAreaFilled.text = string.Format($"{_percentageFilled}");
+            _tmpAreaFilled.text = string.Format($"{(int)_percentageFilled}");
             
             // Speed value
-            _tmpSpeed.text = string.Format($"{_currentSpeed}");
-            
-            // Speed bar visual
+            _tmpSpeed.text = string.Format($"{(int)_currentSpeed}");
             _speedBar.Size.Y = (_currentSpeed / _maxSpeed) * _speedBarMax;
-            _speedBar.Color = Color.HSVToRGB((0.5f + _ballFusedCombo * 0.15f) % 1f, 0.65f, 0.9f);
+            _speedBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
         }
     }
 }
