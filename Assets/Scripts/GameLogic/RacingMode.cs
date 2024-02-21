@@ -44,11 +44,19 @@ namespace MultiSuika.GameLogic
             //// Init and set playerInputHandlers
             _playerInputHandlers = Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
+            
+            
+            
+            //// Racing Stuff!!!
+            SetupRacingDataUI();
         }
 
         private void SetupRacingDataUI()
         {
-            
+            foreach (var container in _containers)
+            {
+                container.GetComponent<RacingDebugInfo>().ballAreaRef = _ballTracker.GetBallAreaForContainer(container);
+            }
         }
         
         

@@ -7,7 +7,7 @@ namespace MultiSuika.Container
     {
         [Header ("Control Parameters")]
         [SerializeField] [Min(0f)] public float horizontalMvtHalfLength;
-        
+
         [Header("Sprite Parameters")]
         [SerializeField] public SpriteRenderer backgroundSpriteRenderer;
         [SerializeField] public SpriteRenderer sideSpriteRenderer;
@@ -63,7 +63,6 @@ namespace MultiSuika.Container
 
         public void OnBallCollision(float velocity, Ball.Ball ball)
         {
-            Debug.Log($"velocity : {velocity}, ball tier : {ball.tier}");
             rtpc_ballImpactVelocity.SetValue(gameObject, velocity);
             switch (ball.tier)
             {

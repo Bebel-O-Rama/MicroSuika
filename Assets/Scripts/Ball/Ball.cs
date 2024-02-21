@@ -34,6 +34,8 @@ namespace MultiSuika.Ball
         public AK.Wwise.Event WwiseEventBallFuseT9;
         public AK.Wwise.Event WwiseEventBallFuseT10;
 
+        public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2); 
+        
         public void DropBallFromCannon()
         {
             ballTracker.RegisterBall(this, container);
@@ -43,8 +45,6 @@ namespace MultiSuika.Ball
 
         public void SetBallFreeze(bool isFrozen) => rb2d.simulated = !isFrozen; 
         
-        private int GetBallTier() => tier;
-
         public void ClearBall(bool addToScore = true)
         {
             if (addToScore)
@@ -64,7 +64,7 @@ namespace MultiSuika.Ball
         {
             if (!collision.transform.CompareTag("Ball")) return;
             var otherBall = collision.gameObject.GetComponent<Ball>();
-            if (otherBall.GetBallTier() == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
+            if (otherBall.tier == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
             {
                 FuseWithOtherBall(otherBall, collision.GetContact(0).point);
             }
@@ -83,6 +83,12 @@ namespace MultiSuika.Ball
                 newBall.ballTracker.RegisterBall(newBall, container);
                 CallFuseSFX(tier, newBall.gameObject);
             }
+            
+            
+            // TODO: Clean this up
+            var racingDebug = container.GetComponent<RacingDebugInfo>();
+            if (racingDebug != null)
+                racingDebug.NewBallFused();
         }
 
         private void AddFusionImpulse(int newBallTier, Vector3 contactPosition)

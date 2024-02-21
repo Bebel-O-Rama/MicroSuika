@@ -341,7 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 825600732}
-  - component: {fileID: 825600731}
+  - component: {fileID: 825600736}
   - component: {fileID: 825600733}
   - component: {fileID: 825600735}
   - component: {fileID: 825600734}
@@ -352,22 +352,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &825600731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825600730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9d46cd3dd2fc084bb85f7938330d3db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
-  gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
-  useDebugSpawnContainer: 0
-  debugFakeNumberCount: 4
 --- !u!4 &825600732
 Transform:
   m_ObjectHideFlags: 0
@@ -458,6 +442,22 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
+--- !u!114 &825600736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825600730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f7643866a2cbd4f84e3a79f7b25384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
+  gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
+  useDebugSpawnContainer: 0
+  debugFakeNumberCount: 2
 --- !u!1001 &1961670153
 PrefabInstance:
   m_ObjectHideFlags: 0
