@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace MultiSuika.Ball
         public AK.Wwise.Event WwiseEventBallFuseT9;
         public AK.Wwise.Event WwiseEventBallFuseT10;
 
-        public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2); 
+        public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
         
         public void DropBallFromCannon()
         {
@@ -83,12 +84,11 @@ namespace MultiSuika.Ball
                 newBall.ballTracker.RegisterBall(newBall, container);
                 CallFuseSFX(tier, newBall.gameObject);
             }
-            
-            
+
             // TODO: Clean this up
-            var racingDebug = container.GetComponent<RacingDebugInfo>();
-            if (racingDebug != null)
-                racingDebug.NewBallFused();
+            var racingDebugInfo = container.GetComponent<RacingDebugInfo>();
+            if (racingDebugInfo != null)
+                racingDebugInfo.NewBallFused(scoreValue);
         }
 
         private void AddFusionImpulse(int newBallTier, Vector3 contactPosition)
