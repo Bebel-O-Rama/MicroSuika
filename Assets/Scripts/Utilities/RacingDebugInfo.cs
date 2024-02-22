@@ -105,17 +105,8 @@ namespace MultiSuika.Utilities
             _targetSpeed -= _targetSpeed - GetDampingValue() > 0 ? GetDampingValue() : 0f;
             
             // Speed value
-            
-            // if (Mathf.Abs(_currentSpeed - _targetSpeed) < Mathf.Epsilon)
-            //     speedIncrement = _accelerationValue * _combo * Time.deltaTime;
-
             var previousSpeed = _currentSpeed;
-            // _currentSpeed += speedIncrement;
-            // if (_currentSpeed < 0f)
-            //     _currentSpeed = 0f;
-            
             _currentSpeed = Mathf.MoveTowards(_currentSpeed, _targetSpeed, _accelerationValue * _combo * Time.deltaTime);
-            // Debug.Log($"{_currentSpeed} : {previousSpeed} : {}");
 
             if (Mathf.Abs(previousSpeed - _currentSpeed) < Mathf.Epsilon)
             {
@@ -130,7 +121,7 @@ namespace MultiSuika.Utilities
         private void UpdateDebugVisual()
         {
             // Score value
-            _tmpScore.text = string.Format($"{_playerScore.Value:0.00}");
+            _tmpScore.text = string.Format($"{_playerScore.Value:0}");
             
             // Percentage filled value
             _tmpAreaFilled.text = string.Format($"{_percentageFilled:0.00}");
