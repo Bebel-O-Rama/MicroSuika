@@ -10,7 +10,9 @@ namespace MultiSuika.GameLogic
 {
     public class RacingMode : MonoBehaviour
     {
-        [Header("NEED TO REFACTOR THE SCRIPT, IT'S JUST FOR PROTOTYPING")] 
+        [Header("Debug Parameters")] 
+        [SerializeField] public bool canShareRanking;
+
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
         
@@ -21,7 +23,8 @@ namespace MultiSuika.GameLogic
         private List<Cannon.Cannon> _cannons;
         private BallTracker _ballTracker = new BallTracker();
 
-        private Dictionary<Container.Container, FloatReference> _playersCurrentSpeed;
+        private Dictionary<Container.Container, FloatReference> _playerCurrentSpeedReferences;
+        private Dictionary<Container.Container, IntReference> _playerRankingReferences;
         private FloatReference _averageSpeed;
 
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
@@ -58,29 +61,60 @@ namespace MultiSuika.GameLogic
         private void Update()
         {
             UpdateAverageSpeed();
+            UpdateRanking();
         }
         
         private void SetupRacingDataUI()
         {
             _averageSpeed = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _playersCurrentSpeed = new Dictionary<Container.Container, FloatReference>();
+            _playerCurrentSpeedReferences = new Dictionary<Container.Container, FloatReference>();
+            _playerRankingReferences = new Dictionary<Container.Container, IntReference>();
+            
             foreach (var container in _containers)
             {
                 FloatReference newCurrentSpeedVar = new FloatReference
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-                _playersCurrentSpeed[container] = newCurrentSpeedVar;
+                IntReference newPlayerRankingRef = new IntReference
+                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
+                
+                _playerCurrentSpeedReferences[container] = newCurrentSpeedVar;
+                _playerRankingReferences[container] = newPlayerRankingRef;
 
                 var newRacingDebugInfo = container.GetComponent<RacingDebugInfo>();
                 newRacingDebugInfo.ballAreaRef = _ballTracker.GetBallAreaForContainer(container);
                 newRacingDebugInfo.currentSpeed = newCurrentSpeedVar;
                 newRacingDebugInfo.averageSpeed = _averageSpeed;
+                newRacingDebugInfo.currentRanking = newPlayerRankingRef;
             }
         }
 
         private void UpdateAverageSpeed()
         {
-            _averageSpeed.Variable.SetValue(_playersCurrentSpeed.Sum(x => x.Value) / _playersCurrentSpeed.Count);
+            _averageSpeed.Variable.SetValue(_playerCurrentSpeedReferences.Sum(x => x.Value) / _playerCurrentSpeedReferences.Count);
+        }
+
+        private void UpdateRanking()
+        {
+            var playerOrder = (from container in _playerCurrentSpeedReferences
+                orderby container.Value.Value descending
+                select container).ToList();
+            
+            int rankingIndex = 1;
+            for (int i = 0; i < playerOrder.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    _playerRankingReferences[playerOrder[i].Key].Variable.SetValue(rankingIndex);
+                    continue;
+                }
+
+                if (!canShareRanking || Mathf.Abs(playerOrder[i].Value.Value - playerOrder[i - 1].Value.Value) > Mathf.Epsilon)
+                    rankingIndex += 1;
+                
+                _playerRankingReferences[playerOrder[i].Key].Variable.SetValue(rankingIndex);
+            }
+
         }
     }
 }

@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f7643866a2cbd4f84e3a79f7b25384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShareRanking: 1
   gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
   gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
   useDebugSpawnContainer: 0

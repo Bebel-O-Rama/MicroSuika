@@ -41,6 +41,7 @@ namespace MultiSuika.Utilities
         [SerializeField] private TMP_Text _tmpAcceleration;
         [SerializeField] private TMP_Text _tmpDamping;
         [SerializeField] private TMP_Text _tmpDampingMethod;
+        [SerializeField] private TMP_Text _tmpRanking;
         [SerializeField] private TMP_Text _tmpSpeedBar;
         
         
@@ -52,6 +53,7 @@ namespace MultiSuika.Utilities
         public FloatReference ballAreaRef;
         public FloatReference currentSpeed;
         public FloatReference averageSpeed;
+        public IntReference currentRanking;
 
         private IntReference _playerScore;
         private float _percentageFilled = 0f;
@@ -163,6 +165,9 @@ namespace MultiSuika.Utilities
             
             // Damping value
             _tmpDampingMethod.text = string.Format($"{_dampingMethod}");
+            
+            // Ranking value
+            _tmpRanking.text = string.Format($"{currentRanking.Value}");
         }
 
         private float GetDampingValue()
