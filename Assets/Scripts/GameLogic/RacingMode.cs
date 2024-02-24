@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
@@ -19,6 +20,9 @@ namespace MultiSuika.GameLogic
         private List<Container.Container> _containers;
         private List<Cannon.Cannon> _cannons;
         private BallTracker _ballTracker = new BallTracker();
+
+        private Dictionary<Container.Container, FloatReference> _playersCurrentSpeed;
+        private FloatReference _averageSpeed;
 
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
         [Range(0, 4)][SerializeField] public int debugFakeNumberCount = 2;
@@ -51,14 +55,32 @@ namespace MultiSuika.GameLogic
             SetupRacingDataUI();
         }
 
-        private void SetupRacingDataUI()
+        private void Update()
         {
-            foreach (var container in _containers)
-            {
-                container.GetComponent<RacingDebugInfo>().ballAreaRef = _ballTracker.GetBallAreaForContainer(container);
-            }
+            UpdateAverageSpeed();
         }
         
-        
+        private void SetupRacingDataUI()
+        {
+            _averageSpeed = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _playersCurrentSpeed = new Dictionary<Container.Container, FloatReference>();
+            foreach (var container in _containers)
+            {
+                FloatReference newCurrentSpeedVar = new FloatReference
+                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+                _playersCurrentSpeed[container] = newCurrentSpeedVar;
+
+                var newRacingDebugInfo = container.GetComponent<RacingDebugInfo>();
+                newRacingDebugInfo.ballAreaRef = _ballTracker.GetBallAreaForContainer(container);
+                newRacingDebugInfo.currentSpeed = newCurrentSpeedVar;
+                newRacingDebugInfo.averageSpeed = _averageSpeed;
+            }
+        }
+
+        private void UpdateAverageSpeed()
+        {
+            _averageSpeed.Variable.SetValue(_playersCurrentSpeed.Sum(x => x.Value) / _playersCurrentSpeed.Count);
+        }
     }
 }

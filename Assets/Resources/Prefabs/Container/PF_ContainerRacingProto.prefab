@@ -670,6 +670,298 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &350341705681746410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3364601141899267097}
+  - component: {fileID: 6968693722746996369}
+  - component: {fileID: 4717347835961248175}
+  m_Layer: 0
+  m_Name: UIBlock2D (AverageSpeedLine)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3364601141899267097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350341705681746410}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5228521671950316750}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6968693722746996369
+MonoBehaviour:
+  m_ObjectHideFlags: 10
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350341705681746410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4717347835961248175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350341705681746410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c395591f6f08fb41897eb437d91b587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceID:
+    val: 0
+  layout:
+    Size:
+      X:
+        Raw: 1
+        Type: 1
+      Y:
+        Raw: 0.1
+        Type: 0
+      Z:
+        Raw: 0
+        Type: 0
+    Position:
+      X:
+        Raw: 0
+        Type: 0
+      Y:
+        Raw: 0.49546567
+        Type: 1
+      Z:
+        Raw: 0
+        Type: 0
+    Padding:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    Margin:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    SizeMinMax:
+      X:
+        Min: 0
+        Max: Infinity
+      Y:
+        Min: 0
+        Max: 11
+      Z:
+        Min: 0
+        Max: Infinity
+    PositionMinMax:
+      X:
+        Min: -Infinity
+        Max: Infinity
+      Y:
+        Min: -Infinity
+        Max: Infinity
+      Z:
+        Min: -Infinity
+        Max: Infinity
+    PaddingMinMax:
+      Left:
+        Min: 0
+        Max: Infinity
+      Right:
+        Min: 0
+        Max: Infinity
+      Bottom:
+        Min: 0
+        Max: Infinity
+      Top:
+        Min: 0
+        Max: Infinity
+      Front:
+        Min: 0
+        Max: Infinity
+      Back:
+        Min: 0
+        Max: Infinity
+    MarginMinMax:
+      Left:
+        Min: -Infinity
+        Max: Infinity
+      Right:
+        Min: -Infinity
+        Max: Infinity
+      Bottom:
+        Min: -Infinity
+        Max: Infinity
+      Top:
+        Min: -Infinity
+        Max: Infinity
+      Front:
+        Min: -Infinity
+        Max: Infinity
+      Back:
+        Min: -Infinity
+        Max: Infinity
+    Alignment:
+      X: 0
+      Y: -1
+      Z: 0
+    AutoSize:
+      X: 1
+      Y: 0
+      Z: 0
+    RotateSize: 0
+    AspectRatio: {x: 0, y: 0, z: 0}
+    AspectRatioAxis: 0
+  autoLayout:
+    Axis: 0
+    Spacing:
+      Raw: 0
+      Type: 0
+    SpacingMinMax:
+      Min: 0
+      Max: Infinity
+    AutoSpace: 0
+    ReverseOrder: 0
+    alignment: -1
+    Offset: 0
+    Cross:
+      Axis: 0
+      Spacing:
+        Raw: 0
+        Type: 0
+      SpacingMinMax:
+        Min: 0
+        Max: Infinity
+      AutoSpace: 0
+      ReverseOrder: 0
+      alignment: -1
+      ExpandToGrid: 0
+  visibility:
+    ZIndex: 0
+    BlockType: 1
+    Visible: 1
+  surface:
+    specularColor: {r: 1, g: 1, b: 1, a: 1}
+    param1: 0.5
+    param2: 0.5
+    LightingModel: 0
+    ShadowCastingMode: 2
+    ReceiveShadows: 1
+  PreviewSize: {x: 1.45, y: 0.1, z: 0}
+  visuals:
+    Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    CornerRadius:
+      Raw: 0
+      Type: 0
+    RadialFill:
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Rotation: 0
+      FillAngle: 90
+      Enabled: 0
+    Gradient:
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Radius:
+        X:
+          Raw: 0.5
+          Type: 1
+        Y:
+          Raw: 0.5
+          Type: 1
+      Rotation: 0
+      Enabled: 0
+    Border:
+      Color: {r: 0, g: 0.02730077, b: 0.103773594, a: 1}
+      Width:
+        Raw: 0.05
+        Type: 0
+      Enabled: 1
+      Direction: 1
+    Shadow:
+      Color: {r: 0, g: 0, b: 0, a: 0.5}
+      Width:
+        Raw: 0
+        Type: 0
+      Blur:
+        Raw: 2
+        Type: 0
+      Offset:
+        X:
+          Raw: 0
+          Type: 0
+        Y:
+          Raw: -1
+          Type: 0
+      Enabled: 0
+      Direction: 0
+    Image:
+      Adjustment:
+        CenterUV: {x: 0, y: 0}
+        UVScale: {x: 1, y: 1}
+        PixelsPerUnitMultiplier: 1
+        scaleMode: 1
+      Mode: 1
+    SoftenEdges: 1
+    FillEnabled: 1
+  texture: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1 &407058990753960206
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +1085,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -1882,7 +2174,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -5928,7 +6220,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -7242,7 +7534,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -7639,7 +7931,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -8002,7 +8294,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -8242,6 +8534,300 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2819570157226019649}
   m_maskType: 0
+--- !u!1 &3862094837383972530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5228521671950316750}
+  - component: {fileID: 5745404684430936461}
+  - component: {fileID: 713107387543982930}
+  m_Layer: 0
+  m_Name: UIBlock2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5228521671950316750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862094837383972530}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.6200004, y: -1.5430001, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3489119641849017752}
+  - {fileID: 3364601141899267097}
+  m_Father: {fileID: 7737806715174370607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5745404684430936461
+MonoBehaviour:
+  m_ObjectHideFlags: 10
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862094837383972530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &713107387543982930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862094837383972530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c395591f6f08fb41897eb437d91b587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceID:
+    val: 0
+  layout:
+    Size:
+      X:
+        Raw: 1.45
+        Type: 0
+      Y:
+        Raw: 11.027
+        Type: 0
+      Z:
+        Raw: 0
+        Type: 0
+    Position:
+      X:
+        Raw: 5.6200004
+        Type: 0
+      Y:
+        Raw: -1.5430001
+        Type: 0
+      Z:
+        Raw: 0
+        Type: 0
+    Padding:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    Margin:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    SizeMinMax:
+      X:
+        Min: 0
+        Max: Infinity
+      Y:
+        Min: -Infinity
+        Max: Infinity
+      Z:
+        Min: 0
+        Max: Infinity
+    PositionMinMax:
+      X:
+        Min: -Infinity
+        Max: Infinity
+      Y:
+        Min: -Infinity
+        Max: Infinity
+      Z:
+        Min: -Infinity
+        Max: Infinity
+    PaddingMinMax:
+      Left:
+        Min: 0
+        Max: Infinity
+      Right:
+        Min: 0
+        Max: Infinity
+      Bottom:
+        Min: 0
+        Max: Infinity
+      Top:
+        Min: 0
+        Max: Infinity
+      Front:
+        Min: 0
+        Max: Infinity
+      Back:
+        Min: 0
+        Max: Infinity
+    MarginMinMax:
+      Left:
+        Min: -Infinity
+        Max: Infinity
+      Right:
+        Min: -Infinity
+        Max: Infinity
+      Bottom:
+        Min: -Infinity
+        Max: Infinity
+      Top:
+        Min: -Infinity
+        Max: Infinity
+      Front:
+        Min: -Infinity
+        Max: Infinity
+      Back:
+        Min: -Infinity
+        Max: Infinity
+    Alignment:
+      X: 0
+      Y: 0
+      Z: 0
+    AutoSize:
+      X: 0
+      Y: 0
+      Z: 0
+    RotateSize: 0
+    AspectRatio: {x: 0, y: 0, z: 0}
+    AspectRatioAxis: 0
+  autoLayout:
+    Axis: 0
+    Spacing:
+      Raw: 0
+      Type: 0
+    SpacingMinMax:
+      Min: 0
+      Max: Infinity
+    AutoSpace: 0
+    ReverseOrder: 0
+    alignment: -1
+    Offset: 0
+    Cross:
+      Axis: 0
+      Spacing:
+        Raw: 0
+        Type: 0
+      SpacingMinMax:
+        Min: 0
+        Max: Infinity
+      AutoSpace: 0
+      ReverseOrder: 0
+      alignment: -1
+      ExpandToGrid: 0
+  visibility:
+    ZIndex: 0
+    BlockType: 1
+    Visible: 0
+  surface:
+    specularColor: {r: 1, g: 1, b: 1, a: 1}
+    param1: 0.5
+    param2: 0.5
+    LightingModel: 0
+    ShadowCastingMode: 2
+    ReceiveShadows: 1
+  PreviewSize: {x: 1.45, y: 11.027, z: 0}
+  visuals:
+    Color: {r: 0, g: 0, b: 0, a: 1}
+    CornerRadius:
+      Raw: 0
+      Type: 0
+    RadialFill:
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Rotation: 0
+      FillAngle: 90
+      Enabled: 0
+    Gradient:
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Radius:
+        X:
+          Raw: 0.5
+          Type: 1
+        Y:
+          Raw: 0.5
+          Type: 1
+      Rotation: 0
+      Enabled: 0
+    Border:
+      Color: {r: 0, g: 0.02730077, b: 0.103773594, a: 1}
+      Width:
+        Raw: 0.1
+        Type: 0
+      Enabled: 0
+      Direction: 1
+    Shadow:
+      Color: {r: 0, g: 0, b: 0, a: 0.5}
+      Width:
+        Raw: 0
+        Type: 0
+      Blur:
+        Raw: 2
+        Type: 0
+      Offset:
+        X:
+          Raw: 0
+          Type: 0
+        Y:
+          Raw: -1
+          Type: 0
+      Enabled: 0
+      Direction: 0
+    Image:
+      Adjustment:
+        CenterUV: {x: 0, y: 0}
+        UVScale: {x: 1, y: 1}
+        PixelsPerUnitMultiplier: 1
+        scaleMode: 1
+      Mode: 1
+    SoftenEdges: 1
+    FillEnabled: 1
+  texture: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1 &3918466885995739600
 GameObject:
   m_ObjectHideFlags: 0
@@ -10026,15 +10612,28 @@ MonoBehaviour:
   _tmpCombo: {fileID: 7653949332343677847}
   _tmpSpeed: {fileID: 5045150459761535120}
   _tmpTargetSpeed: {fileID: 220699878538556435}
-  _tmpSpeedDiff: {fileID: 359348944343015003}
+  _tmpAverageSpeed: {fileID: 359348944343015003}
   _tmpAcceleration: {fileID: 7008594417076581981}
   _tmpDamping: {fileID: 7135164549133230943}
   _tmpDampingMethod: {fileID: 2666944729930416011}
   _tmpSpeedBar: {fileID: 5035751186903800408}
-  _speedBar: {fileID: 7962232915956672906}
+  _speedBar: {fileID: 1592684799821856333}
+  _averageSpeedBar: {fileID: 4717347835961248175}
   _speedTextBlock: {fileID: 4243743241056154894}
   _comboBar: {fileID: 6592857526099890814}
   ballAreaRef:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  currentSpeed:
+    UseConstant: 1
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  averageSpeed:
     UseConstant: 1
     ConstantValue: 0
     UseRandomRange: 0
@@ -10766,7 +11365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sp Diff
+  m_text: Aver. Sp
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10869,7 +11468,7 @@ Transform:
   m_Children:
   - {fileID: 6669235359387638850}
   - {fileID: 5356648094823523585}
-  - {fileID: 374926048155512421}
+  - {fileID: 5228521671950316750}
   - {fileID: 4430050426257413176}
   m_Father: {fileID: 4564159779651758605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12648,7 +13247,7 @@ GameObject:
   - component: {fileID: 1587918088648398537}
   - component: {fileID: 6894204201033287841}
   m_Layer: 0
-  m_Name: UIBlock2D (SpeedDiff)
+  m_Name: UIBlock2D (AverageSpeed)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14242,298 +14841,6 @@ MonoBehaviour:
     FillEnabled: 1
   texture: {fileID: 0}
   sprite: {fileID: 0}
---- !u!1 &6315551152350950519
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 374926048155512421}
-  - component: {fileID: 6936645831712089746}
-  - component: {fileID: 7962232915956672906}
-  m_Layer: 0
-  m_Name: UIBlock2D (SpeedBar)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &374926048155512421
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315551152350950519}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.6200004, y: -1.5430002, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7737806715174370607}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6936645831712089746
-MonoBehaviour:
-  m_ObjectHideFlags: 10
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315551152350950519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7962232915956672906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315551152350950519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c395591f6f08fb41897eb437d91b587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sourceID:
-    val: 0
-  layout:
-    Size:
-      X:
-        Raw: 1
-        Type: 0
-      Y:
-        Raw: 11.000001
-        Type: 0
-      Z:
-        Raw: 0
-        Type: 0
-    Position:
-      X:
-        Raw: 5.6200004
-        Type: 0
-      Y:
-        Raw: -7.043
-        Type: 0
-      Z:
-        Raw: 0
-        Type: 0
-    Padding:
-      Left:
-        Raw: 0
-        Type: 0
-      Right:
-        Raw: 0
-        Type: 0
-      Bottom:
-        Raw: 0
-        Type: 0
-      Top:
-        Raw: 0
-        Type: 0
-      Front:
-        Raw: 0
-        Type: 0
-      Back:
-        Raw: 0
-        Type: 0
-    Margin:
-      Left:
-        Raw: 0
-        Type: 0
-      Right:
-        Raw: 0
-        Type: 0
-      Bottom:
-        Raw: 0
-        Type: 0
-      Top:
-        Raw: 0
-        Type: 0
-      Front:
-        Raw: 0
-        Type: 0
-      Back:
-        Raw: 0
-        Type: 0
-    SizeMinMax:
-      X:
-        Min: 0
-        Max: Infinity
-      Y:
-        Min: 0
-        Max: 11
-      Z:
-        Min: 0
-        Max: Infinity
-    PositionMinMax:
-      X:
-        Min: -Infinity
-        Max: Infinity
-      Y:
-        Min: -Infinity
-        Max: Infinity
-      Z:
-        Min: -Infinity
-        Max: Infinity
-    PaddingMinMax:
-      Left:
-        Min: 0
-        Max: Infinity
-      Right:
-        Min: 0
-        Max: Infinity
-      Bottom:
-        Min: 0
-        Max: Infinity
-      Top:
-        Min: 0
-        Max: Infinity
-      Front:
-        Min: 0
-        Max: Infinity
-      Back:
-        Min: 0
-        Max: Infinity
-    MarginMinMax:
-      Left:
-        Min: -Infinity
-        Max: Infinity
-      Right:
-        Min: -Infinity
-        Max: Infinity
-      Bottom:
-        Min: -Infinity
-        Max: Infinity
-      Top:
-        Min: -Infinity
-        Max: Infinity
-      Front:
-        Min: -Infinity
-        Max: Infinity
-      Back:
-        Min: -Infinity
-        Max: Infinity
-    Alignment:
-      X: 0
-      Y: -1
-      Z: 0
-    AutoSize:
-      X: 0
-      Y: 0
-      Z: 0
-    RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
-  autoLayout:
-    Axis: 0
-    Spacing:
-      Raw: 0
-      Type: 0
-    SpacingMinMax:
-      Min: 0
-      Max: Infinity
-    AutoSpace: 0
-    ReverseOrder: 0
-    alignment: -1
-    Offset: 0
-    Cross:
-      Axis: 0
-      Spacing:
-        Raw: 0
-        Type: 0
-      SpacingMinMax:
-        Min: 0
-        Max: Infinity
-      AutoSpace: 0
-      ReverseOrder: 0
-      alignment: -1
-      ExpandToGrid: 0
-  visibility:
-    ZIndex: 0
-    BlockType: 1
-    Visible: 1
-  surface:
-    specularColor: {r: 1, g: 1, b: 1, a: 1}
-    param1: 0.5
-    param2: 0.5
-    LightingModel: 0
-    ShadowCastingMode: 2
-    ReceiveShadows: 1
-  PreviewSize: {x: 1, y: 11, z: 0}
-  visuals:
-    Color: {r: 0.31372553, g: 0.9019608, b: 0.9019608, a: 1}
-    CornerRadius:
-      Raw: 0.19671774
-      Type: 0
-    RadialFill:
-      Center:
-        X:
-          Raw: 0
-          Type: 1
-        Y:
-          Raw: 0
-          Type: 1
-      Rotation: 0
-      FillAngle: 90
-      Enabled: 0
-    Gradient:
-      Color: {r: 1, g: 1, b: 1, a: 1}
-      Center:
-        X:
-          Raw: 0
-          Type: 1
-        Y:
-          Raw: 0
-          Type: 1
-      Radius:
-        X:
-          Raw: 0.5
-          Type: 1
-        Y:
-          Raw: 0.5
-          Type: 1
-      Rotation: 0
-      Enabled: 0
-    Border:
-      Color: {r: 0, g: 0.02730077, b: 0.103773594, a: 1}
-      Width:
-        Raw: 0.1
-        Type: 0
-      Enabled: 0
-      Direction: 1
-    Shadow:
-      Color: {r: 0, g: 0, b: 0, a: 0.5}
-      Width:
-        Raw: 0
-        Type: 0
-      Blur:
-        Raw: 2
-        Type: 0
-      Offset:
-        X:
-          Raw: 0
-          Type: 0
-        Y:
-          Raw: -1
-          Type: 0
-      Enabled: 0
-      Direction: 0
-    Image:
-      Adjustment:
-        CenterUV: {x: 0, y: 0}
-        UVScale: {x: 1, y: 1}
-        PixelsPerUnitMultiplier: 1
-        scaleMode: 1
-      Mode: 1
-    SoftenEdges: 1
-    FillEnabled: 1
-  texture: {fileID: 0}
-  sprite: {fileID: 0}
 --- !u!1 &6621069644457687371
 GameObject:
   m_ObjectHideFlags: 0
@@ -15156,7 +15463,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.27929688
         Type: 0
       Z:
         Raw: 0
@@ -15396,6 +15703,298 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 5228572284054693736}
   m_maskType: 0
+--- !u!1 &7029601188876060673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3489119641849017752}
+  - component: {fileID: 8063991002242863083}
+  - component: {fileID: 1592684799821856333}
+  m_Layer: 0
+  m_Name: UIBlock2D (SpeedBar)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3489119641849017752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7029601188876060673}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.013500214, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5228521671950316750}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8063991002242863083
+MonoBehaviour:
+  m_ObjectHideFlags: 10
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7029601188876060673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1592684799821856333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7029601188876060673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c395591f6f08fb41897eb437d91b587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceID:
+    val: 0
+  layout:
+    Size:
+      X:
+        Raw: 1
+        Type: 0
+      Y:
+        Raw: 1
+        Type: 1
+      Z:
+        Raw: 0
+        Type: 0
+    Position:
+      X:
+        Raw: 0
+        Type: 0
+      Y:
+        Raw: 0
+        Type: 0
+      Z:
+        Raw: 0
+        Type: 0
+    Padding:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    Margin:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    SizeMinMax:
+      X:
+        Min: 0
+        Max: Infinity
+      Y:
+        Min: 0
+        Max: 11
+      Z:
+        Min: 0
+        Max: Infinity
+    PositionMinMax:
+      X:
+        Min: -Infinity
+        Max: Infinity
+      Y:
+        Min: -Infinity
+        Max: Infinity
+      Z:
+        Min: -Infinity
+        Max: Infinity
+    PaddingMinMax:
+      Left:
+        Min: 0
+        Max: Infinity
+      Right:
+        Min: 0
+        Max: Infinity
+      Bottom:
+        Min: 0
+        Max: Infinity
+      Top:
+        Min: 0
+        Max: Infinity
+      Front:
+        Min: 0
+        Max: Infinity
+      Back:
+        Min: 0
+        Max: Infinity
+    MarginMinMax:
+      Left:
+        Min: -Infinity
+        Max: Infinity
+      Right:
+        Min: -Infinity
+        Max: Infinity
+      Bottom:
+        Min: -Infinity
+        Max: Infinity
+      Top:
+        Min: -Infinity
+        Max: Infinity
+      Front:
+        Min: -Infinity
+        Max: Infinity
+      Back:
+        Min: -Infinity
+        Max: Infinity
+    Alignment:
+      X: 0
+      Y: -1
+      Z: 0
+    AutoSize:
+      X: 0
+      Y: 0
+      Z: 0
+    RotateSize: 0
+    AspectRatio: {x: 0, y: 0, z: 0}
+    AspectRatioAxis: 0
+  autoLayout:
+    Axis: 0
+    Spacing:
+      Raw: 0
+      Type: 0
+    SpacingMinMax:
+      Min: 0
+      Max: Infinity
+    AutoSpace: 0
+    ReverseOrder: 0
+    alignment: -1
+    Offset: 0
+    Cross:
+      Axis: 0
+      Spacing:
+        Raw: 0
+        Type: 0
+      SpacingMinMax:
+        Min: 0
+        Max: Infinity
+      AutoSpace: 0
+      ReverseOrder: 0
+      alignment: -1
+      ExpandToGrid: 0
+  visibility:
+    ZIndex: 0
+    BlockType: 1
+    Visible: 1
+  surface:
+    specularColor: {r: 1, g: 1, b: 1, a: 1}
+    param1: 0.5
+    param2: 0.5
+    LightingModel: 0
+    ShadowCastingMode: 2
+    ReceiveShadows: 1
+  PreviewSize: {x: 1, y: 11, z: 0}
+  visuals:
+    Color: {r: 0.31372553, g: 0.9019608, b: 0.9019608, a: 1}
+    CornerRadius:
+      Raw: 0.19671774
+      Type: 0
+    RadialFill:
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Rotation: 0
+      FillAngle: 90
+      Enabled: 0
+    Gradient:
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Radius:
+        X:
+          Raw: 0.5
+          Type: 1
+        Y:
+          Raw: 0.5
+          Type: 1
+      Rotation: 0
+      Enabled: 0
+    Border:
+      Color: {r: 0, g: 0.02730077, b: 0.103773594, a: 1}
+      Width:
+        Raw: 0.1
+        Type: 0
+      Enabled: 0
+      Direction: 1
+    Shadow:
+      Color: {r: 0, g: 0, b: 0, a: 0.5}
+      Width:
+        Raw: 0
+        Type: 0
+      Blur:
+        Raw: 2
+        Type: 0
+      Offset:
+        X:
+          Raw: 0
+          Type: 0
+        Y:
+          Raw: -1
+          Type: 0
+      Enabled: 0
+      Direction: 0
+    Image:
+      Adjustment:
+        CenterUV: {x: 0, y: 0}
+        UVScale: {x: 1, y: 1}
+        PixelsPerUnitMultiplier: 1
+        scaleMode: 1
+      Mode: 1
+    SoftenEdges: 1
+    FillEnabled: 1
+  texture: {fileID: 0}
+  sprite: {fileID: 0}
 --- !u!1 &7307402096739346781
 GameObject:
   m_ObjectHideFlags: 0
@@ -17834,7 +18433,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -0.2513672
         Type: 0
       Z:
         Raw: 0

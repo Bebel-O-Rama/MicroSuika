@@ -37,7 +37,7 @@ namespace MultiSuika.Utilities
         [SerializeField] private TMP_Text _tmpCombo;
         [SerializeField] private TMP_Text _tmpSpeed;
         [SerializeField] private TMP_Text _tmpTargetSpeed;
-        [SerializeField] private TMP_Text _tmpSpeedDiff;
+        [SerializeField] private TMP_Text _tmpAverageSpeed;
         [SerializeField] private TMP_Text _tmpAcceleration;
         [SerializeField] private TMP_Text _tmpDamping;
         [SerializeField] private TMP_Text _tmpDampingMethod;
@@ -45,15 +45,17 @@ namespace MultiSuika.Utilities
         
         
         [SerializeField] private UIBlock2D _speedBar;
+        [SerializeField] private UIBlock2D _averageSpeedBar;
         [SerializeField] private UIBlock2D _speedTextBlock;
         [SerializeField] private UIBlock2D _comboBar;
         
         public FloatReference ballAreaRef;
-        private IntReference _playerScore;
+        public FloatReference currentSpeed;
+        public FloatReference averageSpeed;
 
+        private IntReference _playerScore;
         private float _percentageFilled = 0f;
         private int _combo = 1;
-        private float _currentSpeed = 0f;
         private float _targetSpeed = 0f;
         private Vector2 _currentComboTimer;
 
@@ -105,16 +107,16 @@ namespace MultiSuika.Utilities
             _targetSpeed -= _targetSpeed - GetDampingValue() > 0 ? GetDampingValue() : 0f;
             
             // Speed value
-            var previousSpeed = _currentSpeed;
-            _currentSpeed = Mathf.MoveTowards(_currentSpeed, _targetSpeed, _accelerationValue * _combo * Time.deltaTime);
+            var previousSpeed = currentSpeed.Value;
+            currentSpeed.Variable.SetValue(Mathf.MoveTowards(currentSpeed, _targetSpeed, _accelerationValue * _combo * Time.deltaTime));
 
-            if (Mathf.Abs(previousSpeed - _currentSpeed) < Mathf.Epsilon)
+            if (Mathf.Abs(previousSpeed - currentSpeed) < Mathf.Epsilon)
             {
                 _debugSpeedTextBlockColor = _fixedDebugColor;
             }
             else
             {
-                _debugSpeedTextBlockColor = _currentSpeed > previousSpeed ? _risingDebugColor : _reducingDebugColor;
+                _debugSpeedTextBlockColor = currentSpeed > previousSpeed ? _risingDebugColor : _reducingDebugColor;
             }
         }
         
@@ -132,11 +134,20 @@ namespace MultiSuika.Utilities
             _comboBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
 
             // Speed value
-            _tmpSpeed.text = string.Format($"{_currentSpeed:0.00}");
-            _tmpSpeedBar.text = string.Format($"{_currentSpeed:0.00}");
+            _tmpSpeed.text = string.Format($"{currentSpeed.Value:0.00}");
+            _tmpSpeedBar.text = string.Format($"{currentSpeed.Value:0.00}");
             _speedTextBlock.Color = _debugSpeedTextBlockColor;
-            _speedBar.Size.Y = (_currentSpeed / _maxSpeed) * _speedBarMax;
+            var speedBarSizePercent = _speedBar.Size.Percent;
+            speedBarSizePercent.y = currentSpeed / _maxSpeed;
+            _speedBar.Size.Percent = speedBarSizePercent;
             _speedBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
+            
+            // Average Speed
+            _tmpAverageSpeed.text = string.Format($"{averageSpeed.Value:0.00}");
+            var averageSpeedPositionPercent = _averageSpeedBar.Position.Percent;
+            averageSpeedPositionPercent.y = averageSpeed / _maxSpeed;
+            _averageSpeedBar.Position.Percent = averageSpeedPositionPercent;
+            
             
             // Target speed value
             _tmpTargetSpeed.text = string.Format($"{_targetSpeed:0.00}");
@@ -159,9 +170,9 @@ namespace MultiSuika.Utilities
             return _dampingMethod switch
             {
                 DampingMethod.None => 0f,
-                DampingMethod.FixedPercent => _currentSpeed * _fixedPercent * Time.deltaTime,
+                DampingMethod.FixedPercent => currentSpeed * _fixedPercent * Time.deltaTime,
                 DampingMethod.Fixed => _fixedValue * Time.deltaTime,
-                DampingMethod.AnimCurve => _currentSpeed * _curvePercent.Evaluate(_currentSpeed / _maxSpeed) * Time.deltaTime,
+                DampingMethod.AnimCurve => currentSpeed * _curvePercent.Evaluate(currentSpeed / _maxSpeed) * Time.deltaTime,
                 _ => 0f
             };
         }
