@@ -9,6 +9,9 @@ namespace MultiSuika.Utilities
 {
     public class RacingDebugInfo : MonoBehaviour
     {
+        [Header("Ball Collision Parameters")] 
+        [SerializeField] [Min(0f)] private float _ballImpactMultiplier;  
+        
         [Header("Damping Parameters")]
         [SerializeField] private DampingMethod _dampingMethod;
         [SerializeField] [Range (0f, 1f)] private float _fixedPercent;
@@ -43,6 +46,7 @@ namespace MultiSuika.Utilities
         [SerializeField] private TMP_Text _tmpDampingMethod;
         [SerializeField] private TMP_Text _tmpRanking;
         [SerializeField] private TMP_Text _tmpSpeedBar;
+        [SerializeField] private TMP_Text _tmpLeadTimer;
         
         
         [SerializeField] private UIBlock2D _speedBar;
@@ -54,21 +58,25 @@ namespace MultiSuika.Utilities
         public FloatReference currentSpeed;
         public FloatReference averageSpeed;
         public IntReference currentRanking;
+        public FloatReference leadTimer;
 
         private IntReference _playerScore;
         private float _percentageFilled = 0f;
         private int _combo = 1;
         private float _targetSpeed = 0f;
         private Vector2 _currentComboTimer;
+        private bool _leadStatus;
 
+        private bool _isDebugUpdating = true;
+        
         private Color _debugSpeedTextBlockColor;
         
         private enum DampingMethod
         {
-            None,
             FixedPercent,
             Fixed,
-            AnimCurve
+            AnimCurve,
+            None
         }
         
         private void Start()
@@ -76,10 +84,13 @@ namespace MultiSuika.Utilities
             _playerScore = transform.parent.GetComponentInChildren<Cannon.Cannon>().scoreReference;
             if (_containerMaxArea < 0)
                 _containerMaxArea = 1;
+            SetLeadStatus(false);
         }
 
         private void Update()
         {
+            if (!_isDebugUpdating)
+                return;
             UpdateData();
             UpdateDebugVisual();
         }
@@ -90,7 +101,27 @@ namespace MultiSuika.Utilities
             _currentComboTimer = new Vector2(_comboTimerDuration, _comboTimerDuration);
             _targetSpeed += scoreValue * 2f;
         }
-        
+
+        public void BallCollidedWithDeadzone(Ball.Ball ball)
+        {
+            var impactLevel = ball.scoreValue * _ballImpactMultiplier;
+            currentSpeed.Variable.SetValue(Mathf.Clamp(currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
+            _targetSpeed = Mathf.Clamp(_targetSpeed - impactLevel, 0f, Mathf.Infinity);
+            
+            
+            
+            
+            ball.ClearBall(false);
+        }
+
+        public void SetDebugUpdates(bool isDebugUpdating) => _isDebugUpdating = isDebugUpdating;
+
+        public void SetLeadStatus(bool isInLead)
+        {
+            _tmpLeadTimer.text = "";
+            _tmpLeadTimer.transform.gameObject.SetActive(isInLead);
+            _leadStatus = isInLead;
+        }
         
         private void UpdateData()
         {
@@ -168,16 +199,20 @@ namespace MultiSuika.Utilities
             
             // Ranking value
             _tmpRanking.text = string.Format($"{currentRanking.Value}");
+            
+            // Lead timer value
+            if (_leadStatus)
+                _tmpLeadTimer.text = leadTimer > Mathf.Epsilon ? string.Format($"{leadTimer.Value:0.0}") : "";
         }
 
         private float GetDampingValue()
         {
             return _dampingMethod switch
             {
-                DampingMethod.None => 0f,
                 DampingMethod.FixedPercent => currentSpeed * _fixedPercent * Time.deltaTime,
                 DampingMethod.Fixed => _fixedValue * Time.deltaTime,
                 DampingMethod.AnimCurve => currentSpeed * _curvePercent.Evaluate(currentSpeed / _maxSpeed) * Time.deltaTime,
+                DampingMethod.None => 0f,
                 _ => 0f
             };
         }
