@@ -108,8 +108,7 @@ namespace MultiSuika.Utilities
             currentSpeed.Variable.SetValue(Mathf.Clamp(currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
             _targetSpeed = Mathf.Clamp(_targetSpeed - impactLevel, 0f, Mathf.Infinity);
             
-            
-            
+            // Add dmg feedback
             
             ball.ClearBall(false);
         }

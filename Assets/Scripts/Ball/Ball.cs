@@ -35,6 +35,8 @@ namespace MultiSuika.Ball
         public AK.Wwise.Event WwiseEventBallFuseT9;
         public AK.Wwise.Event WwiseEventBallFuseT10;
 
+        private bool _isBallCleared = false;
+        
         public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
         
         public void DropBallFromCannon()
@@ -52,6 +54,7 @@ namespace MultiSuika.Ball
                 ballScoreRef?.Variable.ApplyChange(scoreValue);
             ballTracker.UnregisterBall(this, container);
             rb2d.simulated = false;
+            _isBallCleared = true;
             Destroy(gameObject);
         }
 
@@ -63,9 +66,10 @@ namespace MultiSuika.Ball
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.transform.CompareTag("Ball")) return;
+            if (!collision.transform.CompareTag("Ball")) 
+                return;
             var otherBall = collision.gameObject.GetComponent<Ball>();
-            if (otherBall.tier == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID())
+            if (otherBall.tier == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID() && !_isBallCleared && !otherBall._isBallCleared)
             {
                 FuseWithOtherBall(otherBall, collision.GetContact(0).point);
             }

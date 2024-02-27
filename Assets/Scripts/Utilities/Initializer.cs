@@ -211,6 +211,7 @@ namespace MultiSuika.Utilities
             ball.impulseExpPower = ballSetData.impulseExpPower;
             ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
 
+            ball.transform.name = $"Ball T{ball.tier}{ball.transform.GetInstanceID()}";
 
             if (disableCollision)
                 ball.rb2d.simulated = false;
