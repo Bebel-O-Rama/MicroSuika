@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -17,6 +18,7 @@ namespace MultiSuika.Ball
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteThemeData;
         public Container.Container container;
+        public IGameMode gameMode;
         public BallTracker ballTracker;
 
         public float impulseMultiplier;
@@ -84,15 +86,11 @@ namespace MultiSuika.Ball
                 AddFusionImpulse(tier + 1, contactPosition);
                 var newBall = Initializer.InstantiateBall(ballSetData, container,
                     Initializer.WorldToLocalPosition(container.ContainerParent.transform, contactPosition));
-                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container);
+                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container, gameMode);
                 newBall.ballTracker.RegisterBall(newBall, container);
                 CallFuseSFX(tier, newBall.gameObject);
             }
-
-            // TODO: Clean this up
-            var racingDebugInfo = container.GetComponent<RacingDebugInfo>();
-            if (racingDebugInfo != null)
-                racingDebugInfo.NewBallFused(scoreValue);
+            gameMode.OnBallFusion(this);
         }
 
         private void AddFusionImpulse(int newBallTier, Vector3 contactPosition)

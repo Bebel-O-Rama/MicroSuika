@@ -1,4 +1,5 @@
 using MultiSuika.Ball;
+using MultiSuika.GameLogic;
 using MultiSuika.Player;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -33,6 +34,8 @@ namespace MultiSuika.Cannon
 
         // Wwise Event
         public AK.Wwise.Event WwiseEventCannonShoot;
+
+        public IGameMode gameMode;
         
         public void DestroyCurrentBall()
         {
@@ -108,7 +111,7 @@ namespace MultiSuika.Cannon
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
             _currentBall = Initializer.InstantiateBall(ballSetData, container,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, true);
+            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameMode, true);
         }
     
     }

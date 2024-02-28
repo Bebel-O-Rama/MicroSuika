@@ -123,19 +123,19 @@ namespace MultiSuika.Utilities
 
         public static void SetCannonsParameters(List<Cannon.Cannon> cannons, List<Container.Container> containers,
             BallTracker balltracker, GameModeData gameModeData,
-            List<PlayerData> playerData)
+            List<PlayerData> playerData, IGameMode gameMode)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
                 SetCannonParameters(cannons[i],
                     containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], balltracker,
-                    gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i]);
+                    gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i], gameMode);
             }
         }
 
         public static void SetCannonParameters(Cannon.Cannon cannon, Container.Container container,
             BallTracker ballTracker, GameModeData gameModeData,
-            PlayerData playerData, PlayerSkinData playerSkinData)
+            PlayerData playerData, PlayerSkinData playerSkinData, IGameMode gameMode)
         {
             cannon.speed = gameModeData.cannonSpeed;
             cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
@@ -150,6 +150,8 @@ namespace MultiSuika.Utilities
             cannon.container = container;
             cannon.ballTracker = ballTracker;
             cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
+
+            cannon.gameMode = gameMode;
         }
 
         public static void ConnectCannonsToPlayerInputs(List<Cannon.Cannon> cannons,
@@ -179,7 +181,7 @@ namespace MultiSuika.Utilities
 
         public static void SetBallParameters(Ball.Ball ball, int ballTierIndex, IntReference scoreRef,
             BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData,
-            Container.Container container, bool disableCollision = false)
+            Container.Container container, IGameMode gameMode, bool disableCollision = false)
         {
             var ballData = ballSetData.GetBallData(ballTierIndex);
             if (ballData == null)
@@ -211,6 +213,8 @@ namespace MultiSuika.Utilities
             ball.impulseExpPower = ballSetData.impulseExpPower;
             ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
 
+            ball.gameMode = gameMode;
+            
             ball.transform.name = $"Ball T{ball.tier}{ball.transform.GetInstanceID()}";
 
             if (disableCollision)

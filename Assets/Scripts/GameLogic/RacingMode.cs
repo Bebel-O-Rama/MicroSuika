@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
-    public class RacingMode : MonoBehaviour
+    public class RacingMode : MonoBehaviour, IGameMode
     {
         [Header("Testing Parameters")]
         // [SerializeField] public bool canShareRanking;
@@ -94,7 +94,7 @@ namespace MultiSuika.GameLogic
             _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
                 _containers);
             Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData,
-                gameData.playerDataList);
+                gameData.playerDataList, this);
 
             //// Init and set playerInputHandlers
             _playerInputHandlers =
@@ -275,6 +275,13 @@ namespace MultiSuika.GameLogic
                 SpeedReqCheckMethod.FromStart => score > _currentLeadSpeedCondition,
                 _ => false
             };
+        }
+
+        public void OnBallFusion(Ball.Ball ball)
+        {
+            var racingDebugInfo =ball.container.GetComponent<RacingDebugInfo>();
+            if (racingDebugInfo != null)
+                racingDebugInfo.NewBallFused(ball.scoreValue);
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MultiSuika.GameLogic
 {
-    public class VersusMode : MonoBehaviour
+    public class VersusMode : MonoBehaviour, IGameMode
     {
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
@@ -38,7 +38,7 @@ namespace MultiSuika.GameLogic
             //// Init and set cannons
             _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
                 _containers);
-            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.playerDataList);
+            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.playerDataList, this);
         
             //// Link conditions to the VersusMode instance
             var versusFailConditions = _versusGameInstance.GetComponentsInChildren<VersusFailCondition>().ToList();
@@ -89,6 +89,10 @@ namespace MultiSuika.GameLogic
             
             _cannons[0].DisconnectCannonToPlayer();
             _cannons[0].container.ContainerSuccess();
+        }
+
+        public void OnBallFusion(Ball.Ball ball)
+        {
         }
     }
 }

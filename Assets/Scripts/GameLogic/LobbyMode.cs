@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 namespace MultiSuika.GameLogic
 {
     [RequireComponent(typeof(PlayerInputManager))]
-    public class LobbyMode : MonoBehaviour
+    public class LobbyMode : MonoBehaviour, IGameMode
     {
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
@@ -62,7 +62,7 @@ namespace MultiSuika.GameLogic
             _playerInputHandlers.Add(newPlayerInputHandler);
             Cannon.Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
             _cannons.Add(newCannon);
-            Initializer.SetCannonParameters(newCannon, _containers[0], _ballTracker, gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex]);
+            Initializer.SetCannonParameters(newCannon, _containers[0], _ballTracker, gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex], this);
             newCannon.ConnectCannonToPlayer(newPlayerInputHandler);
             
             // Do custom stuff when a player joins in the lobby
@@ -137,6 +137,10 @@ namespace MultiSuika.GameLogic
             {
                 containerTrigger.UpdateContainerBehavior(newPlayerNumber);
             }
+        }
+
+        public void OnBallFusion(Ball.Ball ball)
+        {
         }
     }
 }
