@@ -6,8 +6,8 @@ namespace MultiSuika.Player
     public class PlayerInputHandler : MonoBehaviour
     {
         [Tooltip("The vertical input of the Joystick needs to have a big deadzone, otherwise the player might switch target by accident")]
-        [SerializeField] [Range(0f, 1f)] private float discreteAxisDeadzone = 0.5f;
-        [SerializeField] [Range(0f, 1f)] private float continuousAxisDeadzone = 0.1f;
+        [SerializeField] [Range(0f, 1f)] private float _discreteAxisDeadzone = 0.5f;
+        [SerializeField] [Range(0f, 1f)] private float _continuousAxisDeadzone = 0.1f;
     
         public OnHorizontalMvtContinuousDelegate onHorizontalMvtContinuous;
         public OnHorizontalMvtDiscreteDelegate onHorizontalMvtDiscrete;
@@ -28,8 +28,6 @@ namespace MultiSuika.Player
         [SerializeField] private bool showInputLog = false;
     
         // PlayerInput Parameters
-        // TODO : Put that back in private!!!
-        public PlayerInput _playerInput;
         private int _playerInputIndex;
         private string _playerInputDeviceName;
 
@@ -108,7 +106,7 @@ namespace MultiSuika.Player
 
         private void ProcessContinuousAxis(float axis, bool isHorizontal)
         {
-            if (Mathf.Abs(axis) < continuousAxisDeadzone)
+            if (Mathf.Abs(axis) < _continuousAxisDeadzone)
                 return;
             if (isHorizontal)
                 onHorizontalMvtContinuous?.Invoke(axis);
@@ -120,7 +118,7 @@ namespace MultiSuika.Player
 
         private void ProcessDiscreteAxis(float axis, bool isHorizontal)
         {
-            int currentValue = Mathf.Abs(axis) < discreteAxisDeadzone ? 0 : (axis > 0 ? 1 : -1);
+            int currentValue = Mathf.Abs(axis) < _discreteAxisDeadzone ? 0 : (axis > 0 ? 1 : -1);
             if (isHorizontal)
             {
                 if (_latestNaturalXAxis == currentValue)
