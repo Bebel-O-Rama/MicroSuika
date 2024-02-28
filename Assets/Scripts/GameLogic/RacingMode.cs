@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
+using MultiSuika.DebugInfo;
 using MultiSuika.Utilities;
 using MultiSuika.Player;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,11 +12,14 @@ namespace MultiSuika.GameLogic
 {
     public class RacingMode : MonoBehaviour, IGameMode
     {
-        [Header("Testing Parameters")]
+        [SerializeField] private bool _isDebugEnabled;
+
+        [Header("Lead Parameters")]
         // [SerializeField] public bool canShareRanking;
         [Tooltip(
             "If false, only increase the timer reducing the value of the condition variables when nobody is winning. Otherwise, always increase the timer")]
         [SerializeField] private bool _alwaysReduceConditionValues;
+
         [SerializeField] private LeadReqProgressionMethod _leadReqProgressionMethod;
         [SerializeField] private SpeedReqCheckMethod _speedReqCheckMethod;
 
@@ -27,14 +30,9 @@ namespace MultiSuika.GameLogic
         [SerializeField] private AnimationCurve _leadTimeReqCurve;
         [SerializeField] private AnimationCurve _leadSpeedReqCurve;
 
-        [Header("Visual Debug Parameters")] 
-        [SerializeField] public TMP_Text _tmpMean;
+        [Header("GameMode Parameters")] [SerializeField]
+        public GameData gameData;
 
-        [SerializeField] public TMP_Text _tmpSD;
-        [SerializeField] public TMP_Text _tmpTimeReq;
-        [SerializeField] public TMP_Text _tmpPointsReq;
-
-        [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
 
         private int _numberPlayerConnected;
@@ -47,19 +45,21 @@ namespace MultiSuika.GameLogic
         private Dictionary<Container.Container, FloatReference> _playerCurrentSpeedReferences;
         private Dictionary<Container.Container, FloatReference> _playerLeadTimer;
         private Dictionary<Container.Container, IntReference> _playerRankingReferences;
-        private FloatReference _averageSpeed;
 
+        private FloatReference _averageSpeed;
         private FloatReference _standardDeviationSpeed;
-        
+        private FloatReference _currentLeadTimeCondition;
+        private FloatReference _currentLeadSpeedCondition;
+
         private Container.Container _currentContainerInLead;
-        private float _currentLeadTimeCondition;
-        private float _currentLeadSpeedCondition;
         private float _currentLeadTimeLeft;
         private float _timeReqProgressionTimer;
         private float _speedReqProgressionTimer;
 
         private bool _isGameInProgress = true;
+        private RacingModeDebugInfo _racingModeDebugInfo;
         
+
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
         [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
 
@@ -102,7 +102,18 @@ namespace MultiSuika.GameLogic
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
 
             //// Racing Stuff!!!
-            SetupRacingDataUI();
+            SetupRacingParameters();
+        }
+
+        private void Start()
+        {
+            if (!_isDebugEnabled)
+                return;
+            _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
+            if (_racingModeDebugInfo == null)
+                return;
+            _racingModeDebugInfo.SetupRacingModeDebugParameters(_averageSpeed, _standardDeviationSpeed,
+                _currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
 
         private void Update()
@@ -112,15 +123,20 @@ namespace MultiSuika.GameLogic
             UpdateSpeedParameters();
             UpdateRanking();
             UpdateLead();
-            UpdateDebugInfo();
             CheckAndProcessWinCondition();
+            _racingModeDebugInfo?.SetDebugActive(_isDebugEnabled);
+                
         }
 
-        private void SetupRacingDataUI()
+        private void SetupRacingParameters()
         {
             _averageSpeed = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             _standardDeviationSpeed = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _currentLeadTimeCondition = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _currentLeadSpeedCondition = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
 
             _playerCurrentSpeedReferences = new Dictionary<Container.Container, FloatReference>();
@@ -148,8 +164,8 @@ namespace MultiSuika.GameLogic
                 newRacingDebugInfo.leadTimer = newPlayerLeadTimer;
             }
 
-            _currentLeadTimeCondition = _timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y;
-            _currentLeadSpeedCondition = _speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y;
+            _currentLeadTimeCondition.Variable.SetValue(_timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y);
+            _currentLeadSpeedCondition.Variable.SetValue(_speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y);
         }
 
         private void UpdateSpeedParameters()
@@ -220,14 +236,6 @@ namespace MultiSuika.GameLogic
             _currentContainerInLead.GetComponent<RacingDebugInfo>().SetLeadStatus(true);
         }
 
-        private void UpdateDebugInfo()
-        {
-            _tmpMean.text = string.Format($"{_averageSpeed.Value:0.00}");
-            _tmpSD.text = string.Format($"{_standardDeviationSpeed.Value:0.00}");
-            _tmpTimeReq.text = string.Format($"{_currentLeadTimeCondition:0.00}");
-            _tmpPointsReq.text = string.Format($"{_currentLeadSpeedCondition:0}");
-        }
-
         private void UpdateLeadRequirementsParameters()
         {
             if (_leadReqProgressionMethod == LeadReqProgressionMethod.Fixed)
@@ -235,12 +243,10 @@ namespace MultiSuika.GameLogic
             _timeReqProgressionTimer += Time.deltaTime;
             _speedReqProgressionTimer += Time.deltaTime;
 
-            _currentLeadTimeCondition =
-                _leadTimeReqCurve.Evaluate(Mathf.Clamp01(_timeReqProgressionTimer / _leadTimeConditionTimerRange)) *
-                _timeLeadConditionMinRange.y + _timeLeadConditionMinRange.x;
-            _currentLeadSpeedCondition =
-                _leadSpeedReqCurve.Evaluate(Mathf.Clamp01(_speedReqProgressionTimer / _leadSpeedConditionTimerRange)) *
-                _speedLeadConditionMinRange.y + _speedLeadConditionMinRange.x;
+            _currentLeadTimeCondition.Variable.SetValue(_leadTimeReqCurve.Evaluate(Mathf.Clamp01(_timeReqProgressionTimer / _leadTimeConditionTimerRange)) *
+                _timeLeadConditionMinRange.y + _timeLeadConditionMinRange.x);
+            _currentLeadSpeedCondition.Variable.SetValue(_leadSpeedReqCurve.Evaluate(Mathf.Clamp01(_speedReqProgressionTimer / _leadSpeedConditionTimerRange)) *
+                _speedLeadConditionMinRange.y + _speedLeadConditionMinRange.x);
         }
 
         private void CheckAndProcessWinCondition()
@@ -261,7 +267,7 @@ namespace MultiSuika.GameLogic
 
             _isGameInProgress = false;
         }
-        
+
 
         private bool CheckPointsReqValue(float score)
         {
@@ -269,7 +275,8 @@ namespace MultiSuika.GameLogic
             {
                 SpeedReqCheckMethod.FromAverage => score > _averageSpeed + _currentLeadSpeedCondition,
                 SpeedReqCheckMethod.FromSecond => score > (_playerCurrentSpeedReferences.Count > 1
-                    ? _playerCurrentSpeedReferences.OrderByDescending(r => r.Value.Value).Skip(1).FirstOrDefault().Value +
+                    ? _playerCurrentSpeedReferences.OrderByDescending(r => r.Value.Value).Skip(1).FirstOrDefault()
+                          .Value +
                       _currentLeadSpeedCondition
                     : _currentLeadSpeedCondition),
                 SpeedReqCheckMethod.FromStart => score > _currentLeadSpeedCondition,
@@ -279,9 +286,18 @@ namespace MultiSuika.GameLogic
 
         public void OnBallFusion(Ball.Ball ball)
         {
-            var racingDebugInfo =ball.container.GetComponent<RacingDebugInfo>();
+            var racingDebugInfo = ball.container.GetComponent<RacingDebugInfo>();
             if (racingDebugInfo != null)
                 racingDebugInfo.NewBallFused(ball.scoreValue);
+        }
+
+        private void SetDebugActive(bool isDebugActive)
+        {
+            var racingModeDebug = FindObjectOfType<RacingModeDebugInfo>();
+            if (racingModeDebug == null)
+                return;
+            racingModeDebug.SetupRacingModeDebugParameters(_averageSpeed, _standardDeviationSpeed,
+                _currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
     }
 }

@@ -1364,7 +1364,7 @@ GameObject:
   - component: {fileID: 589667663}
   - component: {fileID: 589667662}
   m_Layer: 0
-  m_Name: DebugInfo
+  m_Name: UIBlock2D (Racing Debug Info)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1378,8 +1378,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589667660}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2720003, y: 4.0480003, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1387,7 +1387,7 @@ Transform:
   - {fileID: 1159291472}
   - {fileID: 1235458177}
   - {fileID: 161752304}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1779945704}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &589667662
 MonoBehaviour:
@@ -1416,10 +1416,10 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -7.2720003
+        Raw: 0
         Type: 0
       Y:
-        Raw: -4.9540005
+        Raw: -0.906
         Type: 0
       Z:
         Raw: 0
@@ -1680,7 +1680,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1779945704}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &825600733
@@ -1770,6 +1771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f7643866a2cbd4f84e3a79f7b25384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDebugEnabled: 1
   _alwaysReduceConditionValues: 0
   _leadReqProgressionMethod: 1
   _speedReqCheckMethod: 1
@@ -1825,10 +1827,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _tmpMean: {fileID: 1531885257}
-  _tmpSD: {fileID: 279178144}
-  _tmpTimeReq: {fileID: 1756029316}
-  _tmpPointsReq: {fileID: 1738965884}
   gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
   gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
   useDebugSpawnContainer: 0
@@ -4893,6 +4891,56 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1779945703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1779945704}
+  - component: {fileID: 1779945705}
+  m_Layer: 0
+  m_Name: RacingMode Debug Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1779945704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779945703}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.2720003, y: 4.0480003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 589667661}
+  m_Father: {fileID: 825600732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1779945705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779945703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8051c9daa695d4ab8ebae4c4edd99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDebugEnabled: 0
+  _tmpMean: {fileID: 1531885257}
+  _tmpSD: {fileID: 279178144}
+  _tmpTimeReq: {fileID: 1756029316}
+  _tmpPointsReq: {fileID: 1738965884}
 --- !u!1001 &1961670153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5202,4 +5250,3 @@ SceneRoots:
   - {fileID: 418028245}
   - {fileID: 1366222681491531895}
   - {fileID: 223767770}
-  - {fileID: 589667661}
