@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using MultiSuika.Container;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace MultiSuika.GameLogic
             if (!other.gameObject.CompareTag("Ball"))
                 return;
             var ball = other.GetComponent<Ball.Ball>();
-            ball.container.GetComponent<RacingDebugInfo>().BallCollidedWithDeadzone(ball);
+            ball.container.GetComponent<ContainerRacingMode>().BallCollidedWithDeadzone(ball);
         }
     }
 }

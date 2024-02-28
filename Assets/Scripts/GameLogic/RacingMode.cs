@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
+using MultiSuika.Container;
 using MultiSuika.DebugInfo;
 using MultiSuika.Utilities;
 using MultiSuika.Player;
@@ -43,8 +44,9 @@ namespace MultiSuika.GameLogic
         private BallTracker _ballTracker = new BallTracker();
 
         private Dictionary<Container.Container, FloatReference> _playerCurrentSpeedReferences;
-        private Dictionary<Container.Container, FloatReference> _playerLeadTimer;
         private Dictionary<Container.Container, IntReference> _playerRankingReferences;
+        private Dictionary<Container.Container, BoolReference> _playerLeadStatus;
+        private Dictionary<Container.Container, FloatReference> _playerLeadTimer;
 
         private FloatReference _averageSpeed;
         private FloatReference _standardDeviationSpeed;
@@ -102,7 +104,8 @@ namespace MultiSuika.GameLogic
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
 
             //// Racing Stuff!!!
-            SetupRacingParameters();
+            SetRacingModeParameters();
+            SetContainerRacingParameters();
         }
 
         private void Start()
@@ -112,8 +115,9 @@ namespace MultiSuika.GameLogic
             _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
             if (_racingModeDebugInfo == null)
                 return;
-            _racingModeDebugInfo.SetupRacingModeDebugParameters(_averageSpeed, _standardDeviationSpeed,
+            _racingModeDebugInfo.SetRacingModeParameters(_averageSpeed, _standardDeviationSpeed,
                 _currentLeadTimeCondition, _currentLeadSpeedCondition);
+            _racingModeDebugInfo.SetDebugActive(true);
         }
 
         private void Update()
@@ -128,7 +132,7 @@ namespace MultiSuika.GameLogic
                 
         }
 
-        private void SetupRacingParameters()
+        private void SetRacingModeParameters()
         {
             _averageSpeed = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
@@ -141,6 +145,7 @@ namespace MultiSuika.GameLogic
 
             _playerCurrentSpeedReferences = new Dictionary<Container.Container, FloatReference>();
             _playerRankingReferences = new Dictionary<Container.Container, IntReference>();
+            _playerLeadStatus = new Dictionary<Container.Container, BoolReference>();
             _playerLeadTimer = new Dictionary<Container.Container, FloatReference>();
 
             foreach (var container in _containers)
@@ -149,25 +154,35 @@ namespace MultiSuika.GameLogic
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
                 IntReference newPlayerRankingRef = new IntReference
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
+                BoolReference newPlayerLeadStatus = new BoolReference
+                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<BoolVariable>() };
                 FloatReference newPlayerLeadTimer = new FloatReference
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-
+                
+                newPlayerLeadStatus.Variable.SetValue(false);
+                
                 _playerCurrentSpeedReferences[container] = newCurrentSpeedVar;
                 _playerRankingReferences[container] = newPlayerRankingRef;
+                _playerLeadStatus[container] = newPlayerLeadStatus;
                 _playerLeadTimer[container] = newPlayerLeadTimer;
-
-                var newRacingDebugInfo = container.GetComponent<RacingDebugInfo>();
-                newRacingDebugInfo.ballAreaRef = _ballTracker.GetBallAreaForContainer(container);
-                newRacingDebugInfo.currentSpeed = newCurrentSpeedVar;
-                newRacingDebugInfo.averageSpeed = _averageSpeed;
-                newRacingDebugInfo.currentRanking = newPlayerRankingRef;
-                newRacingDebugInfo.leadTimer = newPlayerLeadTimer;
             }
-
+            
             _currentLeadTimeCondition.Variable.SetValue(_timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y);
             _currentLeadSpeedCondition.Variable.SetValue(_speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y);
         }
 
+        private void SetContainerRacingParameters()
+        {
+            foreach (var container in _containers)
+            {
+                var containerRacing = container.GetComponent<ContainerRacingMode>();
+                containerRacing.SetBallAreaParameters(_ballTracker.GetBallAreaForContainer(container));
+                containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed);
+                containerRacing.SetRankingParameters(_playerRankingReferences[container]);
+                containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
+            }
+        }
+        
         private void UpdateSpeedParameters()
         {
             // Average
@@ -221,7 +236,10 @@ namespace MultiSuika.GameLogic
             }
 
             if (_currentContainerInLead != null)
-                _currentContainerInLead.GetComponent<RacingDebugInfo>().SetLeadStatus(false);
+            {
+                _playerLeadStatus[_currentContainerInLead].Variable.SetValue(false);
+                _currentContainerInLead = null;
+            }
 
             if (!passedPtsCheck)
             {
@@ -231,9 +249,9 @@ namespace MultiSuika.GameLogic
             }
 
             _currentContainerInLead = currentFirst.Key;
+            _playerLeadStatus[_currentContainerInLead].Variable.SetValue(true);
             _currentLeadTimeLeft = _currentLeadTimeCondition;
             _playerLeadTimer[_currentContainerInLead].Variable.SetValue(_currentLeadTimeLeft);
-            _currentContainerInLead.GetComponent<RacingDebugInfo>().SetLeadStatus(true);
         }
 
         private void UpdateLeadRequirementsParameters()
@@ -253,16 +271,19 @@ namespace MultiSuika.GameLogic
         {
             if (_currentContainerInLead == null || _playerLeadTimer[_currentContainerInLead] > 0f)
                 return;
-
+            
             foreach (var cannon in _cannons)
                 cannon.DisconnectCannonToPlayer();
-            foreach (var container in _containers.Where(container => container != _currentContainerInLead))
+            
+            foreach (var container in _containers)
             {
-                container.GetComponent<RacingDebugInfo>().SetDebugUpdates(false);
                 if (container != _currentContainerInLead)
                     container.ContainerFailure();
                 else
                     container.ContainerSuccess();
+
+                foreach (var ball in _ballTracker.GetBallsForContainer(container))
+                    ball.SetBallFreeze(true);
             }
 
             _isGameInProgress = false;
@@ -286,18 +307,9 @@ namespace MultiSuika.GameLogic
 
         public void OnBallFusion(Ball.Ball ball)
         {
-            var racingDebugInfo = ball.container.GetComponent<RacingDebugInfo>();
+            var racingDebugInfo = ball.container.GetComponent<ContainerRacingMode>();
             if (racingDebugInfo != null)
                 racingDebugInfo.NewBallFused(ball.scoreValue);
-        }
-
-        private void SetDebugActive(bool isDebugActive)
-        {
-            var racingModeDebug = FindObjectOfType<RacingModeDebugInfo>();
-            if (racingModeDebug == null)
-                return;
-            racingModeDebug.SetupRacingModeDebugParameters(_averageSpeed, _standardDeviationSpeed,
-                _currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
     }
 }
