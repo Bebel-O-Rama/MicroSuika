@@ -1409,7 +1409,7 @@ MonoBehaviour:
         Raw: 3
         Type: 0
       Y:
-        Raw: 1.812
+        Raw: 2.265
         Type: 0
       Z:
         Raw: 0
@@ -1772,6 +1772,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isDebugEnabled: 1
+  _speedSoftCap:
+    UseConstant: 1
+    ConstantValue: 3000
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _ballImpactMultiplier:
+    UseConstant: 1
+    ConstantValue: 2
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _dampingMethod: 2
+  _dampingFixedPercent:
+    UseConstant: 1
+    ConstantValue: 0.02
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _dampingFixedValue:
+    UseConstant: 1
+    ConstantValue: 1
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _dampingCurvePercent:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.015
+      inSlope: 0.05
+      outSlope: 0.05
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _containerMaxArea:
+    UseConstant: 1
+    ConstantValue: 60
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _comboTimerFull:
+    UseConstant: 1
+    ConstantValue: 3
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _acceleration:
+    UseConstant: 1
+    ConstantValue: 3
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
   _alwaysReduceConditionValues: 0
   _leadReqProgressionMethod: 1
   _speedReqCheckMethod: 1
@@ -4936,7 +5012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8051c9daa695d4ab8ebae4c4edd99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDebugEnabled: 0
   _tmpMean: {fileID: 1531885257}
   _tmpSD: {fileID: 279178144}
   _tmpTimeReq: {fileID: 1756029316}

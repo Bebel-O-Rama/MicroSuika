@@ -10,38 +10,30 @@ namespace MultiSuika.Container
     {
         [SerializeField] private bool _isDebugEnabled;
         
-        [Header("Speed Parameters")]
-        [SerializeField] private FloatReference _maxSpeed; // 3000
-
-        [Header("Ball Collision Parameters")] 
-        [SerializeField] [Min(0f)] private float _ballImpactMultiplier; // 2 
-        
-        [Header("Damping Parameters")]
-        [SerializeField] private DampingMethod _dampingMethod; // AnimCurve
-        [SerializeField] [Range (0f, 1f)] private float _dampingFixedPercent; // 0.02
-        [SerializeField] [Min (0f)] private float _dampingFixedValue; // 1
-        [SerializeField] private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
-        
-        [Header("Container Parameters")]
-        [SerializeField] private float _containerMaxArea; // 60
-
-        [Header("Combo Parameters")]
-        [SerializeField] private FloatReference _comboTimerFull; // 3
-        [SerializeField] private FloatReference _acceleration; // 3
-        
         // Score parameters
         private IntReference _playerScore;
 
         // Area parameters
         private FloatReference _areaFilledPercent;
         private FloatReference _areaFilled;
-
+        private FloatReference _containerMaxArea; // 60
+        
         // Speed parameters
         private FloatReference _currentSpeed;
         private FloatReference _averageSpeed;
         private FloatReference _targetSpeed;
+        private FloatReference _speedSoftCap; // 3000
 
+        // Damping parameters
+        private DampingMethod _dampingMethod; // AnimCurve
+        private IntReference _dampingMethodIndex;
+        private float _dampingFixedPercent; // 0.02
+        private float _dampingFixedValue; // 1
+        private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
+        
         // Combo parameters
+        private FloatReference _comboTimerFull; // 3
+        private FloatReference _acceleration; // 3
         private IntReference _combo;
         private FloatReference _comboTimer;
 
@@ -51,6 +43,9 @@ namespace MultiSuika.Container
         
         // Ranking parameters
         private IntReference _ranking;
+        
+        // Collision parameters
+        private float _ballImpactMultiplier; // 2 
 
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
 
@@ -90,7 +85,7 @@ namespace MultiSuika.Container
             
             _containerRacingDebugInfo.SetScoreParameters(_playerScore);
             _containerRacingDebugInfo.SetBallAreaParameters(_areaFilledPercent);
-            _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _maxSpeed);
+            _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
             _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
             _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
             _containerRacingDebugInfo.SetRankingParameters(_ranking);
@@ -98,6 +93,8 @@ namespace MultiSuika.Container
         
         private void Update()
         {
+            _dampingMethod = (DampingMethod)_dampingMethodIndex.Value;
+            
             UpdateData();
             _containerRacingDebugInfo?.SetDebugActive(_isDebugEnabled);
         }
@@ -146,18 +143,38 @@ namespace MultiSuika.Container
             {
                 DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent * Time.deltaTime,
                 DampingMethod.Fixed => _dampingFixedValue * Time.deltaTime,
-                DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _maxSpeed) * Time.deltaTime,
+                DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _speedSoftCap) * Time.deltaTime,
                 DampingMethod.None => 0f,
                 _ => 0f
             };
         }
 
-        public void SetBallAreaParameters(FloatReference areaFilled) => _areaFilled = areaFilled;
+        public void SetAreaParameters(FloatReference areaFilled, FloatReference containerMaxArea)
+        {
+            _areaFilled = areaFilled;
+            _containerMaxArea = containerMaxArea;
+        }
 
-        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed)
+        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap)
         {
             _currentSpeed = currentSpeed;
             _averageSpeed = averageSpeed;
+            _speedSoftCap = speedSoftCap;
+        }
+
+        public void SetDampingParameters(IntReference dampingMethodIndex, FloatReference dampingFixedPercent,
+            FloatReference dampingFixedValue, AnimationCurve dampingCurvePercent)
+        {
+            _dampingMethodIndex = dampingMethodIndex;
+            _dampingFixedPercent = dampingFixedPercent;
+            _dampingFixedValue = dampingFixedValue;
+            _dampingCurvePercent = dampingCurvePercent;
+        }
+
+        public void SetComboParameters(FloatReference comboTimerFull, FloatReference acceleration)
+        {
+            _comboTimerFull = comboTimerFull;
+            _acceleration = acceleration;
         }
 
         public void SetRankingParameters(IntReference ranking) => _ranking = ranking;
@@ -167,5 +184,8 @@ namespace MultiSuika.Container
             _leadStatus = leadStatus;
             _leadTimer = leadTimer;
         }
+
+        public void SetCollisionParameters(FloatReference ballImpactMultiplier) =>
+            _ballImpactMultiplier = ballImpactMultiplier;
     }
 }
