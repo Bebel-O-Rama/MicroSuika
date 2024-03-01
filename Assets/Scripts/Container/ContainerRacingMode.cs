@@ -48,6 +48,7 @@ namespace MultiSuika.Container
         private float _ballImpactMultiplier; // 2 
 
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
+        private ContainerMovements _containerMovements;
 
         public enum DampingMethod
         {
@@ -76,19 +77,9 @@ namespace MultiSuika.Container
         private void Start()
         {
             _playerScore = transform.parent.GetComponentInChildren<Cannon.Cannon>().scoreReference;
-            
-            if (!_isDebugEnabled)
-                return;
-            _containerRacingDebugInfo = GetComponentInChildren<ContainerRacingDebugInfo>();
-            if (_containerRacingDebugInfo == null)
-                return;
-            
-            _containerRacingDebugInfo.SetScoreParameters(_playerScore);
-            _containerRacingDebugInfo.SetBallAreaParameters(_areaFilledPercent);
-            _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
-            _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
-            _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
-            _containerRacingDebugInfo.SetRankingParameters(_ranking);
+
+            SetContainerDebugInfoParameters();
+            SetContainerMovementParameters();
         }
         
         private void Update()
@@ -106,7 +97,7 @@ namespace MultiSuika.Container
             _targetSpeed.Variable.ApplyChange(scoreValue * 2f);
         }
 
-        public void BallCollidedWithDeadzone(Ball.Ball ball)
+        public void DamageReceived(Ball.Ball ball)
         {
             var impactLevel = ball.scoreValue * _ballImpactMultiplier;
             _currentSpeed.Variable.SetValue(Mathf.Clamp(_currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
@@ -117,38 +108,7 @@ namespace MultiSuika.Container
             ball.ClearBall(false);
         }
         
-        private void UpdateData()
-        {
-            // Percentage filled value
-            _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
-            
-            // Combo value
-            if (_combo > 1)
-            {
-                _comboTimer.Variable.ApplyChange(-Time.deltaTime);
-                if (_comboTimer < Mathf.Epsilon)
-                    _combo.Variable.SetValue(1);
-            }
-            
-            // Damping value
-            _targetSpeed.Variable.ApplyChange(_targetSpeed - GetDampingValue() > 0 ? -GetDampingValue() : 0f);
-            
-            // Speed value
-            _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, _acceleration * _combo * Time.deltaTime));
-        }
-        
-        private float GetDampingValue()
-        {
-            return _dampingMethod switch
-            {
-                DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent * Time.deltaTime,
-                DampingMethod.Fixed => _dampingFixedValue * Time.deltaTime,
-                DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _speedSoftCap) * Time.deltaTime,
-                DampingMethod.None => 0f,
-                _ => 0f
-            };
-        }
-
+        #region Setter
         public void SetAreaParameters(FloatReference areaFilled, FloatReference containerMaxArea)
         {
             _areaFilled = areaFilled;
@@ -187,5 +147,63 @@ namespace MultiSuika.Container
 
         public void SetCollisionParameters(FloatReference ballImpactMultiplier) =>
             _ballImpactMultiplier = ballImpactMultiplier;
+        #endregion
+
+        private void SetContainerDebugInfoParameters()
+        {
+            if (!_isDebugEnabled)
+                return;
+            
+            _containerRacingDebugInfo = GetComponentInChildren<ContainerRacingDebugInfo>();
+            if (_containerRacingDebugInfo == null)
+                return;
+            
+            _containerRacingDebugInfo.SetScoreParameters(_playerScore);
+            _containerRacingDebugInfo.SetBallAreaParameters(_areaFilledPercent);
+            _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
+            _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
+            _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
+            _containerRacingDebugInfo.SetRankingParameters(_ranking);
+        }
+
+        private void SetContainerMovementParameters()
+        {
+            _containerMovements = transform.parent.gameObject.AddComponent<ContainerMovements>();
+
+            _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
+            _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
+        }
+        
+        private void UpdateData()
+        {
+            // Percentage filled value
+            _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
+            
+            // Combo value
+            if (_combo > 1)
+            {
+                _comboTimer.Variable.ApplyChange(-Time.deltaTime);
+                if (_comboTimer < Mathf.Epsilon)
+                    _combo.Variable.SetValue(1);
+            }
+            
+            // Damping value
+            _targetSpeed.Variable.ApplyChange(_targetSpeed - GetDampingValue() > 0 ? -GetDampingValue() : 0f);
+            
+            // Speed value
+            _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, _acceleration * _combo * Time.deltaTime));
+        }
+        
+        private float GetDampingValue()
+        {
+            return _dampingMethod switch
+            {
+                DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent * Time.deltaTime,
+                DampingMethod.Fixed => _dampingFixedValue * Time.deltaTime,
+                DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _speedSoftCap) * Time.deltaTime,
+                DampingMethod.None => 0f,
+                _ => 0f
+            };
+        }
     }
 }

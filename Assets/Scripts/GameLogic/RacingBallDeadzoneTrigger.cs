@@ -13,7 +13,7 @@ namespace MultiSuika.GameLogic
             if (!other.gameObject.CompareTag("Ball"))
                 return;
             var ball = other.GetComponent<Ball.Ball>();
-            ball.container.GetComponent<ContainerRacingMode>().BallCollidedWithDeadzone(ball);
+            ball.container.GetComponent<ContainerRacingMode>().DamageReceived(ball);
         }
     }
 }

@@ -56,15 +56,18 @@ namespace MultiSuika.Utilities
 
                 instantiatedContainers.Add(newContainer);
 
-                GameObject containerParent = new GameObject($"{gameModeData.containerParentName}_{(i + 1)}");
+                GameObject containerHolder = new GameObject($"Container holder ({(i + 1)})");
+                GameObject containerHolderParent = new GameObject($"Container ({(i + 1)})");
                 if (gameModeParent != null)
-                    containerParent.transform.SetParent(gameModeParent, false);
-                newContainer.ContainerParent = containerParent;
+                    containerHolderParent.transform.SetParent(gameModeParent, false);
+                containerHolder.transform.SetParent(containerHolderParent.transform, false);
+                
+                newContainer.ContainerParent = containerHolder;
 
-                containerParent.transform.position =
+                containerHolderParent.transform.position =
                     gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
                     (i * distanceBetweenContainers);
-                containerParent.transform.localScale =
+                containerHolderParent.transform.localScale =
                     Vector3.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
             }
 
@@ -191,7 +194,9 @@ namespace MultiSuika.Utilities
             }
 
             ball.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
-            ball.transform.localScale = Vector3.one * ballData.scale;
+            var tf = ball.transform;
+            tf.localScale = Vector3.one * ballData.scale;
+            tf.name = $"Ball T{ball.tier} (ID: {ball.transform.GetInstanceID()})";
 
             ball.rb2d.mass = ballData.mass;
             var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
@@ -215,7 +220,6 @@ namespace MultiSuika.Utilities
 
             ball.gameMode = gameMode;
             
-            ball.transform.name = $"Ball T{ball.tier}{ball.transform.GetInstanceID()}";
 
             if (disableCollision)
                 ball.rb2d.simulated = false;

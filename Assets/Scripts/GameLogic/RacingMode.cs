@@ -84,7 +84,8 @@ namespace MultiSuika.GameLogic
 
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
         [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
-
+        [SerializeField] public bool checkLeadCondition = true;
+        
         private enum SpeedReqCheckMethod
         {
             FromAverage,
@@ -149,7 +150,9 @@ namespace MultiSuika.GameLogic
 
             UpdateSpeedParameters();
             UpdateRanking();
-            UpdateLead();
+            // TODO: REMOVE THIS CONDITION
+            if (checkLeadCondition)
+                UpdateLead();
             CheckAndProcessWinCondition();
             _racingModeDebugInfo?.SetDebugActive(_isDebugEnabled);
                 

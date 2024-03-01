@@ -17,7 +17,6 @@ namespace MultiSuika.GameLogic
         // Container parameters
         [Header("----- CONTAINER -----")]
         public Container.Container containerPrefab;
-        public string containerParentName;
 
         [Header("Container Scaling and Position Parameters")]
         [Tooltip("This distances goes from one container center point to the other")]
