@@ -111,6 +111,10 @@ namespace MultiSuika.Cannon
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
             _currentBall = Initializer.InstantiateBall(ballSetData, container,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
+            
+            // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
+            _currentBall.transform.SetLayerRecursively(gameObject.layer);
+            
             Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameMode, true);
         }
     

@@ -172,14 +172,18 @@ namespace MultiSuika.Container
             _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
             _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
             _containerRacingDebugInfo.SetRankingParameters(_ranking);
+
+            // NOTE: It's a workaround so that Nova's stuff can be parsed through the cameras
+            _containerRacingDebugInfo.gameObject.SetActive(false);
+            _containerRacingDebugInfo.gameObject.SetActive(true);
         }
 
         private void SetContainerMovementParameters()
         {
-            _containerMovements = transform.parent.gameObject.AddComponent<ContainerMovements>();
-
-            _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
-            _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
+            // _containerMovements = transform.parent.gameObject.AddComponent<ContainerMovements>();
+            //
+            // _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
+            // _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
         }
         
         private void UpdateData()

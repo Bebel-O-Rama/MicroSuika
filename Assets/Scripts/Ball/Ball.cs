@@ -86,6 +86,10 @@ namespace MultiSuika.Ball
                 AddFusionImpulse(tier + 1, contactPosition);
                 var newBall = Initializer.InstantiateBall(ballSetData, container,
                     Initializer.WorldToLocalPosition(container.ContainerParent.transform, contactPosition));
+                
+                // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
+                newBall.transform.SetLayerRecursively(gameObject.layer);
+                
                 Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container, gameMode);
                 newBall.ballTracker.RegisterBall(newBall, container);
                 CallFuseSFX(tier, newBall.gameObject);
