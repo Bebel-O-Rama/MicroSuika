@@ -55,19 +55,16 @@ namespace MultiSuika.Utilities
                 ResetLocalTransform(newContainer.transform);
 
                 instantiatedContainers.Add(newContainer);
-
-                GameObject containerHolder = new GameObject($"Container holder ({(i + 1)})");
-                GameObject containerHolderParent = new GameObject($"Container ({(i + 1)})");
-                if (gameModeParent != null)
-                    containerHolderParent.transform.SetParent(gameModeParent, false);
-                containerHolder.transform.SetParent(containerHolderParent.transform, false);
                 
-                newContainer.ContainerParent = containerHolder;
-
-                containerHolderParent.transform.position =
+                GameObject containerParent = new GameObject($"Container ({(i + 1)})");
+                if (gameModeParent != null)
+                    containerParent.transform.SetParent(gameModeParent, false);
+                newContainer.ContainerParent = containerParent;
+                
+                containerParent.transform.position =
                     gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
                     (i * distanceBetweenContainers);
-                containerHolderParent.transform.localScale =
+                containerParent.transform.localScale =
                     Vector3.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
             }
 
@@ -194,9 +191,9 @@ namespace MultiSuika.Utilities
             }
 
             ball.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
-            var tf = ball.transform;
-            tf.localScale = Vector3.one * ballData.scale;
-            tf.name = $"Ball T{ball.tier} (ID: {ball.transform.GetInstanceID()})";
+            var ballTransform = ball.transform;
+            ballTransform.localScale = Vector3.one * ballData.scale;
+            ballTransform.name = $"Ball T{ball.tier} (ID: {ball.transform.GetInstanceID()})";
 
             ball.rb2d.mass = ballData.mass;
             var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
@@ -219,7 +216,6 @@ namespace MultiSuika.Utilities
             ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
 
             ball.gameMode = gameMode;
-            
 
             if (disableCollision)
                 ball.rb2d.simulated = false;
