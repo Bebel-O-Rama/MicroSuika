@@ -1,5 +1,6 @@
 using System;
 using MultiSuika.DebugInfo;
+using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -49,6 +50,7 @@ namespace MultiSuika.Container
 
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
         private ContainerMovements _containerMovements;
+        private Camera _containerCamera;
 
         public enum DampingMethod
         {
@@ -76,6 +78,9 @@ namespace MultiSuika.Container
 
         private void Start()
         {
+            // TODO: We should normalize how we manage the camera between the racingMode and lobby
+            _containerCamera = FindObjectOfType<CameraManager>().GetPlayerCameraWithTag(gameObject.layer);
+            
             _playerScore = transform.parent.GetComponentInChildren<Cannon.Cannon>().scoreReference;
 
             SetContainerDebugInfoParameters();
@@ -180,10 +185,11 @@ namespace MultiSuika.Container
 
         private void SetContainerMovementParameters()
         {
-            // _containerMovements = transform.parent.gameObject.AddComponent<ContainerMovements>();
-            //
-            // _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
-            // _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
+            _containerMovements = GetComponent<ContainerMovements>();
+            
+            _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
+            _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
+            _containerMovements.SetCamera(_containerCamera);
         }
         
         private void UpdateData()

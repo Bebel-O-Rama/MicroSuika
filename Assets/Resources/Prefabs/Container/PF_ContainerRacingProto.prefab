@@ -4108,7 +4108,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 0.00000011920929
+        Raw: 0
         Type: 0
       Y:
         Raw: 0
@@ -10131,6 +10131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4564159779651758605}
   - component: {fileID: 1050623325330396996}
+  - component: {fileID: 7497811487305868614}
   - component: {fileID: 5133208408491059016}
   m_Layer: 13
   m_Name: PF_ContainerRacingProto
@@ -10171,6 +10172,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isDebugEnabled: 1
+--- !u!114 &7497811487305868614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793840066780438698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30de8c0ab822e504a8b5dd4c80a3e18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _yMinHeight: -1
+  _yMaxHeight: 1
 --- !u!114 &5133208408491059016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11921,7 +11936,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 1.4499999
+        Raw: 1.4499998
         Type: 0
       Z:
         Raw: 0
@@ -13889,7 +13904,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 0.00000011920929
+        Raw: 0
         Type: 0
       Y:
         Raw: 0
@@ -14513,7 +14528,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -0.00000011920929
+        Raw: 0
         Type: 0
       Z:
         Raw: 0
@@ -17752,7 +17767,7 @@ MonoBehaviour:
     LightingModel: 0
     ShadowCastingMode: 2
     ReceiveShadows: 1
-  PreviewSize: {x: 8, y: 5.8, z: 0}
+  PreviewSize: {x: 8, y: 4.3500004, z: 0}
   visuals:
     Color: {r: 0.8254717, g: 1, b: 0.99099994, a: 1}
     CornerRadius:

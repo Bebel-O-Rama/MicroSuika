@@ -66,6 +66,9 @@ namespace MultiSuika.Utilities
                     (i * distanceBetweenContainers);
                 containerParent.transform.localScale =
                     Vector3.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
+
+                var objectsHolder = GetObjectsHolder();
+                containerParent.transform.SetParent(objectsHolder);
             }
 
             return instantiatedContainers;
@@ -223,6 +226,17 @@ namespace MultiSuika.Utilities
 
         #endregion
 
+        public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
+            relativeTargetTransform.InverseTransformPoint(worldPosition);
+
+        private static Transform GetObjectsHolder()
+        {
+            var objects = GameObject.Find("Objects");
+            if (objects == null)
+                objects = new GameObject($"Objects");
+            return objects.transform;
+        }
+        
         private static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
             DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
 
@@ -233,8 +247,5 @@ namespace MultiSuika.Utilities
             child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             child.localScale = Vector3.one;
         }
-
-        public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
-            relativeTargetTransform.InverseTransformPoint(worldPosition);
     }
 }
