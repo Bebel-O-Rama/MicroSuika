@@ -203,6 +203,8 @@ namespace MultiSuika.GameLogic
 
         private void SetContainerRacingParameters()
         {
+            // TODO: clean up this, it's for a quick test
+            var playerIndex = 1;
             foreach (var container in _containers)
             {
                 var containerRacing = container.GetComponent<ContainerRacingMode>();
@@ -214,6 +216,8 @@ namespace MultiSuika.GameLogic
                 containerRacing.SetRankingParameters(_playerRankingReferences[container]);
                 containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
                 containerRacing.SetCollisionParameters(_ballImpactMultiplier);
+                containerRacing.SetLayer($"Player{playerIndex}");
+                playerIndex++;
             }
         }
         

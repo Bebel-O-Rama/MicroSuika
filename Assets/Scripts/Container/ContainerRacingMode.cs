@@ -147,6 +147,14 @@ namespace MultiSuika.Container
 
         public void SetCollisionParameters(FloatReference ballImpactMultiplier) =>
             _ballImpactMultiplier = ballImpactMultiplier;
+
+        public void SetLayer(string layerName)
+        {
+            var layer = LayerMask.NameToLayer(layerName);
+            if (layer < 0)
+                return;
+            transform.parent.transform.SetLayerRecursively(layer);
+        }
         #endregion
 
         private void SetContainerDebugInfoParameters()
