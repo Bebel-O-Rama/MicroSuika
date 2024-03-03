@@ -10,6 +10,8 @@ namespace MultiSuika.Container
     public class ContainerRacingMode : MonoBehaviour
     {
         [SerializeField] private bool _isDebugEnabled;
+        // TODO: Clean this up once I'm done testing
+        [SerializeField] private float _debugScoreMulti = 1f;
         
         // Score parameters
         private IntReference _playerScore;
@@ -96,7 +98,7 @@ namespace MultiSuika.Container
         {
             _combo.Variable.ApplyChange(1);
             _comboTimer.Variable.SetValue(_comboTimerFull);
-            _targetSpeed.Variable.ApplyChange(scoreValue * 2f);
+            _targetSpeed.Variable.ApplyChange(scoreValue * 2f * _debugScoreMulti);
         }
 
         public void DamageReceived(Ball.Ball ball)
@@ -205,7 +207,9 @@ namespace MultiSuika.Container
             _targetSpeed.Variable.ApplyChange(_targetSpeed - GetDampingValue() > 0 ? -GetDampingValue() : 0f);
             
             // Speed value
-            _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, _acceleration * _combo * Time.deltaTime));
+            // TODO: Confirm if we should use this to make sure the damping doesn't benefit from the combo
+            var acceleration = _currentSpeed < _targetSpeed ? _acceleration * (_combo * _debugScoreMulti) * Time.deltaTime : _acceleration;
+            _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, acceleration));
         }
         
         private float GetDampingValue()

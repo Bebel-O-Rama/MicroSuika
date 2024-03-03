@@ -15,6 +15,16 @@ namespace MultiSuika.GameLogic
     {
         [SerializeField] private bool _isDebugEnabled;
 
+        // TODO: Clean the ranking testing
+        [Header("Ranking Parameters (TESTING STUFF)")] 
+        [SerializeField] private RankingEvaluationMethod _rankingEvaluationMethod;
+        [SerializeField] private List<FloatReference> _rankingValues;
+        public Dictionary<Container.Container, FloatReference> playersRankingValues;
+        [SerializeField] private float _standardDeviationMethodMultiplier;
+        [SerializeField] private float _standardDeviationMethodMinimumRange;
+
+
+
         [Header("Speed Parameters")]
         [SerializeField] private FloatReference _speedSoftCap; // 3000
 
@@ -99,6 +109,12 @@ namespace MultiSuika.GameLogic
             AnimCurve
         }
 
+        private enum RankingEvaluationMethod
+        {
+            ZeroToFixed,
+            StandardDeviation,
+        }
+        
         private void Awake()
         {
             _numberPlayerConnected = gameData.GetConnectedPlayerQuantity();
@@ -125,6 +141,9 @@ namespace MultiSuika.GameLogic
             //// Racing Stuff!!!
             SetRacingModeParameters();
             SetContainerRacingParameters();
+            
+            // TODO: Clean the ranking testing
+            InitRankingTESTINGParameters();
         }
 
         private void Start()
@@ -148,12 +167,60 @@ namespace MultiSuika.GameLogic
 
             UpdateSpeedParameters();
             UpdateRanking();
+            
+            // TODO: Clean this (ranking testing)
+            UpdateRankingValues();
+            
             // TODO: REMOVE THIS CONDITION
             if (checkLeadCondition)
                 UpdateLead();
             CheckAndProcessWinCondition();
             _racingModeDebugInfo?.SetDebugActive(_isDebugEnabled);
                 
+        }
+
+        // TODO: Clean the ranking testing
+        private void InitRankingTESTINGParameters()
+        {
+            playersRankingValues = new Dictionary<Container.Container, FloatReference>();
+            
+            foreach (var container in _containers)
+            {
+                var newRankingValueRef = new FloatReference
+                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+                playersRankingValues[container] = newRankingValueRef;
+            }
+        }
+        
+        
+        // TODO: Clean the ranking testing
+        private void UpdateRankingValues()
+        {
+            switch (_rankingEvaluationMethod)
+            {
+                case RankingEvaluationMethod.ZeroToFixed:
+                    RankingZeroToFixed();
+                    break;
+                case RankingEvaluationMethod.StandardDeviation:
+                    RankingStandardDeviation();
+                    break;
+                default:
+                    return;
+            };
+        }
+
+        private void RankingZeroToFixed()
+        {
+            foreach (var container in _containers)
+            {
+                var currentSpeed = _playerCurrentSpeedReferences[container].Value;
+                playersRankingValues[container].Variable.SetValue(Mathf.Clamp01(currentSpeed / _speedSoftCap));
+            }
+        }
+
+        private void RankingStandardDeviation()
+        {
+            
         }
 
         private void SetRacingModeParameters()

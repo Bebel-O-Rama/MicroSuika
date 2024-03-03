@@ -15,7 +15,7 @@ namespace MultiSuika.Container
             _camera.cullingMask |= (1 << gameObject.layer);
         }
             
-        public void SetMainVerticalPosition(float yPos) => _mainVerticalTransform.position = new Vector3(0, yPos, 0);
+        public void SetMainVerticalPosition(float yPos) => _mainVerticalTransform.position = new Vector3(0, -yPos, 0);
 
         public float GetMainVerticalPosition() => _mainVerticalTransform.position.y;
         

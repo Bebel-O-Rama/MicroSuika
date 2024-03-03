@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security;
+using MultiSuika.DebugInfo;
+using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -29,9 +31,24 @@ namespace MultiSuika.Container
         private IntReference _combo;
         private FloatReference _comboTimer;
 
+        
+        // TODO: Clean this (it's for testing the ranking system)
+        private FloatReference _rankingValue;
+        private void Start()
+        {
+            var racingMode = FindObjectOfType<RacingMode>();
+            var container = GetComponent<Container>();
+            _rankingValue = racingMode.playersRankingValues[container];
+        }
+        
+        // TODO: End cleanup
+        
         private void Update()
         {
-            _cameraHolder.SetMainVerticalPosition(EvaluateYPos());
+            // TODO: Clean this (ranking testing)
+            _cameraHolder.SetMainVerticalPosition(_yMinHeight + _rankingValue * (_yMaxHeight - _yMinHeight));
+            
+            // _cameraHolder.SetMainVerticalPosition(EvaluateYPos());
         }
 
         private float EvaluateYPos()
