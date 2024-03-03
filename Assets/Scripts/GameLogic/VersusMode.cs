@@ -30,9 +30,7 @@ namespace MultiSuika.GameLogic
             _numberPlayerConnected = useDebugSpawnContainer ? debugFakeNumberCount : _numberPlayerConnected;
             
             //// Init and set containers
-            _versusGameInstance = new GameObject("Versus Game Instance");
-
-            _containers = Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData, _versusGameInstance.transform);
+            _containers = Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData);
             Initializer.SetContainersParameters(_containers, gameModeData);
         
             //// Init and set cannons

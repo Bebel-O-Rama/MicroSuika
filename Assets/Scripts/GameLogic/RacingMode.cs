@@ -107,10 +107,8 @@ namespace MultiSuika.GameLogic
             _numberPlayerConnected = useDebugSpawnContainer ? debugFakeNumberCount : _numberPlayerConnected;
 
             //// Init and set containers
-            _versusGameInstance = new GameObject("Versus Game Instance");
-
             _containers =
-                Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData, _versusGameInstance.transform);
+                Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData);
             Initializer.SetContainersParameters(_containers, gameModeData);
 
             //// Init and set cannons
@@ -216,7 +214,7 @@ namespace MultiSuika.GameLogic
                 containerRacing.SetRankingParameters(_playerRankingReferences[container]);
                 containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
                 containerRacing.SetCollisionParameters(_ballImpactMultiplier);
-                containerRacing.SetLayer($"Player{playerIndex}");
+                containerRacing.SetLayer($"Container{playerIndex}");
                 playerIndex++;
             }
         }

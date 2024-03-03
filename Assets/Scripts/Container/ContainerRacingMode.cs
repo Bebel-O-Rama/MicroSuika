@@ -78,9 +78,6 @@ namespace MultiSuika.Container
 
         private void Start()
         {
-            // TODO: We should normalize how we manage the camera between the racingMode and lobby
-            _containerCamera = FindObjectOfType<CameraManager>().GetPlayerCameraWithTag(gameObject.layer);
-            
             _playerScore = transform.parent.GetComponentInChildren<Cannon.Cannon>().scoreReference;
 
             SetContainerDebugInfoParameters();
@@ -189,7 +186,6 @@ namespace MultiSuika.Container
             
             _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
             _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
-            _containerMovements.SetCamera(_containerCamera);
         }
         
         private void UpdateData()

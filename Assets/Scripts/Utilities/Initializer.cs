@@ -34,7 +34,7 @@ namespace MultiSuika.Utilities
         #region Container
 
         public static List<Container.Container> InstantiateContainers(int playerCount,
-            GameModeData gameModeData, Transform gameModeParent = null)
+            GameModeData gameModeData)
         {
             playerCount = playerCount <= 0 ? 1 : playerCount; // For cases like the lobby
             int containerToSpawn = DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
@@ -49,6 +49,8 @@ namespace MultiSuika.Utilities
                   (containerToSpawn - 1)
                 : 0f;
 
+            Transform objHolder = GetObjectsHolder();
+            
             for (int i = 0; i < containerToSpawn; i++)
             {
                 Container.Container newContainer = Object.Instantiate(gameModeData.containerPrefab);
@@ -57,8 +59,7 @@ namespace MultiSuika.Utilities
                 instantiatedContainers.Add(newContainer);
                 
                 GameObject containerParent = new GameObject($"Container ({(i + 1)})");
-                if (gameModeParent != null)
-                    containerParent.transform.SetParent(gameModeParent, false);
+                containerParent.transform.SetParent(objHolder, false);
                 newContainer.ContainerParent = containerParent;
                 
                 containerParent.transform.position =
@@ -66,9 +67,6 @@ namespace MultiSuika.Utilities
                     (i * distanceBetweenContainers);
                 containerParent.transform.localScale =
                     Vector3.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
-
-                var objectsHolder = GetObjectsHolder();
-                containerParent.transform.SetParent(objectsHolder);
             }
 
             return instantiatedContainers;

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,10 +12,10 @@ namespace MultiSuika.Container
     {
         [SerializeField] private float _yMinHeight;
         [SerializeField] private float _yMaxHeight;
+
+        [SerializeField] private ContainerCameraHolder _cameraHolder;
         
         private ContainerRacingMode _containerRacingData;
-
-        private Camera _containerCamera;
         
         // Speed parameters
         private FloatReference _currentSpeed;
@@ -26,19 +28,19 @@ namespace MultiSuika.Container
         private FloatReference _acceleration; // 3
         private IntReference _combo;
         private FloatReference _comboTimer;
-        
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
+        {
+            _cameraHolder.SetMainVerticalPosition(EvaluateYPos());
+        }
+
+        private float EvaluateYPos()
         {
             var amplitude = _yMaxHeight - _yMinHeight;
             if (amplitude <= 0)
-                return;
-
-            var camTf = _containerCamera.transform;
-            var newPos = camTf.position;
-            newPos.y = -(_yMinHeight + _currentSpeed / _speedSoftCap * amplitude);
-            camTf.position = newPos;
+                return 0f;
+            
+            return -(_yMinHeight + _currentSpeed / _speedSoftCap * amplitude);
         }
         
         public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference targetSpeed, FloatReference speedSoftCap)
@@ -57,12 +59,12 @@ namespace MultiSuika.Container
             _comboTimer = comboTimer;
         }
 
-        public void SetCamera(Camera containerCamera)
-        {
-            _containerCamera = containerCamera;
-            
-            // Just so we don't have camera active for nothing
-            _containerCamera.gameObject.SetActive(true);
-        }
+        // public void SetCamera(Camera containerCamera)
+        // {
+        //     _containerCamera = containerCamera;
+        //     
+        //     // Just so we don't have camera active for nothing
+        //     _containerCamera.gameObject.SetActive(true);
+        // }
     }
 }
