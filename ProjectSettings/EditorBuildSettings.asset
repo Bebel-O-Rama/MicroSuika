@@ -7,10 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
-    guid: 1193ce16d18c0a24b81567968eb0b1c5
-  - enabled: 1
-    path: Assets/Scenes/Versus.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: d84837c9ce1d25f46992f47320ea49d9
   - enabled: 1
     path: Assets/Scenes/PrototypeRacing.unity
     guid: 61f53120373b02c49a06272249b35420
