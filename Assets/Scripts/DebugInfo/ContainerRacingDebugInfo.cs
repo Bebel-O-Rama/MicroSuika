@@ -4,6 +4,7 @@ using MultiSuika.Utilities;
 using Nova;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.DebugInfo
 {
@@ -21,13 +22,13 @@ namespace MultiSuika.DebugInfo
         [SerializeField] private Color _reducingDebugColor; // FFB2B2
         
         [SerializeField] private TMP_Text _tmpScore;
-        [SerializeField] private TMP_Text _tmpAreaFilled;
         [SerializeField] private TMP_Text _tmpCombo;
         [SerializeField] private TMP_Text _tmpSpeed;
         [SerializeField] private TMP_Text _tmpTargetSpeed;
         [SerializeField] private TMP_Text _tmpAverageSpeed;
         [SerializeField] private TMP_Text _tmpAcceleration;
         [SerializeField] private TMP_Text _tmpRanking;
+        [SerializeField] private TMP_Text _tmpRankingValue;
         [SerializeField] private TMP_Text _tmpSpeedBar;
         [SerializeField] private TMP_Text _tmpLeadTimer;
 
@@ -61,6 +62,9 @@ namespace MultiSuika.DebugInfo
         
         // Ranking parameters
         private IntReference _ranking;
+        
+        // Position parameters
+        private FloatReference _verticalPositionRatio;
 
         private GameObject _debugHolder;
         private bool _isDebugEnabled = false;
@@ -80,7 +84,6 @@ namespace MultiSuika.DebugInfo
                 return;
             
             UpdateScoreParameters();
-            UpdateAreaParameters();
             UpdateComboParameters();
             UpdateSpeedParameters();
             UpdateLeadParameters();
@@ -91,11 +94,6 @@ namespace MultiSuika.DebugInfo
         private void UpdateScoreParameters()
         {
             _tmpScore.text = string.Format($"{_playerScore.Value:0}");
-        }
-        
-        private void UpdateAreaParameters()
-        {
-            _tmpAreaFilled.text = string.Format($"{_areaPercentFilled.Value:0.00}");
         }
         
         private void UpdateComboParameters()
@@ -150,6 +148,7 @@ namespace MultiSuika.DebugInfo
         private void UpdateRankingParameters()
         {
             _tmpRanking.text = string.Format($"{_ranking.Value}");
+            _tmpRankingValue.text = string.Format($"{(_verticalPositionRatio.Value * 100):00}%");
         }
         #endregion
 
@@ -180,8 +179,16 @@ namespace MultiSuika.DebugInfo
             _leadTimer = leadTimer;
         }
 
-        public void SetRankingParameters(IntReference ranking) => _ranking = ranking;
+        public void SetRankingParameters(IntReference ranking)
+        {
+            _ranking = ranking;
+        }
         
+        public void SetPositionParameters(FloatReference verticalPositionRatio)
+        {
+            _verticalPositionRatio = verticalPositionRatio;
+        }
+
         public void SetDebugActive(bool isDebugActive)
         {
             _isDebugEnabled = isDebugActive;

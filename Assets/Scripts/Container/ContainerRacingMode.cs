@@ -25,7 +25,9 @@ namespace MultiSuika.Container
         private FloatReference _currentSpeed;
         private FloatReference _averageSpeed;
         private FloatReference _targetSpeed;
-        private FloatReference _speedSoftCap; // 3000
+        private FloatReference _speedSoftCap;
+        private FloatReference _firstPlayerSpeed;
+        private FloatReference _lastPlayerSpeed;
 
         // Damping parameters
         private DampingMethod _dampingMethod; // AnimCurve
@@ -47,11 +49,15 @@ namespace MultiSuika.Container
         // Ranking parameters
         private IntReference _ranking;
         
+        // Position parameters
+        private FloatReference _verticalPositionRatio;
+        private FloatReference _minAdaptiveVerticalRange;
+        
         // Collision parameters
         private float _ballImpactMultiplier; // 2 
 
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
-        private ContainerMovements _containerMovements;
+        private ContainerCameraMovements _containerCameraMovements;
         private Camera _containerCamera;
 
         public enum DampingMethod
@@ -107,7 +113,7 @@ namespace MultiSuika.Container
             _currentSpeed.Variable.SetValue(Mathf.Clamp(_currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
             _targetSpeed.Variable.SetValue(Mathf.Clamp(_targetSpeed - impactLevel, 0f, Mathf.Infinity));
             
-            // Add dmg feedback
+            // Add dmg feedback here
             
             ball.ClearBall(false);
         }
@@ -119,11 +125,13 @@ namespace MultiSuika.Container
             _containerMaxArea = containerMaxArea;
         }
 
-        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap)
+        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap, FloatReference firstPlayerSpeed, FloatReference lastPlayerSpeed)
         {
             _currentSpeed = currentSpeed;
             _averageSpeed = averageSpeed;
             _speedSoftCap = speedSoftCap;
+            _firstPlayerSpeed = firstPlayerSpeed;
+            _lastPlayerSpeed = lastPlayerSpeed;
         }
 
         public void SetDampingParameters(IntReference dampingMethodIndex, FloatReference dampingFixedPercent,
@@ -141,7 +149,10 @@ namespace MultiSuika.Container
             _acceleration = acceleration;
         }
 
-        public void SetRankingParameters(IntReference ranking) => _ranking = ranking;
+        public void SetRankingParameters(IntReference ranking)
+        {
+            _ranking = ranking;
+        }
 
         public void SetLeadParameters(BoolReference leadStatus, FloatReference leadTimer)
         {
@@ -152,6 +163,12 @@ namespace MultiSuika.Container
         public void SetCollisionParameters(FloatReference ballImpactMultiplier) =>
             _ballImpactMultiplier = ballImpactMultiplier;
 
+        public void SetPositionParameters(FloatReference verticalPositionRatio, FloatReference minAdaptiveVerticalRange)
+        {
+            _verticalPositionRatio = verticalPositionRatio;
+            _minAdaptiveVerticalRange = minAdaptiveVerticalRange;
+        }
+        
         public void SetLayer(string layerName)
         {
             var layer = LayerMask.NameToLayer(layerName);
@@ -176,6 +193,8 @@ namespace MultiSuika.Container
             _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
             _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
             _containerRacingDebugInfo.SetRankingParameters(_ranking);
+            _containerRacingDebugInfo.SetPositionParameters(_verticalPositionRatio);
+            
 
             // NOTE: It's a workaround so that Nova's stuff can be parsed through the cameras
             _containerRacingDebugInfo.gameObject.SetActive(false);
@@ -184,10 +203,10 @@ namespace MultiSuika.Container
 
         private void SetContainerMovementParameters()
         {
-            _containerMovements = GetComponent<ContainerMovements>();
+            _containerCameraMovements = GetComponentInChildren<ContainerCameraMovements>();
             
-            _containerMovements.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
-            _containerMovements.SetComboParameters(_comboTimerFull, _acceleration, _combo, _comboTimer);
+            _containerCameraMovements.SetSpeedParameters(_currentSpeed, _firstPlayerSpeed, _lastPlayerSpeed);
+            _containerCameraMovements.SetPositionParameters(_verticalPositionRatio, _minAdaptiveVerticalRange);
         }
         
         private void UpdateData()

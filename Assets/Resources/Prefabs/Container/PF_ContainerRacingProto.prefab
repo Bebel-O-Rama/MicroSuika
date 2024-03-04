@@ -961,7 +961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00
+  m_text: 0000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0000
+  m_text: 00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3371,7 +3371,7 @@ Transform:
   m_GameObject: {fileID: 1429231490823842597}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3418,7 +3418,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 2
+        Raw: -2
         Type: 0
       Y:
         Raw: 0
@@ -4046,7 +4046,7 @@ GameObject:
   - component: {fileID: 5882523159710759728}
   - component: {fileID: 2493938097088343506}
   m_Layer: 0
-  m_Name: UIBlock2D (AreaFilled)
+  m_Name: UIBlock2D (Acceleration)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4061,7 +4061,7 @@ Transform:
   m_GameObject: {fileID: 1893482387587272140}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.666667, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4108,7 +4108,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 0
+        Raw: 2.666667
         Type: 0
       Y:
         Raw: 0
@@ -4985,8 +4985,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4643263585004951881}
   - {fileID: 999344177779518852}
+  - {fileID: 4643263585004951881}
   - {fileID: 7752038354569904889}
   m_Father: {fileID: 6669235359387638850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5540,7 +5540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '% Filled'
+  m_text: Accel.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6002,7 +6002,7 @@ Transform:
   m_GameObject: {fileID: 3033840954832146709}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.666667, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6049,7 +6049,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 2.666667
+        Raw: 0
         Type: 0
       Y:
         Raw: -0
@@ -10131,7 +10131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4564159779651758605}
   - component: {fileID: 1050623325330396996}
-  - component: {fileID: 7497811487305868614}
   - component: {fileID: 5133208408491059016}
   m_Layer: 0
   m_Name: PF_ContainerRacingProto
@@ -10173,21 +10172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isDebugEnabled: 1
---- !u!114 &7497811487305868614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793840066780438698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30de8c0ab822e504a8b5dd4c80a3e18b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _yMinHeight: -1
-  _yMaxHeight: 1
-  _cameraHolder: {fileID: 8254843985102316350}
+  _debugScoreMulti: 1
 --- !u!114 &5133208408491059016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10674,13 +10659,13 @@ MonoBehaviour:
   _risingDebugColor: {r: 0.69803923, g: 1, b: 0.7176471, a: 1}
   _reducingDebugColor: {r: 1, g: 0.69803923, b: 0.69803923, a: 1}
   _tmpScore: {fileID: 445295724953094006}
-  _tmpAreaFilled: {fileID: 9039839975685682316}
   _tmpCombo: {fileID: 7653949332343677847}
   _tmpSpeed: {fileID: 5045150459761535120}
   _tmpTargetSpeed: {fileID: 220699878538556435}
   _tmpAverageSpeed: {fileID: 359348944343015003}
-  _tmpAcceleration: {fileID: 7008594417076581981}
+  _tmpAcceleration: {fileID: 9039839975685682316}
   _tmpRanking: {fileID: 7135164549133230943}
+  _tmpRankingValue: {fileID: 7008594417076581981}
   _tmpSpeedBar: {fileID: 5035751186903800408}
   _tmpLeadTimer: {fileID: 2127405841439318206}
   _speedBar: {fileID: 1592684799821856333}
@@ -11788,7 +11773,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Accel.
+  m_text: Rank. Value
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11892,8 +11877,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6855739730589229161}
-  - {fileID: 7231228570390379382}
   - {fileID: 9116171159851742368}
+  - {fileID: 7231228570390379382}
   m_Father: {fileID: 6669235359387638850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5130322120629524823
@@ -16124,7 +16109,7 @@ GameObject:
   - component: {fileID: 2154109701393204266}
   - component: {fileID: 544907469869664157}
   m_Layer: 0
-  m_Name: UIBlock2D (Acceleration)
+  m_Name: UIBlock2D (Ranking Val)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16139,7 +16124,7 @@ Transform:
   m_GameObject: {fileID: 7357685338835039246}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16186,7 +16171,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -2
+        Raw: 2
         Type: 0
       Y:
         Raw: 0
@@ -16779,7 +16764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5591275189265978811}
   m_Layer: 0
-  m_Name: Camera arm
+  m_Name: Camera secondary position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18334,9 +18319,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4702546732342137214}
-  - component: {fileID: 8254843985102316350}
+  - component: {fileID: 2861833113527373731}
   m_Layer: 0
-  m_Name: Camera vertical axis
+  m_Name: Camera main vertical position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18358,7 +18343,7 @@ Transform:
   - {fileID: 5591275189265978811}
   m_Father: {fileID: 4564159779651758605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8254843985102316350
+--- !u!114 &2861833113527373731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18367,12 +18352,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8797963942129634589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e394510daf65d924997c04bd2fc5cddd, type: 3}
+  m_Script: {fileID: 11500000, guid: 30de8c0ab822e504a8b5dd4c80a3e18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 3849794145929147250}
   _mainVerticalTransform: {fileID: 4702546732342137214}
   _secondaryTransform: {fileID: 5591275189265978811}
+  _yMinHeight: -1
+  _yMaxHeight: 1
 --- !u!1 &8922087108210478693
 GameObject:
   m_ObjectHideFlags: 0

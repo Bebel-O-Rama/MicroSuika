@@ -14,19 +14,9 @@ namespace MultiSuika.GameLogic
     public class RacingMode : MonoBehaviour, IGameMode
     {
         [SerializeField] private bool _isDebugEnabled;
-
-        // TODO: Clean the ranking testing
-        [Header("Ranking Parameters (TESTING STUFF)")] 
-        [SerializeField] private RankingEvaluationMethod _rankingEvaluationMethod;
-        [SerializeField] private List<FloatReference> _rankingValues;
-        public Dictionary<Container.Container, FloatReference> playersRankingValues;
-        [SerializeField] private float _standardDeviationMethodMultiplier;
-        [SerializeField] private float _standardDeviationMethodMinimumRange;
-
-
-
+        
         [Header("Speed Parameters")]
-        [SerializeField] private FloatReference _speedSoftCap; // 3000
+        [SerializeField] private FloatReference _speedSoftCap; // 1000
 
         [Header("Ball Collision Parameters")] 
         [SerializeField] private FloatReference _ballImpactMultiplier; // 2 
@@ -49,10 +39,8 @@ namespace MultiSuika.GameLogic
         [Tooltip(
             "If false, only increase the timer reducing the value of the condition variables when nobody is winning. Otherwise, always increase the timer")]
         [SerializeField] private bool _alwaysReduceConditionValues;
-
         [SerializeField] private LeadReqProgressionMethod _leadReqProgressionMethod;
         [SerializeField] private SpeedReqCheckMethod _speedReqCheckMethod;
-
         [SerializeField] [Min(0f)] private Vector2 _timeLeadConditionMinRange;
         [SerializeField] [Min(0f)] private Vector2 _speedLeadConditionMinRange;
         [SerializeField] [Min(1f)] private float _leadTimeConditionTimerRange;
@@ -60,9 +48,11 @@ namespace MultiSuika.GameLogic
         [SerializeField] private AnimationCurve _leadTimeReqCurve;
         [SerializeField] private AnimationCurve _leadSpeedReqCurve;
 
-        [Header("GameMode Parameters")] [SerializeField]
-        public GameData gameData;
+        [Header("Movement Parameters")] 
+        [SerializeField] private FloatReference _minAdaptiveVerticalRange;
 
+        [Header("GameMode Parameters")] 
+        [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
 
         private int _numberPlayerConnected;
@@ -76,8 +66,11 @@ namespace MultiSuika.GameLogic
         private Dictionary<Container.Container, IntReference> _playerRankingReferences;
         private Dictionary<Container.Container, BoolReference> _playerLeadStatus;
         private Dictionary<Container.Container, FloatReference> _playerLeadTimer;
+        private Dictionary<Container.Container, FloatReference> _playersYPositionRatio;
 
         private FloatReference _averageSpeed;
+        private FloatReference _firstPlayerSpeed;
+        private FloatReference _lastPlayerSpeed;
         private FloatReference _standardDeviationSpeed;
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;
@@ -108,12 +101,6 @@ namespace MultiSuika.GameLogic
             Fixed,
             AnimCurve
         }
-
-        private enum RankingEvaluationMethod
-        {
-            ZeroToFixed,
-            StandardDeviation,
-        }
         
         private void Awake()
         {
@@ -137,13 +124,10 @@ namespace MultiSuika.GameLogic
             _playerInputHandlers =
                 Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
-
+            
             //// Racing Stuff!!!
             SetRacingModeParameters();
             SetContainerRacingParameters();
-            
-            // TODO: Clean the ranking testing
-            InitRankingTESTINGParameters();
         }
 
         private void Start()
@@ -167,10 +151,7 @@ namespace MultiSuika.GameLogic
 
             UpdateSpeedParameters();
             UpdateRanking();
-            
-            // TODO: Clean this (ranking testing)
-            UpdateRankingValues();
-            
+
             // TODO: REMOVE THIS CONDITION
             if (checkLeadCondition)
                 UpdateLead();
@@ -178,54 +159,14 @@ namespace MultiSuika.GameLogic
             _racingModeDebugInfo?.SetDebugActive(_isDebugEnabled);
                 
         }
-
-        // TODO: Clean the ranking testing
-        private void InitRankingTESTINGParameters()
-        {
-            playersRankingValues = new Dictionary<Container.Container, FloatReference>();
-            
-            foreach (var container in _containers)
-            {
-                var newRankingValueRef = new FloatReference
-                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-                playersRankingValues[container] = newRankingValueRef;
-            }
-        }
         
-        
-        // TODO: Clean the ranking testing
-        private void UpdateRankingValues()
-        {
-            switch (_rankingEvaluationMethod)
-            {
-                case RankingEvaluationMethod.ZeroToFixed:
-                    RankingZeroToFixed();
-                    break;
-                case RankingEvaluationMethod.StandardDeviation:
-                    RankingStandardDeviation();
-                    break;
-                default:
-                    return;
-            };
-        }
-
-        private void RankingZeroToFixed()
-        {
-            foreach (var container in _containers)
-            {
-                var currentSpeed = _playerCurrentSpeedReferences[container].Value;
-                playersRankingValues[container].Variable.SetValue(Mathf.Clamp01(currentSpeed / _speedSoftCap));
-            }
-        }
-
-        private void RankingStandardDeviation()
-        {
-            
-        }
-
         private void SetRacingModeParameters()
         {
             _averageSpeed = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _firstPlayerSpeed = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _lastPlayerSpeed = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             _standardDeviationSpeed = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
@@ -235,11 +176,12 @@ namespace MultiSuika.GameLogic
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             _dampingMethodIndex = new IntReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-            
+
             _playerCurrentSpeedReferences = new Dictionary<Container.Container, FloatReference>();
             _playerRankingReferences = new Dictionary<Container.Container, IntReference>();
             _playerLeadStatus = new Dictionary<Container.Container, BoolReference>();
             _playerLeadTimer = new Dictionary<Container.Container, FloatReference>();
+            _playersYPositionRatio = new Dictionary<Container.Container, FloatReference>();
 
             foreach (var container in _containers)
             {
@@ -251,13 +193,16 @@ namespace MultiSuika.GameLogic
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<BoolVariable>() };
                 FloatReference newPlayerLeadTimer = new FloatReference
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+                var newYPositionRatioRef = new FloatReference
+                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
                 
                 newPlayerLeadStatus.Variable.SetValue(false);
-                
+
                 _playerCurrentSpeedReferences[container] = newCurrentSpeedVar;
                 _playerRankingReferences[container] = newPlayerRankingRef;
                 _playerLeadStatus[container] = newPlayerLeadStatus;
                 _playerLeadTimer[container] = newPlayerLeadTimer;
+                _playersYPositionRatio[container] = newYPositionRatioRef;
             }
             
             _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
@@ -274,13 +219,14 @@ namespace MultiSuika.GameLogic
             {
                 var containerRacing = container.GetComponent<ContainerRacingMode>();
                 containerRacing.SetAreaParameters(_ballTracker.GetBallAreaForContainer(container), _containerMaxArea);
-                containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed, _speedSoftCap);
+                containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed, _speedSoftCap, _firstPlayerSpeed, _lastPlayerSpeed);
                 containerRacing.SetDampingParameters(_dampingMethodIndex, _dampingFixedPercent, _dampingFixedValue,
                     _dampingCurvePercent);
                 containerRacing.SetComboParameters(_comboTimerFull, _acceleration);
                 containerRacing.SetRankingParameters(_playerRankingReferences[container]);
                 containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
                 containerRacing.SetCollisionParameters(_ballImpactMultiplier);
+                containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
                 containerRacing.SetLayer($"Container{playerIndex}");
                 playerIndex++;
             }
@@ -304,6 +250,9 @@ namespace MultiSuika.GameLogic
                 orderby container.Value.Value descending
                 select container).ToList();
 
+            _firstPlayerSpeed.Variable.SetValue(playerOrder.First().Value);
+            _lastPlayerSpeed.Variable.SetValue(playerOrder.Last().Value);
+            
             int rankingIndex = 1;
             for (int i = 0; i < playerOrder.Count(); i++)
             {

@@ -1828,7 +1828,7 @@ MonoBehaviour:
   _leadReqProgressionMethod: 1
   _speedReqCheckMethod: 1
   _timeLeadConditionMinRange: {x: 3, y: 7}
-  _speedLeadConditionMinRange: {x: 1, y: 399}
+  _speedLeadConditionMinRange: {x: 400, y: 1000}
   _leadTimeConditionTimerRange: 60
   _leadSpeedConditionTimerRange: 120
   _leadTimeReqCurve:
@@ -1879,6 +1879,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _minAdaptiveVerticalRange:
+    UseConstant: 1
+    ConstantValue: 500
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
   gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
   gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
   useDebugSpawnContainer: 0
