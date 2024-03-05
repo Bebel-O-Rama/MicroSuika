@@ -10,17 +10,30 @@ namespace MultiSuika.DebugInfo
 {
     public class ContainerRacingDebugInfo : MonoBehaviour
     {
-        [Header("Speed Parameters")]
-        [SerializeField] private float _speedBarMax; // 11
+        [Header("Speed parameters")]
+        [SerializeField] private float _speedBarMaxHeight; // 11
 
-        [Header("Combo Parameters")]
-        [SerializeField] private float _comboBarMax; // 5
+        [Header("Combo parameters")]
+        [SerializeField] private float _comboBarMaxHeight; // 5
         
-        [Header("Visual Debug Parameters")] 
+        [Header("Color Debug parameters")] 
         [SerializeField] private Color _fixedDebugColor; // D2FFFD
         [SerializeField] private Color _risingDebugColor; // B2FFB7
         [SerializeField] private Color _reducingDebugColor; // FFB2B2
         
+        [Header("Lead timer parameters")]
+        [SerializeField] private TMP_Text _tmpLeadTimer;
+        
+        [Header("Progress bars parameters")]
+        [SerializeField] private GameObject _progressBarsDebugHolder;
+        [SerializeField] private UIBlock2D _speedBar;
+        [SerializeField] private UIBlock2D _averageSpeedBar;
+        [SerializeField] private UIBlock2D _speedTextBlock;
+        [SerializeField] private UIBlock2D _comboBar;
+        [SerializeField] private TMP_Text _tmpSpeedBar;
+
+        [Header("Full debug text parameters")]
+        [SerializeField] private GameObject _fullTextDebugHolder;
         [SerializeField] private TMP_Text _tmpScore;
         [SerializeField] private TMP_Text _tmpCombo;
         [SerializeField] private TMP_Text _tmpSpeed;
@@ -28,14 +41,13 @@ namespace MultiSuika.DebugInfo
         [SerializeField] private TMP_Text _tmpAverageSpeed;
         [SerializeField] private TMP_Text _tmpAcceleration;
         [SerializeField] private TMP_Text _tmpRanking;
-        [SerializeField] private TMP_Text _tmpRankingValue;
-        [SerializeField] private TMP_Text _tmpSpeedBar;
-        [SerializeField] private TMP_Text _tmpLeadTimer;
+        [SerializeField] private TMP_Text _tmpPositionRatio;
 
-        [SerializeField] private UIBlock2D _speedBar;
-        [SerializeField] private UIBlock2D _averageSpeedBar;
-        [SerializeField] private UIBlock2D _speedTextBlock;
-        [SerializeField] private UIBlock2D _comboBar;
+        [Header("Abridged debug text parameters")]
+        [SerializeField] private GameObject _abridgedTextDebugHolder; 
+        [SerializeField] private TMP_Text _tmpTargetSpeedAbridged;
+        [SerializeField] private TMP_Text _tmpComboAbridged;
+        [SerializeField] private TMP_Text _tmpPositionRatioAbridged;
         
         // Score parameters
         private IntReference _playerScore;
@@ -65,60 +77,48 @@ namespace MultiSuika.DebugInfo
         
         // Position parameters
         private FloatReference _verticalPositionRatio;
+        
+        // Debug activation parameters
+        private BoolReference _isContainerSpeedBarDebugEnabled;
+        private BoolReference _isContainerFullDebugTextEnabled;
+        private BoolReference _isContainerAbridgedDebugTextEnabled;
 
-        private GameObject _debugHolder;
-        private bool _isDebugEnabled = false;
         
         private void Awake()
         {
-            _debugHolder = transform.GetChild(0).gameObject;
-            if (_debugHolder == null)
-                gameObject.SetActive(false);
             _speedTextBlock.Color = _fixedDebugColor;
             _tmpLeadTimer.text = "";
         }
 
         private void Update()
         {
-            if (!_isDebugEnabled)
-                return;
+            _progressBarsDebugHolder.SetActive(_isContainerSpeedBarDebugEnabled);
+            _abridgedTextDebugHolder.SetActive(_isContainerAbridgedDebugTextEnabled);
+            _fullTextDebugHolder.SetActive(_isContainerFullDebugTextEnabled);
             
-            UpdateScoreParameters();
-            UpdateComboParameters();
-            UpdateSpeedParameters();
-            UpdateLeadParameters();
-            UpdateRankingParameters();
+            if (_isContainerSpeedBarDebugEnabled)
+                UpdateSpeedBarDebugInfo();
+            if (_isContainerAbridgedDebugTextEnabled)
+                UpdateAbridgedDebugInfoText();
+            else if (_isContainerFullDebugTextEnabled)
+                UpdateFullDebugInfoText();
+            
+            UpdateLeadDebugText();
         }
 
         #region UpdateDebugInfo
-        private void UpdateScoreParameters()
-        {
-            _tmpScore.text = string.Format($"{_playerScore.Value:0}");
-        }
-        
-        private void UpdateComboParameters()
-        {
-            // Combo
-            _tmpCombo.text = string.Format($"{_combo.Value}");
-            _comboBar.Size.Y = (_comboTimer / _comboTimerFull) * _comboBarMax;
-            _comboBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
-            
-            // Acceleration
-            _tmpAcceleration.text = string.Format($"{_acceleration * _combo:0.00}");
-        }
-        
-        private void UpdateSpeedParameters()
+
+        private void UpdateSpeedBarDebugInfo()
         {
             // Speed text
-            _tmpSpeed.text = string.Format($"{_currentSpeed.Value:0.00}");
+            _tmpSpeedBar.text = string.Format($"{_currentSpeed.Value:0.00}");
             
-            // Speed bar and text
+            // Speed bar
             var speedBarSizePercent = _speedBar.Size.Percent;
             speedBarSizePercent.y = _currentSpeed / _maxSpeed;
             _speedBar.Size.Percent = speedBarSizePercent;
             _speedBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
             
-            _tmpSpeedBar.text = string.Format($"{_currentSpeed.Value:0.00}");
             if (Mathf.Abs(_previousSpeed - _currentSpeed) < Mathf.Epsilon)
             {
                 _speedTextBlock.Color = _fixedDebugColor;
@@ -129,27 +129,61 @@ namespace MultiSuika.DebugInfo
             }
             _previousSpeed = _currentSpeed.Value;
             
-            // Average Speed
-            _tmpAverageSpeed.text = string.Format($"{_averageSpeed.Value:0.00}");
+            // Average speed bar
             var averageSpeedPositionPercent = _averageSpeedBar.Position.Percent;
             averageSpeedPositionPercent.y = _averageSpeed / _maxSpeed;
             _averageSpeedBar.Position.Percent = averageSpeedPositionPercent;
             
-            // Target speed value
-            _tmpTargetSpeed.text = string.Format($"{_targetSpeed.Value:0.00}");
+            // Combo bar
+            _comboBar.Size.Y = (_comboTimer / _comboTimerFull) * _comboBarMaxHeight;
+            _comboBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
         }
+        
+        private void UpdateFullDebugInfoText()
+        {
+            // Score
+            _tmpScore.text = string.Format($"{_playerScore.Value:0}");
 
-        private void UpdateLeadParameters()
+            // Combo
+            _tmpCombo.text = string.Format($"{_combo.Value}");
+            
+            // Acceleration
+            _tmpAcceleration.text = string.Format($"{_acceleration * _combo:0.00}");
+            
+            // Current speed
+            _tmpSpeed.text = string.Format($"{_currentSpeed.Value:0.00}");
+
+            // Target speed
+            _tmpTargetSpeed.text = string.Format($"{_targetSpeed.Value:0.00}");
+
+            // Average speed
+            _tmpAverageSpeed.text = string.Format($"{_averageSpeed.Value:0.00}");
+
+            // Ranking
+            _tmpRanking.text = string.Format($"{_ranking.Value}");
+            
+            // Position
+            _tmpPositionRatio.text = string.Format($"{(_verticalPositionRatio.Value * 100):00}%");
+        }
+        
+        private void UpdateAbridgedDebugInfoText()
+        {
+            // Target speed
+            _tmpTargetSpeedAbridged.text = string.Format($"{_targetSpeed.Value:0.00}");
+            
+            // Combo
+            _tmpComboAbridged.text = string.Format($"{_combo.Value}");
+            
+            // Position 
+            _tmpPositionRatioAbridged.text = string.Format($"{(_verticalPositionRatio.Value * 100):00}%");
+        }
+        
+        private void UpdateLeadDebugText()
         {
             if (_leadStatus)
                 _tmpLeadTimer.text = _leadTimer > Mathf.Epsilon ? string.Format($"{_leadTimer.Value:0.0}") : "";
         }
         
-        private void UpdateRankingParameters()
-        {
-            _tmpRanking.text = string.Format($"{_ranking.Value}");
-            _tmpRankingValue.text = string.Format($"{(_verticalPositionRatio.Value * 100):00}%");
-        }
         #endregion
 
         #region Setter
@@ -189,10 +223,12 @@ namespace MultiSuika.DebugInfo
             _verticalPositionRatio = verticalPositionRatio;
         }
 
-        public void SetDebugActive(bool isDebugActive)
+        public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
+            BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled)
         {
-            _isDebugEnabled = isDebugActive;
-            _debugHolder.SetActive(isDebugActive);
+            _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
+            _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
+            _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
         }
         #endregion
     }

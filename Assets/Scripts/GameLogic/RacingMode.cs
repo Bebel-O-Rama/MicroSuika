@@ -13,8 +13,6 @@ namespace MultiSuika.GameLogic
 {
     public class RacingMode : MonoBehaviour, IGameMode
     {
-        [SerializeField] private bool _isDebugEnabled;
-        
         [Header("Speed Parameters")]
         [SerializeField] private FloatReference _speedSoftCap; // 1000
 
@@ -55,6 +53,16 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
 
+        [Header("DEBUG parameters")] 
+        public bool useDebugSpawnContainer = false;
+        [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
+        [SerializeField] public bool checkLeadCondition = true;
+        [SerializeField] private BoolReference _isRacingModeDebugTextEnabled;
+        [SerializeField] private BoolReference _isContainerSpeedBarDebugEnabled;
+        [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
+        [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
+        [SerializeField] private FloatReference _debugScoreMultiplier;
+
         private int _numberPlayerConnected;
         private List<PlayerInputHandler> _playerInputHandlers;
         private GameObject _versusGameInstance;
@@ -83,12 +91,7 @@ namespace MultiSuika.GameLogic
 
         private bool _isGameInProgress = true;
         private RacingModeDebugInfo _racingModeDebugInfo;
-        
 
-        [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
-        [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
-        [SerializeField] public bool checkLeadCondition = true;
-        
         private enum SpeedReqCheckMethod
         {
             FromAverage,
@@ -132,14 +135,7 @@ namespace MultiSuika.GameLogic
 
         private void Start()
         {
-            if (!_isDebugEnabled)
-                return;
-            _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
-            if (_racingModeDebugInfo == null)
-                return;
-            _racingModeDebugInfo.SetRacingModeParameters(_averageSpeed, _standardDeviationSpeed,
-                _currentLeadTimeCondition, _currentLeadSpeedCondition);
-            _racingModeDebugInfo.SetDebugActive(true);
+            SetRacingModeDebugInfoParameters();
         }
 
         private void Update()
@@ -147,6 +143,7 @@ namespace MultiSuika.GameLogic
             if (!_isGameInProgress)
                 return;
             
+            // TODO: Clean this once we "hard set" the damping method
             _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
 
             UpdateSpeedParameters();
@@ -156,10 +153,18 @@ namespace MultiSuika.GameLogic
             if (checkLeadCondition)
                 UpdateLead();
             CheckAndProcessWinCondition();
-            _racingModeDebugInfo?.SetDebugActive(_isDebugEnabled);
-                
         }
-        
+
+        private void SetRacingModeDebugInfoParameters()
+        {
+            _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
+            if (_racingModeDebugInfo == null)
+                return;
+            _racingModeDebugInfo.SetRacingModeParameters(_averageSpeed, _standardDeviationSpeed,
+                _currentLeadTimeCondition, _currentLeadSpeedCondition);
+            _racingModeDebugInfo.SetDebugActivationParameters(_isRacingModeDebugTextEnabled);
+        }
+
         private void SetRacingModeParameters()
         {
             _averageSpeed = new FloatReference
@@ -227,6 +232,7 @@ namespace MultiSuika.GameLogic
                 containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
                 containerRacing.SetCollisionParameters(_ballImpactMultiplier);
                 containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
+                containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled, _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
                 containerRacing.SetLayer($"Container{playerIndex}");
                 playerIndex++;
             }

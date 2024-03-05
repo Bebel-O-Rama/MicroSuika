@@ -1747,7 +1747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f7643866a2cbd4f84e3a79f7b25384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDebugEnabled: 1
   _speedSoftCap:
     UseConstant: 1
     ConstantValue: 1000
@@ -1890,6 +1889,28 @@ MonoBehaviour:
   useDebugSpawnContainer: 0
   debugFakeNumberCount: 2
   checkLeadCondition: 0
+  _isRacingModeDebugTextEnabled:
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 0}
+  _isContainerSpeedBarDebugEnabled:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _isContainerFullDebugTextEnabled:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _isContainerAbridgedDebugTextEnabled:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _debugScoreMultiplier:
+    UseConstant: 1
+    ConstantValue: 1
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
 --- !u!1 &994316990
 GameObject:
   m_ObjectHideFlags: 0

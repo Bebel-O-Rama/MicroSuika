@@ -9,10 +9,6 @@ namespace MultiSuika.Container
 {
     public class ContainerRacingMode : MonoBehaviour
     {
-        [SerializeField] private bool _isDebugEnabled;
-        // TODO: Clean this up once I'm done testing
-        [SerializeField] private float _debugScoreMulti = 1f;
-        
         // Score parameters
         private IntReference _playerScore;
 
@@ -56,6 +52,12 @@ namespace MultiSuika.Container
         // Collision parameters
         private float _ballImpactMultiplier; // 2 
 
+        // Debug parameters
+        private BoolReference _isContainerSpeedBarDebugEnabled;
+        private BoolReference _isContainerFullDebugTextEnabled;
+        private BoolReference _isContainerAbridgedDebugTextEnabled;
+        private FloatReference _debugScoreMultiplier;
+        
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
         private ContainerCameraMovements _containerCameraMovements;
         private Camera _containerCamera;
@@ -97,14 +99,13 @@ namespace MultiSuika.Container
             _dampingMethod = (DampingMethod)_dampingMethodIndex.Value;
             
             UpdateData();
-            _containerRacingDebugInfo?.SetDebugActive(_isDebugEnabled);
         }
 
         public void NewBallFused(float scoreValue)
         {
             _combo.Variable.ApplyChange(1);
             _comboTimer.Variable.SetValue(_comboTimerFull);
-            _targetSpeed.Variable.ApplyChange(scoreValue * 2f * _debugScoreMulti);
+            _targetSpeed.Variable.ApplyChange(scoreValue * 2f * _debugScoreMultiplier);
         }
 
         public void DamageReceived(Ball.Ball ball)
@@ -168,7 +169,16 @@ namespace MultiSuika.Container
             _verticalPositionRatio = verticalPositionRatio;
             _minAdaptiveVerticalRange = minAdaptiveVerticalRange;
         }
-        
+
+        public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
+            BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled,
+            FloatReference debugScoreMultiplier)
+        {
+            _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
+            _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
+            _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
+            _debugScoreMultiplier = debugScoreMultiplier;
+        }
         public void SetLayer(string layerName)
         {
             var layer = LayerMask.NameToLayer(layerName);
@@ -180,9 +190,6 @@ namespace MultiSuika.Container
 
         private void SetContainerDebugInfoParameters()
         {
-            if (!_isDebugEnabled)
-                return;
-            
             _containerRacingDebugInfo = GetComponentInChildren<ContainerRacingDebugInfo>();
             if (_containerRacingDebugInfo == null)
                 return;
@@ -194,8 +201,8 @@ namespace MultiSuika.Container
             _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
             _containerRacingDebugInfo.SetRankingParameters(_ranking);
             _containerRacingDebugInfo.SetPositionParameters(_verticalPositionRatio);
+            _containerRacingDebugInfo.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled, _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled);
             
-
             // NOTE: It's a workaround so that Nova's stuff can be parsed through the cameras
             _containerRacingDebugInfo.gameObject.SetActive(false);
             _containerRacingDebugInfo.gameObject.SetActive(true);
@@ -227,7 +234,7 @@ namespace MultiSuika.Container
             
             // Speed value
             // TODO: Confirm if we should use this to make sure the damping doesn't benefit from the combo
-            var acceleration = _currentSpeed < _targetSpeed ? _acceleration * (_combo * _debugScoreMulti) * Time.deltaTime : _acceleration;
+            var acceleration = _currentSpeed < _targetSpeed ? _acceleration * (_combo * _debugScoreMultiplier) * Time.deltaTime : _acceleration;
             _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, acceleration));
         }
         

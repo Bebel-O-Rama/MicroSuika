@@ -7,7 +7,6 @@ namespace MultiSuika.DebugInfo
 {
     public class RacingModeDebugInfo : MonoBehaviour
     {
-        
         [Header("Visual Debug Parameters")] 
         [SerializeField] private TMP_Text _tmpMean;
         [SerializeField] private TMP_Text _tmpSD;
@@ -20,7 +19,7 @@ namespace MultiSuika.DebugInfo
         private FloatReference _currentLeadSpeedCondition;
 
         private GameObject _debugHolder;
-        private bool _isDebugEnabled = false;
+        private BoolReference _isDebugActive;
         
         private void Awake()
         {
@@ -31,7 +30,8 @@ namespace MultiSuika.DebugInfo
 
         private void Update()
         {
-            if (!_isDebugEnabled)
+            _debugHolder.SetActive(_isDebugActive);
+            if (!_isDebugActive)
                 return;
             _tmpMean.text = string.Format($"{_averageSpeed.Value:0.00}");
             _tmpSD.text = string.Format($"{_standardDeviationSpeed.Value:0.00}");
@@ -46,15 +46,8 @@ namespace MultiSuika.DebugInfo
             _standardDeviationSpeed = stSpeed;
             _currentLeadTimeCondition = timeCondition;
             _currentLeadSpeedCondition = speedCondition;
-
-            _isDebugEnabled = true;
-            transform.GetChild(0).gameObject.SetActive(true);
         }
-
-        public void SetDebugActive(bool isDebugActive)
-        {
-            _isDebugEnabled = isDebugActive;
-            _debugHolder.SetActive(isDebugActive);
-        }
+        
+        public void SetDebugActivationParameters(BoolReference isDebugActive) => _isDebugActive = isDebugActive;
     }
 }
