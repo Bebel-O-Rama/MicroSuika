@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5715a3d467a93243b541acb15dd268c, type: 3}
+  m_Name: RacingPlanetSkin
+  m_EditorClassIdentifier: 
+  playersSkinData:
+  - {fileID: 11400000, guid: 7373a3bcb6244ea44a3b743acf52a28f, type: 2}
+  - {fileID: 11400000, guid: f2e3d9238aaf573499f341ab02e01eb2, type: 2}
+  - {fileID: 11400000, guid: 757ed553d6c7035468a6ba4416f2c96b, type: 2}
+  - {fileID: 11400000, guid: 14fc5fbe7a2d2d64493a06df76a4a81d, type: 2}
