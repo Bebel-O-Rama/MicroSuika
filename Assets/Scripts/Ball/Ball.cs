@@ -18,7 +18,7 @@ namespace MultiSuika.Ball
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteThemeData;
         public Container.Container container;
-        public IGameMode gameMode;
+        public IGameModeManager gameModeManager;
         public BallTracker ballTracker;
 
         public float impulseMultiplier;
@@ -90,11 +90,11 @@ namespace MultiSuika.Ball
                 // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
                 newBall.transform.SetLayerRecursively(gameObject.layer);
                 
-                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container, gameMode);
+                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container, gameModeManager);
                 newBall.ballTracker.RegisterBall(newBall, container);
                 CallFuseSFX(tier, newBall.gameObject);
             }
-            gameMode.OnBallFusion(this);
+            gameModeManager.OnBallFusion(this);
         }
 
         private void AddFusionImpulse(int newBallTier, Vector3 contactPosition)

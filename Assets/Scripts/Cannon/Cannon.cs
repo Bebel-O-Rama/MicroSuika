@@ -16,7 +16,7 @@ namespace MultiSuika.Cannon
         public float shootingForce;
         public float emptyDistanceBetweenBallAndCannon;
         public bool isUsingPeggleMode = false;
-        private PlayerInputHandler _playerInputHandler;
+        private PlayerInputManager _playerInputManager;
     
         // Positioning
         public float horizontalMargin;
@@ -35,7 +35,7 @@ namespace MultiSuika.Cannon
         // Wwise Event
         public AK.Wwise.Event WwiseEventCannonShoot;
 
-        public IGameMode gameMode;
+        public IGameModeManager gameModeManager;
         
         public void DestroyCurrentBall()
         {
@@ -45,32 +45,32 @@ namespace MultiSuika.Cannon
     
         public void SetCannonInputConnexion(bool isActive)
         {
-            if (_playerInputHandler == null)
+            if (_playerInputManager == null)
                 return;
             if (isActive)
             {
-                _playerInputHandler.onHorizontalMvtContinuous += MoveCannon;
-                _playerInputHandler.onShoot += DropBall;
+                _playerInputManager.onHorizontalMvtContinuous += MoveCannon;
+                _playerInputManager.onShoot += DropBall;
                 if (_currentBall == null)
                     LoadNewBall();
             }
             else
             {
-                _playerInputHandler.onHorizontalMvtContinuous -= MoveCannon;
-                _playerInputHandler.onShoot -= DropBall;
+                _playerInputManager.onHorizontalMvtContinuous -= MoveCannon;
+                _playerInputManager.onShoot -= DropBall;
             }
         }
 
-        public void ConnectCannonToPlayer(PlayerInputHandler playerInputHandler)
+        public void ConnectCannonToPlayer(PlayerInputManager playerInputManager)
         {
-            _playerInputHandler = playerInputHandler;
+            _playerInputManager = playerInputManager;
             SetCannonInputConnexion(true);
         }
 
         public void DisconnectCannonToPlayer()
         {
             SetCannonInputConnexion(false);
-            _playerInputHandler = null;
+            _playerInputManager = null;
         }
         
         private void DropBall()
@@ -115,7 +115,7 @@ namespace MultiSuika.Cannon
             // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
             _currentBall.transform.SetLayerRecursively(gameObject.layer);
             
-            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameMode, true);
+            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameModeManager, true);
         }
     
     }

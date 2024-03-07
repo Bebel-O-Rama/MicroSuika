@@ -7,6 +7,7 @@ using MultiSuika.Skin;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
+using PlayerInputManager = MultiSuika.Player.PlayerInputManager;
 
 namespace MultiSuika.Utilities
 {
@@ -14,16 +15,16 @@ namespace MultiSuika.Utilities
     {
         #region Player
 
-        public static List<PlayerInputHandler> InstantiatePlayerInputHandlers(List<PlayerData> connectedPlayerData,
+        public static List<PlayerInputManager> InstantiatePlayerInputHandlers(List<PlayerData> connectedPlayerData,
             GameModeData gameModeData)
         {
-            List<PlayerInputHandler> instantiatedPlayerInputHandlers = new List<PlayerInputHandler>();
+            List<PlayerInputManager> instantiatedPlayerInputHandlers = new List<PlayerInputManager>();
             foreach (var playerData in connectedPlayerData)
             {
                 var playerInputObj = PlayerInput.Instantiate(gameModeData.playerInputPrefab,
                     playerData.playerIndexNumber,
                     pairWithDevice: playerData.inputDevice);
-                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputHandler>());
+                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputManager>());
             }
 
             return instantiatedPlayerInputHandlers;
@@ -124,19 +125,19 @@ namespace MultiSuika.Utilities
 
         public static void SetCannonsParameters(List<Cannon.Cannon> cannons, List<Container.Container> containers,
             BallTracker balltracker, GameModeData gameModeData,
-            List<PlayerData> playerData, IGameMode gameMode)
+            List<PlayerData> playerData, IGameModeManager gameModeManager)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
                 SetCannonParameters(cannons[i],
                     containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], balltracker,
-                    gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i], gameMode);
+                    gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
             }
         }
 
         public static void SetCannonParameters(Cannon.Cannon cannon, Container.Container container,
             BallTracker ballTracker, GameModeData gameModeData,
-            PlayerData playerData, PlayerSkinData playerSkinData, IGameMode gameMode)
+            PlayerData playerData, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
         {
             cannon.speed = gameModeData.cannonSpeed;
             cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
@@ -152,11 +153,11 @@ namespace MultiSuika.Utilities
             cannon.ballTracker = ballTracker;
             cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
 
-            cannon.gameMode = gameMode;
+            cannon.gameModeManager = gameModeManager;
         }
 
         public static void ConnectCannonsToPlayerInputs(List<Cannon.Cannon> cannons,
-            List<PlayerInputHandler> playerInputHandlers)
+            List<PlayerInputManager> playerInputHandlers)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
@@ -182,7 +183,7 @@ namespace MultiSuika.Utilities
 
         public static void SetBallParameters(Ball.Ball ball, int ballTierIndex, IntReference scoreRef,
             BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData,
-            Container.Container container, IGameMode gameMode, bool disableCollision = false)
+            Container.Container container, IGameModeManager gameModeManager, bool disableCollision = false)
         {
             var ballData = ballSetData.GetBallData(ballTierIndex);
             if (ballData == null)
@@ -216,7 +217,7 @@ namespace MultiSuika.Utilities
             ball.impulseExpPower = ballSetData.impulseExpPower;
             ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
 
-            ball.gameMode = gameMode;
+            ball.gameModeManager = gameModeManager;
 
             if (disableCollision)
                 ball.rb2d.simulated = false;

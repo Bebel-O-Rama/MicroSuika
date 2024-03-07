@@ -8,11 +8,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using PlayerInputManager = MultiSuika.Player.PlayerInputManager;
 
 namespace MultiSuika.GameLogic
 {
-    [RequireComponent(typeof(PlayerInputManager))]
-    public class LobbyMode : MonoBehaviour, IGameMode
+    [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInputManager))]
+    public class LobbyModeManager : MonoBehaviour, IGameModeManager
     {
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
@@ -20,9 +21,9 @@ namespace MultiSuika.GameLogic
         [SerializeField] public List<Scoreboard> lobbyScore;
     
         private List<LobbyContainerTrigger> _lobbyContainerTriggers;
-        private PlayerInputManager _playerInputManager;
+        private UnityEngine.InputSystem.PlayerInputManager _playerInputManager;
     
-        private List<PlayerInputHandler> _playerInputHandlers = new List<PlayerInputHandler>();
+        private List<PlayerInputManager> _playerInputHandlers = new List<PlayerInputManager>();
         private List<Cannon.Cannon> _cannons = new List<Cannon.Cannon>();
         private List<Container.Container> _containers = new List<Container.Container>();
         private BallTracker _ballTracker = new BallTracker();
@@ -30,7 +31,7 @@ namespace MultiSuika.GameLogic
         private void Awake()
         {
             // Connect to the PlayerInputManager and Set the lobbyContainerTrigger
-            _playerInputManager = FindObjectOfType<PlayerInputManager>();
+            _playerInputManager = FindObjectOfType<UnityEngine.InputSystem.PlayerInputManager>();
             _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
             _lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
 
@@ -79,7 +80,7 @@ namespace MultiSuika.GameLogic
             scoreboard.connectedColor = color;
         }
 
-        private (PlayerInputHandler, int) ConnectPlayerToInputDevice(PlayerInput playerInput)
+        private (PlayerInputManager, int) ConnectPlayerToInputDevice(PlayerInput playerInput)
         {
             var playerIndex = gameData.GetConnectedPlayerQuantity();
             if (playerIndex >= 4)
@@ -88,7 +89,7 @@ namespace MultiSuika.GameLogic
                 return (null, -1);
             }
 
-            var playerInputRegistered = playerInput.GetComponentInParent<PlayerInputHandler>();
+            var playerInputRegistered = playerInput.GetComponentInParent<PlayerInputManager>();
             var newPlayerData = gameData.playerDataList[playerIndex];
         
             if (newPlayerData.playerIndexNumber != playerIndex)

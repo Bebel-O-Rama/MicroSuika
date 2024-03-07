@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace MultiSuika.GameLogic
 {
-    public class VersusMode : MonoBehaviour, IGameMode
+    public class VersusModeManager : MonoBehaviour, IGameModeManager
     {
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
         
         private int _numberPlayerConnected;
-        private List<PlayerInputHandler> _playerInputHandlers;
+        private List<PlayerInputManager> _playerInputHandlers;
         private GameObject _versusGameInstance;
         private List<Container.Container> _containers;
         private List<Cannon.Cannon> _cannons;

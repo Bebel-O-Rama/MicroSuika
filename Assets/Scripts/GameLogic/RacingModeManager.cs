@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
-    public class RacingMode : MonoBehaviour, IGameMode
+    public class RacingModeManager : MonoBehaviour, IGameModeManager
     {
         [Header("Speed Parameters")]
         [SerializeField] private FloatReference _speedSoftCap; // 1000
@@ -64,7 +64,7 @@ namespace MultiSuika.GameLogic
         [SerializeField] private FloatReference _debugScoreMultiplier;
 
         private int _numberPlayerConnected;
-        private List<PlayerInputHandler> _playerInputHandlers;
+        private List<PlayerInputManager> _playerInputHandlers;
         private GameObject _versusGameInstance;
         private List<Container.Container> _containers;
         private List<Cannon.Cannon> _cannons;

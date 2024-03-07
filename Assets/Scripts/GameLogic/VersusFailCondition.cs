@@ -10,11 +10,11 @@ namespace MultiSuika.GameLogic
         [SerializeField] public List<TriggerConditionComponent> triggers;
         [SerializeField] public SpriteRenderer indicator;
 
-        private VersusMode _versusMode;
+        private VersusModeManager _versusModeManager;
 
-        public void SetCondition(VersusMode gameMode)
+        public void SetCondition(VersusModeManager gameModeManager)
         {
-            _versusMode = gameMode;
+            _versusModeManager = gameModeManager;
             if (triggers == null || !triggers.Any())
             {
                 Destroy(this);
@@ -30,7 +30,7 @@ namespace MultiSuika.GameLogic
         public void TriggerConditionEnter(Collider2D other)
         {
             if (other.gameObject.CompareTag("Ball"))
-                _versusMode.PlayerFailure(other.GetComponent<Ball.Ball>().container);
+                _versusModeManager.PlayerFailure(other.GetComponent<Ball.Ball>().container);
         }
 
         public void TriggerConditionExit(Collider2D other)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MultiSuika.GameLogic
 {
-    public interface IGameMode
+    public interface IGameModeManager
     {
         public void OnBallFusion(Ball.Ball ball);
     }
