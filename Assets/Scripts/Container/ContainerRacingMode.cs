@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MultiSuika.Container
 {
-    public class ContainerRacingMode : MonoBehaviour
+    public class ContainerRacingMode : ContainerInstance
     {
         // Score parameters
         private IntReference _playerScore;

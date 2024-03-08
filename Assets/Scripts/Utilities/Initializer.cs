@@ -127,19 +127,16 @@ namespace MultiSuika.Utilities
 
         public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
             BallTracker ballTracker, GameModeData gameModeData,
-            List<PlayerData> playerData, IGameModeManager gameModeManager)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
                 SetCannonParameters(cannons[i],
                     containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], ballTracker,
-                    gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
             }
         }
 
         public static void SetCannonParameters(CannonInstance cannonInstance, ContainerInstance containerInstance,
             BallTracker ballTracker, GameModeData gameModeData,
-            PlayerData playerData, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
         {
             cannonInstance.speed = gameModeData.cannonSpeed;
             cannonInstance.reloadCooldown = gameModeData.cannonReloadCooldown;
@@ -155,7 +152,6 @@ namespace MultiSuika.Utilities
             cannonInstance.ballTracker = ballTracker;
             cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
 
-            cannonInstance.gameModeManager = gameModeManager;
         }
 
         public static void ConnectCannonsToPlayerInputs(List<CannonInstance> cannons,
@@ -185,7 +181,6 @@ namespace MultiSuika.Utilities
 
         public static void SetBallParameters(BallInstance ballInstance, int ballTierIndex, IntReference scoreRef,
             BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData,
-            ContainerInstance containerInstance, IGameModeManager gameModeManager, bool disableCollision = false)
         {
             var ballData = ballSetData.GetBallData(ballTierIndex);
             if (ballData == null)
@@ -194,32 +189,36 @@ namespace MultiSuika.Utilities
                 Object.Destroy(ballInstance.gameObject);
             }
 
-            ballInstance.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
-            var ballTransform = ballInstance.transform;
-            ballTransform.localScale = Vector3.one * ballData.scale;
-            ballTransform.name = $"Ball T{ballInstance.tier} (ID: {ballInstance.transform.GetInstanceID()})";
+            // ballInstance.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
+            
+            // Tout ça (pos et scale) devrait aller dans le init
+            
+            // var ballTransform = ballInstance.transform;
+            // ballTransform.localScale = Vector3.one * ballData.scale;
+            // ballTransform.name = $"Ball T{ballInstance.tier} (ID: {ballInstance.transform.GetInstanceID()})";
 
-            ballInstance.rb2d.mass = ballData.mass;
-            var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
-            {
-                bounciness = ballSetData.bounciness,
-                friction = ballSetData.friction
-            };
-            ballInstance.rb2d.sharedMaterial = ballPhysMat;
+            
+            
+            // ballInstance.rb2d.mass = ballData.mass;
+            // var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
+            // {
+            //     bounciness = ballSetData.bounciness,
+            //     friction = ballSetData.friction
+            // };
+            // ballInstance.rb2d.sharedMaterial = ballPhysMat;
 
-            ballInstance.tier = ballData.index;
-            ballInstance.scoreValue = ballData.GetScoreValue();
+            // ballInstance.tier = ballData.index;
+            // ballInstance.scoreValue = ballData.GetScoreValue();
             ballInstance.ballScoreRef = scoreRef;
-            ballInstance.ballSetData = ballSetData;
-            ballInstance.ballSpriteThemeData = ballSpriteThemeData;
-            ballInstance.containerInstance = containerInstance;
+            // ballInstance.ballSetData = ballSetData;
+            // ballInstance.ballSpriteThemeData = ballSpriteThemeData;
+            // ballInstance.containerInstance = containerInstance;
             ballInstance.ballTracker = ballTracker;
 
             ballInstance.impulseMultiplier = ballSetData.impulseMultiplier;
             ballInstance.impulseExpPower = ballSetData.impulseExpPower;
             ballInstance.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
 
-            ballInstance.gameModeManager = gameModeManager;
 
             if (disableCollision)
                 ballInstance.rb2d.simulated = false;

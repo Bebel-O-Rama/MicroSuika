@@ -20,18 +20,34 @@ namespace MultiSuika.Ball
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteThemeData;
         public ContainerInstance containerInstance;
-        public IGameModeManager gameModeManager;
         public BallTracker ballTracker;
 
         public float impulseMultiplier;
         public float impulseExpPower;
         public float impulseRangeMultiplier;
+        
+        
+        private int _ballTierIndex;
+        private int _scoreValue;
+        private IntReference _ballScoreRef;
+        private BallSetData _ballSetData;
+        private BallSpriteThemeData _ballSpriteThemeData;
+        private ContainerInstance _containerInstance;
+        private GameManager _gameManager;
+        private BallTracker _ballTracker;
+
+        private float _impulseMultiplier;
+        private float _impulseExpPower;
+        private float _impulseRangeMultiplier;
+
+        private Rigidbody2D _rb2d;
 
         private bool _isBallCleared;
 
         private void Awake()
         {
             _isBallCleared = false;
+            _rb2d = GetComponent<Rigidbody2D>();
 
             GetComponentInChildren<SignalCollider2D>().SubscribeCollision2DEnter(FusionCheck);
         }
@@ -46,8 +62,7 @@ namespace MultiSuika.Ball
             var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
             rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
         }
-
-
+        
         public void ClearBall(bool addToScore = true)
         {
             if (addToScore)
@@ -84,12 +99,14 @@ namespace MultiSuika.Ball
                 newBall.transform.SetLayerRecursively(gameObject.layer);
 
                 Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker,
-                    ballSpriteThemeData, containerInstance, gameModeManager);
+                    ballSpriteThemeData, containerInstance, gameManager);
                 newBall.ballTracker.RegisterBall(newBall, containerInstance);
                 ballFusionWwiseEvents.PostEventAtIndex(tier, newBall.gameObject);
             }
 
-            gameModeManager.OnBallFusion(this);
+            
+            // TODO: Not too sure about why that's there...
+            gameManager.OnBallFusion(this);
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
@@ -105,8 +122,37 @@ namespace MultiSuika.Ball
 
         #region Setter
 
-        public void SetBallDataParameters(BallData ballData)
+        public void SetBallDataParameters(int ballTierIndex, BallSetData ballSetData, BallSpriteThemeData ballSpriteThemeData)
         {
+            // BallData
+            _ballTierIndex = ballTierIndex;
+            _ballSetData = ballSetData;
+            var ballData = _ballSetData.GetBallData(ballTierIndex);
+            
+            // Score
+            _scoreValue = ballData.GetScoreValue();
+            
+            // Physics
+            _rb2d.mass = ballData.mass;
+            var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
+            {
+                bounciness = ballSetData.bounciness,
+                friction = ballSetData.friction
+            };
+            _rb2d.sharedMaterial = ballPhysMat;
+            
+            // Sprite
+            _ballSpriteThemeData = ballSpriteThemeData;
+            spriteRenderer.sprite = _ballSpriteThemeData.ballSprites[_ballTierIndex];
+            
+            // Transform
+            var tf = transform;
+            tf.localScale = Vector3.one * ballData.scale;
+            tf.name = $"Ball T{_ballTierIndex} (ID: {transform.GetInstanceID()})";
+            
+            // Container
+            _containerInstance = GetComponentInParent<ContainerInstance>();
+
         }
 
         public void SetSimulatedParameters(bool isFrozen) => rb2d.simulated = !isFrozen;
