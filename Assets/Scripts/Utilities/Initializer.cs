@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
+using MultiSuika.Cannon;
+using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Player;
 using MultiSuika.Skin;
@@ -34,7 +36,7 @@ namespace MultiSuika.Utilities
 
         #region Container
 
-        public static List<Container.Container> InstantiateContainers(int playerCount,
+        public static List<ContainerInstance> InstantiateContainers(int playerCount,
             GameModeData gameModeData)
         {
             playerCount = playerCount <= 0 ? 1 : playerCount; // For cases like the lobby
@@ -42,7 +44,7 @@ namespace MultiSuika.Utilities
             if (containerToSpawn <= 0)
                 return null;
 
-            List<Container.Container> instantiatedContainers = new List<Container.Container>();
+            List<ContainerInstance> instantiatedContainers = new List<ContainerInstance>();
             Vector2 distanceBetweenContainers = Vector2.zero;
 
             distanceBetweenContainers.x = (containerToSpawn > 1)
@@ -54,14 +56,14 @@ namespace MultiSuika.Utilities
             
             for (int i = 0; i < containerToSpawn; i++)
             {
-                Container.Container newContainer = Object.Instantiate(gameModeData.containerPrefab);
-                ResetLocalTransform(newContainer.transform);
+                ContainerInstance newContainerInstance = Object.Instantiate(gameModeData.containerInstancePrefab);
+                ResetLocalTransform(newContainerInstance.transform);
 
-                instantiatedContainers.Add(newContainer);
+                instantiatedContainers.Add(newContainerInstance);
                 
                 GameObject containerParent = new GameObject($"Container ({(i + 1)})");
                 containerParent.transform.SetParent(objHolder, false);
-                newContainer.ContainerParent = containerParent;
+                newContainerInstance.ContainerParent = containerParent;
                 
                 containerParent.transform.position =
                     gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
@@ -73,57 +75,57 @@ namespace MultiSuika.Utilities
             return instantiatedContainers;
         }
 
-        public static void SetContainersParameters(List<Container.Container> containers, GameModeData gameModeData)
+        public static void SetContainersParameters(List<ContainerInstance> containers, GameModeData gameModeData)
         {
             for (int i = 0; i < containers.Count; ++i)
                 SetContainerParameters(containers[i], gameModeData.skinData.playersSkinData[i]);
         }
 
-        private static void SetContainerParameters(Container.Container container, PlayerSkinData playerSkinData)
+        private static void SetContainerParameters(ContainerInstance containerInstance, PlayerSkinData playerSkinData)
         {
-            container.backgroundSpriteRenderer.sprite = playerSkinData.containerBackground;
-            container.sideSpriteRenderer.sprite = playerSkinData.containerSide;
-            container.failureSpriteRenderer.sprite = playerSkinData.containerFailure;
-            container.successSpriteRenderer.sprite = playerSkinData.containerSuccess;
+            containerInstance.backgroundSpriteRenderer.sprite = playerSkinData.containerBackground;
+            containerInstance.sideSpriteRenderer.sprite = playerSkinData.containerSide;
+            containerInstance.failureSpriteRenderer.sprite = playerSkinData.containerFailure;
+            containerInstance.successSpriteRenderer.sprite = playerSkinData.containerSuccess;
         }
 
         #endregion
 
         #region Cannon
 
-        public static List<Cannon.Cannon> InstantiateCannons(int playerCount, GameModeData gameModeData,
-            List<Container.Container> containers)
+        public static List<CannonInstance> InstantiateCannons(int playerCount, GameModeData gameModeData,
+            List<ContainerInstance> containers)
         {
             if (!containers.Any() || playerCount <= 0)
                 return null;
 
-            List<Cannon.Cannon> instantiatedCannons = new List<Cannon.Cannon>();
+            List<CannonInstance> instantiatedCannons = new List<CannonInstance>();
 
             for (int i = 0; i < playerCount; i++)
             {
-                Container.Container cannonContainer =
+                ContainerInstance cannonContainerInstance =
                     containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)];
-                instantiatedCannons.Add(InstantiateCannon(gameModeData, cannonContainer));
+                instantiatedCannons.Add(InstantiateCannon(gameModeData, cannonContainerInstance));
             }
 
             return instantiatedCannons;
         }
 
-        public static Cannon.Cannon InstantiateCannon(GameModeData gameModeData, Container.Container container)
+        public static CannonInstance InstantiateCannon(GameModeData gameModeData, ContainerInstance containerInstance)
         {
-            var newCannon = Object.Instantiate(gameModeData.cannonPrefab, container.ContainerParent.transform);
+            var newCannon = Object.Instantiate(gameModeData.cannonInstancePrefab, containerInstance.ContainerParent.transform);
             ResetLocalTransform(newCannon.transform);
 
             float xPos = gameModeData.isCannonSpawnXPosRandom
-                ? Random.Range(-container.GetContainerHorizontalHalfLength(),
-                    container.GetContainerHorizontalHalfLength())
+                ? Random.Range(-containerInstance.GetContainerHorizontalHalfLength(),
+                    containerInstance.GetContainerHorizontalHalfLength())
                 : 0f;
             newCannon.transform.localPosition = new Vector2(xPos, gameModeData.cannonVerticalDistanceFromCenter);
 
             return newCannon;
         }
 
-        public static void SetCannonsParameters(List<Cannon.Cannon> cannons, List<Container.Container> containers,
+        public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
             BallTracker balltracker, GameModeData gameModeData,
             List<PlayerData> playerData, IGameModeManager gameModeManager)
         {
@@ -135,28 +137,28 @@ namespace MultiSuika.Utilities
             }
         }
 
-        public static void SetCannonParameters(Cannon.Cannon cannon, Container.Container container,
+        public static void SetCannonParameters(CannonInstance cannonInstance, ContainerInstance containerInstance,
             BallTracker ballTracker, GameModeData gameModeData,
             PlayerData playerData, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
         {
-            cannon.speed = gameModeData.cannonSpeed;
-            cannon.reloadCooldown = gameModeData.cannonReloadCooldown;
-            cannon.shootingForce = gameModeData.cannonShootingForce;
-            cannon.emptyDistanceBetweenBallAndCannon = gameModeData.emptyDistanceBetweenBallAndCannon;
-            cannon.isUsingPeggleMode = gameModeData.isCannonUsingPeggleMode;
-            cannon.horizontalMargin = container.GetContainerHorizontalHalfLength();
+            cannonInstance.speed = gameModeData.cannonSpeed;
+            cannonInstance.reloadCooldown = gameModeData.cannonReloadCooldown;
+            cannonInstance.shootingForce = gameModeData.cannonShootingForce;
+            cannonInstance.emptyDistanceBetweenBallAndCannon = gameModeData.emptyDistanceBetweenBallAndCannon;
+            cannonInstance.isUsingPeggleMode = gameModeData.isCannonUsingPeggleMode;
+            cannonInstance.horizontalMargin = containerInstance.GetContainerHorizontalHalfLength();
 
-            cannon.ballSetData = gameModeData.ballSetData;
-            cannon.ballSpriteData = playerSkinData.ballTheme;
-            cannon.scoreReference = playerData.mainScore;
-            cannon.container = container;
-            cannon.ballTracker = ballTracker;
-            cannon.spriteRenderer.sprite = playerSkinData.cannonSprite;
+            cannonInstance.ballSetData = gameModeData.ballSetData;
+            cannonInstance.ballSpriteData = playerSkinData.ballTheme;
+            cannonInstance.scoreReference = playerData.mainScore;
+            cannonInstance.containerInstance = containerInstance;
+            cannonInstance.ballTracker = ballTracker;
+            cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
 
-            cannon.gameModeManager = gameModeManager;
+            cannonInstance.gameModeManager = gameModeManager;
         }
 
-        public static void ConnectCannonsToPlayerInputs(List<Cannon.Cannon> cannons,
+        public static void ConnectCannonsToPlayerInputs(List<CannonInstance> cannons,
             List<PlayerInputManager> playerInputHandlers)
         {
             for (int i = 0; i < cannons.Count; ++i)
@@ -169,10 +171,10 @@ namespace MultiSuika.Utilities
 
         #region Ball
 
-        public static Ball.BallInstance InstantiateBall(BallSetData ballSetData, Container.Container container,
+        public static BallInstance InstantiateBall(BallSetData ballSetData, ContainerInstance containerInstance,
             Vector3 position, float randomRotationRange = 35f)
         {
-            var newBall = Object.Instantiate(ballSetData.ballInstancePrefab, container.ContainerParent.transform);
+            var newBall = Object.Instantiate(ballSetData.ballInstancePrefab, containerInstance.ContainerParent.transform);
             ResetLocalTransform(newBall.transform);
 
             newBall.transform.SetLocalPositionAndRotation(position,
@@ -181,9 +183,9 @@ namespace MultiSuika.Utilities
             return newBall;
         }
 
-        public static void SetBallParameters(Ball.BallInstance ballInstance, int ballTierIndex, IntReference scoreRef,
+        public static void SetBallParameters(BallInstance ballInstance, int ballTierIndex, IntReference scoreRef,
             BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData,
-            Container.Container container, IGameModeManager gameModeManager, bool disableCollision = false)
+            ContainerInstance containerInstance, IGameModeManager gameModeManager, bool disableCollision = false)
         {
             var ballData = ballSetData.GetBallData(ballTierIndex);
             if (ballData == null)
@@ -210,7 +212,7 @@ namespace MultiSuika.Utilities
             ballInstance.ballScoreRef = scoreRef;
             ballInstance.ballSetData = ballSetData;
             ballInstance.ballSpriteThemeData = ballSpriteThemeData;
-            ballInstance.container = container;
+            ballInstance.containerInstance = containerInstance;
             ballInstance.ballTracker = ballTracker;
 
             ballInstance.impulseMultiplier = ballSetData.impulseMultiplier;

@@ -2,9 +2,11 @@ using System;
 using System.Linq;
 using Codice.Client.Common.WebApi;
 using MultiSuika.Audio;
+using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace MultiSuika.Ball
@@ -22,7 +24,7 @@ namespace MultiSuika.Ball
         public IntReference ballScoreRef;
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteThemeData;
-        public Container.Container container;
+        public ContainerInstance containerInstance;
         public IGameModeManager gameModeManager;
         public BallTracker ballTracker;
 
@@ -41,7 +43,7 @@ namespace MultiSuika.Ball
         
         public void DropBallFromCannon()
         {
-            ballTracker.RegisterBall(this, container);
+            ballTracker.RegisterBall(this, containerInstance);
             rb2d.simulated = true;
             ApplyRotationForce();
         }
@@ -52,7 +54,7 @@ namespace MultiSuika.Ball
         {
             if (addToScore)
                 ballScoreRef?.Variable.ApplyChange(scoreValue);
-            ballTracker.UnregisterBall(this, container);
+            ballTracker.UnregisterBall(this, containerInstance);
             rb2d.simulated = false;
             _isBallCleared = true;
             Destroy(gameObject);
@@ -82,14 +84,14 @@ namespace MultiSuika.Ball
             if (tier < ballSetData.GetMaxTier)
             {
                 AddFusionImpulse(tier + 1, contactPosition);
-                var newBall = Initializer.InstantiateBall(ballSetData, container,
-                    Initializer.WorldToLocalPosition(container.ContainerParent.transform, contactPosition));
+                var newBall = Initializer.InstantiateBall(ballSetData, containerInstance,
+                    Initializer.WorldToLocalPosition(containerInstance.ContainerParent.transform, contactPosition));
                 
                 // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
                 newBall.transform.SetLayerRecursively(gameObject.layer);
                 
-                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, container, gameModeManager);
-                newBall.ballTracker.RegisterBall(newBall, container);
+                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker, ballSpriteThemeData, containerInstance, gameModeManager);
+                newBall.ballTracker.RegisterBall(newBall, containerInstance);
                 ballFusionWwiseEvents.PostEventAtIndex(tier, newBall.gameObject);
             }
             gameModeManager.OnBallFusion(this);
@@ -99,7 +101,7 @@ namespace MultiSuika.Ball
         {
             float impulseRadius = ballSetData.GetBallData(newBallTier).scale / 2f;
             var ballsInRange =
-                from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * container.ContainerParent.transform.localScale.x * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
+                from raycast in Physics2D.CircleCastAll(contactPosition, impulseRadius * containerInstance.ContainerParent.transform.localScale.x * impulseRangeMultiplier, Vector2.zero, Mathf.Infinity,
                     LayerMask.GetMask("Ball"))
                 select raycast.collider;
         

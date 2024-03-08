@@ -1,4 +1,5 @@
 using System;
+using MultiSuika.Ball;
 using UnityEngine;
 
 namespace MultiSuika.Container
@@ -6,12 +7,12 @@ namespace MultiSuika.Container
     [RequireComponent(typeof(Collider2D))]
     public class ContainerCollisionCheck : MonoBehaviour
     {
-        private Container _container;
+        private ContainerInstance _containerInstance;
         private float _velocityThreshold;
 
-        public void SetContainerCollisionCheck(Container container, float velThreshold)
+        public void SetContainerCollisionCheck(ContainerInstance containerInstance, float velThreshold)
         {
-            _container = container;
+            _containerInstance = containerInstance;
             _velocityThreshold = velThreshold;
         }
         
@@ -22,7 +23,7 @@ namespace MultiSuika.Container
 
             var velocity = col.relativeVelocity.magnitude;
             if (velocity > _velocityThreshold)
-                _container.OnBallCollision(velocity, col.gameObject.GetComponent<Ball.BallInstance>());
+                _containerInstance.OnBallCollision(velocity, col.gameObject.GetComponent<BallInstance>());
         }
     }
 }

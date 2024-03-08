@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using MultiSuika.Ball;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace MultiSuika.GameLogic
         public void TriggerConditionEnter(Collider2D other)
         {
             if (other.gameObject.CompareTag("Ball"))
-                _versusModeManager.PlayerFailure(other.GetComponent<Ball.BallInstance>().container);
+                _versusModeManager.PlayerFailure(other.GetComponent<BallInstance>().containerInstance);
         }
 
         public void TriggerConditionExit(Collider2D other)

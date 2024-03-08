@@ -1,4 +1,5 @@
 using System;
+using MultiSuika.Ball;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace MultiSuika.Container
         {
             if (!other.gameObject.CompareTag("Ball"))
                 return;
-            var ball = other.GetComponentInParent<Ball.BallInstance>();
+            var ball = other.GetComponentInParent<BallInstance>();
             _containerRacing.DamageReceived(ball);
         }
     }

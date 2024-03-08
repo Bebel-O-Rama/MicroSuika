@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using MultiSuika.Ball;
 using UnityEngine;
 
 namespace MultiSuika.Container
 {
-    public class Container : MonoBehaviour
+    public class ContainerInstance : MonoBehaviour
     {
         [Header ("Control Parameters")]
         [SerializeField] [Min(0f)] public float horizontalMvtHalfLength;
@@ -61,7 +62,7 @@ namespace MultiSuika.Container
             successSpriteRenderer.enabled = true;
         }
 
-        public void OnBallCollision(float velocity, Ball.BallInstance ballInstance)
+        public void OnBallCollision(float velocity, BallInstance ballInstance)
         {
             rtpc_ballImpactVelocity.SetValue(gameObject, velocity);
             switch (ballInstance.tier)

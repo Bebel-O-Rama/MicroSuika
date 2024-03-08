@@ -1,12 +1,14 @@
 using MultiSuika.Ball;
+using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Player;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.Cannon
 {
-    public class Cannon : MonoBehaviour
+    public class CannonInstance : MonoBehaviour
     {
         [SerializeField] public SpriteRenderer spriteRenderer;
     
@@ -27,9 +29,9 @@ namespace MultiSuika.Cannon
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteData;
         public IntReference scoreReference;
-        public Container.Container container;
+        public ContainerInstance containerInstance;
         public BallTracker ballTracker;
-        private Ball.BallInstance _currentBallInstance;
+        private BallInstance _currentBallInstance;
         private float _currentBallDistanceFromCannon;
 
         // Wwise Event
@@ -109,13 +111,13 @@ namespace MultiSuika.Cannon
         {
             int newBallIndex = ballSetData.GetRandomBallTier();
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
-            _currentBallInstance = Initializer.InstantiateBall(ballSetData, container,
+            _currentBallInstance = Initializer.InstantiateBall(ballSetData, containerInstance,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
             
             // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
             _currentBallInstance.transform.SetLayerRecursively(gameObject.layer);
             
-            Initializer.SetBallParameters(_currentBallInstance, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameModeManager, true);
+            Initializer.SetBallParameters(_currentBallInstance, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, containerInstance, gameModeManager, true);
         }
     
     }

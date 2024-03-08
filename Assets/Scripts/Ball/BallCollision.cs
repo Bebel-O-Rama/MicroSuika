@@ -13,7 +13,7 @@ namespace MultiSuika.Ball
         // public int tier;
         // public BallInstance ballInstance;
         // public BallSetData ballSetData;
-        // public Container.Container container;
+        // public Container container;
         // public IntReference ballScoreRef;
         // public BallTracker ballTracker;
         // public BallSpriteThemeData ballSpriteThemeData;
@@ -90,7 +90,7 @@ namespace MultiSuika.Ball
         //     {
         //         AddFusionImpulse(tier + 1, contactPosition);
         //         var newBall = Initializer.InstantiateBall(ballSetData, container,
-        //             Initializer.WorldToLocalPosition(container.ContainerParent.transform, contactPosition));
+        //             Initializer.WorldToLocalPosition(ContainerParent.transform, contactPosition));
         //         
         //         // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
         //         newBall.transform.SetLayerRecursively(gameObject.layer);

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
+using MultiSuika.Cannon;
+using MultiSuika.Container;
 using MultiSuika.Utilities;
 using MultiSuika.Player;
 using UnityEngine;
@@ -15,8 +17,8 @@ namespace MultiSuika.GameLogic
         private int _numberPlayerConnected;
         private List<PlayerInputManager> _playerInputHandlers;
         private GameObject _versusGameInstance;
-        private List<Container.Container> _containers;
-        private List<Cannon.Cannon> _cannons;
+        private List<ContainerInstance> _containers;
+        private List<CannonInstance> _cannons;
         private BallTracker _ballTracker = new BallTracker();
 
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
@@ -50,20 +52,20 @@ namespace MultiSuika.GameLogic
             Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
         }
 
-        public void PlayerFailure(Container.Container container)
+        public void PlayerFailure(ContainerInstance containerInstance)
         {
-            var balls = _ballTracker.GetBallsForContainer(container);
+            var balls = _ballTracker.GetBallsForContainer(containerInstance);
             
             foreach (var b in balls)
             {
                 b.SetBallFreeze(true);
             }
 
-            var cannonsToRemove = _cannons.Where(cannon => cannon.container == container).ToList();
+            var cannonsToRemove = _cannons.Where(cannon => cannon.containerInstance == containerInstance).ToList();
 
             for (int i = 0; i < _cannons.Count; i++)
             {
-                if (_cannons[i].container != container)
+                if (_cannons[i].containerInstance != containerInstance)
                     break;
                 _cannons[i].DisconnectCannonToPlayer();
                 cannonsToRemove.Add(_cannons[i]);
@@ -76,7 +78,7 @@ namespace MultiSuika.GameLogic
                 Destroy(cannon);
             }
 
-            container.ContainerFailure();
+            containerInstance.ContainerFailure();
             LookForPlayerSuccess();
         }
 
@@ -86,10 +88,10 @@ namespace MultiSuika.GameLogic
                 return;
             
             _cannons[0].DisconnectCannonToPlayer();
-            _cannons[0].container.ContainerSuccess();
+            _cannons[0].containerInstance.ContainerSuccess();
         }
 
-        public void OnBallFusion(Ball.BallInstance ballInstance)
+        public void OnBallFusion(BallInstance ballInstance)
         {
         }
     }

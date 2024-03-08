@@ -1,4 +1,6 @@
 using System;
+using MultiSuika.Ball;
+using MultiSuika.Cannon;
 using MultiSuika.DebugInfo;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
@@ -88,7 +90,7 @@ namespace MultiSuika.Container
 
         private void Start()
         {
-            _playerScore = transform.parent.GetComponentInChildren<Cannon.Cannon>().scoreReference;
+            _playerScore = transform.parent.GetComponentInChildren<CannonInstance>().scoreReference;
 
             SetContainerDebugInfoParameters();
             SetContainerMovementParameters();
@@ -108,7 +110,7 @@ namespace MultiSuika.Container
             _targetSpeed.Variable.ApplyChange(scoreValue * 2f * _debugScoreMultiplier);
         }
 
-        public void DamageReceived(Ball.BallInstance ballInstance)
+        public void DamageReceived(BallInstance ballInstance)
         {
             var impactLevel = ballInstance.scoreValue * _ballImpactMultiplier;
             _currentSpeed.Variable.SetValue(Mathf.Clamp(_currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));

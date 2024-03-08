@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
+using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.DebugInfo;
 using MultiSuika.Utilities;
@@ -66,15 +67,15 @@ namespace MultiSuika.GameLogic
         private int _numberPlayerConnected;
         private List<PlayerInputManager> _playerInputHandlers;
         private GameObject _versusGameInstance;
-        private List<Container.Container> _containers;
-        private List<Cannon.Cannon> _cannons;
+        private List<ContainerInstance> _containers;
+        private List<CannonInstance> _cannons;
         private BallTracker _ballTracker = new BallTracker();
 
-        private Dictionary<Container.Container, FloatReference> _playerCurrentSpeedReferences;
-        private Dictionary<Container.Container, IntReference> _playerRankingReferences;
-        private Dictionary<Container.Container, BoolReference> _playerLeadStatus;
-        private Dictionary<Container.Container, FloatReference> _playerLeadTimer;
-        private Dictionary<Container.Container, FloatReference> _playersYPositionRatio;
+        private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
+        private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
+        private Dictionary<ContainerInstance, BoolReference> _playerLeadStatus;
+        private Dictionary<ContainerInstance, FloatReference> _playerLeadTimer;
+        private Dictionary<ContainerInstance, FloatReference> _playersYPositionRatio;
 
         private FloatReference _averageSpeed;
         private FloatReference _firstPlayerSpeed;
@@ -84,7 +85,7 @@ namespace MultiSuika.GameLogic
         private FloatReference _currentLeadSpeedCondition;
         private IntReference _dampingMethodIndex;
 
-        private Container.Container _currentContainerInLead;
+        private ContainerInstance _currentContainerInstanceInLead;
         private float _currentLeadTimeLeft;
         private float _timeReqProgressionTimer;
         private float _speedReqProgressionTimer;
@@ -182,11 +183,11 @@ namespace MultiSuika.GameLogic
             _dampingMethodIndex = new IntReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
 
-            _playerCurrentSpeedReferences = new Dictionary<Container.Container, FloatReference>();
-            _playerRankingReferences = new Dictionary<Container.Container, IntReference>();
-            _playerLeadStatus = new Dictionary<Container.Container, BoolReference>();
-            _playerLeadTimer = new Dictionary<Container.Container, FloatReference>();
-            _playersYPositionRatio = new Dictionary<Container.Container, FloatReference>();
+            _playerCurrentSpeedReferences = new Dictionary<ContainerInstance, FloatReference>();
+            _playerRankingReferences = new Dictionary<ContainerInstance, IntReference>();
+            _playerLeadStatus = new Dictionary<ContainerInstance, BoolReference>();
+            _playerLeadTimer = new Dictionary<ContainerInstance, FloatReference>();
+            _playersYPositionRatio = new Dictionary<ContainerInstance, FloatReference>();
 
             foreach (var container in _containers)
             {
@@ -286,17 +287,17 @@ namespace MultiSuika.GameLogic
             if (_alwaysReduceConditionValues)
                 UpdateLeadRequirementsParameters();
 
-            if (passedPtsCheck && currentFirst.Key == _currentContainerInLead)
+            if (passedPtsCheck && currentFirst.Key == _currentContainerInstanceInLead)
             {
                 _currentLeadTimeLeft -= Time.deltaTime;
-                _playerLeadTimer[_currentContainerInLead].Variable.SetValue(_currentLeadTimeLeft);
+                _playerLeadTimer[_currentContainerInstanceInLead].Variable.SetValue(_currentLeadTimeLeft);
                 return;
             }
 
-            if (_currentContainerInLead != null)
+            if (_currentContainerInstanceInLead != null)
             {
-                _playerLeadStatus[_currentContainerInLead].Variable.SetValue(false);
-                _currentContainerInLead = null;
+                _playerLeadStatus[_currentContainerInstanceInLead].Variable.SetValue(false);
+                _currentContainerInstanceInLead = null;
             }
 
             if (!passedPtsCheck)
@@ -306,10 +307,10 @@ namespace MultiSuika.GameLogic
                 return;
             }
 
-            _currentContainerInLead = currentFirst.Key;
-            _playerLeadStatus[_currentContainerInLead].Variable.SetValue(true);
+            _currentContainerInstanceInLead = currentFirst.Key;
+            _playerLeadStatus[_currentContainerInstanceInLead].Variable.SetValue(true);
             _currentLeadTimeLeft = _currentLeadTimeCondition;
-            _playerLeadTimer[_currentContainerInLead].Variable.SetValue(_currentLeadTimeLeft);
+            _playerLeadTimer[_currentContainerInstanceInLead].Variable.SetValue(_currentLeadTimeLeft);
         }
 
         private void UpdateLeadRequirementsParameters()
@@ -327,7 +328,7 @@ namespace MultiSuika.GameLogic
 
         private void CheckAndProcessWinCondition()
         {
-            if (_currentContainerInLead == null || _playerLeadTimer[_currentContainerInLead] > 0f)
+            if (_currentContainerInstanceInLead == null || _playerLeadTimer[_currentContainerInstanceInLead] > 0f)
                 return;
             
             foreach (var cannon in _cannons)
@@ -335,7 +336,7 @@ namespace MultiSuika.GameLogic
             
             foreach (var container in _containers)
             {
-                if (container != _currentContainerInLead)
+                if (container != _currentContainerInstanceInLead)
                     container.ContainerFailure();
                 else
                     container.ContainerSuccess();
@@ -361,9 +362,9 @@ namespace MultiSuika.GameLogic
             };
         }
 
-        public void OnBallFusion(Ball.BallInstance ballInstance)
+        public void OnBallFusion(BallInstance ballInstance)
         {
-            var racingDebugInfo = ballInstance.container.GetComponent<ContainerRacingMode>();
+            var racingDebugInfo = ballInstance.containerInstance.GetComponent<ContainerRacingMode>();
             if (racingDebugInfo != null)
                 racingDebugInfo.NewBallFused(ballInstance.scoreValue);
         }

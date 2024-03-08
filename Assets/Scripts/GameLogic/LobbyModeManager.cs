@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
+using MultiSuika.Cannon;
+using MultiSuika.Container;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
 using TMPro;
@@ -24,8 +26,8 @@ namespace MultiSuika.GameLogic
         
         private IntReference _activePlayerNumber;
         private List<PlayerInputManager> _playerInputHandlers = new List<PlayerInputManager>();
-        private List<Cannon.Cannon> _cannons = new List<Cannon.Cannon>();
-        private List<Container.Container> _containers = new List<Container.Container>();
+        private List<CannonInstance> _cannons = new List<CannonInstance>();
+        private List<ContainerInstance> _containers = new List<ContainerInstance>();
         private BallTracker _ballTracker = new BallTracker();
         
         private void Awake()
@@ -62,8 +64,8 @@ namespace MultiSuika.GameLogic
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
             
             _playerInputHandlers = new List<PlayerInputManager>();
-            _cannons = new List<Cannon.Cannon>();
-            _containers = new List<Container.Container>();
+            _cannons = new List<CannonInstance>();
+            _containers = new List<ContainerInstance>();
             _ballTracker = new BallTracker();
             
             var lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
@@ -77,14 +79,14 @@ namespace MultiSuika.GameLogic
         {
             var (newPlayerInputHandler, playerIndex) = ConnectPlayerToInputDevice(playerInput);
             _playerInputHandlers.Add(newPlayerInputHandler);
-            Cannon.Cannon newCannon = Initializer.InstantiateCannon(gameModeData, _containers[0]);
-            _cannons.Add(newCannon);
-            Initializer.SetCannonParameters(newCannon, _containers[0], _ballTracker, gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex], this);
-            newCannon.ConnectCannonToPlayer(newPlayerInputHandler);
+            CannonInstance newCannonInstance = Initializer.InstantiateCannon(gameModeData, _containers[0]);
+            _cannons.Add(newCannonInstance);
+            Initializer.SetCannonParameters(newCannonInstance, _containers[0], _ballTracker, gameModeData, gameData.playerDataList[playerIndex], gameModeData.skinData.playersSkinData[playerIndex], this);
+            newCannonInstance.ConnectCannonToPlayer(newPlayerInputHandler);
             
             // Do custom stuff when a player joins in the lobby
             Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
-            AddPlayerJoinPopup(playerIndex, newCannon, popupColor);
+            AddPlayerJoinPopup(playerIndex, newCannonInstance, popupColor);
         
             ConnectToLobbyScore(gameData.playerDataList[playerIndex].mainScore, lobbyScore[playerIndex], popupColor);
             
@@ -140,9 +142,9 @@ namespace MultiSuika.GameLogic
             _activePlayerNumber.Variable.SetValue(0);
         }
     
-        private void AddPlayerJoinPopup(int playerIndex, Cannon.Cannon cannon, Color randColor)
+        private void AddPlayerJoinPopup(int playerIndex, CannonInstance cannonInstance, Color randColor)
         {
-            var popup = Instantiate(onJoinPopup, cannon.transform);
+            var popup = Instantiate(onJoinPopup, cannonInstance.transform);
             var tmp = popup.GetComponent<TextMeshPro>();
             tmp.color = randColor;
             tmp.text = $"P{playerIndex + 1}";

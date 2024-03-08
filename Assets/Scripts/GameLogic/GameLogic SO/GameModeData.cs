@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using MultiSuika.Ball;
+using MultiSuika.Cannon;
+using MultiSuika.Container;
 using MultiSuika.Player;
 using MultiSuika.Skin;
 using UnityEngine;
@@ -15,8 +17,8 @@ namespace MultiSuika.GameLogic
         public SkinData skinData;
     
         // Container parameters
-        [Header("----- CONTAINER -----")]
-        public Container.Container containerPrefab;
+        [FormerlySerializedAs("containerPrefab")] [Header("----- CONTAINER -----")]
+        public ContainerInstance containerInstancePrefab;
 
         [Header("Container Scaling and Position Parameters")]
         [Tooltip("This distances goes from one container center point to the other")]
@@ -27,8 +29,8 @@ namespace MultiSuika.GameLogic
         [Min(1)] public int playerPerContainer = 1;
     
         // Cannon parameters
-        [Header("----- CANNON -----")]
-        public Cannon.Cannon cannonPrefab;
+        [FormerlySerializedAs("cannonPrefab")] [Header("----- CANNON -----")]
+        public CannonInstance cannonInstancePrefab;
 
         [Header("Position Data")] 
         public bool isCannonSpawnXPosRandom = false;
