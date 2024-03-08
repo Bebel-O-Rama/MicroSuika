@@ -34,7 +34,7 @@ namespace MultiSuika.Ball
 
         private void Awake()
         {
-            GetComponentInChildren<SignalCollider2D>().SubscribeCollider2DEnter(FusionCheck, false);
+            GetComponentInChildren<SignalCollider2D>().SubscribeCollision2DEnter(FusionCheck);
         }
 
         public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
@@ -64,14 +64,14 @@ namespace MultiSuika.Ball
             rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
         }
         
-        private void FusionCheck(Collision2D collision)
+        private void FusionCheck(Collision2D other)
         {
-            if (!collision.gameObject.CompareTag("Ball"))
+            if (!other.gameObject.CompareTag("Ball"))
                 return;
-            var otherBall = collision.gameObject.GetComponent<BallInstance>();
+            var otherBall = other.gameObject.GetComponent<BallInstance>();
             if (otherBall.tier == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID() && !_isBallCleared && !otherBall.IsBallCleared())
             {
-                FuseWithOtherBall(otherBall, collision.GetContact(0).point);
+                FuseWithOtherBall(otherBall, other.GetContact(0).point);
             }
         }
 

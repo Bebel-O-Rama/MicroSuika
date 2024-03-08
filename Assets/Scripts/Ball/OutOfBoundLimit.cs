@@ -1,0 +1,24 @@
+using System;
+using MultiSuika.Utilities;
+using UnityEngine;
+
+namespace MultiSuika.Ball
+{
+    public class OutOfBoundLimit : MonoBehaviour
+    {
+        private void Start()
+        {
+            var colliderSignals = GetComponentsInChildren<SignalCollider2D>();
+            foreach (var signal in colliderSignals)
+            {
+                signal.SubscribeTriggerEnter2D(ObjectOutOfBound);
+            }
+        }
+
+        private void ObjectOutOfBound(Collider2D other)
+        {
+            if (other.CompareTag("Ball"))
+                other.transform.parent.GetComponent<BallInstance>().ClearBall(false);
+        }
+    }
+}

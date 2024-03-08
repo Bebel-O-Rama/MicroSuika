@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6895071973113361565}
   - component: {fileID: 6761669290463143471}
   - component: {fileID: 5542928707293638102}
-  - component: {fileID: 5370527628779597133}
+  - component: {fileID: 1926396616659266009}
   m_Layer: 0
   m_Name: Lower Deadzone
   m_TagString: Untagged
@@ -106,7 +106,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5370527628779597133
+--- !u!114 &1926396616659266009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1412044181471073211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9582225b652271f49be69e37254aedfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 191e7e2795db0ec48ae45fb7e3c307af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4509634973140539588
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 421596932722863006}
   - component: {fileID: 2332769707839695623}
   - component: {fileID: 6413224554126607013}
-  - component: {fileID: 596906772444019217}
+  - component: {fileID: 6107773976666346724}
   m_Layer: 0
   m_Name: Left Deadzone
   m_TagString: Untagged
@@ -224,7 +224,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &596906772444019217
+--- !u!114 &6107773976666346724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4509634973140539588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9582225b652271f49be69e37254aedfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 191e7e2795db0ec48ae45fb7e3c307af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6044589810484534833
@@ -245,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3062123810034737300}
+  - component: {fileID: 5069900261165068643}
   m_Layer: 0
   m_Name: PF_Deathzone
   m_TagString: Untagged
@@ -260,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6044589810484534833}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -271,6 +272,18 @@ Transform:
   - {fileID: 8681777994823888506}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5069900261165068643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044589810484534833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9582225b652271f49be69e37254aedfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6636455895408729845
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +295,7 @@ GameObject:
   - component: {fileID: 8681777994823888506}
   - component: {fileID: 1126509786436749401}
   - component: {fileID: 1023919319301925552}
-  - component: {fileID: 3985406875804325440}
+  - component: {fileID: 184810713376102007}
   m_Layer: 0
   m_Name: Right Deadzone
   m_TagString: Untagged
@@ -377,7 +390,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3985406875804325440
+--- !u!114 &184810713376102007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -386,7 +399,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6636455895408729845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9582225b652271f49be69e37254aedfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 191e7e2795db0ec48ae45fb7e3c307af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7337902432102693951
@@ -400,7 +413,7 @@ GameObject:
   - component: {fileID: 656912231745713606}
   - component: {fileID: 8318125948202038380}
   - component: {fileID: 7269217127473797865}
-  - component: {fileID: 3060971516901796247}
+  - component: {fileID: 4887797429296041998}
   m_Layer: 0
   m_Name: Upper Deadzone
   m_TagString: Untagged
@@ -495,7 +508,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3060971516901796247
+--- !u!114 &4887797429296041998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -504,6 +517,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7337902432102693951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9582225b652271f49be69e37254aedfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 191e7e2795db0ec48ae45fb7e3c307af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
