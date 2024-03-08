@@ -18,7 +18,7 @@ namespace MultiSuika.Ball
         private void ObjectOutOfBound(Collider2D other)
         {
             if (other.CompareTag("Ball"))
-                other.transform.parent.GetComponent<BallInstance>().ClearBall(false);
+                other.GetComponentInParent<BallInstance>().ClearBall(false);
         }
     }
 }
