@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MultiSuika.Ball
+namespace MultiSuika.DebugInfo
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class BallImpulseDebug : MonoBehaviour

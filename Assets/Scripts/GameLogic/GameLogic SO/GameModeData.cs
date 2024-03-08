@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
-using MultiSuika.Player;
 using MultiSuika.Skin;
 using UnityEngine;
 using UnityEngine.Serialization;

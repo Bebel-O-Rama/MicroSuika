@@ -126,13 +126,13 @@ namespace MultiSuika.Utilities
         }
 
         public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
-            BallTracker balltracker, GameModeData gameModeData,
+            BallTracker ballTracker, GameModeData gameModeData,
             List<PlayerData> playerData, IGameModeManager gameModeManager)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
                 SetCannonParameters(cannons[i],
-                    containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], balltracker,
+                    containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], ballTracker,
                     gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
             }
         }
