@@ -34,7 +34,7 @@ namespace MultiSuika.Ball
 
         private void Awake()
         {
-            GetComponentInChildren<SignalCollider2D>().SubscribeCollisionEnter2D(FusionCheck);
+            GetComponentInChildren<SignalCollider2D>().SubscribeCollider2DEnter(FusionCheck, false);
         }
 
         public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
