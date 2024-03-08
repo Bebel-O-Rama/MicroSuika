@@ -1,39 +1,61 @@
+using MultiSuika.Ball;
+using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
-    [RequireComponent(typeof(Collider2D))]
-    [RequireComponent(typeof(Rigidbody2D))]
     public class LobbyContainerTrigger : MonoBehaviour
     {
-        // Trash code, but for now it'll get the job done to test a few things
-        [Range(1, 4)][SerializeField] public int playerNumberThreshold;
-        [SerializeField] private GameObject _textEnoughPlayers;
-        [SerializeField] private GameObject _lidCollider;
-    
-        private Collider2D _collider;
-        public UnityEvent OnTrigger;
+        [Range(0, 4)][SerializeField] public int playerNumberThreshold;
+        [SerializeField] private SignalCollider2D colliderSignal;    
+        
+        public UnityEvent OnConditionFailed;
+        public UnityEvent OnConditionPassed;
+        public UnityEvent OnTriggered;
 
-        private void OnEnable()
+        private IntReference _activePlayerNumber;
+        private bool _isConditionMet;
+
+        private void Start()
         {
-            _collider = GetComponent<Collider2D>();
+            _isConditionMet = false;
+            OnConditionFailed?.Invoke();
         }
 
-        public void UpdateContainerBehavior(int playersNumber)
+        public void Update()
         {
-            _lidCollider.SetActive(playersNumber < playerNumberThreshold);
-            _textEnoughPlayers.SetActive(playersNumber >= playerNumberThreshold);
-            _collider.enabled = playersNumber >= playerNumberThreshold;
+            if (_activePlayerNumber >= playerNumberThreshold == _isConditionMet)
+                return;
+            SetConditionStatus(!_isConditionMet);
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void SetConditionStatus(bool isActive)
         {
-            if (other.transform.CompareTag("Ball"))
+            if (isActive)
             {
-                Destroy(other.gameObject);
-                OnTrigger?.Invoke();
+                colliderSignal.SubscribeTriggerEnter2D(ColliderTriggered);
+                OnConditionPassed?.Invoke();
             }
+            else
+            {
+                colliderSignal.UnsubscribeTriggerEnter2D(ColliderTriggered);
+                OnConditionFailed?.Invoke();
+            }
+
+            _isConditionMet = isActive;
         }
+
+        private void ColliderTriggered(Collider2D other)
+        {
+            if (!other.transform.CompareTag("Ball")) 
+                return;
+            other.transform.parent.GetComponent<BallInstance>().ClearBall(false);
+            OnTriggered?.Invoke();
+        }
+
+        public void SetActivePlayerNumberParameters(IntReference activePlayerNumber) =>
+            _activePlayerNumber = activePlayerNumber;
     }
 }

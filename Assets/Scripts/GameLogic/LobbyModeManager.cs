@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
@@ -19,35 +20,34 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameObject onJoinPopup;
         [SerializeField] public List<Scoreboard> lobbyScore;
     
-        private List<LobbyContainerTrigger> _lobbyContainerTriggers;
         private UnityEngine.InputSystem.PlayerInputManager _playerInputManager;
-    
+        
+        private IntReference _activePlayerNumber;
         private List<PlayerInputManager> _playerInputHandlers = new List<PlayerInputManager>();
         private List<Cannon.Cannon> _cannons = new List<Cannon.Cannon>();
         private List<Container.Container> _containers = new List<Container.Container>();
         private BallTracker _ballTracker = new BallTracker();
-
+        
         private void Awake()
         {
+            SetLobbyParameters();
+            
             // Connect to the PlayerInputManager and Set the lobbyContainerTrigger
             _playerInputManager = FindObjectOfType<UnityEngine.InputSystem.PlayerInputManager>();
             _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
-            _lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
 
             _containers = Initializer.InstantiateContainers(0, gameModeData);
-        
+
             // Clear any connected players and enable joining with the PlayerInputManager
             DisconnectPlayers();
             _playerInputManager.EnableJoining();
         }
-    
+
         public void ResetPlayers()
         {
             DisconnectPlayers();
             foreach (var ls in lobbyScore)
                 ls.playerScore = null;
-
-            UpdateLobbyTriggers(0);
         }
 
         public void StartGame()
@@ -56,6 +56,23 @@ namespace MultiSuika.GameLogic
             SceneManager.LoadScene("PrototypeRacing");
         }
 
+        private void SetLobbyParameters()
+        {
+            _activePlayerNumber = new IntReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
+            
+            _playerInputHandlers = new List<PlayerInputManager>();
+            _cannons = new List<Cannon.Cannon>();
+            _containers = new List<Container.Container>();
+            _ballTracker = new BallTracker();
+            
+            var lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
+            foreach (var trigger in lobbyContainerTriggers)
+            {
+                trigger.SetActivePlayerNumberParameters(_activePlayerNumber);
+            }
+        }
+        
         private void NewPlayerDetected(PlayerInput playerInput)
         {
             var (newPlayerInputHandler, playerIndex) = ConnectPlayerToInputDevice(playerInput);
@@ -70,7 +87,8 @@ namespace MultiSuika.GameLogic
             AddPlayerJoinPopup(playerIndex, newCannon, popupColor);
         
             ConnectToLobbyScore(gameData.playerDataList[playerIndex].mainScore, lobbyScore[playerIndex], popupColor);
-            UpdateLobbyTriggers(gameData.GetConnectedPlayerQuantity());
+            
+            _activePlayerNumber.Variable.ApplyChange(1);
         }
     
         private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
@@ -119,6 +137,7 @@ namespace MultiSuika.GameLogic
                 playerData.ResetInputParameters();
                 playerData.ResetMainScore();
             }
+            _activePlayerNumber.Variable.SetValue(0);
         }
     
         private void AddPlayerJoinPopup(int playerIndex, Cannon.Cannon cannon, Color randColor)
@@ -128,18 +147,8 @@ namespace MultiSuika.GameLogic
             tmp.color = randColor;
             tmp.text = $"P{playerIndex + 1}";
         }
-
-        private void UpdateLobbyTriggers(int newPlayerNumber)
-        {
-            if (_lobbyContainerTriggers == null)
-                return;
-            foreach (var containerTrigger in _lobbyContainerTriggers)
-            {
-                containerTrigger.UpdateContainerBehavior(newPlayerNumber);
-            }
-        }
-
-        public void OnBallFusion(Ball.BallInstance ballInstance)
+        
+        public void OnBallFusion(BallInstance ballInstance)
         {
         }
     }
