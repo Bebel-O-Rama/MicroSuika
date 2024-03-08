@@ -22,7 +22,7 @@ namespace MultiSuika.Container
 
             var velocity = col.relativeVelocity.magnitude;
             if (velocity > _velocityThreshold)
-                _container.OnBallCollision(velocity, col.gameObject.GetComponent<Ball.Ball>());
+                _container.OnBallCollision(velocity, col.gameObject.GetComponent<Ball.BallInstance>());
         }
     }
 }

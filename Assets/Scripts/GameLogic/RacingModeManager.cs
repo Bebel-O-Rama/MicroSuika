@@ -361,11 +361,11 @@ namespace MultiSuika.GameLogic
             };
         }
 
-        public void OnBallFusion(Ball.Ball ball)
+        public void OnBallFusion(Ball.BallInstance ballInstance)
         {
-            var racingDebugInfo = ball.container.GetComponent<ContainerRacingMode>();
+            var racingDebugInfo = ballInstance.container.GetComponent<ContainerRacingMode>();
             if (racingDebugInfo != null)
-                racingDebugInfo.NewBallFused(ball.scoreValue);
+                racingDebugInfo.NewBallFused(ballInstance.scoreValue);
         }
     }
 }

@@ -169,10 +169,10 @@ namespace MultiSuika.Utilities
 
         #region Ball
 
-        public static Ball.Ball InstantiateBall(BallSetData ballSetData, Container.Container container,
+        public static Ball.BallInstance InstantiateBall(BallSetData ballSetData, Container.Container container,
             Vector3 position, float randomRotationRange = 35f)
         {
-            var newBall = Object.Instantiate(ballSetData.ballPrefab, container.ContainerParent.transform);
+            var newBall = Object.Instantiate(ballSetData.ballInstancePrefab, container.ContainerParent.transform);
             ResetLocalTransform(newBall.transform);
 
             newBall.transform.SetLocalPositionAndRotation(position,
@@ -181,7 +181,7 @@ namespace MultiSuika.Utilities
             return newBall;
         }
 
-        public static void SetBallParameters(Ball.Ball ball, int ballTierIndex, IntReference scoreRef,
+        public static void SetBallParameters(Ball.BallInstance ballInstance, int ballTierIndex, IntReference scoreRef,
             BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData,
             Container.Container container, IGameModeManager gameModeManager, bool disableCollision = false)
         {
@@ -189,38 +189,38 @@ namespace MultiSuika.Utilities
             if (ballData == null)
             {
                 Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
-                Object.Destroy(ball.gameObject);
+                Object.Destroy(ballInstance.gameObject);
             }
 
-            ball.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
-            var ballTransform = ball.transform;
+            ballInstance.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
+            var ballTransform = ballInstance.transform;
             ballTransform.localScale = Vector3.one * ballData.scale;
-            ballTransform.name = $"Ball T{ball.tier} (ID: {ball.transform.GetInstanceID()})";
+            ballTransform.name = $"Ball T{ballInstance.tier} (ID: {ballInstance.transform.GetInstanceID()})";
 
-            ball.rb2d.mass = ballData.mass;
+            ballInstance.rb2d.mass = ballData.mass;
             var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
             {
                 bounciness = ballSetData.bounciness,
                 friction = ballSetData.friction
             };
-            ball.rb2d.sharedMaterial = ballPhysMat;
+            ballInstance.rb2d.sharedMaterial = ballPhysMat;
 
-            ball.tier = ballData.index;
-            ball.scoreValue = ballData.GetScoreValue();
-            ball.ballScoreRef = scoreRef;
-            ball.ballSetData = ballSetData;
-            ball.ballSpriteThemeData = ballSpriteThemeData;
-            ball.container = container;
-            ball.ballTracker = ballTracker;
+            ballInstance.tier = ballData.index;
+            ballInstance.scoreValue = ballData.GetScoreValue();
+            ballInstance.ballScoreRef = scoreRef;
+            ballInstance.ballSetData = ballSetData;
+            ballInstance.ballSpriteThemeData = ballSpriteThemeData;
+            ballInstance.container = container;
+            ballInstance.ballTracker = ballTracker;
 
-            ball.impulseMultiplier = ballSetData.impulseMultiplier;
-            ball.impulseExpPower = ballSetData.impulseExpPower;
-            ball.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
+            ballInstance.impulseMultiplier = ballSetData.impulseMultiplier;
+            ballInstance.impulseExpPower = ballSetData.impulseExpPower;
+            ballInstance.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
 
-            ball.gameModeManager = gameModeManager;
+            ballInstance.gameModeManager = gameModeManager;
 
             if (disableCollision)
-                ball.rb2d.simulated = false;
+                ballInstance.rb2d.simulated = false;
         }
 
         #endregion

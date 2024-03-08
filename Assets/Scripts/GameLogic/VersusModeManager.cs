@@ -89,7 +89,7 @@ namespace MultiSuika.GameLogic
             _cannons[0].container.ContainerSuccess();
         }
 
-        public void OnBallFusion(Ball.Ball ball)
+        public void OnBallFusion(Ball.BallInstance ballInstance)
         {
         }
     }

@@ -6,6 +6,6 @@ namespace MultiSuika.GameLogic
 {
     public interface IGameModeManager
     {
-        public void OnBallFusion(Ball.Ball ball);
+        public void OnBallFusion(Ball.BallInstance ballInstance);
     }
 }

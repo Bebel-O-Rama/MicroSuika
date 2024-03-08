@@ -108,15 +108,15 @@ namespace MultiSuika.Container
             _targetSpeed.Variable.ApplyChange(scoreValue * 2f * _debugScoreMultiplier);
         }
 
-        public void DamageReceived(Ball.Ball ball)
+        public void DamageReceived(Ball.BallInstance ballInstance)
         {
-            var impactLevel = ball.scoreValue * _ballImpactMultiplier;
+            var impactLevel = ballInstance.scoreValue * _ballImpactMultiplier;
             _currentSpeed.Variable.SetValue(Mathf.Clamp(_currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
             _targetSpeed.Variable.SetValue(Mathf.Clamp(_targetSpeed - impactLevel, 0f, Mathf.Infinity));
             
             // Add dmg feedback here
             
-            ball.ClearBall(false);
+            ballInstance.ClearBall(false);
         }
         
         #region Setter

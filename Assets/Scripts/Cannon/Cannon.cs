@@ -29,7 +29,7 @@ namespace MultiSuika.Cannon
         public IntReference scoreReference;
         public Container.Container container;
         public BallTracker ballTracker;
-        private Ball.Ball _currentBall;
+        private Ball.BallInstance _currentBallInstance;
         private float _currentBallDistanceFromCannon;
 
         // Wwise Event
@@ -39,8 +39,8 @@ namespace MultiSuika.Cannon
         
         public void DestroyCurrentBall()
         {
-            if (_currentBall != null)
-                Destroy(_currentBall.gameObject);
+            if (_currentBallInstance != null)
+                Destroy(_currentBallInstance.gameObject);
         }
     
         public void SetCannonInputConnexion(bool isActive)
@@ -51,7 +51,7 @@ namespace MultiSuika.Cannon
             {
                 _playerInputManager.onHorizontalMvtContinuous += MoveCannon;
                 _playerInputManager.onShoot += DropBall;
-                if (_currentBall == null)
+                if (_currentBallInstance == null)
                     LoadNewBall();
             }
             else
@@ -75,12 +75,12 @@ namespace MultiSuika.Cannon
         
         private void DropBall()
         {
-            if (_currentBall == null)
+            if (_currentBallInstance == null)
                 return;
         
-            _currentBall.DropBallFromCannon();
-            _currentBall.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
-            _currentBall = null;
+            _currentBallInstance.DropBallFromCannon();
+            _currentBallInstance.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
+            _currentBallInstance = null;
             Invoke("LoadNewBall", reloadCooldown);
             WwiseEventCannonShoot.Post(gameObject);
         }
@@ -101,21 +101,21 @@ namespace MultiSuika.Cannon
                     transform.Translate(xAxis*Time.deltaTime*speed, 0, 0);
             }
 
-            if (_currentBall != null)
-                _currentBall.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon;
+            if (_currentBallInstance != null)
+                _currentBallInstance.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon;
         }
     
         private void LoadNewBall()
         {
             int newBallIndex = ballSetData.GetRandomBallTier();
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
-            _currentBall = Initializer.InstantiateBall(ballSetData, container,
+            _currentBallInstance = Initializer.InstantiateBall(ballSetData, container,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
             
             // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
-            _currentBall.transform.SetLayerRecursively(gameObject.layer);
+            _currentBallInstance.transform.SetLayerRecursively(gameObject.layer);
             
-            Initializer.SetBallParameters(_currentBall, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameModeManager, true);
+            Initializer.SetBallParameters(_currentBallInstance, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, container, gameModeManager, true);
         }
     
     }

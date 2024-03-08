@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 263310623056239205}
   - component: {fileID: 2597736224161766}
-  - component: {fileID: 2341846513916466983}
-  - component: {fileID: 7345287644621296678}
-  m_Layer: 7
+  - component: {fileID: 5569739223193615492}
+  m_Layer: 0
   m_Name: PF_Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -33,6 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2826895550346809507}
+  - {fileID: 5557272112331758820}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2597736224161766
@@ -47,8 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fe3588786562f46b8fe344765f66ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballFusionWwiseEvents: {fileID: 11400000, guid: a80f6c5f803af5c459b998b6ed6bfbd4, type: 2}
   spriteRenderer: {fileID: 4711732001261019832}
-  rb2d: {fileID: 7345287644621296678}
+  rb2d: {fileID: 5569739223193615492}
   tier: 0
   scoreValue: 0
   ballScoreRef:
@@ -61,86 +62,7 @@ MonoBehaviour:
   impulseMultiplier: 5
   impulseExpPower: 0
   impulseRangeMultiplier: 1.1
-  WwiseEventBallFuseT0:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 08a6058d265218f4f9224f4754ef9d38, type: 2}
-  WwiseEventBallFuseT1:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3230b4f859e86894c95fd1bf7360be0b, type: 2}
-  WwiseEventBallFuseT2:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: ef3f0ef5cd4654f4992eb9386c6943e5, type: 2}
-  WwiseEventBallFuseT3:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0a3d6f560e617374b82b1a2265926053, type: 2}
-  WwiseEventBallFuseT4:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: d2cf13afd57bd924eb0f04a2a7d5bc60, type: 2}
-  WwiseEventBallFuseT5:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: e819f132dc73dae42b6f7f754a56aabb, type: 2}
-  WwiseEventBallFuseT6:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a4bd0d51cf5a63d4d9f4066bd4a6a3a9, type: 2}
-  WwiseEventBallFuseT7:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 44aecab801dd71f498fc438e55655102, type: 2}
-  WwiseEventBallFuseT8:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 22e9dd5b11132fe4887c8690dcba0f9e, type: 2}
-  WwiseEventBallFuseT9:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: fdacb6d5beafb6440aa0933eb52230b8, type: 2}
-  WwiseEventBallFuseT10:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: fdacb6d5beafb6440aa0933eb52230b8, type: 2}
---- !u!58 &2341846513916466983
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164191203452481615}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!50 &7345287644621296678
+--- !u!50 &5569739223193615492
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -177,9 +99,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2826895550346809507}
   - component: {fileID: 4711732001261019832}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,3 +173,83 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7272375213961402435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5557272112331758820}
+  - component: {fileID: 5200500628832948644}
+  - component: {fileID: 6794419043204018577}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Ball
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5557272112331758820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272375213961402435}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 263310623056239205}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5200500628832948644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272375213961402435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191e7e2795db0ec48ae45fb7e3c307af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &6794419043204018577
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272375213961402435}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

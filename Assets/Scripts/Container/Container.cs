@@ -61,43 +61,43 @@ namespace MultiSuika.Container
             successSpriteRenderer.enabled = true;
         }
 
-        public void OnBallCollision(float velocity, Ball.Ball ball)
+        public void OnBallCollision(float velocity, Ball.BallInstance ballInstance)
         {
             rtpc_ballImpactVelocity.SetValue(gameObject, velocity);
-            switch (ball.tier)
+            switch (ballInstance.tier)
             {
                 case 0:
-                    WwiseEventBallContainerCollisionT0.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT0.Post(ballInstance.gameObject);
                     break;
                 case 1:
-                    WwiseEventBallContainerCollisionT1.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT1.Post(ballInstance.gameObject);
                     break;
                 case 2:
-                    WwiseEventBallContainerCollisionT2.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT2.Post(ballInstance.gameObject);
                     break;
                 case 3:
-                    WwiseEventBallContainerCollisionT3.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT3.Post(ballInstance.gameObject);
                     break;
                 case 4:
-                    WwiseEventBallContainerCollisionT4.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT4.Post(ballInstance.gameObject);
                     break;
                 case 5:
-                    WwiseEventBallContainerCollisionT5.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT5.Post(ballInstance.gameObject);
                     break;
                 case 6:
-                    WwiseEventBallContainerCollisionT6.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT6.Post(ballInstance.gameObject);
                     break;
                 case 7:
-                    WwiseEventBallContainerCollisionT7.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT7.Post(ballInstance.gameObject);
                     break;
                 case 8:
-                    WwiseEventBallContainerCollisionT8.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT8.Post(ballInstance.gameObject);
                     break;
                 case 9:
-                    WwiseEventBallContainerCollisionT9.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT9.Post(ballInstance.gameObject);
                     break;
                 case 10:
-                    WwiseEventBallContainerCollisionT10.Post(ball.gameObject);
+                    WwiseEventBallContainerCollisionT10.Post(ballInstance.gameObject);
                     break;
             }
         }

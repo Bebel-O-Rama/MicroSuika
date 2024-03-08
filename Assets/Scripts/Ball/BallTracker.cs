@@ -6,42 +6,42 @@ namespace MultiSuika.Ball
 {
     public class BallTracker
     {
-        private Dictionary<Container.Container, List<Ball>> _ballsPerContainer = new Dictionary<Container.Container, List<Ball>>();
+        private Dictionary<Container.Container, List<BallInstance>> _ballsPerContainer = new Dictionary<Container.Container, List<BallInstance>>();
         private Dictionary<Container.Container, FloatReference> _ballAreaPerContainer = new Dictionary<Container.Container, FloatReference>();
 
-        public List<Ball> GetBallsForContainer(Container.Container container) =>
+        public List<BallInstance> GetBallsForContainer(Container.Container container) =>
             _ballsPerContainer.ContainsKey(container) 
                 ? _ballsPerContainer[container] 
-                : new List<Ball>();
+                : new List<BallInstance>();
 
         public FloatReference GetBallAreaForContainer(Container.Container container) =>
             _ballAreaPerContainer.ContainsKey(container)
                 ? _ballAreaPerContainer[container]
                 : CreateNewBallAreaReference(container);
         
-        public void RegisterBall(Ball ball, Container.Container container)
+        public void RegisterBall(BallInstance ballInstance, Container.Container container)
         {
             CheckForInitialSetup(container);
-            if (_ballsPerContainer[container].Contains(ball))
+            if (_ballsPerContainer[container].Contains(ballInstance))
                 return;    
-            _ballsPerContainer[container].Add(ball);
-            _ballAreaPerContainer[container].Variable.ApplyChange(ball.GetBallArea());
+            _ballsPerContainer[container].Add(ballInstance);
+            _ballAreaPerContainer[container].Variable.ApplyChange(ballInstance.GetBallArea());
         }
 
-        public void UnregisterBall(Ball ball, Container.Container container)
+        public void UnregisterBall(BallInstance ballInstance, Container.Container container)
         {
             if (!_ballsPerContainer.ContainsKey(container) || !_ballAreaPerContainer.ContainsKey(container))
                 return;
-            if (!_ballsPerContainer[container].Contains(ball))
+            if (!_ballsPerContainer[container].Contains(ballInstance))
                 return;
-            _ballsPerContainer[container].Remove(ball);
-            _ballAreaPerContainer[container].Variable.ApplyChange(-ball.GetBallArea());
+            _ballsPerContainer[container].Remove(ballInstance);
+            _ballAreaPerContainer[container].Variable.ApplyChange(-ballInstance.GetBallArea());
         }
 
         private void CheckForInitialSetup(Container.Container container)
         {
             if (!_ballsPerContainer.ContainsKey(container))
-                _ballsPerContainer[container] = new List<Ball>();
+                _ballsPerContainer[container] = new List<BallInstance>();
             if (!_ballAreaPerContainer.ContainsKey(container))
                 CreateNewBallAreaReference(container);
         }

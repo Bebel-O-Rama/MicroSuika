@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Ball;
-using MultiSuika.Player;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
 using TMPro;
@@ -140,7 +139,7 @@ namespace MultiSuika.GameLogic
             }
         }
 
-        public void OnBallFusion(Ball.Ball ball)
+        public void OnBallFusion(Ball.BallInstance ballInstance)
         {
         }
     }

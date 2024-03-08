@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace MultiSuika.Ball
@@ -12,7 +13,7 @@ namespace MultiSuika.Ball
         [Header("The smaller the index position of the ball, the smaller its radius should be")]
         [Header("ALSO, you can't have null here, you need to drag and drop the BallData SO on the list")]
         public List<BallData> ballSetData;
-        public Ball ballPrefab;
+        [FormerlySerializedAs("ballPrefab")] public BallInstance ballInstancePrefab;
     
         [Header("Impulse parameters")]
         public FloatReference impulseMultiplier;
