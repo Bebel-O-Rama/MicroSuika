@@ -58,7 +58,7 @@ namespace MultiSuika.GameLogic
             
             foreach (var b in balls)
             {
-                b.SetBallFreeze(true);
+                b.SetSimulatedParameters(true);
             }
 
             var cannonsToRemove = _cannons.Where(cannon => cannon.containerInstance == containerInstance).ToList();

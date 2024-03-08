@@ -340,7 +340,7 @@ namespace MultiSuika.GameLogic
                     container.ContainerSuccess();
 
                 foreach (var ball in _ballTracker.GetBallsForContainer(container))
-                    ball.SetBallFreeze(true);
+                    ball.SetSimulatedParameters(true);
             }
             _isGameInProgress = false;
         }
