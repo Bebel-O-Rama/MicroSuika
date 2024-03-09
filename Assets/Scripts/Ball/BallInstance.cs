@@ -4,6 +4,7 @@ using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace MultiSuika.Ball
@@ -14,62 +15,60 @@ namespace MultiSuika.Ball
         [SerializeField] public SpriteRenderer spriteRenderer;
         [SerializeField] public Rigidbody2D rb2d;
 
-        public int tier;
-        public int scoreValue;
-        public IntReference ballScoreRef;
-        public BallSetData ballSetData;
-        public BallSpriteThemeData ballSpriteThemeData;
-        public ContainerInstance containerInstance;
-        public BallTracker ballTracker;
+        // public int tier;
+        // public int scoreValue;
+        // public IntReference ballScoreRef;
+        // public BallSetData ballSetData;
+        // public BallSpriteThemeData ballSpriteThemeData;
+        // public ContainerInstance containerInstance;
+        // public BallTracker ballTracker;
+        //
+        // public float impulseMultiplier;
+        // public float impulseExpPower;
+        // public float impulseRangeMultiplier;
 
-        public float impulseMultiplier;
-        public float impulseExpPower;
-        public float impulseRangeMultiplier;
-        
-        
-        private int _ballTierIndex;
-        private int _scoreValue;
-        private IntReference _ballScoreRef;
+
+        public int BallTierIndex { get; private set; }
+
+        public int ScoreValue { get; private set; }
+        public ContainerInstance ContainerInstance { get; private set; }
+        public bool IsBallCleared { get; private set; }
+        private IntReference _playerScoreRef;
         private BallSetData _ballSetData;
         private BallSpriteThemeData _ballSpriteThemeData;
-        private ContainerInstance _containerInstance;
-        private GameManager _gameManager;
         private BallTracker _ballTracker;
 
-        private float _impulseMultiplier;
+        private float _impulseForcePerUnit;
         private float _impulseExpPower;
         private float _impulseRangeMultiplier;
 
         private Rigidbody2D _rb2d;
 
-        private bool _isBallCleared;
 
         private void Awake()
         {
-            _isBallCleared = false;
+            IsBallCleared = false;
             _rb2d = GetComponent<Rigidbody2D>();
 
             GetComponentInChildren<SignalCollider2D>().SubscribeCollision2DEnter(FusionCheck);
         }
 
-        public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
-
         public void DropBallFromCannon()
         {
-            ballTracker.RegisterBall(this, containerInstance);
-            rb2d.simulated = true;
+            _ballTracker.RegisterBall(this, ContainerInstance);
+            SetSimulatedParameters(true);
 
             var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
             rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
         }
-        
+
         public void ClearBall(bool addToScore = true)
         {
             if (addToScore)
-                ballScoreRef?.Variable.ApplyChange(scoreValue);
-            ballTracker.UnregisterBall(this, containerInstance);
-            rb2d.simulated = false;
-            _isBallCleared = true;
+                _playerScoreRef?.Variable.ApplyChange(ScoreValue);
+            _ballTracker.UnregisterBall(this, ContainerInstance); 
+            SetSimulatedParameters(false);
+            IsBallCleared = true;
             Destroy(gameObject);
         }
 
@@ -78,8 +77,8 @@ namespace MultiSuika.Ball
             if (!other.gameObject.CompareTag("Ball"))
                 return;
             var otherBall = other.gameObject.GetComponent<BallInstance>();
-            if (otherBall.tier == tier && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID() &&
-                !_isBallCleared && !otherBall.IsBallCleared())
+            if (otherBall.BallTierIndex == BallTierIndex && gameObject.GetInstanceID() > otherBall.gameObject.GetInstanceID() &&
+                !IsBallCleared && !otherBall.IsBallCleared)
             {
                 FuseWithOtherBall(otherBall, other.GetContact(0).point);
             }
@@ -89,49 +88,53 @@ namespace MultiSuika.Ball
         {
             other.ClearBall();
             ClearBall();
-            if (tier < ballSetData.GetMaxTier)
-            {
-                FusionImpulse(tier + 1, contactPosition);
-                var newBall = Initializer.InstantiateBall(ballSetData, containerInstance,
-                    Initializer.WorldToLocalPosition(containerInstance.ContainerParent.transform, contactPosition));
-
-                // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
-                newBall.transform.SetLayerRecursively(gameObject.layer);
-
-                Initializer.SetBallParameters(newBall, tier + 1, ballScoreRef, ballSetData, ballTracker,
-                    ballSpriteThemeData, containerInstance, gameManager);
-                newBall.ballTracker.RegisterBall(newBall, containerInstance);
-                ballFusionWwiseEvents.PostEventAtIndex(tier, newBall.gameObject);
-            }
-
             
-            // TODO: Not too sure about why that's there...
-            gameManager.OnBallFusion(this);
+            if (BallTierIndex >= _ballSetData.GetMaxTier) 
+                return;
+            
+            FusionImpulse(BallTierIndex + 1, contactPosition);
+            var newBall = Initializer.InstantiateBall(_ballSetData, ContainerInstance,
+                Initializer.WorldToLocalPosition(ContainerInstance.ContainerParent.transform, contactPosition));
+                
+            newBall.SetBallParameters(BallTierIndex + 1, _ballSetData, _ballSpriteThemeData, _ballTracker, _playerScoreRef);
+            newBall.transform.SetLayerRecursively(gameObject.layer);
+            newBall.SetSimulatedParameters(true);
+                
+            newBall._ballTracker.RegisterBall(newBall, ContainerInstance);
+            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, newBall.gameObject);
+
+
+            // // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
+            // var gameMode = (IGameModeManager)FindObjectOfType(typeof(IGameModeManager));
+            // gameMode.OnBallFusion(this);
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
         {
-            float realImpulseRadius = ballSetData.GetBallData(newBallTier).scale * 0.5f * impulseRangeMultiplier *
-                                      containerInstance.ContainerParent.transform.localScale.x;
+            var realImpulseRadius = _ballSetData.GetBallData(newBallTier).scale * 0.5f * _impulseRangeMultiplier *
+                                      ContainerInstance.ContainerParent.transform.localScale.x;
 
-            Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball", impulseMultiplier,
-                impulseExpPower);
+            Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball", _impulseForcePerUnit,
+                _impulseExpPower);
         }
 
-        private bool IsBallCleared() => _isBallCleared;
-
+        #region Getter
+        public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
+        #endregion
+        
         #region Setter
-
-        public void SetBallDataParameters(int ballTierIndex, BallSetData ballSetData, BallSpriteThemeData ballSpriteThemeData)
+        public void SetBallParameters(int ballTierIndex, BallSetData ballSetData,
+            BallSpriteThemeData ballSpriteThemeData, BallTracker ballTracker, IntReference playerScoreRef)
         {
             // BallData
-            _ballTierIndex = ballTierIndex;
+            BallTierIndex = ballTierIndex;
             _ballSetData = ballSetData;
             var ballData = _ballSetData.GetBallData(ballTierIndex);
-            
+
             // Score
-            _scoreValue = ballData.GetScoreValue();
-            
+            ScoreValue = ballData.GetScoreValue();
+            _playerScoreRef = playerScoreRef;
+
             // Physics
             _rb2d.mass = ballData.mass;
             var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
@@ -140,22 +143,29 @@ namespace MultiSuika.Ball
                 friction = ballSetData.friction
             };
             _rb2d.sharedMaterial = ballPhysMat;
-            
+
+            // Impulse
+            _impulseRangeMultiplier = _ballSetData.impulseRangeMultiplier;
+            _impulseForcePerUnit = _ballSetData.impulseForcePerUnit;
+            _impulseExpPower = _ballSetData.impulseExpPower;
+
             // Sprite
             _ballSpriteThemeData = ballSpriteThemeData;
-            spriteRenderer.sprite = _ballSpriteThemeData.ballSprites[_ballTierIndex];
-            
+            spriteRenderer.sprite = _ballSpriteThemeData.ballSprites[BallTierIndex];
+
             // Transform
             var tf = transform;
             tf.localScale = Vector3.one * ballData.scale;
-            tf.name = $"Ball T{_ballTierIndex} (ID: {transform.GetInstanceID()})";
-            
+            tf.name = $"Ball T{BallTierIndex} (ID: {transform.GetInstanceID()})";
+
             // Container
-            _containerInstance = GetComponentInParent<ContainerInstance>();
+            ContainerInstance = transform.parent.GetComponentInChildren<ContainerInstance>();
 
+            // BallTracker
+            _ballTracker = ballTracker;
         }
-
-        public void SetSimulatedParameters(bool isFrozen) => rb2d.simulated = !isFrozen;
+        
+        public void SetSimulatedParameters(bool isSimulated) => rb2d.simulated = isSimulated;
 
         #endregion
     }

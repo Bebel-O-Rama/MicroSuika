@@ -31,7 +31,7 @@ namespace MultiSuika.GameLogic
         public void TriggerConditionEnter(Collider2D other)
         {
             if (other.gameObject.CompareTag("Ball"))
-                _versusModeManager.PlayerFailure(other.GetComponent<BallInstance>().containerInstance);
+                _versusModeManager.PlayerFailure(other.GetComponent<BallInstance>().ContainerInstance);
         }
 
         public void TriggerConditionExit(Collider2D other)

@@ -65,7 +65,7 @@ namespace MultiSuika.Container
         public void OnBallCollision(float velocity, BallInstance ballInstance)
         {
             rtpc_ballImpactVelocity.SetValue(gameObject, velocity);
-            switch (ballInstance.tier)
+            switch (ballInstance.BallTierIndex)
             {
                 case 0:
                     WwiseEventBallContainerCollisionT0.Post(ballInstance.gameObject);

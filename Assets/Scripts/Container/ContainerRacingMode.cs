@@ -100,6 +100,7 @@ namespace MultiSuika.Container
             UpdateData();
         }
 
+        // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
         public void NewBallFused(float scoreValue)
         {
             _combo.Variable.ApplyChange(1);
@@ -109,7 +110,7 @@ namespace MultiSuika.Container
 
         public void DamageReceived(BallInstance ballInstance)
         {
-            var impactLevel = ballInstance.scoreValue * _ballImpactMultiplier;
+            var impactLevel = ballInstance.ScoreValue * _ballImpactMultiplier;
             _currentSpeed.Variable.SetValue(Mathf.Clamp(_currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
             _targetSpeed.Variable.SetValue(Mathf.Clamp(_targetSpeed - impactLevel, 0f, Mathf.Infinity));
             

@@ -340,7 +340,7 @@ namespace MultiSuika.GameLogic
                     container.ContainerSuccess();
 
                 foreach (var ball in _ballTracker.GetBallsForContainer(container))
-                    ball.SetSimulatedParameters(true);
+                    ball.SetSimulatedParameters(false);
             }
             _isGameInProgress = false;
         }
@@ -360,11 +360,12 @@ namespace MultiSuika.GameLogic
             };
         }
 
+        // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
         public void OnBallFusion(BallInstance ballInstance)
         {
-            var racingDebugInfo = ballInstance.containerInstance.GetComponent<ContainerRacingMode>();
+            var racingDebugInfo = ballInstance.ContainerInstance.GetComponent<ContainerRacingMode>();
             if (racingDebugInfo != null)
-                racingDebugInfo.NewBallFused(ballInstance.scoreValue);
+                racingDebugInfo.NewBallFused(ballInstance.ScoreValue);
         }
     }
 }

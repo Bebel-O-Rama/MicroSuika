@@ -15,8 +15,8 @@ namespace MultiSuika.Ball
         public List<BallData> ballSetData;
         [FormerlySerializedAs("ballPrefab")] public BallInstance ballInstancePrefab;
     
-        [Header("Impulse parameters")]
-        public FloatReference impulseMultiplier;
+        [FormerlySerializedAs("impulseMultiplier")] [Header("Impulse parameters")]
+        public FloatReference impulseForcePerUnit;
         public FloatReference impulseExpPower;
         public FloatReference impulseRangeMultiplier;
     

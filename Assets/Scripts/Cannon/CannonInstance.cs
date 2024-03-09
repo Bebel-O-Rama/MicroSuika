@@ -44,7 +44,7 @@ namespace MultiSuika.Cannon
                 Destroy(_currentBallInstance.gameObject);
         }
     
-        public void SetCannonInputConnexion(bool isActive)
+        private void SetCannonInputConnexion(bool isActive)
         {
             if (_playerInputManager == null)
                 return;
@@ -108,7 +108,7 @@ namespace MultiSuika.Cannon
     
         private void LoadNewBall()
         {
-            int newBallIndex = ballSetData.GetRandomBallTier();
+            var newBallIndex = ballSetData.GetRandomBallTier();
             _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
             _currentBallInstance = Initializer.InstantiateBall(ballSetData, containerInstance,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
@@ -116,7 +116,8 @@ namespace MultiSuika.Cannon
             // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
             _currentBallInstance.transform.SetLayerRecursively(gameObject.layer);
             
-            Initializer.SetBallParameters(_currentBallInstance, newBallIndex, scoreReference, ballSetData, ballTracker, ballSpriteData, containerInstance, gameModeManager, true);
+            _currentBallInstance.SetBallParameters(newBallIndex, ballSetData, ballSpriteData, ballTracker, scoreReference);
+            _currentBallInstance.SetSimulatedParameters(false);
         }
     
     }
