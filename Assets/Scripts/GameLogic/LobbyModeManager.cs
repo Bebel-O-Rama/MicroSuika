@@ -3,17 +3,17 @@ using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
+using MultiSuika.Manager;
+using MultiSuika.Player;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using PlayerInputManager = MultiSuika.Player.PlayerInputManager;
 
 namespace MultiSuika.GameLogic
 {
-    [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInputManager))]
     public class LobbyModeManager : MonoBehaviour, IGameModeManager
     {
         [SerializeField] public GameData gameData;
@@ -21,10 +21,10 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameObject onJoinPopup;
         [SerializeField] public List<Scoreboard> lobbyScore;
     
-        private UnityEngine.InputSystem.PlayerInputManager _playerInputManager;
+        // private PlayerInputManager _playerInputManager;
         
-        private IntReference _activePlayerNumber;
-        private List<PlayerInputManager> _playerInputHandlers = new List<PlayerInputManager>();
+        // private IntReference _activePlayerNumber;
+        private List<PlayerInputSystem> _playerInputHandlers = new List<PlayerInputSystem>();
         private List<CannonInstance> _cannons = new List<CannonInstance>();
         private List<ContainerInstance> _containers = new List<ContainerInstance>();
         private BallTracker _ballTracker = new BallTracker();
@@ -32,16 +32,19 @@ namespace MultiSuika.GameLogic
         private void Awake()
         {
             SetLobbyParameters();
-            
+
             // Connect to the PlayerInputManager and Set the lobbyContainerTrigger
-            _playerInputManager = FindObjectOfType<UnityEngine.InputSystem.PlayerInputManager>();
-            _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
+            
+            // _playerInputManager = FindObjectOfType<UnityEngine.InputSystem.PlayerInputManager>();
+            // _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
 
             _containers = Initializer.InstantiateContainers(0, gameModeData);
 
             // Clear any connected players and enable joining with the PlayerInputManager
-            DisconnectPlayers();
-            _playerInputManager.EnableJoining();
+            
+            // DisconnectPlayers();
+            PlayerManager.Instance.SetJoiningEnabled(true);
+            PlayerManager.Instance.SubscribeAddNewPlayer(NewPlayerDetected);
         }
 
         public void ResetPlayers()
@@ -49,20 +52,22 @@ namespace MultiSuika.GameLogic
             DisconnectPlayers();
             foreach (var ls in lobbyScore)
                 ls.playerScore = null;
+            PlayerManager.Instance.ClearAllPlayers();
+
         }
 
         public void StartGame()
         {
-            _playerInputManager.DisableJoining();
+            PlayerManager.Instance.SetJoiningEnabled(false);
             SceneManager.LoadScene("PrototypeRacing");
         }
 
         private void SetLobbyParameters()
         {
-            _activePlayerNumber = new IntReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
+            // _activePlayerNumber = new IntReference
+            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
             
-            _playerInputHandlers = new List<PlayerInputManager>();
+            _playerInputHandlers = new List<PlayerInputSystem>();
             _cannons = new List<CannonInstance>();
             _containers = new List<ContainerInstance>();
             _ballTracker = new BallTracker();
@@ -70,11 +75,11 @@ namespace MultiSuika.GameLogic
             var lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
             foreach (var trigger in lobbyContainerTriggers)
             {
-                trigger.SetActivePlayerNumberParameters(_activePlayerNumber);
+                trigger.SetActivePlayerNumberParameters(PlayerManager.Instance.GetNumberActivePlayerRef());
             }
         }
         
-        private void NewPlayerDetected(PlayerInput playerInput)
+        private void NewPlayerDetected(int index, PlayerInput playerInput)
         {
             var (newPlayerInputHandler, playerIndex) = ConnectPlayerToInputDevice(playerInput);
             _playerInputHandlers.Add(newPlayerInputHandler);
@@ -89,7 +94,7 @@ namespace MultiSuika.GameLogic
         
             ConnectToLobbyScore(gameData.playerDataList[playerIndex].mainScore, lobbyScore[playerIndex], popupColor);
             
-            _activePlayerNumber.Variable.ApplyChange(1);
+            // _activePlayerNumber.Variable.ApplyChange(1);
         }
     
         private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
@@ -98,7 +103,7 @@ namespace MultiSuika.GameLogic
             scoreboard.connectedColor = color;
         }
 
-        private (PlayerInputManager, int) ConnectPlayerToInputDevice(PlayerInput playerInput)
+        private (PlayerInputSystem, int) ConnectPlayerToInputDevice(PlayerInput playerInput)
         {
             var playerIndex = gameData.GetConnectedPlayerQuantity();
             if (playerIndex >= 4)
@@ -107,7 +112,7 @@ namespace MultiSuika.GameLogic
                 return (null, -1);
             }
 
-            var playerInputRegistered = playerInput.GetComponentInParent<PlayerInputManager>();
+            var playerInputRegistered = playerInput.GetComponentInParent<PlayerInputSystem>();
             var newPlayerData = gameData.playerDataList[playerIndex];
         
             if (newPlayerData.playerIndexNumber != playerIndex)
@@ -125,20 +130,22 @@ namespace MultiSuika.GameLogic
                 cannon.DestroyCurrentBall();
                 Destroy(cannon.gameObject);
             }
-
+        
             foreach (var playerInputHandler in _playerInputHandlers)
             {
                 Destroy(playerInputHandler.gameObject);
             }
             _cannons.Clear();
             _playerInputHandlers.Clear();
-
+        
             foreach (var playerData in gameData.playerDataList)
             {
                 playerData.ResetInputParameters();
                 playerData.ResetMainScore();
             }
-            _activePlayerNumber.Variable.SetValue(0);
+            
+            
+            // _activePlayerNumber.Variable.SetValue(0);
         }
     
         private void AddPlayerJoinPopup(int playerIndex, CannonInstance cannonInstance, Color randColor)

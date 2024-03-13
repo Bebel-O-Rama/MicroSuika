@@ -17,7 +17,7 @@ namespace MultiSuika.Cannon
         public float shootingForce;
         public float emptyDistanceBetweenBallAndCannon;
         public bool isUsingPeggleMode = false;
-        private PlayerInputManager _playerInputManager;
+        private PlayerInputSystem _playerInputSystem;
     
         // Positioning
         public float horizontalMargin;
@@ -46,32 +46,32 @@ namespace MultiSuika.Cannon
     
         private void SetCannonInputConnexion(bool isActive)
         {
-            if (_playerInputManager == null)
+            if (_playerInputSystem == null)
                 return;
             if (isActive)
             {
-                _playerInputManager.onHorizontalMvtContinuous += MoveCannon;
-                _playerInputManager.onShoot += DropBall;
+                _playerInputSystem.onHorizontalMvtContinuous += MoveCannon;
+                _playerInputSystem.onShoot += DropBall;
                 if (_currentBallInstance == null)
                     LoadNewBall();
             }
             else
             {
-                _playerInputManager.onHorizontalMvtContinuous -= MoveCannon;
-                _playerInputManager.onShoot -= DropBall;
+                _playerInputSystem.onHorizontalMvtContinuous -= MoveCannon;
+                _playerInputSystem.onShoot -= DropBall;
             }
         }
 
-        public void ConnectCannonToPlayer(PlayerInputManager playerInputManager)
+        public void ConnectCannonToPlayer(PlayerInputSystem playerInputSystem)
         {
-            _playerInputManager = playerInputManager;
+            _playerInputSystem = playerInputSystem;
             SetCannonInputConnexion(true);
         }
 
         public void DisconnectCannonToPlayer()
         {
             SetCannonInputConnexion(false);
-            _playerInputManager = null;
+            _playerInputSystem = null;
         }
         
         private void DropBall()

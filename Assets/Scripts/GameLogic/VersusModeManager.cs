@@ -15,7 +15,7 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameModeData gameModeData;
         
         private int _numberPlayerConnected;
-        private List<PlayerInputManager> _playerInputHandlers;
+        private List<PlayerInputSystem> _playerInputHandlers;
         private GameObject _versusGameInstance;
         private List<ContainerInstance> _containers;
         private List<CannonInstance> _cannons;

@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 namespace MultiSuika.Player
 {
-    [CreateAssetMenu(menuName = "Player/Player Game Data")]
-    public class PlayerData : ScriptableObject
+    [CreateAssetMenu(menuName = "Player/Player Game Data (OLD)")]
+    public class PlayerDataOLD : ScriptableObject
     {
         [Header("Player number")]
         [Range(0, 3)] public int playerIndexNumber;

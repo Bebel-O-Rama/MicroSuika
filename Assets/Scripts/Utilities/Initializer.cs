@@ -9,7 +9,6 @@ using MultiSuika.Skin;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
-using PlayerInputManager = MultiSuika.Player.PlayerInputManager;
 
 namespace MultiSuika.Utilities
 {
@@ -17,16 +16,16 @@ namespace MultiSuika.Utilities
     {
         #region Player
 
-        public static List<PlayerInputManager> InstantiatePlayerInputHandlers(List<PlayerData> connectedPlayerData,
+        public static List<PlayerInputSystem> InstantiatePlayerInputHandlers(List<PlayerDataOLD> connectedPlayerData,
             GameModeData gameModeData)
         {
-            List<PlayerInputManager> instantiatedPlayerInputHandlers = new List<PlayerInputManager>();
+            List<PlayerInputSystem> instantiatedPlayerInputHandlers = new List<PlayerInputSystem>();
             foreach (var playerData in connectedPlayerData)
             {
                 var playerInputObj = PlayerInput.Instantiate(gameModeData.playerInputPrefab,
                     playerData.playerIndexNumber,
                     pairWithDevice: playerData.inputDevice);
-                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputManager>());
+                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputSystem>());
             }
 
             return instantiatedPlayerInputHandlers;
@@ -127,7 +126,7 @@ namespace MultiSuika.Utilities
 
         public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
             BallTracker ballTracker, GameModeData gameModeData,
-            List<PlayerData> playerData, IGameModeManager gameModeManager)
+            List<PlayerDataOLD> playerData, IGameModeManager gameModeManager)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
@@ -139,7 +138,7 @@ namespace MultiSuika.Utilities
 
         public static void SetCannonParameters(CannonInstance cannonInstance, ContainerInstance containerInstance,
             BallTracker ballTracker, GameModeData gameModeData,
-            PlayerData playerData, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
+            PlayerDataOLD playerDataOld, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
         {
             cannonInstance.speed = gameModeData.cannonSpeed;
             cannonInstance.reloadCooldown = gameModeData.cannonReloadCooldown;
@@ -150,7 +149,7 @@ namespace MultiSuika.Utilities
 
             cannonInstance.ballSetData = gameModeData.ballSetData;
             cannonInstance.ballSpriteData = playerSkinData.ballTheme;
-            cannonInstance.scoreReference = playerData.mainScore;
+            cannonInstance.scoreReference = playerDataOld.mainScore;
             cannonInstance.containerInstance = containerInstance;
             cannonInstance.ballTracker = ballTracker;
             cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
@@ -159,7 +158,7 @@ namespace MultiSuika.Utilities
         }
 
         public static void ConnectCannonsToPlayerInputs(List<CannonInstance> cannons,
-            List<PlayerInputManager> playerInputHandlers)
+            List<PlayerInputSystem> playerInputHandlers)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
