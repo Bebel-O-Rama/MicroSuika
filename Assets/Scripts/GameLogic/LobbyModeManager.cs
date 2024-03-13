@@ -16,14 +16,15 @@ namespace MultiSuika.GameLogic
 {
     public class LobbyModeManager : MonoBehaviour, IGameModeManager
     {
+        [Header("Manager Base Parameters")]
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
+
+        [Header("Lobby Specific Parameters")] 
+        [SerializeField] public string nextSceneName;
         [SerializeField] public GameObject onJoinPopup;
         [SerializeField] public List<Scoreboard> lobbyScore;
-    
-        // private PlayerInputManager _playerInputManager;
         
-        // private IntReference _activePlayerNumber;
         private List<PlayerInputSystem> _playerInputHandlers = new List<PlayerInputSystem>();
         private List<CannonInstance> _cannons = new List<CannonInstance>();
         private List<ContainerInstance> _containers = new List<ContainerInstance>();
@@ -32,17 +33,9 @@ namespace MultiSuika.GameLogic
         private void Awake()
         {
             SetLobbyParameters();
-
-            // Connect to the PlayerInputManager and Set the lobbyContainerTrigger
             
-            // _playerInputManager = FindObjectOfType<UnityEngine.InputSystem.PlayerInputManager>();
-            // _playerInputManager.playerJoinedEvent.AddListener(NewPlayerDetected);
-
             _containers = Initializer.InstantiateContainers(0, gameModeData);
-
-            // Clear any connected players and enable joining with the PlayerInputManager
             
-            // DisconnectPlayers();
             PlayerManager.Instance.SetJoiningEnabled(true);
             PlayerManager.Instance.SubscribeAddNewPlayer(NewPlayerDetected);
         }
@@ -59,14 +52,11 @@ namespace MultiSuika.GameLogic
         public void StartGame()
         {
             PlayerManager.Instance.SetJoiningEnabled(false);
-            SceneManager.LoadScene("PrototypeRacing");
+            SceneManager.LoadScene(nextSceneName);
         }
 
         private void SetLobbyParameters()
         {
-            // _activePlayerNumber = new IntReference
-            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-            
             _playerInputHandlers = new List<PlayerInputSystem>();
             _cannons = new List<CannonInstance>();
             _containers = new List<ContainerInstance>();

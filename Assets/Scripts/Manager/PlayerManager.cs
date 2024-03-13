@@ -10,6 +10,18 @@ namespace MultiSuika.Manager
 {
     public class PlayerManager : MonoBehaviour
     {
+        [Header("Players Information")]
+        [SerializeField] private PlayerInformationData _playerInformationData;
+
+        [Header("Input Connexions")]
+        [SerializeField] [Min(1)] private int _maximumNumberOfPlayer = 4;
+        [SerializeField] private PlayerInputManager _inputManagerPrefab;
+
+        private PlayerInputManager _playerInputManager;
+        private bool _isJoiningEnabled = false;
+        private Action<int, PlayerInput> _onAddNewPlayer;
+        private Action<int> _onRemovePlayer;
+        
         #region Singleton
 
         [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
@@ -22,18 +34,6 @@ namespace MultiSuika.Manager
         }
 
         #endregion
-
-        [Header("Players Information")]
-        [SerializeField] private PlayerInformationData _playerInformationData;
-        
-        [Header("Input Connexions")]
-        [SerializeField] [Min(1)] private int _maximumNumberOfPlayer = 4;
-        [SerializeField] private PlayerInputManager _inputManagerPrefab;
-
-        private PlayerInputManager _playerInputManager;
-        private bool _isJoiningEnabled = false;
-        private Action<int, PlayerInput> _onAddNewPlayer;
-        private Action<int> _onRemovePlayer;
 
         private void Awake()
         {
@@ -57,14 +57,14 @@ namespace MultiSuika.Manager
             UpdatePlayerJoining();
         }
 
-        public void AddNewPlayer(PlayerInput inputDevice)
+        private void AddNewPlayer(PlayerInput inputDevice)
         {
             var playerIndex = _playerInformationData.AddNewPlayerData(inputDevice.devices[0]);
             UpdatePlayerJoining();
             _onAddNewPlayer?.Invoke(playerIndex, inputDevice);
         }
         
-        public void RemovePlayer(int playerIndex)
+        private void RemovePlayer(int playerIndex)
         {
             _playerInformationData.ClearPlayerInformation(playerIndex);
             UpdatePlayerJoining();
@@ -88,11 +88,9 @@ namespace MultiSuika.Manager
             else if (GetNumberActivePlayerRef() >= _maximumNumberOfPlayer)
                 _playerInputManager.DisableJoining();
         }
-        
-        
+
         public void GetPlayerInputDevice(int playerIndex) => _playerInformationData.GetInputDevice(playerIndex);
         public IntReference GetNumberActivePlayerRef() => _playerInformationData.GetNumberActivePlayerRef();
-        
         
         public void SubscribeAddNewPlayer(Action<int, PlayerInput> method) => _onAddNewPlayer += method;
         public void UnsubscribeAddNewPlayer(Action<int, PlayerInput> method) => _onAddNewPlayer -= method;
