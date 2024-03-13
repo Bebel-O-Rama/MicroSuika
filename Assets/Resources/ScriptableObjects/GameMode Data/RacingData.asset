@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RacingData
   m_EditorClassIdentifier: 
   skinData: {fileID: 11400000, guid: b214bad76dc157241bed95142cbe5ade, type: 2}
-  containerPrefab: {fileID: 5133208408491059016, guid: c98317986e807344dbc068be114a864e, type: 3}
+  containerInstancePrefab: {fileID: 1050623325330396996, guid: c98317986e807344dbc068be114a864e, type: 3}
   leftmostContainerPositions:
   - {x: 0, y: 0.5}
   - {x: -3.4, y: 0.5}
@@ -25,7 +25,7 @@ MonoBehaviour:
   - 0.5
   - 0.5
   playerPerContainer: 1
-  cannonPrefab: {fileID: 6644540852985890257, guid: 61e76c64ee0a3a44e827eac2668dcec0, type: 3}
+  cannonInstancePrefab: {fileID: 6644540852985890257, guid: 61e76c64ee0a3a44e827eac2668dcec0, type: 3}
   isCannonSpawnXPosRandom: 0
   cannonVerticalDistanceFromCenter: 5.6
   cannonSpeed: 5

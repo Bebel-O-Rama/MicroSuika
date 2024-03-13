@@ -56,7 +56,7 @@ namespace MultiSuika.DebugInfo
         private FloatReference _currentSpeed;
         private FloatReference _averageSpeed;
         private FloatReference _targetSpeed;
-        private FloatReference _maxSpeed;
+        private FloatReference _speedSoftCap;
         private float _previousSpeed;
         
         // Combo parameters
@@ -112,7 +112,7 @@ namespace MultiSuika.DebugInfo
             
             // Speed bar
             var speedBarSizePercent = _speedBar.Size.Percent;
-            speedBarSizePercent.y = _currentSpeed / _maxSpeed;
+            speedBarSizePercent.y = _currentSpeed / _speedSoftCap;
             _speedBar.Size.Percent = speedBarSizePercent;
             _speedBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
             
@@ -128,7 +128,7 @@ namespace MultiSuika.DebugInfo
             
             // Average speed bar
             var averageSpeedPositionPercent = _averageSpeedBar.Position.Percent;
-            averageSpeedPositionPercent.y = _averageSpeed / _maxSpeed;
+            averageSpeedPositionPercent.y = _averageSpeed / _speedSoftCap;
             _averageSpeedBar.Position.Percent = averageSpeedPositionPercent;
             
             // Combo bar
@@ -188,12 +188,12 @@ namespace MultiSuika.DebugInfo
 
         public void SetBallAreaParameters(FloatReference areaPercentFilled) => _areaPercentFilled = areaPercentFilled;
 
-        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference targetSpeed, FloatReference maxSpeed)
+        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference targetSpeed, FloatReference speedSoftCap)
         {
             _currentSpeed = currentSpeed;
             _averageSpeed = averageSpeed;
             _targetSpeed = targetSpeed;
-            _maxSpeed = maxSpeed;
+            _speedSoftCap = speedSoftCap;
         }
 
         public void SetComboParameters(IntReference combo, FloatReference comboTimer, FloatReference comboTimerFull, FloatReference acceleration)

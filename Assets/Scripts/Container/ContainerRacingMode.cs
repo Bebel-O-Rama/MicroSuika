@@ -79,6 +79,8 @@ namespace MultiSuika.Container
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
             _comboTimer = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            
+            // TODO: Why do we instantiate the ranking here?????
             _ranking = new IntReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
             

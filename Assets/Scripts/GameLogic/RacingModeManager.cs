@@ -79,14 +79,16 @@ namespace MultiSuika.GameLogic
         private FloatReference _firstPlayerSpeed;
         private FloatReference _lastPlayerSpeed;
         private FloatReference _standardDeviationSpeed;
+        
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;
-        private IntReference _dampingMethodIndex;
-
-        private ContainerInstance _currentContainerInstanceInLead;
         private float _currentLeadTimeLeft;
+        private ContainerInstance _currentContainerInstanceInLead;
         private float _timeReqProgressionTimer;
         private float _speedReqProgressionTimer;
+        
+        private IntReference _dampingMethodIndex;
+
 
         private bool _isGameInProgress = true;
         private RacingModeDebugInfo _racingModeDebugInfo;

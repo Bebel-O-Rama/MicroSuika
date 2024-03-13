@@ -10917,7 +10917,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4564159779651758605}
   - component: {fileID: 1050623325330396996}
-  - component: {fileID: 5133208408491059016}
   m_Layer: 0
   m_Name: PF_ContainerRacingProto
   m_TagString: Container
@@ -10955,78 +10954,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61a0777ffc808b648b03bb455eff138c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalMvtHalfLength: 3
-  backgroundSpriteRenderer: {fileID: 1869188983104954654}
-  sideSpriteRenderer: {fileID: 2152491933752628166}
-  failureSpriteRenderer: {fileID: 6956709727714168878}
-  successSpriteRenderer: {fileID: 5996063035113660994}
-  collisionChecks:
-  - {fileID: 6872538323589187015}
-  - {fileID: 3559353355438202464}
-  - {fileID: 7064601280816256020}
-  - {fileID: 5027265918265091953}
-  - {fileID: 2857971382045761281}
-  ballAudioVelocityMin: 3
-  rtpc_ballImpactVelocity:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT0:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT1:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT2:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT3:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT4:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT5:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT6:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT7:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT8:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT9:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT10:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
---- !u!114 &5133208408491059016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793840066780438698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66eb1f4d38d93324f94f1c6657c3730d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalMvtHalfLength: 3
