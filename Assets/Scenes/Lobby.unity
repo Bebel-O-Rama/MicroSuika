@@ -2505,9 +2505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6632f4fcf904a2646a2e76bb6b973fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInformationData: {fileID: 11400000, guid: b6ff40256d570ae4ebbf5b5ec8967503, type: 2}
   _maximumNumberOfPlayer: 4
+  _playerInformationData: {fileID: 11400000, guid: b6ff40256d570ae4ebbf5b5ec8967503, type: 2}
   _inputManagerPrefab: {fileID: 6618661410425451850, guid: 76a32bda98f0e5f41aeecf5beb550ad8, type: 3}
+  _inputHandlerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
 --- !u!1 &1009091354
 GameObject:
   m_ObjectHideFlags: 0

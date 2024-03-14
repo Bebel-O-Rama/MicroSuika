@@ -1404,6 +1404,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 825600732}
+  - {fileID: 877577913}
   - {fileID: 1173024228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1922,7 +1923,7 @@ GameObject:
   - component: {fileID: 877577913}
   - component: {fileID: 877577912}
   m_Layer: 0
-  m_Name: PlayerManager TEST
+  m_Name: Player Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1940,8 +1941,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6632f4fcf904a2646a2e76bb6b973fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
-  playerInformationData: {fileID: 11400000, guid: b6ff40256d570ae4ebbf5b5ec8967503, type: 2}
+  _maximumNumberOfPlayer: 4
+  _playerInformationData: {fileID: 11400000, guid: b6ff40256d570ae4ebbf5b5ec8967503, type: 2}
+  _inputManagerPrefab: {fileID: 6618661410425451850, guid: 76a32bda98f0e5f41aeecf5beb550ad8, type: 3}
+  _inputHandlerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
 --- !u!4 &877577913
 Transform:
   m_ObjectHideFlags: 0
@@ -1950,12 +1953,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877577911}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 522236600}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889928174
 GameObject:
@@ -5545,4 +5548,3 @@ SceneRoots:
   - {fileID: 55574749}
   - {fileID: 407812848}
   - {fileID: 889928176}
-  - {fileID: 877577913}

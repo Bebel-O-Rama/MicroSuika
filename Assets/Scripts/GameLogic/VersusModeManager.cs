@@ -3,6 +3,7 @@ using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
+using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using MultiSuika.Player;
 using UnityEngine;
@@ -14,8 +15,8 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
         
-        private int _numberPlayerConnected;
-        private List<PlayerInputSystem> _playerInputHandlers;
+        private int _numberOfActivePlayer;
+        private List<PlayerInputHandler> _playerInputHandlers;
         private GameObject _versusGameInstance;
         private List<ContainerInstance> _containers;
         private List<CannonInstance> _cannons;
@@ -26,19 +27,19 @@ namespace MultiSuika.GameLogic
     
         private void Awake()
         {
-            _numberPlayerConnected = gameData.GetConnectedPlayerQuantity();
+            _numberOfActivePlayer = gameData.GetConnectedPlayerQuantity();
         
             // TODO: REMOVE THIS TEMP LINE (fake the player count)
-            _numberPlayerConnected = useDebugSpawnContainer ? debugFakeNumberCount : _numberPlayerConnected;
+            _numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : _numberOfActivePlayer;
             
             //// Init and set containers
-            _containers = Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData);
+            _containers = Initializer.InstantiateContainers(_numberOfActivePlayer, gameModeData);
             Initializer.SetContainersParameters(_containers, gameModeData);
         
             //// Init and set cannons
-            _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
+            _cannons = Initializer.InstantiateCannons(_numberOfActivePlayer, gameModeData,
                 _containers);
-            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.playerDataList, this);
+            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.GetPlayerScoreReferences(), this);
         
             //// Link conditions to the VersusMode instance
             var versusFailConditions = _versusGameInstance.GetComponentsInChildren<VersusFailCondition>().ToList();
@@ -49,7 +50,12 @@ namespace MultiSuika.GameLogic
             
             //// Init and set playerInputHandlers
             _playerInputHandlers = Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
-            Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
+            
+            for (int i = 0; i < _cannons.Count; ++i)
+            {
+                _cannons[i].SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
+                _cannons[i].SetCannonInputEnabled(true);
+            }
         }
 
         public void PlayerFailure(ContainerInstance containerInstance)

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace MultiSuika.Player
 {
-    public class PlayerInputSystem : MonoBehaviour
+    public class PlayerInputHandler : MonoBehaviour
     {
         [Tooltip("The vertical input of the Joystick needs to have a big deadzone, otherwise the player might switch target by accident")]
         [SerializeField] [Range(0f, 1f)] private float _discreteAxisDeadzone = 0.5f;

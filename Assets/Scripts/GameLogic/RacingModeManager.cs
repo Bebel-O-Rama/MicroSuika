@@ -4,6 +4,7 @@ using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.DebugInfo;
+using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using MultiSuika.Player;
 using UnityEngine;
@@ -62,8 +63,8 @@ namespace MultiSuika.GameLogic
         [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
         [SerializeField] private FloatReference _debugScoreMultiplier;
 
-        private int _numberPlayerConnected;
-        private List<PlayerInputSystem> _playerInputHandlers;
+        private int _numberOfActivePlayer;
+        private List<PlayerInputHandler> _playerInputHandlers;
         private GameObject _versusGameInstance;
         private List<ContainerInstance> _containers;
         private List<CannonInstance> _cannons;
@@ -106,37 +107,41 @@ namespace MultiSuika.GameLogic
             AnimCurve
         }
         
-        private void Awake()
+        private void Start()
         {
-            _numberPlayerConnected = gameData.GetConnectedPlayerQuantity();
+            _numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
 
             // TODO: REMOVE THIS TEMP LINE (fake the player count)
-            _numberPlayerConnected = useDebugSpawnContainer ? debugFakeNumberCount : _numberPlayerConnected;
+            _numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : _numberOfActivePlayer;
 
             //// Init and set containers
             _containers =
-                Initializer.InstantiateContainers(_numberPlayerConnected, gameModeData);
+                Initializer.InstantiateContainers(_numberOfActivePlayer, gameModeData);
             Initializer.SetContainersParameters(_containers, gameModeData);
 
             //// Init and set cannons
-            _cannons = Initializer.InstantiateCannons(_numberPlayerConnected, gameModeData,
+            _cannons = Initializer.InstantiateCannons(_numberOfActivePlayer, gameModeData,
                 _containers);
             Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData,
-                gameData.playerDataList, this);
+                gameData.GetPlayerScoreReferences(), this);
 
             //// Init and set playerInputHandlers
             _playerInputHandlers =
                 Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
-            Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
-            
+            // Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
+
+            for (int i = 0; i < _cannons.Count; ++i)
+            {
+                _cannons[i].SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
+                _cannons[i].SetCannonInputEnabled(true);
+            }
+
             //// Racing Stuff!!!
             SetRacingModeParameters();
             SetContainerRacingParameters();
-        }
-
-        private void Start()
-        {
+            
             SetRacingModeDebugInfoParameters();
+
         }
 
         private void Update()

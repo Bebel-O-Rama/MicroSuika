@@ -14,7 +14,7 @@ namespace MultiSuika.GameLogic
         public UnityEvent OnConditionPassed;
         public UnityEvent OnTriggered;
 
-        private IntReference _activePlayerNumber;
+        private IntReference _numberOfActivePlayer;
         private bool _isConditionMet;
 
         private void Start()
@@ -25,7 +25,7 @@ namespace MultiSuika.GameLogic
 
         public void Update()
         {
-            if (_activePlayerNumber >= playerNumberThreshold == _isConditionMet)
+            if (_numberOfActivePlayer >= playerNumberThreshold == _isConditionMet)
                 return;
             SetConditionStatus(!_isConditionMet);
         }
@@ -54,7 +54,7 @@ namespace MultiSuika.GameLogic
             OnTriggered?.Invoke();
         }
 
-        public void SetActivePlayerNumberParameters(IntReference activePlayerNumber) =>
-            _activePlayerNumber = activePlayerNumber;
+        public void SetNumberOfActivePlayerParameters(IntReference numberOfActivePlayer) =>
+            _numberOfActivePlayer = numberOfActivePlayer;
     }
 }

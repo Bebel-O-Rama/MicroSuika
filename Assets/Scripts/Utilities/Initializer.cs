@@ -16,16 +16,16 @@ namespace MultiSuika.Utilities
     {
         #region Player
 
-        public static List<PlayerInputSystem> InstantiatePlayerInputHandlers(List<PlayerDataOLD> connectedPlayerData,
+        public static List<PlayerInputHandler> InstantiatePlayerInputHandlers(List<PlayerDataOLD> connectedPlayerData,
             GameModeData gameModeData)
         {
-            List<PlayerInputSystem> instantiatedPlayerInputHandlers = new List<PlayerInputSystem>();
+            List<PlayerInputHandler> instantiatedPlayerInputHandlers = new List<PlayerInputHandler>();
             foreach (var playerData in connectedPlayerData)
             {
                 var playerInputObj = PlayerInput.Instantiate(gameModeData.playerInputPrefab,
                     playerData.playerIndexNumber,
                     pairWithDevice: playerData.inputDevice);
-                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputSystem>());
+                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputHandler>());
             }
 
             return instantiatedPlayerInputHandlers;
@@ -126,19 +126,19 @@ namespace MultiSuika.Utilities
 
         public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
             BallTracker ballTracker, GameModeData gameModeData,
-            List<PlayerDataOLD> playerData, IGameModeManager gameModeManager)
+            List<IntReference> playerScoreRefs, IGameModeManager gameModeManager)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
                 SetCannonParameters(cannons[i],
                     containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], ballTracker,
-                    gameModeData, playerData[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
+                    gameModeData, playerScoreRefs[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
             }
         }
 
         public static void SetCannonParameters(CannonInstance cannonInstance, ContainerInstance containerInstance,
             BallTracker ballTracker, GameModeData gameModeData,
-            PlayerDataOLD playerDataOld, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
+            IntReference playerScoreRef, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
         {
             cannonInstance.speed = gameModeData.cannonSpeed;
             cannonInstance.reloadCooldown = gameModeData.cannonReloadCooldown;
@@ -149,7 +149,7 @@ namespace MultiSuika.Utilities
 
             cannonInstance.ballSetData = gameModeData.ballSetData;
             cannonInstance.ballSpriteData = playerSkinData.ballTheme;
-            cannonInstance.scoreReference = playerDataOld.mainScore;
+            cannonInstance.scoreReference = playerScoreRef;
             cannonInstance.containerInstance = containerInstance;
             cannonInstance.ballTracker = ballTracker;
             cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
@@ -157,14 +157,14 @@ namespace MultiSuika.Utilities
             cannonInstance.gameModeManager = gameModeManager;
         }
 
-        public static void ConnectCannonsToPlayerInputs(List<CannonInstance> cannons,
-            List<PlayerInputSystem> playerInputHandlers)
-        {
-            for (int i = 0; i < cannons.Count; ++i)
-            {
-                cannons[i].ConnectCannonToPlayer(playerInputHandlers[i]);
-            }
-        }
+        // public static void ConnectCannonsToPlayerInputs(List<CannonInstance> cannons,
+        //     List<PlayerInputSystem> playerInputHandlers)
+        // {
+        //     for (int i = 0; i < cannons.Count; ++i)
+        //     {
+        //         cannons[i].ConnectCannonToPlayer(playerInputHandlers[i]);
+        //     }
+        // }
 
         #endregion
 
