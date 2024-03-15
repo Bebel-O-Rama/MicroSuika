@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,10 +14,10 @@ namespace MultiSuika.Player
         private Stack<PlayerInformation> _playersInformation;
         private IntReference _numberOfActivePlayer;
 
-        private void OnEnable()
+        public void Init()
         {
             _playersInformation ??= new Stack<PlayerInformation>();
-            _numberOfActivePlayer = new IntReference
+            _numberOfActivePlayer ??= new IntReference
                 { UseConstant = false, Variable = CreateInstance<IntVariable>() };
             UpdateNumberOfActivePlayer();
         }
@@ -41,20 +40,13 @@ namespace MultiSuika.Player
             return playerInfo.GetPlayerIndexReference();
         }
 
-
         public IntReference GetNumberOfActivePlayer() => _numberOfActivePlayer;
         public InputDevice PeekInputDevice() => _playersInformation.Peek().GetInputDevice();
 
         public List<InputDevice> GetOrderedInputDevices()
         {
-            if (_playersInformation == null || _playersInformation.Count == 0)
-            {
-                Debug.LogError(
-                    "You're trying to GetPlayersInformation() while the _playerInformation is not yet initialized or empty");
-                return null;
-            }
-
-            return _playersInformation.OrderByDescending(pi => pi.GetPlayerIndexReference()).Select(pi => pi.GetInputDevice())
+            return _playersInformation.OrderByDescending(pi => pi.GetPlayerIndexReference())
+                .Select(pi => pi.GetInputDevice())
                 .ToList();
         }
 

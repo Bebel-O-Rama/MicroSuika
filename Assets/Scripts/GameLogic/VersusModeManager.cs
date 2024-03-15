@@ -15,8 +15,6 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
         
-        private int _numberOfActivePlayer;
-        private List<PlayerInputHandler> _playerInputHandlers;
         private GameObject _versusGameInstance;
         private List<ContainerInstance> _containers;
         private List<CannonInstance> _cannons;
@@ -27,17 +25,17 @@ namespace MultiSuika.GameLogic
     
         private void Awake()
         {
-            _numberOfActivePlayer = gameData.GetConnectedPlayerQuantity();
+            int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
         
             // TODO: REMOVE THIS TEMP LINE (fake the player count)
-            _numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : _numberOfActivePlayer;
+            numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : numberOfActivePlayer;
             
             //// Init and set containers
-            _containers = Initializer.InstantiateContainers(_numberOfActivePlayer, gameModeData);
+            _containers = Initializer.InstantiateContainers(numberOfActivePlayer, gameModeData);
             Initializer.SetContainersParameters(_containers, gameModeData);
         
             //// Init and set cannons
-            _cannons = Initializer.InstantiateCannons(_numberOfActivePlayer, gameModeData,
+            _cannons = Initializer.InstantiateCannons(numberOfActivePlayer, gameModeData,
                 _containers);
             Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.GetPlayerScoreReferences(), this);
         
@@ -47,10 +45,7 @@ namespace MultiSuika.GameLogic
             {
                 failCond.SetCondition(this);
             }
-            
-            //// Init and set playerInputHandlers
-            _playerInputHandlers = Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
-            
+
             for (int i = 0; i < _cannons.Count; ++i)
             {
                 _cannons[i].SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));

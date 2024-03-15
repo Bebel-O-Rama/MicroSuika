@@ -63,9 +63,6 @@ namespace MultiSuika.GameLogic
         [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
         [SerializeField] private FloatReference _debugScoreMultiplier;
 
-        private int _numberOfActivePlayer;
-        private List<PlayerInputHandler> _playerInputHandlers;
-        private GameObject _versusGameInstance;
         private List<ContainerInstance> _containers;
         private List<CannonInstance> _cannons;
         private BallTracker _ballTracker = new BallTracker();
@@ -109,26 +106,21 @@ namespace MultiSuika.GameLogic
         
         private void Start()
         {
-            _numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
+            int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
 
             // TODO: REMOVE THIS TEMP LINE (fake the player count)
-            _numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : _numberOfActivePlayer;
+            numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : numberOfActivePlayer;
 
             //// Init and set containers
             _containers =
-                Initializer.InstantiateContainers(_numberOfActivePlayer, gameModeData);
+                Initializer.InstantiateContainers(numberOfActivePlayer, gameModeData);
             Initializer.SetContainersParameters(_containers, gameModeData);
 
             //// Init and set cannons
-            _cannons = Initializer.InstantiateCannons(_numberOfActivePlayer, gameModeData,
+            _cannons = Initializer.InstantiateCannons(numberOfActivePlayer, gameModeData,
                 _containers);
             Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData,
                 gameData.GetPlayerScoreReferences(), this);
-
-            //// Init and set playerInputHandlers
-            _playerInputHandlers =
-                Initializer.InstantiatePlayerInputHandlers(gameData.GetConnectedPlayersData(), gameModeData);
-            // Initializer.ConnectCannonsToPlayerInputs(_cannons, _playerInputHandlers);
 
             for (int i = 0; i < _cannons.Count; ++i)
             {

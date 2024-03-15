@@ -46,9 +46,9 @@ namespace MultiSuika.Manager
         private void Awake()
         {
             _instance = this;
+            _playerInformationData.Init();
             InitializePlayerInputHandler();
         }
-        
 
         public void SetJoiningEnabled(bool isEnabled)
         {
@@ -110,7 +110,18 @@ namespace MultiSuika.Manager
             var handler = _playerInputHandler.Pop();
             Destroy(handler.gameObject);
         }
+        
+        private void UpdatePlayerJoining()
+        {
+            if (!_isJoiningEnabled)
+                return;
 
+            if (GetNumberOfActivePlayer() < _maximumNumberOfPlayer)
+                _playerInputManager.EnableJoining();
+            else
+                _playerInputManager.DisableJoining();
+        }
+        
         private void InitializePlayerInputHandler()
         {
             _playerInputHandler = new Stack<PlayerInputHandler>();
@@ -123,17 +134,6 @@ namespace MultiSuika.Manager
                 var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: inputDevices[i]);
                 PushPlayerInputHandler(playerInputObj);
             }
-        }
-
-        private void UpdatePlayerJoining()
-        {
-            if (!_isJoiningEnabled)
-                return;
-
-            if (GetNumberOfActivePlayer() < _maximumNumberOfPlayer)
-                _playerInputManager.EnableJoining();
-            else
-                _playerInputManager.DisableJoining();
         }
 
         private PlayerInputHandler InstantiatePlayerInputHandler()

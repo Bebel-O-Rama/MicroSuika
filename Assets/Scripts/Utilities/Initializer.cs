@@ -14,25 +14,6 @@ namespace MultiSuika.Utilities
 {
     public static class Initializer
     {
-        #region Player
-
-        public static List<PlayerInputHandler> InstantiatePlayerInputHandlers(List<PlayerDataOLD> connectedPlayerData,
-            GameModeData gameModeData)
-        {
-            List<PlayerInputHandler> instantiatedPlayerInputHandlers = new List<PlayerInputHandler>();
-            foreach (var playerData in connectedPlayerData)
-            {
-                var playerInputObj = PlayerInput.Instantiate(gameModeData.playerInputPrefab,
-                    playerData.playerIndexNumber,
-                    pairWithDevice: playerData.inputDevice);
-                instantiatedPlayerInputHandlers.Add(playerInputObj.GetComponentInParent<PlayerInputHandler>());
-            }
-
-            return instantiatedPlayerInputHandlers;
-        }
-
-        #endregion
-
         #region Container
 
         public static List<ContainerInstance> InstantiateContainers(int playerCount,
