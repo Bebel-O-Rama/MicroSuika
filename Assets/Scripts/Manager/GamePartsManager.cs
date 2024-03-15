@@ -22,12 +22,12 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        private ContainerInformation _containerInformation;
+        private ContainerTracker _containerTracker;
 
         // TODO: Check if that's necessary
-        public void Initialize()
+        public void Awake()
         {
-            _containerInformation = new ContainerInformation();
+            _containerTracker = new ContainerTracker();
         }
         
         
@@ -37,51 +37,5 @@ namespace MultiSuika.Manager
     }
 
 
-    public class ContainerInformation
-    {
-        private List<ContainerInstance> _containerInstances;
-        private Dictionary<int, ContainerInstance> _containerPerPlayer;
 
-        // TODO: Check if that's necessary
-        public ContainerInformation()
-        {
-            _containerInstances = new List<ContainerInstance>();
-            _containerPerPlayer = new Dictionary<int, ContainerInstance>();
-        }
-        
-        public void AddNewContainer(ContainerInstance container)
-        {
-            if (!CheckIfContainerRegistered(container))
-                _containerInstances.Add(container);
-        }
-
-        public void ClearContainer(ContainerInstance container)
-        {
-            _containerInstances.Remove(container);
-            foreach (var item in _containerPerPlayer.Where(kvp => kvp.Value == container).ToList())
-            {
-                _containerPerPlayer.Remove(item.Key);
-            }
-        }
-
-        public void ConnectPlayerToContainer(int playerIndex, ContainerInstance container)
-        {
-            if (!CheckIfContainerRegistered(container))
-            {
-                AddNewContainer(container);
-            }
-
-            if (_containerPerPlayer.ContainsKey(playerIndex))
-                return; // Something weird is happening
-            _containerPerPlayer.Add(playerIndex, container);
-        }
-
-        public ContainerInstance GetContainerFromPlayerIndex(int playerIndex) => _containerPerPlayer[playerIndex];
-
-        public List<int> GetPlayerIndexFromContainer(ContainerInstance container) => _containerPerPlayer
-            .Where(kvp => kvp.Value == container).Select(kvp => kvp.Key).ToList();
-
-        private bool CheckIfContainerRegistered(ContainerInstance container) =>
-            _containerInstances.Find(c => c.GetInstanceID() == container.GetInstanceID());
-    }
 }

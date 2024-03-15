@@ -17,7 +17,7 @@ namespace MultiSuika.Player
         public void Init()
         {
             _playersInformation ??= new Stack<PlayerInformation>();
-            _numberOfActivePlayer ??= new IntReference
+            _numberOfActivePlayer = new IntReference
                 { UseConstant = false, Variable = CreateInstance<IntVariable>() };
             UpdateNumberOfActivePlayer();
         }
@@ -30,23 +30,23 @@ namespace MultiSuika.Player
             _playersInformation.Push(newPlayerInformation);
             UpdateNumberOfActivePlayer();
 
-            return newPlayerInformation.GetPlayerIndexReference();
+            return newPlayerInformation.PlayerIndex;
         }
 
         public int PopPlayerInformation()
         {
             var playerInfo = _playersInformation.Pop();
             UpdateNumberOfActivePlayer();
-            return playerInfo.GetPlayerIndexReference();
+            return playerInfo.PlayerIndex;
         }
 
         public IntReference GetNumberOfActivePlayer() => _numberOfActivePlayer;
-        public InputDevice PeekInputDevice() => _playersInformation.Peek().GetInputDevice();
+        public InputDevice PeekInputDevice() => _playersInformation.Peek().InputDevice;
 
         public List<InputDevice> GetOrderedInputDevices()
         {
-            return _playersInformation.OrderByDescending(pi => pi.GetPlayerIndexReference())
-                .Select(pi => pi.GetInputDevice())
+            return _playersInformation.OrderByDescending(pi => pi.PlayerIndex)
+                .Select(pi => pi.InputDevice)
                 .ToList();
         }
 
@@ -55,16 +55,13 @@ namespace MultiSuika.Player
 
     public class PlayerInformation
     {
-        private readonly int _playerIndex;
-        private readonly InputDevice _inputDevice;
+        public int PlayerIndex { get; }
+        public InputDevice InputDevice { get; }
 
         public PlayerInformation(int playerIndex, InputDevice inputDevice)
         {
-            _playerIndex = playerIndex;
-            _inputDevice = inputDevice;
+            PlayerIndex = playerIndex;
+            InputDevice = inputDevice;
         }
-
-        public int GetPlayerIndexReference() => _playerIndex;
-        public InputDevice GetInputDevice() => _inputDevice;
     }
 }

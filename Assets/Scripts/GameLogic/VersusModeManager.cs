@@ -12,7 +12,6 @@ namespace MultiSuika.GameLogic
 {
     public class VersusModeManager : MonoBehaviour, IGameModeManager
     {
-        [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
         
         private GameObject _versusGameInstance;
@@ -37,7 +36,7 @@ namespace MultiSuika.GameLogic
             //// Init and set cannons
             _cannons = Initializer.InstantiateCannons(numberOfActivePlayer, gameModeData,
                 _containers);
-            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, gameData.GetPlayerScoreReferences(), this);
+            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, ScoreManager.Instance.GetPlayerScoreReferences(), this);
         
             //// Link conditions to the VersusMode instance
             var versusFailConditions = _versusGameInstance.GetComponentsInChildren<VersusFailCondition>().ToList();

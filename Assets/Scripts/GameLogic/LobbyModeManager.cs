@@ -16,8 +16,6 @@ namespace MultiSuika.GameLogic
 {
     public class LobbyModeManager : MonoBehaviour, IGameModeManager
     {
-        [Header("Manager Base Parameters")] 
-        [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
 
         [Header("Lobby Specific Parameters")] [SerializeField]
@@ -32,8 +30,6 @@ namespace MultiSuika.GameLogic
 
         private void Start()
         {
-            int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
-
             _cannons = new List<CannonInstance>();
             _containers = new List<ContainerInstance>();
             _ballTracker = new BallTracker();
@@ -71,7 +67,7 @@ namespace MultiSuika.GameLogic
 
             CannonInstance newCannonInstance = Initializer.InstantiateCannon(gameModeData, _containers[0]);
             Initializer.SetCannonParameters(newCannonInstance, _containers[0], _ballTracker, gameModeData,
-                gameData.GetPlayerScoreReference(index), gameModeData.skinData.playersSkinData[index], this);
+                ScoreManager.Instance.GetPlayerScoreReference(index), gameModeData.skinData.playersSkinData[index], this);
             newCannonInstance.SetInputParameters(newPlayerInputHandler);
             newCannonInstance.SetCannonInputEnabled(true);
             _cannons.Add(newCannonInstance);
@@ -81,7 +77,7 @@ namespace MultiSuika.GameLogic
             Color popupColor = gameModeData.skinData.playersSkinData[index].baseColor;
             AddPlayerJoinPopup(index, newCannonInstance, popupColor);
 
-            ConnectToLobbyScore(gameData.GetPlayerScoreReference(index), lobbyScore[index], popupColor);
+            ConnectToLobbyScore(ScoreManager.Instance.GetPlayerScoreReference(index), lobbyScore[index], popupColor);
         }
 
         private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
@@ -100,7 +96,7 @@ namespace MultiSuika.GameLogic
 
             _cannons.Clear();
             
-            gameData.ResetPlayerScores();
+            ScoreManager.Instance.ResetScoreInformation();
         }
 
         private void AddPlayerJoinPopup(int playerIndex, CannonInstance cannonInstance, Color randColor)

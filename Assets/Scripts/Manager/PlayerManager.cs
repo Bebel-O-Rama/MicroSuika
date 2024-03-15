@@ -46,6 +46,7 @@ namespace MultiSuika.Manager
         private void Awake()
         {
             _instance = this;
+            
             _playerInformationData.Init();
             InitializePlayerInputHandler();
         }

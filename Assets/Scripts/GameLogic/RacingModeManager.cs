@@ -6,7 +6,6 @@ using MultiSuika.Container;
 using MultiSuika.DebugInfo;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
-using MultiSuika.Player;
 using UnityEngine;
 
 namespace MultiSuika.GameLogic
@@ -50,7 +49,6 @@ namespace MultiSuika.GameLogic
         [SerializeField] private FloatReference _minAdaptiveVerticalRange;
 
         [Header("GameMode Parameters")] 
-        [SerializeField] public GameData gameData;
         [SerializeField] public GameModeData gameModeData;
 
         [Header("DEBUG parameters")] 
@@ -120,7 +118,7 @@ namespace MultiSuika.GameLogic
             _cannons = Initializer.InstantiateCannons(numberOfActivePlayer, gameModeData,
                 _containers);
             Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData,
-                gameData.GetPlayerScoreReferences(), this);
+                ScoreManager.Instance.GetPlayerScoreReferences(), this);
 
             for (int i = 0; i < _cannons.Count; ++i)
             {
