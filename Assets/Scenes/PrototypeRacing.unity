@@ -1176,6 +1176,50 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &380685918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 380685919}
+  - component: {fileID: 380685920}
+  m_Layer: 0
+  m_Name: Game Parts Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &380685919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380685918}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 522236600}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &380685920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380685918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8056f90b28fa7d478679da5b29de368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &407812847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,8 +1449,8 @@ Transform:
   m_Children:
   - {fileID: 825600732}
   - {fileID: 877577913}
-  - {fileID: 1173024228}
   - {fileID: 1558437326}
+  - {fileID: 380685919}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &589667660
@@ -1886,7 +1930,6 @@ MonoBehaviour:
     UseRandomRange: 0
     RandomCoefficient: 0
     Variable: {fileID: 0}
-  gameData: {fileID: 11400000, guid: 5bdc908c29e245f44873c819ea8f2762, type: 2}
   gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
   useDebugSpawnContainer: 0
   debugFakeNumberCount: 2
@@ -3345,7 +3388,7 @@ GameObject:
   - component: {fileID: 1173024230}
   - component: {fileID: 1173024229}
   m_Layer: 0
-  m_Name: Audio Manager
+  m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3364,7 +3407,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 522236600}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1173024229
 MonoBehaviour:
@@ -5593,4 +5636,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 55574749}
   - {fileID: 407812848}
+  - {fileID: 1173024228}
   - {fileID: 889928176}

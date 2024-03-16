@@ -33,6 +33,9 @@ namespace MultiSuika.Cannon
                 _cannonTrackerInformation.Remove(info);
         }
 
+        public List<CannonInstance> GetCannons() =>
+            _cannonTrackerInformation.Select(info => info.CannonInstance).ToList();
+
         private CannonInstance GetCannonFromPlayer(int playerIndex) =>
             _cannonTrackerInformation.FirstOrDefault(c => c.PlayerIndex == playerIndex)?.CannonInstance;
 

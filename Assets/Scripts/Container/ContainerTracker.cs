@@ -49,6 +49,9 @@ namespace MultiSuika.Container
             if (info != null)
                 _containerTrackerInformation.Remove(info);
         }
+        
+        public List<ContainerInstance> GetContainers() =>
+            _containerTrackerInformation.Select(info => info.ContainerInstance).ToList();
 
         public ContainerInstance GetContainerFromPlayer(int playerIndex) =>
             _containerTrackerInformation.FirstOrDefault(

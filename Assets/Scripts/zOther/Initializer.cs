@@ -222,7 +222,7 @@ namespace MultiSuika.Utilities
             return objects.transform;
         }
         
-        private static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
+        public static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
             DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
 
         private static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
