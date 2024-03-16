@@ -24,14 +24,10 @@ namespace MultiSuika.GameLogic
         [SerializeField] public GameObject onJoinPopup;
         [SerializeField] public List<Scoreboard> lobbyScore;
 
-        private List<CannonInstance> _cannons = new List<CannonInstance>();
-        private List<ContainerInstance> _containers = new List<ContainerInstance>();
         private BallTracker _ballTracker = new BallTracker();
 
         private void Start()
         {
-            _cannons = new List<CannonInstance>();
-            _containers = new List<ContainerInstance>();
             _ballTracker = new BallTracker();
 
             var lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
@@ -40,15 +36,18 @@ namespace MultiSuika.GameLogic
                 trigger.SetNumberOfActivePlayerParameters(PlayerManager.Instance.GetNumberOfActivePlayer());
             }
 
-            _containers = Initializer.InstantiateContainers(0, gameModeData);
+            var containers = Initializer.InstantiateContainers(0, gameModeData);
 
+            GamePartsManager.Instance.ContainerTracker.AddNewContainer(containers[0]);
+            
             PlayerManager.Instance.SetJoiningEnabled(true);
             PlayerManager.Instance.SubscribePlayerPush(NewPlayerDetected);
         }
 
         public void ResetPlayers()
         {
-            DisconnectPlayers();
+            GamePartsManager.Instance.CannonTracker.ClearCannons();
+            ScoreManager.Instance.ResetScoreInformation();
             foreach (var ls in lobbyScore)
                 ls.playerScore = null;
             PlayerManager.Instance.ClearAllPlayers();
@@ -60,24 +59,28 @@ namespace MultiSuika.GameLogic
             SceneManager.LoadScene(nextSceneName);
         }
 
-        private void NewPlayerDetected(int index, PlayerInput playerInput)
+        private void NewPlayerDetected(int playerIndex, PlayerInput playerInput)
         {
+            // Register the player for the container
+            var mainContainer = GamePartsManager.Instance.ContainerTracker.GetContainerByIndex(0);
+            GamePartsManager.Instance.ContainerTracker.ConnectPlayerToContainer(mainContainer, playerIndex);
+            
             // Instantiate and Set CannonInstance
-            var newPlayerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
+            var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
 
-            CannonInstance newCannonInstance = Initializer.InstantiateCannon(gameModeData, _containers[0]);
-            Initializer.SetCannonParameters(newCannonInstance, _containers[0], _ballTracker, gameModeData,
-                ScoreManager.Instance.GetPlayerScoreReference(index), gameModeData.skinData.playersSkinData[index], this);
-            newCannonInstance.SetInputParameters(newPlayerInputHandler);
-            newCannonInstance.SetCannonInputEnabled(true);
-            _cannons.Add(newCannonInstance);
-
-
+            CannonInstance cannonInstance = Initializer.InstantiateCannon(gameModeData, mainContainer);
+            Initializer.SetCannonParameters(cannonInstance, mainContainer, _ballTracker, gameModeData,
+                ScoreManager.Instance.GetPlayerScoreReference(playerIndex), gameModeData.skinData.playersSkinData[playerIndex], this);
+            cannonInstance.SetInputParameters(playerInputHandler);
+            cannonInstance.SetCannonInputEnabled(true);
+            
+            GamePartsManager.Instance.CannonTracker.AddNewCannon(cannonInstance, playerIndex);
+            
             // Feedback
-            Color popupColor = gameModeData.skinData.playersSkinData[index].baseColor;
-            AddPlayerJoinPopup(index, newCannonInstance, popupColor);
+            Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
+            AddPlayerJoinPopup(playerIndex, cannonInstance, popupColor);
 
-            ConnectToLobbyScore(ScoreManager.Instance.GetPlayerScoreReference(index), lobbyScore[index], popupColor);
+            ConnectToLobbyScore(ScoreManager.Instance.GetPlayerScoreReference(playerIndex), lobbyScore[playerIndex], popupColor);
         }
 
         private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
@@ -85,19 +88,7 @@ namespace MultiSuika.GameLogic
             scoreboard.playerScore = scoreRef.Variable;
             scoreboard.connectedColor = color;
         }
-
-        private void DisconnectPlayers()
-        {
-            foreach (var cannon in _cannons)
-            {
-                cannon.DestroyCurrentBall();
-                Destroy(cannon.gameObject);
-            }
-
-            _cannons.Clear();
-            
-            ScoreManager.Instance.ResetScoreInformation();
-        }
+        
 
         private void AddPlayerJoinPopup(int playerIndex, CannonInstance cannonInstance, Color randColor)
         {

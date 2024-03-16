@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using MultiSuika.Ball;
+using MultiSuika.Cannon;
 using MultiSuika.Container;
+using MultiSuika.GameLogic;
 using UnityEngine;
 
 namespace MultiSuika.Manager
@@ -22,20 +25,18 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        private ContainerTracker _containerTracker;
+        public readonly ContainerTracker ContainerTracker = new ContainerTracker();
+        public readonly CannonTracker CannonTracker = new CannonTracker();
+        public readonly BallTracker BallTracker = new BallTracker();
 
-        // TODO: Check if that's necessary
-        public void Awake()
+        private void Awake()
         {
-            _containerTracker = new ContainerTracker();
+            _instance = this;
+            Init();
         }
-        
-        
 
-
-
+        private void Init()
+        {
+        }
     }
-
-
-
 }

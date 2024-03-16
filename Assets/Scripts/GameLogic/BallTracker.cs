@@ -8,8 +8,8 @@ namespace MultiSuika.GameLogic
 {
     public class BallTracker
     {
-        private Dictionary<ContainerInstance, List<BallInstance>> _ballsPerContainer = new Dictionary<ContainerInstance, List<BallInstance>>();
-        private Dictionary<ContainerInstance, FloatReference> _ballAreaPerContainer = new Dictionary<ContainerInstance, FloatReference>();
+        private readonly Dictionary<ContainerInstance, List<BallInstance>> _ballsPerContainer = new Dictionary<ContainerInstance, List<BallInstance>>();
+        private readonly Dictionary<ContainerInstance, FloatReference> _ballAreaPerContainer = new Dictionary<ContainerInstance, FloatReference>();
 
         public List<BallInstance> GetBallsForContainer(ContainerInstance containerInstance) =>
             _ballsPerContainer.ContainsKey(containerInstance) 

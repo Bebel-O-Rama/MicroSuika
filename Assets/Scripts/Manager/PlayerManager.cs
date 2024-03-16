@@ -46,9 +46,7 @@ namespace MultiSuika.Manager
         private void Awake()
         {
             _instance = this;
-            
-            _playerInformationData.Init();
-            InitializePlayerInputHandler();
+            Init();
         }
 
         public void SetJoiningEnabled(bool isEnabled)
@@ -123,6 +121,23 @@ namespace MultiSuika.Manager
                 _playerInputManager.DisableJoining();
         }
         
+        private PlayerInputHandler InstantiatePlayerInputHandler()
+        {
+            var playerIndex = _playerInputHandler.Count - 1;
+            if (playerIndex != GetNumberOfActivePlayer() - 1)
+                Debug.LogError(
+                    "Trying to spawn a PlayerInputHandler, but the playerIndex doesn't match with the index of the player added last.");
+            var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, playerIndex,
+                pairWithDevice: _playerInformationData.PeekInputDevice());
+            return playerInputObj.GetComponentInParent<PlayerInputHandler>();
+        }
+
+        private void Init()
+        {
+            _playerInformationData.Init();
+            InitializePlayerInputHandler();
+        }
+        
         private void InitializePlayerInputHandler()
         {
             _playerInputHandler = new Stack<PlayerInputHandler>();
@@ -135,17 +150,6 @@ namespace MultiSuika.Manager
                 var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: inputDevices[i]);
                 PushPlayerInputHandler(playerInputObj);
             }
-        }
-
-        private PlayerInputHandler InstantiatePlayerInputHandler()
-        {
-            var playerIndex = _playerInputHandler.Count - 1;
-            if (playerIndex != GetNumberOfActivePlayer() - 1)
-                Debug.LogError(
-                    "Trying to spawn a PlayerInputHandler, but the playerIndex doesn't match with the index of the player added last.");
-            var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, playerIndex,
-                pairWithDevice: _playerInformationData.PeekInputDevice());
-            return playerInputObj.GetComponentInParent<PlayerInputHandler>();
         }
 
         #region Getter

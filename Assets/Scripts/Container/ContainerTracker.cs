@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Utilities;
@@ -9,12 +7,8 @@ namespace MultiSuika.Container
 {
     public class ContainerTracker
     {
-        private List<ContainerTrackerInformation> _containerTrackerInformation;
-
-        public ContainerTracker()
-        {
+        private readonly List<ContainerTrackerInformation>
             _containerTrackerInformation = new List<ContainerTrackerInformation>();
-        }
 
         public void AddNewContainer(ContainerInstance container)
         {
@@ -39,29 +33,40 @@ namespace MultiSuika.Container
             containerInfo.SetPlayerIndex(playerIndex);
         }
 
-        public void ClearContainer(ContainerInstance container = null)
+        public void ClearContainers()
         {
-            if (container == null)
-            {
-                _containerTrackerInformation.Clear();
-                return;
-            }
-
-            _containerTrackerInformation.RemoveAll(
-                c => c.ContainerInstance.GetInstanceID() == container.GetInstanceID());
+            for (int i = _containerTrackerInformation.Count - 1; i >= 0; i--)
+                ClearContainer(_containerTrackerInformation[i].ContainerInstance);
         }
-        
-        private ContainerInstance GetContainerFromPlayer(int playerIndex) =>
-            _containerTrackerInformation.First(c => c.ContainsPlayerIndex(playerIndex)).ContainerInstance;
 
+        public void ClearContainer(ContainerInstance container)
+        {
+            var info = _containerTrackerInformation.FirstOrDefault(info =>
+                info.ContainerInstance.GetInstanceID() == container.GetInstanceID());
+
+            Object.Destroy(container.gameObject);
+
+            if (info != null)
+                _containerTrackerInformation.Remove(info);
+        }
+
+        public ContainerInstance GetContainerFromPlayer(int playerIndex) =>
+            _containerTrackerInformation.FirstOrDefault(
+                c => c.ContainsPlayerIndex(playerIndex))?.ContainerInstance;
+
+        public ContainerInstance GetContainerByIndex(int index) =>
+            _containerTrackerInformation.GetElementAtIndexOrDefault(index)?.ContainerInstance;
+            
+        
         private List<int> GetPlayersFromContainer(ContainerInstance container) => _containerTrackerInformation
-            .First(c => c.ContainerInstance == container).PlayerIndexes;
+            .FirstOrDefault(c => c.ContainerInstance == container)?.PlayerIndexes;
 
         private bool IsContainerRegistered(ContainerInstance container) =>
             GetInformationFromContainer(container) != null;
 
         private ContainerTrackerInformation GetInformationFromContainer(ContainerInstance container) =>
-            _containerTrackerInformation.First(c => c.ContainerInstance.GetInstanceID() == container.GetInstanceID());
+            _containerTrackerInformation.FirstOrDefault(c =>
+                c.ContainerInstance.GetInstanceID() == container.GetInstanceID());
     }
 
     public class ContainerTrackerInformation
@@ -73,9 +78,8 @@ namespace MultiSuika.Container
             List<int> playerIndexes = null)
         {
             if (playerIndex != -1 && playerIndexes != null)
-            {
-                throw new ArgumentException("Only one of playerIndex or playerIndexes can be specified.");
-            }
+                Debug.LogError("Only one of playerIndex or playerIndexes can be specified.");
+
 
             ContainerInstance = containerInstance;
 
