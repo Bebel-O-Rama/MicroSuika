@@ -1,23 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
-    public abstract class ItemTracker<T> : MonoBehaviour where T : Component
+    public abstract class ItemTracker<T, U> : MonoBehaviour where T : Component where U : ItemInformation<T>
     {
-        protected readonly List<ItemInformation<T>> _itemInformation = new List<ItemInformation<T>>();
-        
-        public virtual void AddNewItem(T item, List<int> playerIndex = null)
-        {
-            _itemInformation.Add(new ItemInformation<T>(item, playerIndex));
-        }
+        protected readonly List<U> _itemInformation = new List<U>();
+        protected abstract U CreateInformationInstance(T item, List<int> playerIndex);
 
-        public virtual void AddNewItem(T item, int playerIndex)
-        {
-            _itemInformation.Add(new ItemInformation<T>(item, playerIndex));
-        }
+        public void AddNewItem(T item, int playerIndex) =>
+            AddNewItem(item, new List<int> { playerIndex });
+
+        public void AddNewItem(T item, List<int> playerIndex = null) =>
+            _itemInformation.Add(CreateInformationInstance(item, playerIndex));
         
         public virtual void ClearItem(T item)
         {
@@ -28,10 +24,26 @@ namespace MultiSuika.Utilities
 
         public void ClearItems()
         {
-            Debug.Log("Start");
             for (int i = _itemInformation.Count - 1; i >= 0; i--)
                 ClearItem(_itemInformation[i].Item);
-            Debug.Log("Finish");
+        }
+
+        public void SetPlayerForItem(int playerIndex, T item, bool isAdding = true) =>
+            SetPlayerForItem(new List<int> { playerIndex }, item, isAdding);
+
+
+        public void SetPlayerForItem(List<int> playerIndex, T item, bool isAdding = true)
+        {
+            _itemInformation
+                .Where(info => info.CompareItem(item))
+                .ToList()
+                .ForEach(info =>
+                {
+                    if (isAdding)
+                        info.AddPlayerIndex(playerIndex);
+                    else
+                        info.RemovePlayerIndex(playerIndex);
+                });
         }
 
         public T GetItemByIndex(int index)
@@ -62,7 +74,7 @@ namespace MultiSuika.Utilities
 
         protected bool IsItemRegistered(T item) => GetInformationFromItem(item) != null;
 
-        private ItemInformation<T> GetInformationFromItem(T item) =>
+        private U GetInformationFromItem(T item) =>
             _itemInformation.FirstOrDefault(c => c.CompareItem(item));
     }
 
@@ -74,25 +86,16 @@ namespace MultiSuika.Utilities
         public ItemInformation(T item, List<int> playerIndex = null)
         {
             Item = item;
-            PlayerIndex = new List<int>(playerIndex);
-        }
-        
-        public ItemInformation(T item, int playerIndex)
-        {
-            Item = item;
-            PlayerIndex = new List<int>() { playerIndex };
+            PlayerIndex = playerIndex?.ToList() ?? new List<int>();
         }
 
         public virtual bool CompareItem(T item) => Item == item;
-        
+
         public bool ContainsPlayerIndex(int playerIndex) => PlayerIndex.Contains(playerIndex);
 
-        public void AddPlayerIndex(int playerIndex) => AddPlayerIndex(new List<int>(playerIndex));
+        public void AddPlayerIndex(int playerIndex) => AddPlayerIndex(new List<int> { playerIndex });
         public void AddPlayerIndex(List<int> playerIndex) => PlayerIndex.AddRange(playerIndex.Except(PlayerIndex));
-        public void RemovePlayerIndex(int playerIndex) => RemovePlayerIndex(new List<int>(playerIndex));
+        public void RemovePlayerIndex(int playerIndex) => RemovePlayerIndex(new List<int> { playerIndex });
         public void RemovePlayerIndex(List<int> playerIndex) => PlayerIndex.RemoveAll(playerIndex.Contains);
-
-
-
     }
 }

@@ -1,101 +1,38 @@
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using MultiSuika.Utilities;
-using UnityEngine;
 
 namespace MultiSuika.Container
 {
-    public class ContainerTracker
+    public class ContainerTracker : ItemTracker<ContainerInstance, ContainerTrackerInformation>
     {
-        private readonly List<ContainerTrackerInformation>
-            _containerTrackerInformation = new List<ContainerTrackerInformation>();
+        #region Singleton
 
-        public void AddNewContainer(ContainerInstance container)
+        [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
+        public static ContainerTracker Instance => _instance ??= new ContainerTracker();
+
+        private static ContainerTracker _instance;
+
+        private ContainerTracker()
         {
-            var containerInfo = GetInformationFromContainer(container);
-            if (containerInfo == null)
-                _containerTrackerInformation.Add(new ContainerTrackerInformation(container));
         }
 
-        public void ConnectPlayerToContainer(ContainerInstance container, int playerIndex)
+        private void Awake()
         {
-            var containerInfo = GetInformationFromContainer(container);
-
-            if (containerInfo != null && containerInfo.ContainsPlayerIndex(playerIndex))
-                return;
-
-            if (containerInfo == null)
-            {
-                _containerTrackerInformation.Add(new ContainerTrackerInformation(container, playerIndex));
-                return;
-            }
-
-            containerInfo.SetPlayerIndex(playerIndex);
+            _instance = this;
         }
+        #endregion
 
-        public void ClearContainers()
+        protected override ContainerTrackerInformation CreateInformationInstance(ContainerInstance item, List<int> playerIndex)
         {
-            for (int i = _containerTrackerInformation.Count - 1; i >= 0; i--)
-                ClearContainer(_containerTrackerInformation[i].ContainerInstance);
+            return new ContainerTrackerInformation(item, playerIndex);
         }
-
-        public void ClearContainer(ContainerInstance container)
-        {
-            var info = _containerTrackerInformation.FirstOrDefault(info =>
-                info.ContainerInstance.GetInstanceID() == container.GetInstanceID());
-
-            Object.Destroy(container.gameObject);
-
-            if (info != null)
-                _containerTrackerInformation.Remove(info);
-        }
-        
-        public List<ContainerInstance> GetContainers() =>
-            _containerTrackerInformation.Select(info => info.ContainerInstance).ToList();
-
-        public ContainerInstance GetContainerFromPlayer(int playerIndex) =>
-            _containerTrackerInformation.FirstOrDefault(
-                c => c.ContainsPlayerIndex(playerIndex))?.ContainerInstance;
-
-        public ContainerInstance GetContainerByIndex(int index) =>
-            _containerTrackerInformation.GetElementAtIndexOrDefault(index)?.ContainerInstance;
-            
-        
-        private List<int> GetPlayersFromContainer(ContainerInstance container) => _containerTrackerInformation
-            .FirstOrDefault(c => c.ContainerInstance == container)?.PlayerIndexes;
-
-        private bool IsContainerRegistered(ContainerInstance container) =>
-            GetInformationFromContainer(container) != null;
-
-        private ContainerTrackerInformation GetInformationFromContainer(ContainerInstance container) =>
-            _containerTrackerInformation.FirstOrDefault(c =>
-                c.ContainerInstance.GetInstanceID() == container.GetInstanceID());
     }
 
-    public class ContainerTrackerInformation
+    public class ContainerTrackerInformation : ItemInformation<ContainerInstance>
     {
-        public ContainerInstance ContainerInstance { get; }
-        public List<int> PlayerIndexes { get; }
-
-        public ContainerTrackerInformation(ContainerInstance containerInstance, int playerIndex = -1,
-            List<int> playerIndexes = null)
+        public ContainerTrackerInformation(ContainerInstance item, List<int> playerIndex) : base(item, playerIndex)
         {
-            if (playerIndex != -1 && playerIndexes != null)
-                Debug.LogError("Only one of playerIndex or playerIndexes can be specified.");
-
-
-            ContainerInstance = containerInstance;
-
-            PlayerIndexes = new List<int>();
-            if (playerIndex >= 0)
-                PlayerIndexes.Add(playerIndex);
-            else if (playerIndexes != null)
-                PlayerIndexes = new List<int>(playerIndexes);
         }
-
-        public void SetPlayerIndex(int playerIndex, bool isAdding = true) =>
-            PlayerIndexes.SetInList(playerIndex, isAdding);
-
-        public bool ContainsPlayerIndex(int playerIndex) => PlayerIndexes.Contains(playerIndex);
     }
 }

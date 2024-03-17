@@ -64,7 +64,7 @@ namespace MultiSuika.GameLogic
         [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
         [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
         [SerializeField] private FloatReference _debugScoreMultiplier;
-        
+
         private BallTracker _ballTracker = new BallTracker();
 
         private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
@@ -119,23 +119,21 @@ namespace MultiSuika.GameLogic
             // TEMP STUFF BEFORE I TWEAK THE CONTAINERS
             foreach (var container in containers)
             {
-                GamePartsManager.Instance.ContainerTracker.AddNewContainer(container);
+                ContainerTracker.Instance.AddNewItem(container);
             }
-
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
-                GamePartsManager.Instance.ContainerTracker.ConnectPlayerToContainer(
-                    containers[Initializer.GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], i);
+                ContainerTracker.Instance.SetPlayerForItem(i, 
+                    containers[Initializer.GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)]);
             }
 
 
             //// Init and set cannons
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
-                var container = GamePartsManager.Instance.ContainerTracker.GetContainerFromPlayer(i);
+                var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
                 var cannon = Initializer.InstantiateCannon(gameModeData, container);
-                // GamePartsManager.Instance.CannonTracker.AddNewCannon(cannon, i);
-                CannonTracker.Instance.AddNewItem(cannon, i);                
+                CannonTracker.Instance.AddNewItem(cannon, i);
 
                 Initializer.SetCannonParameters(cannon, container, _ballTracker, gameModeData,
                     ScoreManager.Instance.GetPlayerScoreReference(i), gameModeData.skinData.playersSkinData[i], this);
@@ -200,7 +198,7 @@ namespace MultiSuika.GameLogic
             _playerLeadTimer = new Dictionary<ContainerInstance, FloatReference>();
             _playersYPositionRatio = new Dictionary<ContainerInstance, FloatReference>();
 
-            foreach (var container in GamePartsManager.Instance.ContainerTracker.GetContainers())
+            foreach (var container in ContainerTracker.Instance.GetItems())
             {
                 FloatReference newCurrentSpeedVar = new FloatReference
                     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
@@ -232,7 +230,7 @@ namespace MultiSuika.GameLogic
         {
             // TODO: clean up this, it's for a quick test
             var playerIndex = 1;
-            foreach (var container in GamePartsManager.Instance.ContainerTracker.GetContainers())
+            foreach (var container in ContainerTracker.Instance.GetItems())
             {
                 var containerRacing = container.GetComponent<ContainerRacingMode>();
                 containerRacing.SetAreaParameters(_ballTracker.GetBallAreaForContainer(container), _containerMaxArea);
@@ -349,7 +347,7 @@ namespace MultiSuika.GameLogic
             foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.DisconnectCannonToPlayer();
 
-            foreach (var container in GamePartsManager.Instance.ContainerTracker.GetContainers())
+            foreach (var container in ContainerTracker.Instance.GetItems())
             {
                 if (container != _currentContainerInstanceInLead)
                     container.ContainerFailure();

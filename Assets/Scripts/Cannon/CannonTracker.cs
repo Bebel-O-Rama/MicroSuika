@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using MultiSuika.Manager;
 using MultiSuika.Utilities;
-using UnityEngine;
 
 namespace MultiSuika.Cannon
 {
-    public class CannonTracker : ItemTracker<CannonInstance>
+    public class CannonTracker : ItemTracker<CannonInstance, CannonTrackerInformation>
     {
         #region Singleton
 
@@ -20,12 +17,16 @@ namespace MultiSuika.Cannon
         {
         }
 
-        
         private void Awake()
         {
             _instance = this;
         }
         #endregion
+
+        protected override CannonTrackerInformation CreateInformationInstance(CannonInstance item, List<int> playerIndex)
+        {
+            return new CannonTrackerInformation(item, playerIndex);
+        }
 
         public override void ClearItem(CannonInstance item)
         {
@@ -36,7 +37,7 @@ namespace MultiSuika.Cannon
 
     public class CannonTrackerInformation : ItemInformation<CannonInstance>
     {
-        public CannonTrackerInformation(CannonInstance item, List<int> playerIndex = null) : base(item, playerIndex)
+        public CannonTrackerInformation(CannonInstance item, List<int> playerIndex) : base(item, playerIndex)
         {
         }
     }
