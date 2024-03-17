@@ -46,7 +46,8 @@ namespace MultiSuika.GameLogic
 
         public void ResetPlayers()
         {
-            GamePartsManager.Instance.CannonTracker.ClearCannons();
+            CannonTracker.Instance.ClearItems();
+            
             ScoreManager.Instance.ResetScoreInformation();
             foreach (var ls in lobbyScore)
                 ls.playerScore = null;
@@ -74,7 +75,9 @@ namespace MultiSuika.GameLogic
             cannonInstance.SetInputParameters(playerInputHandler);
             cannonInstance.SetCannonInputEnabled(true);
             
-            GamePartsManager.Instance.CannonTracker.AddNewCannon(cannonInstance, playerIndex);
+            // GamePartsManager.Instance.CannonTracker.AddNewCannon(cannonInstance, playerIndex);
+            
+            CannonTracker.Instance.AddNewItem(cannonInstance, playerIndex);
             
             // Feedback
             Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;

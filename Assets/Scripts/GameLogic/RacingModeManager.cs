@@ -134,7 +134,8 @@ namespace MultiSuika.GameLogic
             {
                 var container = GamePartsManager.Instance.ContainerTracker.GetContainerFromPlayer(i);
                 var cannon = Initializer.InstantiateCannon(gameModeData, container);
-                GamePartsManager.Instance.CannonTracker.AddNewCannon(cannon, i);
+                // GamePartsManager.Instance.CannonTracker.AddNewCannon(cannon, i);
+                CannonTracker.Instance.AddNewItem(cannon, i);                
 
                 Initializer.SetCannonParameters(cannon, container, _ballTracker, gameModeData,
                     ScoreManager.Instance.GetPlayerScoreReference(i), gameModeData.skinData.playersSkinData[i], this);
@@ -345,7 +346,7 @@ namespace MultiSuika.GameLogic
             if (_currentContainerInstanceInLead == null || _playerLeadTimer[_currentContainerInstanceInLead] > 0f)
                 return;
 
-            foreach (var cannon in GamePartsManager.Instance.CannonTracker.GetCannons())
+            foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.DisconnectCannonToPlayer();
 
             foreach (var container in GamePartsManager.Instance.ContainerTracker.GetContainers())

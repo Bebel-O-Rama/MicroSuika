@@ -1,62 +1,43 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using MultiSuika.Manager;
+using MultiSuika.Utilities;
 using UnityEngine;
 
 namespace MultiSuika.Cannon
 {
-    public class CannonTracker
+    public class CannonTracker : ItemTracker<CannonInstance>
     {
-        private readonly List<CannonTrackerInformation>
-            _cannonTrackerInformation = new List<CannonTrackerInformation>();
+        #region Singleton
+
+        [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
+        public static CannonTracker Instance => _instance ??= new CannonTracker();
+
+        private static CannonTracker _instance;
+
+        private CannonTracker()
+        {
+        }
+
         
-        public void AddNewCannon(CannonInstance cannon, int playerIndex)
+        private void Awake()
         {
-            if (IsCannonRegistered(cannon))
-                return;
-            _cannonTrackerInformation.Add(new CannonTrackerInformation(cannon, playerIndex));
+            _instance = this;
         }
+        #endregion
 
-        public void ClearCannons()
+        public override void ClearItem(CannonInstance item)
         {
-            for (int i = _cannonTrackerInformation.Count - 1; i >= 0; i--)
-                ClearCannon(_cannonTrackerInformation[i].CannonInstance);
+            item.DestroyCurrentBall();
+            base.ClearItem(item);
         }
-        public void ClearCannon(CannonInstance cannon)
-        {
-            var info = _cannonTrackerInformation.FirstOrDefault(info =>
-                info.CannonInstance.GetInstanceID() == cannon.GetInstanceID());
-            
-            cannon.DestroyCurrentBall();
-            Object.Destroy(cannon.gameObject);
-            
-            if (info != null)
-                _cannonTrackerInformation.Remove(info);
-        }
-
-        public List<CannonInstance> GetCannons() =>
-            _cannonTrackerInformation.Select(info => info.CannonInstance).ToList();
-
-        private CannonInstance GetCannonFromPlayer(int playerIndex) =>
-            _cannonTrackerInformation.FirstOrDefault(c => c.PlayerIndex == playerIndex)?.CannonInstance;
-
-        private int GetPlayerFromCannon(CannonInstance cannon) => _cannonTrackerInformation
-            .FirstOrDefault(c => c.CannonInstance == cannon)?.PlayerIndex ?? -1;
-
-        private bool IsCannonRegistered(CannonInstance cannon) => GetInformationFromCannon(cannon) != null;
-
-        private CannonTrackerInformation GetInformationFromCannon(CannonInstance cannon) =>
-            _cannonTrackerInformation.FirstOrDefault(c => c.CannonInstance.GetInstanceID() == cannon.GetInstanceID());
     }
 
-    public class CannonTrackerInformation
+    public class CannonTrackerInformation : ItemInformation<CannonInstance>
     {
-        public CannonInstance CannonInstance { get; }
-        public int PlayerIndex { get; }
-
-        public CannonTrackerInformation(CannonInstance cannonInstance, int playerIndex)
+        public CannonTrackerInformation(CannonInstance item, List<int> playerIndex = null) : base(item, playerIndex)
         {
-            CannonInstance = cannonInstance;
-            PlayerIndex = playerIndex;
         }
     }
 }

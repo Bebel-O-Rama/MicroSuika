@@ -5,17 +5,33 @@ using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
-    public abstract class ItemTracker<T> : MonoBehaviour
+    public abstract class ItemTracker<T> : MonoBehaviour where T : Component
     {
-        private readonly List<ItemInformation<T>> _itemInformation = new List<ItemInformation<T>>();
+        protected readonly List<ItemInformation<T>> _itemInformation = new List<ItemInformation<T>>();
+        
+        public virtual void AddNewItem(T item, List<int> playerIndex = null)
+        {
+            _itemInformation.Add(new ItemInformation<T>(item, playerIndex));
+        }
 
-        public abstract void AddNewItem(T item);
-        public abstract void ClearItem(T item);
+        public virtual void AddNewItem(T item, int playerIndex)
+        {
+            _itemInformation.Add(new ItemInformation<T>(item, playerIndex));
+        }
+        
+        public virtual void ClearItem(T item)
+        {
+            var info = GetInformationFromItem(item);
+            Destroy(item.gameObject);
+            _itemInformation.Remove(info);
+        }
 
         public void ClearItems()
         {
+            Debug.Log("Start");
             for (int i = _itemInformation.Count - 1; i >= 0; i--)
                 ClearItem(_itemInformation[i].Item);
+            Debug.Log("Finish");
         }
 
         public T GetItemByIndex(int index)
@@ -30,13 +46,13 @@ namespace MultiSuika.Utilities
                 .Select(info => info.Item)
                 .ToList();
 
-        public List<T> GetItemsWithPlayer(int playerIndex) =>
+        public List<T> GetItemsByPlayer(int playerIndex) =>
             _itemInformation
                 .Where(info => info.ContainsPlayerIndex(playerIndex))
                 .Select(info => info.Item)
                 .ToList();
 
-        public List<int> GetPlayersWithItem(T item) =>
+        public List<int> GetPlayersByItem(T item) =>
             _itemInformation
                 .Where(info => info.CompareItem(item))
                 .SelectMany(info => info.PlayerIndex)
@@ -44,19 +60,39 @@ namespace MultiSuika.Utilities
                 .OrderBy(index => index)
                 .ToList();
 
-
-        private bool IsItemRegistered(T item) => GetInformationFromItem(item) != null;
+        protected bool IsItemRegistered(T item) => GetInformationFromItem(item) != null;
 
         private ItemInformation<T> GetInformationFromItem(T item) =>
             _itemInformation.FirstOrDefault(c => c.CompareItem(item));
     }
 
-    public abstract class ItemInformation<T>
+    public class ItemInformation<T> where T : Component
     {
         public T Item { get; }
         public List<int> PlayerIndex { get; }
 
-        public abstract bool CompareItem(T item);
+        public ItemInformation(T item, List<int> playerIndex = null)
+        {
+            Item = item;
+            PlayerIndex = new List<int>(playerIndex);
+        }
+        
+        public ItemInformation(T item, int playerIndex)
+        {
+            Item = item;
+            PlayerIndex = new List<int>() { playerIndex };
+        }
+
+        public virtual bool CompareItem(T item) => Item == item;
+        
         public bool ContainsPlayerIndex(int playerIndex) => PlayerIndex.Contains(playerIndex);
+
+        public void AddPlayerIndex(int playerIndex) => AddPlayerIndex(new List<int>(playerIndex));
+        public void AddPlayerIndex(List<int> playerIndex) => PlayerIndex.AddRange(playerIndex.Except(PlayerIndex));
+        public void RemovePlayerIndex(int playerIndex) => RemovePlayerIndex(new List<int>(playerIndex));
+        public void RemovePlayerIndex(List<int> playerIndex) => PlayerIndex.RemoveAll(playerIndex.Contains);
+
+
+
     }
 }

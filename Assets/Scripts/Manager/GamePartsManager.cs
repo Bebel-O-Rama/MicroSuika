@@ -26,7 +26,7 @@ namespace MultiSuika.Manager
         #endregion
 
         public readonly ContainerTracker ContainerTracker = new ContainerTracker();
-        public readonly CannonTracker CannonTracker = new CannonTracker();
+        // public readonly CannonTracker CannonTracker = new CannonTracker();
         public readonly BallTracker BallTracker = new BallTracker();
 
         private void Awake()
