@@ -54,6 +54,9 @@ namespace MultiSuika.GameLogic
         public void ExitLobby()
         {
             PlayerManager.Instance.SetJoiningEnabled(false);
+            ContainerTracker.Instance.ClearItems();
+            CannonTracker.Instance.ClearItems();
+            
             SceneManager.LoadScene(nextSceneName);
         }
 

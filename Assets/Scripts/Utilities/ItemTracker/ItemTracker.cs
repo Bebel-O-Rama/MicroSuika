@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
-    public abstract class ItemTracker<T, U> : MonoBehaviour where T : Component where U : ItemInformation<T>
+    public abstract class ItemTracker<T, U> where T : Component where U : ItemInformation<T>
     {
         protected readonly List<U> _itemInformation = new List<U>();
         protected abstract U CreateInformationInstance(T item, List<int> playerIndex);
@@ -18,14 +18,22 @@ namespace MultiSuika.Utilities
         public virtual void ClearItem(T item)
         {
             var info = GetInformationFromItem(item);
-            Destroy(item.gameObject);
+            if (info == null)
+                return;
+            GameObject.Destroy(item.gameObject);
             _itemInformation.Remove(info);
         }
 
         public void ClearItems()
         {
             for (int i = _itemInformation.Count - 1; i >= 0; i--)
-                ClearItem(_itemInformation[i].Item);
+            {
+                var item = _itemInformation[i].Item;
+                if (item != null)
+                    ClearItem(_itemInformation[i].Item);
+                else
+                    _itemInformation.RemoveAt(i);
+            }
         }
 
         public void SetPlayerForItem(int playerIndex, T item, bool isAdding = true) =>
