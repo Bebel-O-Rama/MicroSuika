@@ -1,3 +1,4 @@
+using System.Xml.Schema;
 using UnityEngine;
 
 namespace MultiSuika.Utilities
@@ -26,6 +27,11 @@ namespace MultiSuika.Utilities
         public void ApplyChange(float amount)
         {
             Value += amount;
+        }
+        
+        public void ApplyChangeClamp(float amount, float min = Mathf.NegativeInfinity, float max = Mathf.Infinity)
+        {
+            Value = Mathf.Clamp(Value + amount, min, max);
         }
 
         public void ApplyChange(FloatVariable amount)
