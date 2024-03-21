@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d387b7f50d6430da65de93c746c4e2e, type: 3}
+  m_Name: Combo Score Modifier
+  m_EditorClassIdentifier: 
+  developerDescription: 
+  isAppliedOnLowerTarget:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  timerFullDuration:
+    UseConstant: 1
+    ConstantValue: 5
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  isDecreasingMaxTimer:
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 0}
+  fullTimerDecrementValue:
+    UseConstant: 1
+    ConstantValue: 0.1
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  fullTimerMinValue:
+    UseConstant: 1
+    ConstantValue: 2
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}

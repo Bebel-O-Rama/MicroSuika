@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: effff752c625407459b7da195d06901a, type: 3}
-  m_Name: ContainerDamageScoreModifier
+  m_Name: Container Damage Score Modifier
   m_EditorClassIdentifier: 
   developerDescription: 
   damageMultiplier:
     UseConstant: 1
     ConstantValue: 2
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  percentageInstant:
+    UseConstant: 1
+    ConstantValue: 0.6
     UseRandomRange: 0
     RandomCoefficient: 0
     Variable: {fileID: 0}

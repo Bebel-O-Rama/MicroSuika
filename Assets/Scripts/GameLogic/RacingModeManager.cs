@@ -46,8 +46,8 @@ namespace MultiSuika.GameLogic
         [Tooltip("The animation curve can't be modified at runtime")] [SerializeField]
         private AnimationCurve _dampingCurvePercent; // (0.0;0.0), (0.5;0.015), (1.0;0.05)
 
-        [Header("Area Parameters")] [SerializeField]
-        private FloatReference _containerMaxArea; // 60
+        // [Header("Area Parameters")] [SerializeField]
+        // private FloatReference _containerMaxArea; // 60
 
         [Header("Combo Parameters")] [SerializeField]
         private FloatReference _comboTimerFull; // 3
@@ -129,11 +129,12 @@ namespace MultiSuika.GameLogic
 
         private void Start()
         {
+            ScoreHandler.Instance.SetActive(true);
+
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
 
             // TODO: REMOVE THIS TEMP LINE (fake the player count)
             numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : numberOfActivePlayer;
-
 
             var containers =
                 Initializer.InstantiateContainers(numberOfActivePlayer, gameModeData);
@@ -175,7 +176,9 @@ namespace MultiSuika.GameLogic
         {
             if (!_isGameInProgress)
                 return;
-
+            
+            ScoreHandler.Instance.UpdateScore();
+            
             // TODO: Clean this once we "hard set" the damping method
             _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
 

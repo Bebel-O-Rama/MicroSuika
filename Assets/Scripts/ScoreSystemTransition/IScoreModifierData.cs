@@ -3,17 +3,16 @@ using UnityEngine;
 
 namespace MultiSuika.ScoreSystemTransition
 {
-    public interface IScoreModifierData
+    public interface IScoreModifierData<in TArgs>
     {
-        public ScoreModifierStatus ApplyModifier();
-
+        public void SetParameters(int playerIndex, TArgs args);
         public void SetActive(bool isActive);
+        public ScoreModifierStatus ApplyModifier();
     }
 
     public enum ScoreModifierStatus
     {
         Continue,
         Stop
-        
     }
 }

@@ -31,9 +31,24 @@ namespace MultiSuika.Manager
             for (int i = 0; i < 4; i++)
             {
                 var scoreHandler = Object.Instantiate(scoreHandlerData);
-                scoreHandler.Init(i);
+                scoreHandler.SetParameters(i);
                 _scoreHandlers.Add(scoreHandler);
-                
+            }
+        }
+
+        public void SetActive(bool isActive)
+        {
+            foreach (var scoreHandler in _scoreHandlers)
+            {
+                scoreHandler.SetActive(true);
+            }
+        }
+
+        public void UpdateScore()
+        {
+            foreach (var scoreHandler in _scoreHandlers)
+            {
+                scoreHandler.UpdateScore();
             }
         }
 

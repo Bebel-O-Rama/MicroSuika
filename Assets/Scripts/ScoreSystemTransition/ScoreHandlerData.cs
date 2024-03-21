@@ -13,15 +13,15 @@ namespace MultiSuika.ScoreSystemTransition
 #endif
         public int PlayerIndex { get; private set; }
 
-        public void Init(int playerIndex)
+        public void SetParameters(int playerIndex)
         {
             PlayerIndex = playerIndex;
-            Init();
+            SetParameters();
         }
+
+        public abstract void SetActive(bool isActive);
         
-        protected abstract void Init();
-
-
+        protected abstract void SetParameters();
 
         public abstract void UpdateScore();
 

@@ -6,27 +6,26 @@ using UnityEngine;
 namespace MultiSuika.ScoreSystemTransition
 {
     [CreateAssetMenu(menuName = "Score/Modifiers/Container Damage")]
-    public class ContainerDamageScoreModifier : ScriptableObject, IScoreModifierData
+    public class ContainerDamageScoreModifier : ScriptableObject,
+        IScoreModifierData<(FloatReference currentSpeed, FloatReference targetSpeed)>
     {
 #if UNITY_EDITOR
-        [Multiline]
-        public string developerDescription = "";
-#endif    
+        [Multiline] public string developerDescription = "";
+#endif
         public FloatReference damageMultiplier;
+        public FloatReference percentageInstant;
         private float _damageValue;
-        private bool _isActive;
+
         private int _playerIndex;
-        private FloatReference _targetSpeed;
         private FloatReference _currentSpeed;
+        private FloatReference _targetSpeed;
+        private bool _isActive;
 
-        public ScoreModifierStatus ApplyModifier()
+        public void SetParameters(int playerIndex, (FloatReference currentSpeed, FloatReference targetSpeed) args)
         {
-            if (!_isActive || _damageValue < Mathf.Epsilon)
-                return ScoreModifierStatus.Continue;
-
-            _targetSpeed.Variable.ApplyChangeClamp(_currentSpeed-_damageValue, min: 0f);
-            _damageValue = 0;
-            return ScoreModifierStatus.Stop;
+            _playerIndex = playerIndex;
+            _currentSpeed = args.currentSpeed;
+            _targetSpeed = args.targetSpeed;
         }
 
         public void SetActive(bool isActive)
@@ -38,14 +37,17 @@ namespace MultiSuika.ScoreSystemTransition
                 ContainerTracker.Instance.OnContainerHit.Subscribe(OnContainerHit, _playerIndex);
             else
                 ContainerTracker.Instance.OnContainerHit.Unsubscribe(OnContainerHit, _playerIndex);
-                
         }
 
-        public void Init(int playerIndex, FloatReference targetSpeed, FloatReference currentSpeed)
+        public ScoreModifierStatus ApplyModifier()
         {
-            _playerIndex = playerIndex;
-            _targetSpeed = targetSpeed;
-            _currentSpeed = currentSpeed;
+            if (!_isActive || _damageValue < Mathf.Epsilon)
+                return ScoreModifierStatus.Continue;
+            
+            _currentSpeed.Variable.ApplyChangeClamp(_currentSpeed - _damageValue * percentageInstant, min: 0f);
+            _targetSpeed.Variable.ApplyChangeClamp(_currentSpeed - _damageValue * (percentageInstant - 1f), min: 0f);
+            _damageValue = 0;
+            return ScoreModifierStatus.Stop;
         }
 
         private void OnContainerHit((BallInstance ball, ContainerInstance container) args)

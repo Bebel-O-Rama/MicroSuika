@@ -52,6 +52,7 @@ namespace MultiSuika.GameLogic
 
         private void Start()
         {
+            ScoreHandler.Instance.SetActive(true);
             // _ballTracker = new BallTracker();
 
             var lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
@@ -63,6 +64,11 @@ namespace MultiSuika.GameLogic
 
             PlayerManager.Instance.SetJoiningEnabled(true);
             PlayerManager.Instance.SubscribePlayerPush(NewPlayerDetected);
+        }
+
+        private void Update()
+        {
+            _scoreHandlerData.UpdateScore();
         }
 
         public void ResetPlayers()

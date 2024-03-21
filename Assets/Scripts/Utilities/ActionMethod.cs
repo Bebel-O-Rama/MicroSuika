@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
-    
     public class ActionMethod<TArgs>
     {
         private HashSet<Action<TArgs>> _actions = new HashSet<Action<TArgs>>();

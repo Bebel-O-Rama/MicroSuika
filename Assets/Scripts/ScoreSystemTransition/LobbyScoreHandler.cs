@@ -9,12 +9,17 @@ namespace MultiSuika.ScoreSystemTransition
     public class LobbyScoreHandler : ScoreHandlerData
     {
         private FloatReference _currentScore;
-        protected override void Init()
+
+        protected override void SetParameters()
         {
             _currentScore = new FloatReference();
-            BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusion, PlayerIndex);
         }
 
+        public override void SetActive(bool isActive)
+        {
+            BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusion, PlayerIndex);
+        }
+        
         public override void UpdateScore()
         {
         }
