@@ -22,7 +22,7 @@ namespace MultiSuika.Cannon
             _instance = this;
         }
         #endregion
-
+        
         protected override CannonTrackerInformation CreateInformationInstance(CannonInstance item, List<int> playerIndex)
         {
             return new CannonTrackerInformation(item, playerIndex);

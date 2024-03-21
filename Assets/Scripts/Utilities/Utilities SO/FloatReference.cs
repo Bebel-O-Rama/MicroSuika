@@ -13,14 +13,18 @@ namespace MultiSuika.Utilities
         [Range(0f, 1f)] public float RandomCoefficient = 0f;
         public FloatVariable Variable;
 
-        public FloatReference()
-        {
-        }
+        // public FloatReference()
+        // {
+        // }
 
-        public FloatReference(float value)
+        public FloatReference(float value = default, bool useConstant = false)
         {
-            UseConstant = true;
+            UseConstant = useConstant;
             ConstantValue = value;
+            if (UseConstant) 
+                return;
+            Variable = ScriptableObject.CreateInstance<FloatVariable>();
+            Variable.SetValue(value);
         }
 
         public float Value

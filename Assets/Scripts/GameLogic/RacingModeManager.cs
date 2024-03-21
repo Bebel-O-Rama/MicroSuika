@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.DebugInfo;
 using MultiSuika.Manager;
+using MultiSuika.ScoreSystemTransition;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -12,6 +15,22 @@ namespace MultiSuika.GameLogic
 {
     public class RacingModeManager : MonoBehaviour, IGameModeManager
     {
+        // #region Singleton
+        //
+        // [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
+        // public static RacingModeManager Instance => _instance ??= new RacingModeManager();
+        //
+        // private static RacingModeManager _instance;
+        //
+        // private RacingModeManager()
+        // {
+        // }
+        //
+        // #endregion
+        // [Header("Score Parameters")]
+        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        // public ScoreHandler ScoreHandler { get; private set; }
+
         [Header("Speed Parameters")] [SerializeField]
         private FloatReference _speedSoftCap; // 1000
 
@@ -64,9 +83,7 @@ namespace MultiSuika.GameLogic
         [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
         [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
         [SerializeField] private FloatReference _debugScoreMultiplier;
-
-        private BallTracker _ballTracker = new BallTracker();
-
+        
         private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
         private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
         private Dictionary<ContainerInstance, BoolReference> _playerLeadStatus;
@@ -104,6 +121,12 @@ namespace MultiSuika.GameLogic
             AnimCurve
         }
 
+        private void Awake()
+        {
+            ScoreHandler.Instance.Initialize(_scoreHandlerData);
+        }
+
+
         private void Start()
         {
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
@@ -135,8 +158,8 @@ namespace MultiSuika.GameLogic
                 var cannon = Initializer.InstantiateCannon(gameModeData, container);
                 CannonTracker.Instance.AddNewItem(cannon, i);
 
-                Initializer.SetCannonParameters(cannon, container, _ballTracker, gameModeData,
-                    ScoreManager.Instance.GetPlayerScoreReference(i), gameModeData.skinData.playersSkinData[i], this);
+                Initializer.SetCannonParameters(i, cannon, container, gameModeData,
+                    ScoreHandler.Instance.GetPlayerScoreReference(i), gameModeData.skinData.playersSkinData[i], this);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
             }
@@ -233,7 +256,7 @@ namespace MultiSuika.GameLogic
             foreach (var container in ContainerTracker.Instance.GetItems())
             {
                 var containerRacing = container.GetComponent<ContainerRacingMode>();
-                containerRacing.SetAreaParameters(_ballTracker.GetBallAreaForContainer(container), _containerMaxArea);
+                // containerRacing.SetAreaParameters(_containerMaxArea);
                 containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed,
                     _speedSoftCap, _firstPlayerSpeed, _lastPlayerSpeed);
                 containerRacing.SetDampingParameters(_dampingMethodIndex, _dampingFixedPercent, _dampingFixedValue,
@@ -353,11 +376,12 @@ namespace MultiSuika.GameLogic
                     container.ContainerFailure();
                 else
                     container.ContainerSuccess();
-
-                foreach (var ball in _ballTracker.GetBallsForContainer(container))
-                    ball.SetSimulatedParameters(false);
             }
 
+            foreach (var ball in BallTracker.Instance.GetItems())
+            {
+                ball.SetSimulatedParameters(false);
+            }
             _isGameInProgress = false;
         }
 

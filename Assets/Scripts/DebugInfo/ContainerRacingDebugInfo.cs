@@ -47,7 +47,7 @@ namespace MultiSuika.DebugInfo
         [SerializeField] private TMP_Text _tmpPositionRatioAbridged;
         
         // Score parameters
-        private IntReference _playerScore;
+        private FloatReference _playerScore;
         
         // Area parameters
         private FloatReference _areaPercentFilled;
@@ -184,7 +184,7 @@ namespace MultiSuika.DebugInfo
         #endregion
 
         #region Setter
-        public void SetScoreParameters(IntReference playerScore) => _playerScore = playerScore;
+        public void SetScoreParameters(FloatReference playerScore) => _playerScore = playerScore;
 
         public void SetBallAreaParameters(FloatReference areaPercentFilled) => _areaPercentFilled = areaPercentFilled;
 

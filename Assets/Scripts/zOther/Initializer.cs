@@ -33,18 +33,18 @@ namespace MultiSuika.Utilities
                 : 0f;
 
             Transform objHolder = GetObjectsHolder();
-            
+
             for (int i = 0; i < containerToSpawn; i++)
             {
                 ContainerInstance newContainerInstance = Object.Instantiate(gameModeData.containerInstancePrefab);
                 ResetLocalTransform(newContainerInstance.transform);
 
                 instantiatedContainers.Add(newContainerInstance);
-                
+
                 GameObject containerParent = new GameObject($"Container ({(i + 1)})");
                 containerParent.transform.SetParent(objHolder, false);
                 newContainerInstance.ContainerParent = containerParent;
-                
+
                 containerParent.transform.position =
                     gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
                     (i * distanceBetweenContainers);
@@ -93,7 +93,8 @@ namespace MultiSuika.Utilities
 
         public static CannonInstance InstantiateCannon(GameModeData gameModeData, ContainerInstance containerInstance)
         {
-            var newCannon = Object.Instantiate(gameModeData.cannonInstancePrefab, containerInstance.ContainerParent.transform);
+            var newCannon = Object.Instantiate(gameModeData.cannonInstancePrefab,
+                containerInstance.ContainerParent.transform);
             ResetLocalTransform(newCannon.transform);
 
             float xPos = gameModeData.isCannonSpawnXPosRandom
@@ -106,21 +107,22 @@ namespace MultiSuika.Utilities
         }
 
         public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
-            BallTracker ballTracker, GameModeData gameModeData,
-            List<IntReference> playerScoreRefs, IGameModeManager gameModeManager)
+            GameModeData gameModeData, List<FloatReference> playerScoreRefs, IGameModeManager gameModeManager)
         {
             for (int i = 0; i < cannons.Count; ++i)
             {
-                SetCannonParameters(cannons[i],
-                    containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)], ballTracker,
+                SetCannonParameters(i, cannons[i],
+                    containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
                     gameModeData, playerScoreRefs[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
             }
         }
 
-        public static void SetCannonParameters(CannonInstance cannonInstance, ContainerInstance containerInstance,
-            BallTracker ballTracker, GameModeData gameModeData,
-            IntReference playerScoreRef, PlayerSkinData playerSkinData, IGameModeManager gameModeManager)
+        public static void SetCannonParameters(int playerIndex, CannonInstance cannonInstance, ContainerInstance containerInstance,
+            GameModeData gameModeData, FloatReference playerScoreRef, PlayerSkinData playerSkinData,
+            IGameModeManager gameModeManager)
         {
+            cannonInstance.SetPlayerIndex(playerIndex);
+            
             cannonInstance.speed = gameModeData.cannonSpeed;
             cannonInstance.reloadCooldown = gameModeData.cannonReloadCooldown;
             cannonInstance.shootingForce = gameModeData.cannonShootingForce;
@@ -132,7 +134,6 @@ namespace MultiSuika.Utilities
             cannonInstance.ballSpriteData = playerSkinData.ballTheme;
             cannonInstance.scoreReference = playerScoreRef;
             cannonInstance.containerInstance = containerInstance;
-            cannonInstance.ballTracker = ballTracker;
             cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
 
             cannonInstance.gameModeManager = gameModeManager;
@@ -154,7 +155,8 @@ namespace MultiSuika.Utilities
         public static BallInstance InstantiateBall(BallSetData ballSetData, ContainerInstance containerInstance,
             Vector3 position, float randomRotationRange = 35f)
         {
-            var newBall = Object.Instantiate(ballSetData.ballInstancePrefab, containerInstance.ContainerParent.transform);
+            var newBall = Object.Instantiate(ballSetData.ballInstancePrefab,
+                containerInstance.ContainerParent.transform);
             ResetLocalTransform(newBall.transform);
 
             newBall.transform.SetLocalPositionAndRotation(position,
@@ -221,7 +223,7 @@ namespace MultiSuika.Utilities
                 objects = new GameObject($"Objects");
             return objects.transform;
         }
-        
+
         public static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
             DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
 

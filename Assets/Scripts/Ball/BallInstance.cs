@@ -31,12 +31,13 @@ namespace MultiSuika.Ball
         public int BallTierIndex { get; private set; }
 
         public int ScoreValue { get; private set; }
+        public int PlayerIndex { get; private set; }
         public ContainerInstance ContainerInstance { get; private set; }
         public bool IsBallCleared { get; private set; }
-        private IntReference _playerScoreRef;
+        // private FloatReference _playerScoreRef;
         private BallSetData _ballSetData;
         private BallSpriteThemeData _ballSpriteThemeData;
-        private BallTracker _ballTracker;
+        // private BallTracker _ballTracker;
 
         private float _impulseForcePerUnit;
         private float _impulseExpPower;
@@ -44,6 +45,10 @@ namespace MultiSuika.Ball
 
         private Rigidbody2D _rb2d;
 
+        /// <summary>
+        /// SET THAT SOMEWHERE PLZZ!!!!
+        /// </summary>
+        private int _playerIndex;
 
         private void Awake()
         {
@@ -55,7 +60,8 @@ namespace MultiSuika.Ball
 
         public void DropBallFromCannon()
         {
-            _ballTracker.RegisterBall(this, ContainerInstance);
+            BallTracker.Instance.AddNewItem(this, _playerIndex);
+            // _ballTracker.RegisterBall(this, ContainerInstance);
             SetSimulatedParameters(true);
 
             var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
@@ -65,8 +71,9 @@ namespace MultiSuika.Ball
         public void ClearBall(bool addToScore = true)
         {
             if (addToScore)
-                _playerScoreRef?.Variable.ApplyChange(ScoreValue);
-            _ballTracker.UnregisterBall(this, ContainerInstance); 
+                BallTracker.Instance.OnBallFusion.CallAction(this, _playerIndex);
+            BallTracker.Instance.ClearItem(this);
+            // _ballTracker.UnregisterBall(this, ContainerInstance); 
             SetSimulatedParameters(false);
             IsBallCleared = true;
             Destroy(gameObject);
@@ -96,11 +103,13 @@ namespace MultiSuika.Ball
             var newBall = Initializer.InstantiateBall(_ballSetData, ContainerInstance,
                 Initializer.WorldToLocalPosition(ContainerInstance.ContainerParent.transform, contactPosition));
                 
-            newBall.SetBallParameters(BallTierIndex + 1, _ballSetData, _ballSpriteThemeData, _ballTracker, _playerScoreRef);
+            newBall.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSpriteThemeData);
             newBall.transform.SetLayerRecursively(gameObject.layer);
             newBall.SetSimulatedParameters(true);
                 
-            newBall._ballTracker.RegisterBall(newBall, ContainerInstance);
+            BallTracker.Instance.AddNewItem(newBall, newBall.PlayerIndex);
+
+            // newBall._ballTracker.RegisterBall(newBall, ContainerInstance);
             ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, newBall.gameObject);
 
 
@@ -119,13 +128,17 @@ namespace MultiSuika.Ball
         }
 
         #region Getter
-        public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
+        // public float GetBallArea() => Mathf.PI * Mathf.Pow(transform.localScale.x * 0.5f, 2);
+  
         #endregion
         
         #region Setter
-        public void SetBallParameters(int ballTierIndex, BallSetData ballSetData,
-            BallSpriteThemeData ballSpriteThemeData, BallTracker ballTracker, IntReference playerScoreRef)
+        public void SetBallParameters(int playerIndex, int ballTierIndex, BallSetData ballSetData,
+            BallSpriteThemeData ballSpriteThemeData)
         {
+            // PlayerIndex
+            _playerIndex = playerIndex;
+            
             // BallData
             BallTierIndex = ballTierIndex;
             _ballSetData = ballSetData;
@@ -133,7 +146,6 @@ namespace MultiSuika.Ball
 
             // Score
             ScoreValue = ballData.GetScoreValue();
-            _playerScoreRef = playerScoreRef;
 
             // Physics
             _rb2d.mass = ballData.mass;
@@ -162,7 +174,7 @@ namespace MultiSuika.Ball
             ContainerInstance = transform.parent.GetComponentInChildren<ContainerInstance>();
 
             // BallTracker
-            _ballTracker = ballTracker;
+            // _ballTracker = ballTracker;
         }
         
         public void SetSimulatedParameters(bool isSimulated) => rb2d.simulated = isSimulated;

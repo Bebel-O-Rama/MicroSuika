@@ -11,6 +11,9 @@ namespace MultiSuika.Cannon
     {
         [SerializeField] public SpriteRenderer spriteRenderer;
     
+        // PlayerIndex
+        private int _playerIndex;
+        
         // Cannon Parameters
         public float speed;
         public float reloadCooldown;
@@ -27,7 +30,7 @@ namespace MultiSuika.Cannon
         // Ball Parameters
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteData;
-        public IntReference scoreReference;
+        public FloatReference scoreReference;
         public ContainerInstance containerInstance;
         public BallTracker ballTracker;
         private BallInstance _currentBallInstance;
@@ -116,7 +119,7 @@ namespace MultiSuika.Cannon
             // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
             _currentBallInstance.transform.SetLayerRecursively(gameObject.layer);
             
-            _currentBallInstance.SetBallParameters(newBallIndex, ballSetData, ballSpriteData, ballTracker, scoreReference);
+            _currentBallInstance.SetBallParameters(_playerIndex, newBallIndex, ballSetData, ballSpriteData);
             _currentBallInstance.SetSimulatedParameters(false);
         }
 
@@ -124,6 +127,11 @@ namespace MultiSuika.Cannon
         public void SetInputParameters(PlayerInputHandler playerInputHandler)
         {
             _playerInputHandler = playerInputHandler;
+        }
+
+        public void SetPlayerIndex(int playerIndex)
+        {
+            _playerIndex = playerIndex;
         }
         
 

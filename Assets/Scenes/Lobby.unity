@@ -794,6 +794,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5463333027514096949, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
+      propertyPath: playerIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7061109085932636145, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: m_Name
       value: PF_Scoreboard (P2)
@@ -873,6 +877,10 @@ PrefabInstance:
     - target: {fileID: 1958236240729138707, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5463333027514096949, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
+      propertyPath: playerIndex
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7061109085932636145, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: m_Name
@@ -1778,51 +1786,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &411248283
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 411248284}
-  - component: {fileID: 411248285}
-  m_Layer: 0
-  m_Name: Score Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &411248284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411248283}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2035657283}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &411248285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411248283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 260f93e6a383ee642a2a17c768d8432d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentSpeedModifiers: []
 --- !u!1 &428361104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,50 +1819,6 @@ Transform:
   - {fileID: 373176057}
   m_Father: {fileID: 1956928706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &471154544
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 471154545}
-  - component: {fileID: 471154546}
-  m_Layer: 0
-  m_Name: Game Parts Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &471154545
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471154544}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2035657283}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &471154546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471154544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8056f90b28fa7d478679da5b29de368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &627915136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4299,8 +4218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd68125f25664d4b8d0c79cecc3d587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreHandlerData: {fileID: 11400000, guid: 3b4e83e6dc2320b4f810694bce77577d, type: 2}
   gameModeData: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
-  nextSceneName: RefactoringRacingTesting
+  nextSceneName: PrototypeRacing
   onJoinPopup: {fileID: 7707874888000536716, guid: c05f9afffd133304981240e865d0ad69, type: 3}
   lobbyScore:
   - {fileID: 1833672427}
@@ -4756,8 +4676,6 @@ Transform:
   m_Children:
   - {fileID: 1844267125}
   - {fileID: 855231944}
-  - {fileID: 411248284}
-  - {fileID: 471154545}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2074968658
@@ -5174,6 +5092,10 @@ PrefabInstance:
     - target: {fileID: 1958236240729138707, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5463333027514096949, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
+      propertyPath: playerIndex
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7061109085932636145, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: m_Name

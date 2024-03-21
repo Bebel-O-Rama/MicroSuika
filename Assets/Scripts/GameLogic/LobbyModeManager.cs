@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.Manager;
+using MultiSuika.ScoreSystemTransition;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
 using TMPro;
@@ -16,19 +18,41 @@ namespace MultiSuika.GameLogic
 {
     public class LobbyModeManager : MonoBehaviour, IGameModeManager
     {
+        // #region Singleton
+        //
+        // [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
+        // public static LobbyModeManager Instance => _instance ??= new LobbyModeManager();
+        //
+        // private static LobbyModeManager _instance;
+        //
+        // private LobbyModeManager()
+        // {
+        // }
+        //
+        // #endregion
+        //
+        // [Header("Score Parameters")]
+        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        // public ScoreManager ScoreManager { get; private set; }
+        
         [SerializeField] public GameModeData gameModeData;
 
-        [Header("Lobby Specific Parameters")] [SerializeField]
+        [Header("Lobby Specific Parameters"), SerializeField] 
         public string nextSceneName;
 
         [SerializeField] public GameObject onJoinPopup;
         [SerializeField] public List<Scoreboard> lobbyScore;
 
-        private BallTracker _ballTracker = new BallTracker();
+        // private BallTracker _ballTracker = new BallTracker();
+
+        private void Awake()
+        {
+            ScoreHandler.Instance.Initialize(_scoreHandlerData);
+        }
 
         private void Start()
         {
-            _ballTracker = new BallTracker();
+            // _ballTracker = new BallTracker();
 
             var lobbyContainerTriggers = FindObjectsOfType<LobbyContainerTrigger>().ToList();
             foreach (var trigger in lobbyContainerTriggers)
@@ -45,9 +69,9 @@ namespace MultiSuika.GameLogic
         {
             CannonTracker.Instance.ClearItems();
             
-            ScoreManager.Instance.ResetScoreInformation();
+            ScoreHandler.Instance.ResetScoreInformation();
             foreach (var ls in lobbyScore)
-                ls.playerScore = null;
+                ls.SetScoreboardActive(false);
             PlayerManager.Instance.ClearAllPlayers();
         }
 
@@ -70,8 +94,8 @@ namespace MultiSuika.GameLogic
             var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
 
             CannonInstance cannonInstance = Initializer.InstantiateCannon(gameModeData, mainContainer);
-            Initializer.SetCannonParameters(cannonInstance, mainContainer, _ballTracker, gameModeData,
-                ScoreManager.Instance.GetPlayerScoreReference(playerIndex), gameModeData.skinData.playersSkinData[playerIndex], this);
+            Initializer.SetCannonParameters(playerIndex, cannonInstance, mainContainer, gameModeData,
+                ScoreHandler.Instance.GetPlayerScoreReference(playerIndex), gameModeData.skinData.playersSkinData[playerIndex], this);
             cannonInstance.SetInputParameters(playerInputHandler);
             cannonInstance.SetCannonInputEnabled(true);
             
@@ -81,13 +105,13 @@ namespace MultiSuika.GameLogic
             Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
             AddPlayerJoinPopup(playerIndex, cannonInstance, popupColor);
 
-            ConnectToLobbyScore(ScoreManager.Instance.GetPlayerScoreReference(playerIndex), lobbyScore[playerIndex], popupColor);
+            ConnectToLobbyScore(lobbyScore[playerIndex], popupColor);
         }
 
-        private void ConnectToLobbyScore(IntReference scoreRef, Scoreboard scoreboard, Color color)
+        private void ConnectToLobbyScore(Scoreboard scoreboard, Color color)
         {
-            scoreboard.playerScore = scoreRef.Variable;
             scoreboard.connectedColor = color;
+            scoreboard.SetScoreboardActive(true);
         }
         
 

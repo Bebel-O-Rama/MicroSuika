@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
@@ -6,24 +7,47 @@ using MultiSuika.Container;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using MultiSuika.Player;
+using MultiSuika.ScoreSystemTransition;
 using UnityEngine;
 
 namespace MultiSuika.GameLogic
 {
     public class VersusModeManager : MonoBehaviour, IGameModeManager
     {
+        // #region Singleton
+        //
+        // [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
+        // public static VersusModeManager Instance => _instance ??= new VersusModeManager();
+        //
+        // private static VersusModeManager _instance;
+        //
+        // private VersusModeManager()
+        // {
+        // }
+        //
+        // #endregion
+        //
+        // [Header("Score Parameters")]
+        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        // public ScoreManager ScoreManager { get; private set; }
+        
         [SerializeField] public GameModeData gameModeData;
         
         private GameObject _versusGameInstance;
         private List<ContainerInstance> _containers;
         private List<CannonInstance> _cannons;
-        private BallTracker _ballTracker = new BallTracker();
+        // private BallTracker _ballTracker = new BallTracker();
 
         [Header("DEBUG DEBUG DEBUG")] public bool useDebugSpawnContainer = false;
         [Range(0, 4)][SerializeField] public int debugFakeNumberCount = 2;
     
         private void Awake()
         {
+            // _instance = this;
+            // ScoreManager.Init(_scoreHandlerData);
+            
+            ScoreHandler.Instance.Initialize(_scoreHandlerData);
+            
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
         
             // TODO: REMOVE THIS TEMP LINE (fake the player count)
@@ -36,7 +60,8 @@ namespace MultiSuika.GameLogic
             //// Init and set cannons
             _cannons = Initializer.InstantiateCannons(numberOfActivePlayer, gameModeData,
                 _containers);
-            Initializer.SetCannonsParameters(_cannons, _containers, _ballTracker, gameModeData, ScoreManager.Instance.GetPlayerScoreReferences(), this);
+
+            Initializer.SetCannonsParameters(_cannons, _containers, gameModeData, ScoreHandler.Instance.GetPlayerScoreReferences(), this);
         
             //// Link conditions to the VersusMode instance
             var versusFailConditions = _versusGameInstance.GetComponentsInChildren<VersusFailCondition>().ToList();
@@ -54,9 +79,7 @@ namespace MultiSuika.GameLogic
 
         public void PlayerFailure(ContainerInstance containerInstance)
         {
-            var balls = _ballTracker.GetBallsForContainer(containerInstance);
-            
-            foreach (var b in balls)
+            foreach (var b in BallTracker.Instance.GetItems())
             {
                 b.SetSimulatedParameters(false);
             }

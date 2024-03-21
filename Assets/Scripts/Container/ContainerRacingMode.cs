@@ -9,12 +9,12 @@ namespace MultiSuika.Container
     public class ContainerRacingMode : ContainerInstance
     {
         // Score parameters
-        private IntReference _playerScore;
+        private FloatReference _playerScore;
 
-        // Area parameters
-        private FloatReference _areaFilledPercent;
-        private FloatReference _areaFilled;
-        private FloatReference _containerMaxArea; // 60
+        // // Area parameters
+        // private FloatReference _areaFilledPercent;
+        // private FloatReference _areaFilled;
+        // private FloatReference _containerMaxArea; // 60
         
         // Speed parameters
         private FloatReference _currentSpeed;
@@ -73,8 +73,8 @@ namespace MultiSuika.Container
         {
             _targetSpeed = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _areaFilledPercent = _comboTimer = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            // _areaFilledPercent = _comboTimer = new FloatReference
+            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             _combo = new IntReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
             _comboTimer = new FloatReference
@@ -122,11 +122,10 @@ namespace MultiSuika.Container
         }
         
         #region Setter
-        public void SetAreaParameters(FloatReference areaFilled, FloatReference containerMaxArea)
-        {
-            _areaFilled = areaFilled;
-            _containerMaxArea = containerMaxArea;
-        }
+        // public void SetAreaParameters(FloatReference containerMaxArea)
+        // {
+        //     _containerMaxArea = containerMaxArea;
+        // }
 
         public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap, FloatReference firstPlayerSpeed, FloatReference lastPlayerSpeed)
         {
@@ -197,7 +196,7 @@ namespace MultiSuika.Container
                 return;
             
             _containerRacingDebugInfo.SetScoreParameters(_playerScore);
-            _containerRacingDebugInfo.SetBallAreaParameters(_areaFilledPercent);
+            // _containerRacingDebugInfo.SetBallAreaParameters(_areaFilledPercent);
             _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
             _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
             _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
@@ -220,8 +219,8 @@ namespace MultiSuika.Container
         
         private void UpdateData()
         {
-            // Percentage filled value
-            _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
+            // // Percentage filled value
+            // _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
             
             // Combo value
             if (_combo > 1)

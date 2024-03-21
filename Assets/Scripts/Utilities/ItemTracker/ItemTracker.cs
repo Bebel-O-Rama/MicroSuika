@@ -14,7 +14,7 @@ namespace MultiSuika.Utilities
 
         public void AddNewItem(T item, List<int> playerIndex = null) =>
             _itemInformation.Add(CreateInformationInstance(item, playerIndex));
-        
+
         public virtual void ClearItem(T item)
         {
             var info = GetInformationFromItem(item);
@@ -80,10 +80,10 @@ namespace MultiSuika.Utilities
                 .OrderBy(index => index)
                 .ToList();
 
-        protected bool IsItemRegistered(T item) => GetInformationFromItem(item) != null;
-
         private U GetInformationFromItem(T item) =>
             _itemInformation.FirstOrDefault(c => c.CompareItem(item));
+
+        private bool IsItemRegistered(T item) => GetInformationFromItem(item) != null;
     }
 
     public class ItemInformation<T> where T : Component

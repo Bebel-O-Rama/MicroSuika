@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b9a46f99d84533b845364eeba05491, type: 3}
+  m_Name: RacingScoreHandler
+  m_EditorClassIdentifier: 
+  developerDescription: 
+  containerDamageScoreModifier: {fileID: 11400000, guid: e70160b65cb18d0419a6c7334954d5bf, type: 2}
+  ballFusionScoreModifier: {fileID: 11400000, guid: 9c3f1860c2479d645b74b2d5f510a465, type: 2}
+  baseAcceleration:
+    UseConstant: 1
+    ConstantValue: 3
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
