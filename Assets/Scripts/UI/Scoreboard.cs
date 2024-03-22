@@ -1,4 +1,6 @@
 using System;
+using MultiSuika.Ball;
+using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using TMPro;
@@ -14,12 +16,13 @@ namespace MultiSuika.UI
         [SerializeField] public Color disconnectedColor;
 
         private bool _isActive;
-        private FloatReference _playerScore;
+        private int _playerScore;
 
         private void Awake()
         {
             _isActive = false;
             tmp.color = disconnectedColor;
+            _playerScore = 0;
         }
 
 
@@ -28,7 +31,7 @@ namespace MultiSuika.UI
             if (!_isActive)
                 return;
 
-            tmp.text = string.Format($"{_playerScore.Value:0}");
+            tmp.text = string.Format($"{_playerScore:0}");
         }
 
         public void SetScoreboardActive(bool isActive)
@@ -37,17 +40,24 @@ namespace MultiSuika.UI
                 return;
             if (isActive)
             {
-                _playerScore = ScoreHandler.Instance.GetPlayerScoreReference(playerIndex);
+                BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusion, playerIndex);
+                // _playerScore = ScoreHandler.Instance.GetPlayerScoreReference(playerIndex);
                 tmp.color = connectedColor;
             }
             else
             {
-                _playerScore = null;
+                BallTracker.Instance.OnBallFusion.Unsubscribe(OnBallFusion, playerIndex);
+                _playerScore = 0;
                 tmp.color = disconnectedColor;
                 tmp.text = "0";
             }
 
             _isActive = isActive;
+        }
+        
+        private void OnBallFusion(BallInstance ball)
+        {
+            _playerScore += ball.ScoreValue;
         }
     }
 }

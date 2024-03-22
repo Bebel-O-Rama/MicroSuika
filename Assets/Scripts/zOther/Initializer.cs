@@ -113,12 +113,12 @@ namespace MultiSuika.Utilities
             {
                 SetCannonParameters(i, cannons[i],
                     containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
-                    gameModeData, playerScoreRefs[i], gameModeData.skinData.playersSkinData[i], gameModeManager);
+                    gameModeData, gameModeData.skinData.playersSkinData[i], gameModeManager);
             }
         }
 
         public static void SetCannonParameters(int playerIndex, CannonInstance cannonInstance, ContainerInstance containerInstance,
-            GameModeData gameModeData, FloatReference playerScoreRef, PlayerSkinData playerSkinData,
+            GameModeData gameModeData, PlayerSkinData playerSkinData,
             IGameModeManager gameModeManager)
         {
             cannonInstance.SetPlayerIndex(playerIndex);
@@ -132,7 +132,7 @@ namespace MultiSuika.Utilities
 
             cannonInstance.ballSetData = gameModeData.ballSetData;
             cannonInstance.ballSpriteData = playerSkinData.ballTheme;
-            cannonInstance.scoreReference = playerScoreRef;
+            // cannonInstance.scoreReference = playerScoreRef;
             cannonInstance.containerInstance = containerInstance;
             cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
 

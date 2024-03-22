@@ -95,12 +95,12 @@ namespace MultiSuika.Container
             SetContainerMovementParameters();
         }
         
-        private void Update()
-        {
-            _dampingMethod = (DampingMethod)_dampingMethodIndex.Value;
-            
-            UpdateData();
-        }
+        // private void Update()
+        // {
+        //     // _dampingMethod = (DampingMethod)_dampingMethodIndex.Value;
+        //     
+        //     // UpdateData();
+        // }
 
         // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
         public void NewBallFused(float scoreValue)
@@ -217,38 +217,38 @@ namespace MultiSuika.Container
             _containerCameraMovements.SetPositionParameters(_verticalPositionRatio, _minAdaptiveVerticalRange);
         }
         
-        private void UpdateData()
-        {
-            // // Percentage filled value
-            // _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
-            
-            // Combo value
-            if (_combo > 1)
-            {
-                _comboTimer.Variable.ApplyChange(-Time.deltaTime);
-                if (_comboTimer < Mathf.Epsilon)
-                    _combo.Variable.SetValue(1);
-            }
-            
-            // Damping value
-            _targetSpeed.Variable.ApplyChange(_targetSpeed - GetDampingValue() > 0 ? -GetDampingValue() : 0f);
-            
-            // Speed value
-            // TODO: Confirm if we should use this to make sure the damping doesn't benefit from the combo
-            var acceleration = _currentSpeed < _targetSpeed ? _acceleration * (_combo * _debugScoreMultiplier) * Time.deltaTime : _acceleration;
-            _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, acceleration));
-        }
+        // private void UpdateData()
+        // {
+        //     // // Percentage filled value
+        //     // _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
+        //     
+        //     // Combo value
+        //     // if (_combo > 1)
+        //     // {
+        //     //     _comboTimer.Variable.ApplyChange(-Time.deltaTime);
+        //     //     if (_comboTimer < Mathf.Epsilon)
+        //     //         _combo.Variable.SetValue(1);
+        //     // }
+        //     
+        //     // Damping value
+        //     // _targetSpeed.Variable.ApplyChange(_targetSpeed - GetDampingValue() > 0 ? -GetDampingValue() : 0f);
+        //     
+        //     // Speed value
+        //     // TODO: Confirm if we should use this to make sure the damping doesn't benefit from the combo
+        //     // var acceleration = _currentSpeed < _targetSpeed ? _acceleration * (_combo * _debugScoreMultiplier) * Time.deltaTime : _acceleration;
+        //     // _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, acceleration));
+        // }
         
-        private float GetDampingValue()
-        {
-            return _dampingMethod switch
-            {
-                DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent * Time.deltaTime,
-                DampingMethod.Fixed => _dampingFixedValue * Time.deltaTime,
-                DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _speedSoftCap) * Time.deltaTime,
-                DampingMethod.None => 0f,
-                _ => 0f
-            };
-        }
+        // private float GetDampingValue()
+        // {
+        //     return _dampingMethod switch
+        //     {
+        //         DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent * Time.deltaTime,
+        //         DampingMethod.Fixed => _dampingFixedValue * Time.deltaTime,
+        //         DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _speedSoftCap) * Time.deltaTime,
+        //         DampingMethod.None => 0f,
+        //         _ => 0f
+        //     };
+        // }
     }
 }

@@ -159,8 +159,7 @@ namespace MultiSuika.GameLogic
                 var cannon = Initializer.InstantiateCannon(gameModeData, container);
                 CannonTracker.Instance.AddNewItem(cannon, i);
 
-                Initializer.SetCannonParameters(i, cannon, container, gameModeData,
-                    ScoreHandler.Instance.GetPlayerScoreReference(i), gameModeData.skinData.playersSkinData[i], this);
+                Initializer.SetCannonParameters(i, cannon, container, gameModeData, gameModeData.skinData.playersSkinData[i], this);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
             }
@@ -180,7 +179,7 @@ namespace MultiSuika.GameLogic
             ScoreHandler.Instance.UpdateScore();
             
             // TODO: Clean this once we "hard set" the damping method
-            _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
+            // _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
 
             UpdateSpeedParameters();
             UpdateRanking();
