@@ -10,6 +10,7 @@ using MultiSuika.Manager;
 using MultiSuika.ScoreSystemTransition;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
@@ -28,11 +29,11 @@ namespace MultiSuika.GameLogic
         //
         // #endregion
         // [Header("Score Parameters")]
-        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        // [FormerlySerializedAs("_scoreHandlerData")] [SerializeField] private ScoreHandlerDatattt scoreHandlerDatattt;
         // public ScoreHandler ScoreHandler { get; private set; }
 
         [Header("Speed Parameters")] [SerializeField]
-        private FloatReference _speedSoftCap; // 1000
+        private FloatReference _speedSoftCap; // 1200
 
         [Header("Ball Collision Parameters")] [SerializeField]
         private FloatReference _ballImpactMultiplier; // 2 
@@ -120,21 +121,11 @@ namespace MultiSuika.GameLogic
             Fixed,
             AnimCurve
         }
-
-        private void Awake()
-        {
-            ScoreHandler.Instance.Initialize(_scoreHandlerData);
-        }
-
+        
 
         private void Start()
         {
-            ScoreHandler.Instance.SetActive(true);
-
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
-
-            // TODO: REMOVE THIS TEMP LINE (fake the player count)
-            numberOfActivePlayer = useDebugSpawnContainer ? debugFakeNumberCount : numberOfActivePlayer;
 
             var containers =
                 Initializer.InstantiateContainers(numberOfActivePlayer, gameModeData);
@@ -159,7 +150,7 @@ namespace MultiSuika.GameLogic
                 var cannon = Initializer.InstantiateCannon(gameModeData, container);
                 CannonTracker.Instance.AddNewItem(cannon, i);
 
-                Initializer.SetCannonParameters(i, cannon, container, gameModeData, gameModeData.skinData.playersSkinData[i], this);
+                Initializer.SetCannonParameters(i, cannon, container, gameModeData, gameModeData.skinData.playersSkinData[i]);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
             }
@@ -176,18 +167,18 @@ namespace MultiSuika.GameLogic
             if (!_isGameInProgress)
                 return;
             
-            ScoreHandler.Instance.UpdateScore();
+            // ScoreManager.Instance.UpdateScore();
             
             // TODO: Clean this once we "hard set" the damping method
             // _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
 
-            UpdateSpeedParameters();
-            UpdateRanking();
+            // UpdateSpeedParameters();
+            // UpdateRanking();
 
             // TODO: REMOVE THIS CONDITION
-            if (checkLeadCondition)
-                UpdateLead();
-            CheckAndProcessWinCondition();
+            // if (checkLeadCondition)
+            //     UpdateLead();
+            // CheckAndProcessWinCondition();
         }
 
         private void SetRacingModeDebugInfoParameters()
@@ -275,17 +266,17 @@ namespace MultiSuika.GameLogic
             }
         }
 
-        private void UpdateSpeedParameters()
-        {
-            // Average
-            _averageSpeed.Variable.SetValue(_playerCurrentSpeedReferences.Sum(x => x.Value) /
-                                            _playerCurrentSpeedReferences.Count);
-
-            // Standard deviation
-            _standardDeviationSpeed.Variable.SetValue(Mathf.Sqrt(
-                _playerCurrentSpeedReferences.Sum(x => (x.Value - _averageSpeed) * (x.Value - _averageSpeed)) /
-                _playerCurrentSpeedReferences.Count));
-        }
+        // private void UpdateSpeedParameters()
+        // {
+        //     // Average
+        //     _averageSpeed.Variable.SetValue(_playerCurrentSpeedReferences.Sum(x => x.Value) /
+        //                                     _playerCurrentSpeedReferences.Count);
+        //
+        //     // Standard deviation
+        //     _standardDeviationSpeed.Variable.SetValue(Mathf.Sqrt(
+        //         _playerCurrentSpeedReferences.Sum(x => (x.Value - _averageSpeed) * (x.Value - _averageSpeed)) /
+        //         _playerCurrentSpeedReferences.Count));
+        // }
 
         private void UpdateRanking()
         {

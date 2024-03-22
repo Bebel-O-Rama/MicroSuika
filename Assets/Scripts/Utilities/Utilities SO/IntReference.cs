@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
@@ -9,7 +10,15 @@ namespace MultiSuika.Utilities
         public int ConstantValue;
         public IntVariable Variable;
 
-        public IntReference() { }
+        public IntReference(int value = default, bool useConstant = false)
+        {
+            UseConstant = useConstant;
+            ConstantValue = value;
+            if (UseConstant) 
+                return;
+            Variable = ScriptableObject.CreateInstance<IntVariable>();
+            Variable.SetValue(value);
+        }
 
         public IntReference(int value)
         {

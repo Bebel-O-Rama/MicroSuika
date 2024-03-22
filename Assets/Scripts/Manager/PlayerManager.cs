@@ -13,6 +13,22 @@ namespace MultiSuika.Manager
 {
     public class PlayerManager : MonoBehaviour
     {
+        #region Singleton
+        
+        public static PlayerManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+
+            Init();
+        }
+
+        #endregion
+
         [Header("Players Information")] [SerializeField] [Min(1)]
         private int _maximumNumberOfPlayer = 4;
 
@@ -29,26 +45,7 @@ namespace MultiSuika.Manager
         private Stack<PlayerInputHandler> _playerInputHandler;
         private PlayerInputManager _playerInputManager;
         private bool _isJoiningEnabled = false;
-
-        #region Singleton
-
-        [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
-        public static PlayerManager Instance => _instance ??= new PlayerManager();
-
-        private static PlayerManager _instance;
-
-        private PlayerManager()
-        {
-        }
-
-        #endregion
-
-        private void Awake()
-        {
-            _instance = this;
-            Init();
-        }
-
+        
         public void SetJoiningEnabled(bool isEnabled)
         {
             if (_isJoiningEnabled == isEnabled)

@@ -38,8 +38,6 @@ namespace MultiSuika.Cannon
 
         // Wwise Event
         public AK.Wwise.Event WwiseEventCannonShoot;
-
-        public IGameModeManager gameModeManager;
         
         public void DestroyCurrentBall()
         {

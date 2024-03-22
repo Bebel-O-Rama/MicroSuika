@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 
 namespace MultiSuika.GameLogic
 {
-    public class LobbyModeManager : MonoBehaviour, IGameModeManager
+    public class LobbyModeManager : MonoBehaviour
     {
         [SerializeField] public GameModeData gameModeData;
 
@@ -63,7 +63,7 @@ namespace MultiSuika.GameLogic
             var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
 
             CannonInstance cannonInstance = Initializer.InstantiateCannon(gameModeData, mainContainer);
-            Initializer.SetCannonParameters(playerIndex, cannonInstance, mainContainer, gameModeData, gameModeData.skinData.playersSkinData[playerIndex], this);
+            Initializer.SetCannonParameters(playerIndex, cannonInstance, mainContainer, gameModeData, gameModeData.skinData.playersSkinData[playerIndex]);
             cannonInstance.SetInputParameters(playerInputHandler);
             cannonInstance.SetCannonInputEnabled(true);
             
@@ -82,17 +82,12 @@ namespace MultiSuika.GameLogic
             scoreboard.SetScoreboardActive(true);
         }
         
-
         private void AddPlayerJoinPopup(int playerIndex, CannonInstance cannonInstance, Color randColor)
         {
             var popup = Instantiate(onJoinPopup, cannonInstance.transform);
             var tmp = popup.GetComponent<TextMeshPro>();
             tmp.color = randColor;
             tmp.text = $"P{playerIndex + 1}";
-        }
-
-        public void OnBallFusion(BallInstance ballInstance)
-        {
         }
     }
 }

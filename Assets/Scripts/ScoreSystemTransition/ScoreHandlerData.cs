@@ -1,32 +1,39 @@
-using System;
-using MultiSuika.Ball;
-using MultiSuika.Utilities;
+﻿using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.ScoreSystemTransition
 {
-    public abstract class ScoreHandlerData : ScriptableObject
+    [CreateAssetMenu(menuName = "Score/Handler Data")]
+    public class ScoreHandlerData : ScriptableObject
     {
-#if UNITY_EDITOR
-        [Multiline]
-        public string developerDescription = "";
-#endif
-        public int PlayerIndex { get; private set; }
-
-        public void SetParameters(int playerIndex)
-        {
-            PlayerIndex = playerIndex;
-            SetParameters();
-        }
-
-        public abstract void SetActive(bool isActive);
+        [Header("Base parameters")] 
+        public FloatReference baseAcceleration; // 3
         
-        protected abstract void SetParameters();
-
-        public abstract void UpdateScore();
-
-        public abstract FloatReference GetScoreReference();
-
-        public abstract void ResetScore();
+        [Header("Container damage parameters")]
+        public FloatReference damageMultiplier; // 2
+        public FloatReference percentageInstant; // 0.6
+        public FloatReference damageCooldownDuration; // 1.5
+        
+        [Header("Damping parameters")]
+        public FloatReference speedSoftCap; // 1200
+        public DampingMethod dampingMethod; // AnimCurve
+        public FloatReference dampingFixedPercent; // 0.02
+        public FloatReference dampingFixedValue; // 1
+        public AnimationCurve dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
+        
+        [Header("Combo parameters")]
+        public FloatReference timerFullDuration; // 5
+        public BoolReference isDecreasingMaxTimer; // true
+        public FloatReference fullTimerDecrementValue; // 0.1
+        public FloatReference fullTimerMinValue; // 2
+        
+        public enum DampingMethod
+        {
+            FixedPercent,
+            Fixed,
+            AnimCurve,
+            None
+        }
     }
 }

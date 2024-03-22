@@ -9,6 +9,7 @@ using MultiSuika.Utilities;
 using MultiSuika.Player;
 using MultiSuika.ScoreSystemTransition;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
@@ -28,7 +29,7 @@ namespace MultiSuika.GameLogic
         // #endregion
         //
         // [Header("Score Parameters")]
-        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        [FormerlySerializedAs("_scoreHandlerData")] [SerializeField] private ScoreHandlerDatattt scoreHandlerDatattt;
         // public ScoreManager ScoreManager { get; private set; }
         
         [SerializeField] public GameModeData gameModeData;
@@ -46,7 +47,7 @@ namespace MultiSuika.GameLogic
             // _instance = this;
             // ScoreManager.Init(_scoreHandlerData);
             
-            ScoreHandler.Instance.Initialize(_scoreHandlerData);
+            // ScoreManager.Instance.Initialize(scoreHandlerDatattt);
             
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
         
@@ -61,7 +62,7 @@ namespace MultiSuika.GameLogic
             _cannons = Initializer.InstantiateCannons(numberOfActivePlayer, gameModeData,
                 _containers);
 
-            Initializer.SetCannonsParameters(_cannons, _containers, gameModeData, ScoreHandler.Instance.GetPlayerScoreReferences(), this);
+            Initializer.SetCannonsParameters(_cannons, _containers, gameModeData);
         
             //// Link conditions to the VersusMode instance
             var versusFailConditions = _versusGameInstance.GetComponentsInChildren<VersusFailCondition>().ToList();

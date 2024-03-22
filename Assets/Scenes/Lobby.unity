@@ -716,7 +716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 223538570}
   m_Layer: 0
-  m_Name: LobbyScore
+  m_Name: Scoreboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4218,11 +4218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd68125f25664d4b8d0c79cecc3d587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreHandlerData: {fileID: 11400000, guid: 3b4e83e6dc2320b4f810694bce77577d, type: 2}
   gameModeData: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
   nextSceneName: PrototypeRacing
   onJoinPopup: {fileID: 7707874888000536716, guid: c05f9afffd133304981240e865d0ad69, type: 3}
-  lobbyScore:
+  lobbyScoreboard:
   - {fileID: 1833672427}
   - {fileID: 316798128}
   - {fileID: 320478238}
@@ -5095,7 +5094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5463333027514096949, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: playerIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7061109085932636145, guid: 156f5146c4c6a8d4ab7aa14167669b97, type: 3}
       propertyPath: m_Name
