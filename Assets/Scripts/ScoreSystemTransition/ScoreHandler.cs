@@ -21,35 +21,32 @@ namespace MultiSuika.ScoreSystemTransition
         [SerializeField] private IntReference _combo;
 
         // Container damage parameters
-        private float _damageMultiplier;
-        private float _percentageInstant;
-
-        private bool _isInDamageCooldown;
-        private float _damageCooldownDuration;
+        private float _damageMultiplier; // 2
+        private float _percentageInstant; // 0.6
+        private float _damageCooldownDuration; // 1.5
         private Coroutine _damageCooldownCoroutine;
 
         // Damping parameters
-        private FloatReference _speedSoftCap;
+        private FloatReference _speedSoftCap; // 1200
         private ScoreHandlerData.DampingMethod _dampingMethod; // AnimCurve
         private FloatReference _dampingFixedPercent; // 0.02
         private FloatReference _dampingFixedValue; // 1
         private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
 
         // Combo and Acceleration parameters
-        private float _baseAcceleration;
-        private FloatReference _timerFullDuration;
-        private BoolReference _isDecreasingMaxTimer;
-        private FloatReference _fullTimerDecrementValue;
-        private FloatReference _fullTimerMinValue;
+        private float _baseAcceleration; // 3
+        private FloatReference _timerFullDuration; // 5
+        private BoolReference _isDecreasingMaxTimer; // true
+        private FloatReference _fullTimerDecrementValue; // 0.1
+        private FloatReference _fullTimerMinValue; // 2
         private Coroutine _comboTimerCoroutine;
-
+        
         // Active components parameters
         private bool _isContainerDamageActive;
         private bool _isBallFusionActive;
         private bool _isDampingActive;
         private bool _isComboActive;
-
-
+        
         private void Awake()
         {
             _currentSpeed = new FloatReference();
@@ -59,7 +56,6 @@ namespace MultiSuika.ScoreSystemTransition
 
         private void Start()
         {
-            var test = PlayerManager.Instance.GetNumberOfActivePlayer();
             if (playerIndex >= PlayerManager.Instance.GetNumberOfActivePlayer())
                 ClearScoreHandler();
             SetContainerDamageActive(true);
@@ -226,8 +222,10 @@ namespace MultiSuika.ScoreSystemTransition
 
         private void ClearScoreHandler()
         {
-            // Make sure to unsubscribe everyone and from everything
-            ScoreManager.Instance.RemoveScoreHandler(playerIndex);
+            StopCoroutine(_damageCooldownCoroutine);
+            StopCoroutine(_comboTimerCoroutine);
+            
+            ScoreManager.Instance.ClearPlayerScoreComponents(playerIndex);
             Destroy(gameObject);
         }
 
@@ -235,8 +233,6 @@ namespace MultiSuika.ScoreSystemTransition
 
         public FloatReference GetCurrentSpeedReference() => _currentSpeed;
         public FloatReference GetTargetSpeedReference() => _targetSpeed;
-        // public IntReference GetComboReference() => _combo;
-
 
         public void SetScoreHandlerData(ScoreHandlerData scoreHandlerData)
         {

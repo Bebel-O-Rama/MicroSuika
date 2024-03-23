@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using MultiSuika.Container;
-using MultiSuika.GameLogic;
 using MultiSuika.ScoreSystemTransition;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -22,36 +19,97 @@ namespace MultiSuika.Manager
                 Instance = this;
             else
                 Destroy(gameObject);
+
+            Initialize();
         }
 
         #endregion
 
-        [SerializeField] private List<ScoreHandler> _scoreHandlers;
         [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        [SerializeField] private List<ScoreHandler> _scoreHandlers;
+        [SerializeField] private FloatReference _minAdaptiveVerticalRange; // 500
+
+        private FloatReference _averageSpeed;
+        private readonly Dictionary<int, FloatReference> _currentSpeedRefs = new Dictionary<int, FloatReference>();
+        private readonly Dictionary<int, FloatReference> _normalizedSpeedRefs = new Dictionary<int, FloatReference>();
+        private readonly List<int> _playerRankings = new List<int>();
+        
+        public ActionMethodPlayerWrapper<(int, float)> OnComboIncrement = new ActionMethodPlayerWrapper<(int, float)>();
+        public ActionMethodPlayerWrapper<int> OnComboLost = new ActionMethodPlayerWrapper<int>();
+
+        private void Initialize()
+        {
+            _averageSpeed = new FloatReference();
+        }
 
         private void Start()
         {
             foreach (var scoreHandler in _scoreHandlers)
             {
                 scoreHandler.SetScoreHandlerData(_scoreHandlerData);
+                _currentSpeedRefs[scoreHandler.playerIndex] = scoreHandler.GetCurrentSpeedReference();
+                _normalizedSpeedRefs[scoreHandler.playerIndex] = new FloatReference();
+                _playerRankings.Add(scoreHandler.playerIndex);
             }
         }
 
-        public FloatReference GetCurrentSpeedReference(int playerIndex) =>
-            _scoreHandlers[playerIndex].GetCurrentSpeedReference();
-        public FloatReference GetTargetSpeedReference(int playerIndex) =>
-            _scoreHandlers[playerIndex].GetTargetSpeedReference();
-        // public IntReference GetComboReference(int playerIndex) =>
-        //     _scoreHandlers[playerIndex].GetComboReference();
-
-        public void RemoveScoreHandler(int playerIndex)
+        private void Update()
         {
+            UpdateRanking();
+            UpdateNormalizedSpeed();
+            UpdateAverageSpeed();
+        }
+        
+        private void UpdateRanking()
+        {
+            var sortedPlayers = new List<KeyValuePair<int, FloatReference>>(_currentSpeedRefs);
+            sortedPlayers.Sort((a, b) => b.Value.Value.CompareTo(a.Value));
+
+            _playerRankings.Clear();
+            foreach (var player in sortedPlayers)
+            {
+                _playerRankings.Add(player.Key);
+            }
+        }
+        
+        private void UpdateNormalizedSpeed()
+        {
+            float lowestSpeed = _currentSpeedRefs[_playerRankings.Last()];
+            float highestSpeed = _currentSpeedRefs[_playerRankings.First()];
+            float currentRange = Mathf.Max(_minAdaptiveVerticalRange,
+                highestSpeed - lowestSpeed);
+
+            foreach (var player in _normalizedSpeedRefs)
+            {
+                var normalizedSpeed = Mathf.Clamp01((_currentSpeedRefs[player.Key] - lowestSpeed) / currentRange);
+                player.Value.Variable.SetValue(normalizedSpeed);
+            }
+        }
+
+        private void UpdateAverageSpeed()
+        {
+            _averageSpeed.Variable.SetValue(_currentSpeedRefs.Sum(x => x.Value) / _currentSpeedRefs.Count);
+        }
+
+        public void ClearPlayerScoreComponents(int playerIndex)
+        {
+            OnComboIncrement.Clear(playerIndex);
+            OnComboLost.Clear(playerIndex);
+            
             _scoreHandlers.RemoveAt(playerIndex);
+            _currentSpeedRefs.Remove(playerIndex);
+            _normalizedSpeedRefs.Remove(playerIndex);
+            _playerRankings.Remove(playerIndex);
         }
 
         public void ResetScoreInformation() => _scoreHandlers.ForEach(s => s.ResetScore());
 
-        public ActionMethodPlayerWrapper<(int, float)> OnComboIncrement = new ActionMethodPlayerWrapper<(int, float)>();
-        public ActionMethodPlayerWrapper<int> OnComboLost = new ActionMethodPlayerWrapper<int>();
+        public FloatReference GetCurrentSpeedReference(int playerIndex) =>
+            _scoreHandlers[playerIndex].GetCurrentSpeedReference();
+
+        public FloatReference GetTargetSpeedReference(int playerIndex) =>
+            _scoreHandlers[playerIndex].GetTargetSpeedReference();
+        
+        public List<int> GetPlayerRankings() => _playerRankings;
     }
 }

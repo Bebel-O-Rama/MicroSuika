@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -14,20 +15,23 @@ using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
-    public class RacingModeManager : MonoBehaviour, IGameModeManager
+    public class GameManager : MonoBehaviour
     {
-        // #region Singleton
-        //
-        // [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
-        // public static RacingModeManager Instance => _instance ??= new RacingModeManager();
-        //
-        // private static RacingModeManager _instance;
-        //
-        // private RacingModeManager()
-        // {
-        // }
-        //
-        // #endregion
+        #region Singleton
+
+        public static GameManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+
+            Initialize();
+        }
+
+        #endregion
         // [Header("Score Parameters")]
         // [FormerlySerializedAs("_scoreHandlerData")] [SerializeField] private ScoreHandlerDatattt scoreHandlerDatattt;
         // public ScoreHandler ScoreHandler { get; private set; }
@@ -106,6 +110,13 @@ namespace MultiSuika.GameLogic
         private IntReference _dampingMethodIndex;
 
 
+
+        private int _currentPlayerLeadIndex;
+        private Coroutine _leadTimerCoroutine;
+
+        
+        
+
         private bool _isGameInProgress = true;
         private RacingModeDebugInfo _racingModeDebugInfo;
 
@@ -121,7 +132,11 @@ namespace MultiSuika.GameLogic
             Fixed,
             AnimCurve
         }
-        
+
+        private void Initialize()
+        {
+            
+        }
 
         private void Start()
         {
@@ -166,6 +181,20 @@ namespace MultiSuika.GameLogic
         {
             if (!_isGameInProgress)
                 return;
+            var currentPlayerRankings = ScoreManager.Instance.GetPlayerRankings();
+            if (!CheckLeadConditions(currentPlayerRankings))
+            {
+                UpdateLeadRequirementsParameters();
+                StopLeadTimer();
+                return;
+            }
+
+            if (currentPlayerRankings.First() == _currentPlayerLeadIndex)
+                return;
+
+            StopLeadTimer();
+            StartLeadTimer(currentPlayerRankings.First());
+            
             
             // ScoreManager.Instance.UpdateScore();
             
@@ -181,6 +210,51 @@ namespace MultiSuika.GameLogic
             // CheckAndProcessWinCondition();
         }
 
+        private bool CheckLeadConditions(List<int> currentPlayerRankings)
+        {
+            var firstPlayerSpeed = ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings.First());
+            return _speedReqCheckMethod switch
+            {
+                SpeedReqCheckMethod.FromAverage => firstPlayerSpeed > _averageSpeed + _currentLeadSpeedCondition,
+                SpeedReqCheckMethod.FromSecond => firstPlayerSpeed > (currentPlayerRankings.Count > 1
+                    ? ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings[1]) + _currentLeadSpeedCondition
+                    : _currentLeadSpeedCondition),
+                SpeedReqCheckMethod.FromStart => firstPlayerSpeed > _currentLeadSpeedCondition,
+                _ => false
+            };
+        }
+        
+        private void StopLeadTimer()
+        {
+            _currentPlayerLeadIndex = -1;
+            StopCoroutine(_leadTimerCoroutine);
+        }
+
+        private void StartLeadTimer(int playerIndex)
+        {
+            _currentPlayerLeadIndex = playerIndex;
+            _leadTimerCoroutine = StartCoroutine(LeadTimer());
+        }
+
+        private IEnumerator LeadTimer()
+        {
+            yield return new WaitForSeconds(_currentLeadTimeCondition);
+            ProcessWinCondition();
+        }
+        
+        private void UpdateLeadRequirementsParameters()
+        {
+            _timeReqProgressionTimer += Time.deltaTime;
+            _speedReqProgressionTimer += Time.deltaTime;
+
+            _currentLeadTimeCondition.Variable.SetValue(
+                _leadTimeReqCurve.Evaluate(Mathf.Clamp01(_timeReqProgressionTimer / _leadTimeConditionTimerRange)) *
+                _timeLeadConditionMinRange.y + _timeLeadConditionMinRange.x);
+            _currentLeadSpeedCondition.Variable.SetValue(
+                _leadSpeedReqCurve.Evaluate(Mathf.Clamp01(_speedReqProgressionTimer / _leadSpeedConditionTimerRange)) *
+                _speedLeadConditionMinRange.y + _speedLeadConditionMinRange.x);
+        }
+        
         private void SetRacingModeDebugInfoParameters()
         {
             _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
@@ -266,18 +340,6 @@ namespace MultiSuika.GameLogic
             }
         }
 
-        // private void UpdateSpeedParameters()
-        // {
-        //     // Average
-        //     _averageSpeed.Variable.SetValue(_playerCurrentSpeedReferences.Sum(x => x.Value) /
-        //                                     _playerCurrentSpeedReferences.Count);
-        //
-        //     // Standard deviation
-        //     _standardDeviationSpeed.Variable.SetValue(Mathf.Sqrt(
-        //         _playerCurrentSpeedReferences.Sum(x => (x.Value - _averageSpeed) * (x.Value - _averageSpeed)) /
-        //         _playerCurrentSpeedReferences.Count));
-        // }
-
         private void UpdateRanking()
         {
             var playerOrder = (from container in _playerCurrentSpeedReferences
@@ -340,35 +402,20 @@ namespace MultiSuika.GameLogic
             _playerLeadTimer[_currentContainerInstanceInLead].Variable.SetValue(_currentLeadTimeLeft);
         }
 
-        private void UpdateLeadRequirementsParameters()
+        private void ProcessWinCondition()
         {
-            if (_leadReqProgressionMethod == LeadReqProgressionMethod.Fixed)
-                return;
-            _timeReqProgressionTimer += Time.deltaTime;
-            _speedReqProgressionTimer += Time.deltaTime;
-
-            _currentLeadTimeCondition.Variable.SetValue(
-                _leadTimeReqCurve.Evaluate(Mathf.Clamp01(_timeReqProgressionTimer / _leadTimeConditionTimerRange)) *
-                _timeLeadConditionMinRange.y + _timeLeadConditionMinRange.x);
-            _currentLeadSpeedCondition.Variable.SetValue(
-                _leadSpeedReqCurve.Evaluate(Mathf.Clamp01(_speedReqProgressionTimer / _leadSpeedConditionTimerRange)) *
-                _speedLeadConditionMinRange.y + _speedLeadConditionMinRange.x);
-        }
-
-        private void CheckAndProcessWinCondition()
-        {
-            if (_currentContainerInstanceInLead == null || _playerLeadTimer[_currentContainerInstanceInLead] > 0f)
-                return;
-
+            var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.DisconnectCannonToPlayer();
 
+            var winnerContainer = ContainerTracker.Instance.GetItemsByPlayer(winnerPlayerIndex).First();
+            
             foreach (var container in ContainerTracker.Instance.GetItems())
             {
-                if (container != _currentContainerInstanceInLead)
-                    container.ContainerFailure();
-                else
+                if (container == winnerContainer)
                     container.ContainerSuccess();
+                else
+                    container.ContainerFailure();
             }
 
             foreach (var ball in BallTracker.Instance.GetItems())
@@ -393,12 +440,12 @@ namespace MultiSuika.GameLogic
             };
         }
 
-        // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
-        public void OnBallFusion(BallInstance ballInstance)
-        {
-            var racingDebugInfo = ballInstance.ContainerInstance.GetComponent<ContainerRacingMode>();
-            if (racingDebugInfo != null)
-                racingDebugInfo.NewBallFused(ballInstance.ScoreValue);
-        }
+        // // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
+        // public void OnBallFusion(BallInstance ballInstance)
+        // {
+        //     var racingDebugInfo = ballInstance.ContainerInstance.GetComponent<ContainerRacingMode>();
+        //     if (racingDebugInfo != null)
+        //         racingDebugInfo.NewBallFused(ballInstance.ScoreValue);
+        // }
     }
 }
