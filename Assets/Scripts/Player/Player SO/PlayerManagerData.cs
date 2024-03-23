@@ -8,8 +8,8 @@ using UnityEngine.InputSystem;
 
 namespace MultiSuika.Player
 {
-    [CreateAssetMenu(menuName = "Player/Player Information Data")]
-    public class PlayerInformationData : ScriptableObject
+    [CreateAssetMenu(menuName = "Player/Player Manager Data")]
+    public class PlayerManagerData : ScriptableObject
     {
         private Stack<PlayerInformation> _playersInformation;
         private IntReference _numberOfActivePlayer;

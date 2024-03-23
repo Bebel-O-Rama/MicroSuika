@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d32e342663e4ee098de81302d0922c0, type: 3}
-  m_Name: Ball Fusion Score Modifier
+  m_Script: {fileID: 11500000, guid: 6007b57022e8a7845b5930e2c3a68b74, type: 3}
+  m_Name: Player Manager Data
   m_EditorClassIdentifier: 
-  developerDescription: 

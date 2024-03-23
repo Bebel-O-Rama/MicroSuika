@@ -1768,28 +1768,6 @@ MonoBehaviour:
     RandomCoefficient: 0
     Variable: {fileID: 0}
   gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
-  _isRacingModeDebugTextEnabled:
-    UseConstant: 1
-    ConstantValue: 1
-    Variable: {fileID: 0}
-  _isContainerSpeedBarDebugEnabled:
-    UseConstant: 1
-    ConstantValue: 1
-    Variable: {fileID: 0}
-  _isContainerFullDebugTextEnabled:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  _isContainerAbridgedDebugTextEnabled:
-    UseConstant: 1
-    ConstantValue: 1
-    Variable: {fileID: 0}
-  _debugScoreMultiplier:
-    UseConstant: 1
-    ConstantValue: 1
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
 --- !u!1 &877577911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,7 +1798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maximumNumberOfPlayer: 4
-  _playerInformationData: {fileID: 11400000, guid: b6ff40256d570ae4ebbf5b5ec8967503, type: 2}
+  playerManagerData: {fileID: 11400000, guid: b6592486d1297584487c7f30034a8d32, type: 2}
   _inputManagerPrefab: {fileID: 6618661410425451850, guid: 76a32bda98f0e5f41aeecf5beb550ad8, type: 3}
   _inputHandlerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
 --- !u!4 &877577913

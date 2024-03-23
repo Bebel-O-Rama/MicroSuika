@@ -32,7 +32,7 @@ namespace MultiSuika.Manager
         [Header("Players Information")] [SerializeField] [Min(1)]
         private int _maximumNumberOfPlayer = 4;
 
-        [SerializeField] private PlayerInformationData _playerInformationData;
+        [FormerlySerializedAs("_playerInformationData")] [SerializeField] private PlayerManagerData playerManagerData;
 
         [Header("Input System")] [SerializeField]
         private PlayerInputManager _inputManagerPrefab;
@@ -72,7 +72,7 @@ namespace MultiSuika.Manager
 
         private void PushPlayer(PlayerInput playerInput)
         {
-            var playerIndex = _playerInformationData.PushPlayerInformation(playerInput.devices[0]);
+            var playerIndex = playerManagerData.PushPlayerInformation(playerInput.devices[0]);
             PushPlayerInputHandler(playerInput);
             UpdatePlayerJoining();
             _onPlayerPush?.Invoke(playerIndex, playerInput);
@@ -80,7 +80,7 @@ namespace MultiSuika.Manager
 
         private void PopPlayer()
         {
-            var playerIndex = _playerInformationData.PopPlayerInformation();
+            var playerIndex = playerManagerData.PopPlayerInformation();
             PopPlayerInputHandler();
             UpdatePlayerJoining();
             _onPlayerPop?.Invoke(playerIndex);
@@ -125,13 +125,13 @@ namespace MultiSuika.Manager
                 Debug.LogError(
                     "Trying to spawn a PlayerInputHandler, but the playerIndex doesn't match with the index of the player added last.");
             var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, playerIndex,
-                pairWithDevice: _playerInformationData.PeekInputDevice());
+                pairWithDevice: playerManagerData.PeekInputDevice());
             return playerInputObj.GetComponentInParent<PlayerInputHandler>();
         }
 
         private void Init()
         {
-            _playerInformationData.Init();
+            playerManagerData.Init();
             InitializePlayerInputHandler();
         }
         
@@ -141,7 +141,7 @@ namespace MultiSuika.Manager
             var numberOfActivePlayer = GetNumberOfActivePlayer();
             if (numberOfActivePlayer <= 0)
                 return;
-            var inputDevices = _playerInformationData.GetOrderedInputDevices();
+            var inputDevices = playerManagerData.GetOrderedInputDevices();
             for (int i = 0; i < inputDevices.Count; i++)
             {
                 var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: inputDevices[i]);
@@ -157,7 +157,7 @@ namespace MultiSuika.Manager
             return _playerInputHandler.ElementAtOrDefault(playerIndex);
         }
 
-        public IntReference GetNumberOfActivePlayer() => _playerInformationData.GetNumberOfActivePlayer();
+        public IntReference GetNumberOfActivePlayer() => playerManagerData.GetNumberOfActivePlayer();
         #endregion
 
         #region Delegate
