@@ -3,6 +3,7 @@ using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
+using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
@@ -11,9 +12,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace MultiSuika.GameLogic
+namespace MultiSuika.Manager
 {
-    public class LobbyModeManager : MonoBehaviour
+    public class LobbyManager : MonoBehaviour
     {
         [SerializeField] public GameModeData gameModeData;
 

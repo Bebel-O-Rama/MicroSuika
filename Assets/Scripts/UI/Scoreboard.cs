@@ -25,7 +25,6 @@ namespace MultiSuika.UI
             _playerScore = 0;
         }
 
-
         private void Update()
         {
             if (!_isActive)
@@ -41,7 +40,6 @@ namespace MultiSuika.UI
             if (isActive)
             {
                 BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusion, playerIndex);
-                // _playerScore = ScoreHandler.Instance.GetPlayerScoreReference(playerIndex);
                 tmp.color = connectedColor;
             }
             else

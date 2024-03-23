@@ -22,7 +22,6 @@ namespace MultiSuika.DebugInfo
         [SerializeField] private ScoreHandlerData _scoreHandlerData;
         
         [Header("Main UI parameters")]
-        [SerializeField] private float _speedBarMaxHeight; // 11
         [SerializeField] private float _comboBarMaxHeight; // 5
         [SerializeField] private Color _fixedDebugColor; // D2FFFD
         [SerializeField] private Color _risingDebugColor; // B2FFB7
@@ -100,6 +99,10 @@ namespace MultiSuika.DebugInfo
 
         private void Start()
         {
+            // NOTE: It's a workaround so that Nova's stuff can be parsed through the cameras
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            
             var container = GetComponentInParent<ContainerInstance>();
             _playerIndex = ContainerTracker.Instance.GetPlayersByItem(container).FirstOrDefault();
 

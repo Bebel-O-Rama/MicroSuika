@@ -30,13 +30,11 @@ namespace MultiSuika.Cannon
         // Ball Parameters
         public BallSetData ballSetData;
         public BallSpriteThemeData ballSpriteData;
-        public FloatReference scoreReference;
         public ContainerInstance containerInstance;
-        public BallTracker ballTracker;
         private BallInstance _currentBallInstance;
         private float _currentBallDistanceFromCannon;
 
-        // Wwise Event
+        // Wwise Events
         public AK.Wwise.Event WwiseEventCannonShoot;
         
         public void DestroyCurrentBall()
@@ -62,12 +60,6 @@ namespace MultiSuika.Cannon
                 _playerInputHandler.onShoot -= DropBall;
             }
         }
-
-        // public void ConnectCannonToPlayer(PlayerInputSystem playerInputSystem)
-        // {
-        //     _playerInputSystem = playerInputSystem;
-        //     SetCannonInputConnexion(true);
-        // }
 
         public void DisconnectCannonToPlayer()
         {

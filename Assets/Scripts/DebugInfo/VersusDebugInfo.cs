@@ -1,16 +1,12 @@
-using System;
-using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MultiSuika.DebugInfo
 {
-    public class RacingModeDebugInfo : MonoBehaviour
+    public class VersusDebugInfo : MonoBehaviour
     {
-        [FormerlySerializedAs("_tmpMean")]
         [Header("Visual Debug Parameters")] 
         [SerializeField] private TMP_Text _tmpAverage;
         [SerializeField] private TMP_Text _tmpTimeReq;
@@ -19,15 +15,6 @@ namespace MultiSuika.DebugInfo
         private FloatReference _averageSpeed;
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;
-
-        // private GameObject _debugHolder;
-        
-        // private void Awake()
-        // {
-        //     _debugHolder = transform.GetChild(0).gameObject;
-        //     if (_debugHolder == null)
-        //         gameObject.SetActive(false);
-        // }
 
         private void Start()
         {

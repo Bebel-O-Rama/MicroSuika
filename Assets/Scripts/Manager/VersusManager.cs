@@ -1,19 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
-using MultiSuika.DebugInfo;
-using MultiSuika.Manager;
-using MultiSuika.ScoreSystemTransition;
+using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace MultiSuika.GameLogic
+namespace MultiSuika.Manager
 {
     public class VersusManager : MonoBehaviour
     {
@@ -39,7 +34,7 @@ namespace MultiSuika.GameLogic
         [Header("Ball Collision Parameters")] 
         [SerializeField] private FloatReference _ballImpactMultiplier; // 2 
         
-        [SerializeField] private WinConditionData _winConditionData;
+        [FormerlySerializedAs("versusData")] [FormerlySerializedAs("_winConditionData")] [SerializeField] private VersusWinConditionData versusWinConditionData;
         
         [Header("Movement Parameters")] 
         [SerializeField] private FloatReference _minAdaptiveVerticalRange;
@@ -164,7 +159,7 @@ namespace MultiSuika.GameLogic
         private bool CheckLeadConditions(List<int> currentPlayerRankings)
         {
             var firstPlayerSpeed = ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings.First());
-            return _winConditionData.SpeedEvaluationMethod switch
+            return versusWinConditionData.SpeedEvaluationMethod switch
             {
                 LeadSpeedEvaluationMethod.FromAverage => firstPlayerSpeed > _averageSpeed + _currentLeadSpeedCondition,
                 LeadSpeedEvaluationMethod.FromSecond => firstPlayerSpeed > (currentPlayerRankings.Count > 1
@@ -177,15 +172,15 @@ namespace MultiSuika.GameLogic
         
         private void UpdateLeadRequirementsParameters()
         {
-            if (_winConditionData.AdaptiveRequirementMethod == LeadAdaptiveRequirementMethod.Fixed)
+            if (versusWinConditionData.AdaptiveRequirementMethod == LeadAdaptiveRequirementMethod.Fixed)
                 return;
 
             _currentLeadTimeCondition.Variable.SetValue(
-                _winConditionData.TimeProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / _winConditionData.TimeProgressionLength)) *
-                _winConditionData.TimeRequirementRange.y + _winConditionData.TimeRequirementRange.x);
+                versusWinConditionData.TimeProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / versusWinConditionData.TimeProgressionLength)) *
+                versusWinConditionData.TimeRequirementRange.y + versusWinConditionData.TimeRequirementRange.x);
             _currentLeadSpeedCondition.Variable.SetValue(
-                _winConditionData.SpeedProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / _winConditionData.SpeedProgressionLength)) *
-                _winConditionData.SpeedRequirementRange.y + _winConditionData.SpeedRequirementRange.x);
+                versusWinConditionData.SpeedProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / versusWinConditionData.SpeedProgressionLength)) *
+                versusWinConditionData.SpeedRequirementRange.y + versusWinConditionData.SpeedRequirementRange.x);
         }
         
         private void StartLeadTimer(int playerIndex)

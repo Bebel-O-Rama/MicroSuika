@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace MultiSuika.ScoreSystemTransition
+namespace MultiSuika.GameLogic
 {
-    [CreateAssetMenu(menuName = "Versus Data/Win Condition Data")]
-    public class WinConditionData : ScriptableObject
+    [CreateAssetMenu(menuName = "Versus Win Condition Data")]
+    public class VersusWinConditionData : ScriptableObject
     {
         [SerializeField] private LeadAdaptiveRequirementMethod _adaptiveRequirementMethod; // AnimCurve
         [SerializeField] private LeadSpeedEvaluationMethod _speedEvaluationMethod; // FromSecond

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MultiSuika.Utilities;
 
-namespace MultiSuika.Container
+namespace MultiSuika.Utilities
 {
     public class ActionMethodPlayerWrapper<TArgs>
     {
