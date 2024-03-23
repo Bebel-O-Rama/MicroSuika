@@ -28,19 +28,19 @@ namespace MultiSuika.ScoreSystemTransition
         [SerializeField] private float _fullTimerDecrementValue; // 0.1
         [SerializeField] private float _fullTimerMinValue; // 2
 
-        public float BaseAcceleration {get => _baseAcceleration; }
-        public float DamageMultiplier {get => _damageMultiplier; }
-        public float PercentageInstant {get => _percentageInstant; }
-        public float DamageCooldownDuration {get => _damageCooldownDuration; }
-        public float SpeedSoftCap {get => _speedSoftCap; }
-        public DampingEvaluationMethod DampingMethod {get => _dampingMethod; }
-        public float DampingFixedPercent {get => _dampingFixedPercent; }
-        public float DampingFixedValue {get => _dampingFixedValue; }
-        public AnimationCurve DampingCurvePercent {get => _dampingCurvePercent; }
-        public float TimerFullDuration {get => _timerFullDuration; }
-        public bool IsDecreasingMaxTimer {get => _isDecreasingMaxTimer; }
-        public float FullTimerDecrementValue {get => _fullTimerDecrementValue; }
-        public float FullTimerMinValue {get => _fullTimerMinValue; }
+        public float BaseAcceleration { get => _baseAcceleration; }
+        public float DamageMultiplier { get => _damageMultiplier; }
+        public float PercentageInstant { get => _percentageInstant; }
+        public float DamageCooldownDuration { get => _damageCooldownDuration; }
+        public float SpeedSoftCap { get => _speedSoftCap; }
+        public DampingEvaluationMethod DampingMethod { get => _dampingMethod; }
+        public float DampingFixedPercent { get => _dampingFixedPercent; }
+        public float DampingFixedValue { get => _dampingFixedValue; }
+        public AnimationCurve DampingCurvePercent { get => _dampingCurvePercent; }
+        public float TimerFullDuration { get => _timerFullDuration; }
+        public bool IsDecreasingMaxTimer { get => _isDecreasingMaxTimer; }
+        public float FullTimerDecrementValue { get => _fullTimerDecrementValue; }
+        public float FullTimerMinValue { get => _fullTimerMinValue; }
     }
     public enum DampingEvaluationMethod
     {

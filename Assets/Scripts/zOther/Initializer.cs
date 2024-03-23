@@ -152,7 +152,7 @@ namespace MultiSuika.Utilities
         public static BallInstance InstantiateBall(BallSetData ballSetData, ContainerInstance containerInstance,
             Vector3 position, float randomRotationRange = 35f)
         {
-            var newBall = Object.Instantiate(ballSetData.ballInstancePrefab,
+            var newBall = Object.Instantiate(ballSetData.BallInstancePrefab,
                 containerInstance.ContainerParent.transform);
             ResetLocalTransform(newBall.transform);
 

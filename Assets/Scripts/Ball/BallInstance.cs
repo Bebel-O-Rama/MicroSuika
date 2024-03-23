@@ -15,39 +15,16 @@ namespace MultiSuika.Ball
         [SerializeField] public SpriteRenderer spriteRenderer;
         [SerializeField] public Rigidbody2D rb2d;
 
-        // public int tier;
-        // public int scoreValue;
-        // public IntReference ballScoreRef;
-        // public BallSetData ballSetData;
-        // public BallSpriteThemeData ballSpriteThemeData;
-        // public ContainerInstance containerInstance;
-        // public BallTracker ballTracker;
-        //
-        // public float impulseMultiplier;
-        // public float impulseExpPower;
-        // public float impulseRangeMultiplier;
-
-
         public int BallTierIndex { get; private set; }
-
         public int ScoreValue { get; private set; }
         public int PlayerIndex { get; private set; }
         public ContainerInstance ContainerInstance { get; private set; }
         public bool IsBallCleared { get; private set; }
-        // private FloatReference _playerScoreRef;
         private BallSetData _ballSetData;
         private BallSpriteThemeData _ballSpriteThemeData;
-        // private BallTracker _ballTracker;
-
-        private float _impulseForcePerUnit;
-        private float _impulseExpPower;
-        private float _impulseRangeMultiplier;
 
         private Rigidbody2D _rb2d;
-
-        /// <summary>
-        /// SET THAT SOMEWHERE PLZZ!!!!
-        /// </summary>
+        
         private int _playerIndex;
 
         private void Awake()
@@ -109,22 +86,16 @@ namespace MultiSuika.Ball
                 
             BallTracker.Instance.AddNewItem(newBall, newBall.PlayerIndex);
 
-            // newBall._ballTracker.RegisterBall(newBall, ContainerInstance);
             ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, newBall.gameObject);
-
-
-            // // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
-            // var gameMode = (IGameModeManager)FindObjectOfType(typeof(IGameModeManager));
-            // gameMode.OnBallFusion(this);
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
         {
-            var realImpulseRadius = _ballSetData.GetBallData(newBallTier).scale * 0.5f * _impulseRangeMultiplier *
+            var realImpulseRadius = _ballSetData.GetBallData(newBallTier).scale * 0.5f * _ballSetData.ImpulseRangeMultiplier *
                                       ContainerInstance.ContainerParent.transform.localScale.x;
 
-            Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball", _impulseForcePerUnit,
-                _impulseExpPower);
+            Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball", _ballSetData.ImpulseForcePerUnit,
+                _ballSetData.ImpulseExpPower);
         }
 
         #region Getter
@@ -151,15 +122,12 @@ namespace MultiSuika.Ball
             _rb2d.mass = ballData.mass;
             var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
             {
-                bounciness = ballSetData.bounciness,
-                friction = ballSetData.friction
+                bounciness = _ballSetData.Bounciness,
+                friction = _ballSetData.Friction
+                
             };
             _rb2d.sharedMaterial = ballPhysMat;
-
-            // Impulse
-            _impulseRangeMultiplier = _ballSetData.impulseRangeMultiplier;
-            _impulseForcePerUnit = _ballSetData.impulseForcePerUnit;
-            _impulseExpPower = _ballSetData.impulseExpPower;
+            _rb2d.gravityScale = _ballSetData.GravityScale;
 
             // Sprite
             _ballSpriteThemeData = ballSpriteThemeData;
