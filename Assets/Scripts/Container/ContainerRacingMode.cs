@@ -122,10 +122,6 @@ namespace MultiSuika.Container
         }
         
         #region Setter
-        // public void SetAreaParameters(FloatReference containerMaxArea)
-        // {
-        //     _containerMaxArea = containerMaxArea;
-        // }
 
         public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap, FloatReference firstPlayerSpeed, FloatReference lastPlayerSpeed)
         {
@@ -195,13 +191,13 @@ namespace MultiSuika.Container
             if (_containerRacingDebugInfo == null)
                 return;
             
-            _containerRacingDebugInfo.SetScoreParameters(_playerScore);
+            // _containerRacingDebugInfo.SetScoreParameters(_playerScore);
             // _containerRacingDebugInfo.SetBallAreaParameters(_areaFilledPercent);
-            _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
-            _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
-            _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
-            _containerRacingDebugInfo.SetRankingParameters(_ranking);
-            _containerRacingDebugInfo.SetPositionParameters(_verticalPositionRatio);
+            // _containerRacingDebugInfo.SetSpeedParameters(_currentSpeed, _averageSpeed, _targetSpeed, _speedSoftCap);
+            // _containerRacingDebugInfo.SetComboParameters(_combo, _comboTimer, _comboTimerFull, _acceleration);
+            // _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
+            // _containerRacingDebugInfo.SetRankingParameters(_ranking);
+            // _containerRacingDebugInfo.SetPositionParameters(_verticalPositionRatio);
             _containerRacingDebugInfo.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled, _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled);
             
             // NOTE: It's a workaround so that Nova's stuff can be parsed through the cameras
@@ -216,39 +212,5 @@ namespace MultiSuika.Container
             _containerCameraMovements.SetSpeedParameters(_currentSpeed, _firstPlayerSpeed, _lastPlayerSpeed);
             _containerCameraMovements.SetPositionParameters(_verticalPositionRatio, _minAdaptiveVerticalRange);
         }
-        
-        // private void UpdateData()
-        // {
-        //     // // Percentage filled value
-        //     // _areaFilledPercent.Variable.SetValue(_areaFilled * 100f / _containerMaxArea);
-        //     
-        //     // Combo value
-        //     // if (_combo > 1)
-        //     // {
-        //     //     _comboTimer.Variable.ApplyChange(-Time.deltaTime);
-        //     //     if (_comboTimer < Mathf.Epsilon)
-        //     //         _combo.Variable.SetValue(1);
-        //     // }
-        //     
-        //     // Damping value
-        //     // _targetSpeed.Variable.ApplyChange(_targetSpeed - GetDampingValue() > 0 ? -GetDampingValue() : 0f);
-        //     
-        //     // Speed value
-        //     // TODO: Confirm if we should use this to make sure the damping doesn't benefit from the combo
-        //     // var acceleration = _currentSpeed < _targetSpeed ? _acceleration * (_combo * _debugScoreMultiplier) * Time.deltaTime : _acceleration;
-        //     // _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed, acceleration));
-        // }
-        
-        // private float GetDampingValue()
-        // {
-        //     return _dampingMethod switch
-        //     {
-        //         DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent * Time.deltaTime,
-        //         DampingMethod.Fixed => _dampingFixedValue * Time.deltaTime,
-        //         DampingMethod.AnimCurve => _currentSpeed * _dampingCurvePercent.Evaluate(_currentSpeed / _speedSoftCap) * Time.deltaTime,
-        //         DampingMethod.None => 0f,
-        //         _ => 0f
-        //     };
-        // }
     }
 }

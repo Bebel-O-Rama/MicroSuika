@@ -70,7 +70,6 @@ namespace MultiSuika.ScoreSystemTransition
 
         private void Update()
         {
-            Debug.Log($"Enter Update, _targetSpeed is {_targetSpeed.Variable.Value}");
             ApplyDamping();
 
             var acceleration = _currentSpeed < _targetSpeed
@@ -78,8 +77,6 @@ namespace MultiSuika.ScoreSystemTransition
                 : _baseAcceleration;
             _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed,
                 acceleration * Time.deltaTime));
-            Debug.Log($"Exit Update, _targetSpeed is {_targetSpeed.Variable.Value}");
-            Debug.Log("------------------------------------------------------------------------");
         }
 
         #region ContainerDamage
@@ -137,8 +134,6 @@ namespace MultiSuika.ScoreSystemTransition
         private void OnBallFusionPoints(BallInstance ball)
         {
             _targetSpeed.Variable.ApplyChange(ball.ScoreValue);
-            Debug.Log(
-                $"Entered OnBallFuionPoints, _targetSpeed after is {_targetSpeed.Variable.Value} and ball.ScoreValue is {ball.ScoreValue}");
         }
 
         #endregion
@@ -240,7 +235,7 @@ namespace MultiSuika.ScoreSystemTransition
 
         public FloatReference GetCurrentSpeedReference() => _currentSpeed;
         public FloatReference GetTargetSpeedReference() => _targetSpeed;
-        public IntReference GetComboReference() => _combo;
+        // public IntReference GetComboReference() => _combo;
 
 
         public void SetScoreHandlerData(ScoreHandlerData scoreHandlerData)

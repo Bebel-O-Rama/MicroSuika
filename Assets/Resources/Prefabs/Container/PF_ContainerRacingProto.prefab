@@ -11427,6 +11427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f75fb01dc4074e4494598ad4611ee51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
   _speedBarMaxHeight: 10
   _comboBarMaxHeight: 5
   _fixedDebugColor: {r: 0.8235294, g: 1, b: 0.99215686, a: 1}
