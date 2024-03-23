@@ -1,8 +1,6 @@
-﻿using MultiSuika.Utilities;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
-namespace MultiSuika.ScoreSystemTransition
+namespace MultiSuika.GameLogic
 {
     [CreateAssetMenu(menuName = "Versus Data/Score Handler Data")]
     public class ScoreHandlerData : ScriptableObject

@@ -3,7 +3,6 @@ using System.Linq;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Manager;
-using MultiSuika.ScoreSystemTransition;
 using MultiSuika.Utilities;
 using Nova;
 using TMPro;

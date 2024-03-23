@@ -11,7 +11,6 @@ namespace MultiSuika.Container
     {
         #region Singleton
 
-        [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
         public static ContainerTracker Instance => _instance ??= new ContainerTracker();
 
         private static ContainerTracker _instance;

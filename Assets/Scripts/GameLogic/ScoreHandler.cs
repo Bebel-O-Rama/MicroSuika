@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using MultiSuika.Ball;
 using MultiSuika.Container;
-using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
 
-namespace MultiSuika.ScoreSystemTransition
+namespace MultiSuika.GameLogic
 {
     public class ScoreHandler : MonoBehaviour
     {
@@ -218,28 +216,6 @@ namespace MultiSuika.ScoreSystemTransition
 
         public FloatReference GetCurrentSpeedReference() => _currentSpeed;
         public FloatReference GetTargetSpeedReference() => _targetSpeed;
-        public float GetSpeedSoftCap() => _scoreHandlerData.SpeedSoftCap;
-
-        // public void SetScoreHandlerData(ScoreHandlerData scoreHandlerData)
-        // {
-        //     // _baseAcceleration = scoreHandlerData.baseAcceleration;
-        //     //
-        //     // _damageMultiplier = scoreHandlerData.damageMultiplier;
-        //     // _percentageInstant = scoreHandlerData.percentageInstant;
-        //     // _damageCooldownDuration = scoreHandlerData.damageCooldownDuration;
-        //     //
-        //     // _speedSoftCap = scoreHandlerData.speedSoftCap;
-        //     // _dampingEvaluationMethod = scoreHandlerData.dampingMethod;
-        //     // _dampingFixedPercent = scoreHandlerData.dampingFixedPercent;
-        //     // _dampingFixedValue = scoreHandlerData.dampingFixedValue;
-        //     // _dampingCurvePercent = scoreHandlerData.dampingCurvePercent;
-        //     //
-        //     // _timerFullDuration = scoreHandlerData.timerFullDuration;
-        //     // _isDecreasingMaxTimer = scoreHandlerData.isDecreasingMaxTimer;
-        //     // _fullTimerDecrementValue = scoreHandlerData.fullTimerDecrementValue;
-        //     // _fullTimerMinValue = scoreHandlerData.fullTimerMinValue;
-        //     _scoreHandlerData = scoreHandlerData;
-        // }
 
         #endregion
     }

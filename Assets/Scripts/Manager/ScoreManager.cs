@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MultiSuika.Container;
-using MultiSuika.ScoreSystemTransition;
+using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -25,7 +25,6 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        // [SerializeField] private ScoreHandlerData _scoreHandlerData;
         [SerializeField] private List<ScoreHandler> _scoreHandlers;
         [SerializeField] private float _minAdaptiveVerticalRange; // 500
 
@@ -46,7 +45,6 @@ namespace MultiSuika.Manager
         {
             foreach (var scoreHandler in _scoreHandlers)
             {
-                // scoreHandler.SetScoreHandlerData(_scoreHandlerData);
                 _currentSpeedRefs[scoreHandler.playerIndex] = scoreHandler.GetCurrentSpeedReference();
                 _normalizedSpeedRefs[scoreHandler.playerIndex] = new FloatReference();
                 _playerRankings.Add(scoreHandler.playerIndex);
@@ -116,7 +114,5 @@ namespace MultiSuika.Manager
         public int GetPlayerRanking(int playerIndex) => _playerRankings.FindIndex(r => r == playerIndex);
 
         public FloatReference GetAverageSpeedReference() => _averageSpeed;
-
-        public float GetSpeedSoftCap() => _scoreHandlers[0].GetSpeedSoftCap();
     }
 }

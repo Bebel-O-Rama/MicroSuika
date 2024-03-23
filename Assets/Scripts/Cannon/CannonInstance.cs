@@ -3,6 +3,7 @@ using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Player;
 using MultiSuika.Utilities;
+using MultiSuika.zOther;
 using UnityEngine;
 
 namespace MultiSuika.Cannon

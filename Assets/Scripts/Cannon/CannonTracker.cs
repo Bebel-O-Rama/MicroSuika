@@ -8,7 +8,6 @@ namespace MultiSuika.Cannon
     {
         #region Singleton
 
-        [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
         public static CannonTracker Instance => _instance ??= new CannonTracker();
 
         private static CannonTracker _instance;

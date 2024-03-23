@@ -4,13 +4,11 @@ using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
-using MultiSuika.Player;
 using MultiSuika.Skin;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
-namespace MultiSuika.Utilities
+namespace MultiSuika.zOther
 {
     public static class Initializer
     {

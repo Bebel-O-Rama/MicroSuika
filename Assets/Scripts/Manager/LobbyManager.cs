@@ -7,6 +7,7 @@ using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.UI;
 using MultiSuika.Utilities;
+using MultiSuika.zOther;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
