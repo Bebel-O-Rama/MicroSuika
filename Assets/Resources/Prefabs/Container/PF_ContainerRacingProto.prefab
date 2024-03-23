@@ -11016,6 +11016,10 @@ MonoBehaviour:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
+  _hurtboxes:
+  - {fileID: 85160228579467521}
+  - {fileID: 2414993657620767617}
+  - {fileID: 5544846838430257188}
 --- !u!1 &5085919810562977626
 GameObject:
   m_ObjectHideFlags: 0

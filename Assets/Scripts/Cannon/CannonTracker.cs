@@ -30,6 +30,7 @@ namespace MultiSuika.Cannon
 
         public override void ClearItem(CannonInstance item)
         {
+            item.SetCannonInputEnabled(false);
             item.DestroyCurrentBall();
             base.ClearItem(item);
         }

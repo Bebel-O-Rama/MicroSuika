@@ -52,21 +52,17 @@ namespace MultiSuika.DebugInfo
         
         // Score parameters
         private FloatReference _playerScore;
-        
-        // Area parameters
-        // private FloatReference _areaPercentFilled;
-        
+
         // Speed parameters
-        
         private FloatReference _currentSpeed;
-        // private FloatReference _averageSpeed;
+        private FloatReference _averageSpeed;
         private FloatReference _targetSpeed;
-        private FloatReference _speedSoftCap;
+        private float _speedSoftCap;
         private float _previousSpeed;
         
         // Combo parameters
         private int _combo;
-        private float _lastComboIncrementTimestamp;
+        private float _onComboIncrementTimestamp;
         private float _comboTimerFull;
         private bool _isComboActive = false;
         // private FloatReference _acceleration;
@@ -94,7 +90,7 @@ namespace MultiSuika.DebugInfo
             _speedTextBlock.Color = _fixedDebugColor;
             _tmpLeadTimer.text = "";
 
-            _speedSoftCap = _scoreHandlerData.speedSoftCap;
+            _speedSoftCap = _scoreHandlerData.SpeedSoftCap;
         }
 
         private void Start()
@@ -105,6 +101,7 @@ namespace MultiSuika.DebugInfo
             _currentSpeed = ScoreManager.Instance.GetCurrentSpeedReference(_playerIndex);
             _targetSpeed = ScoreManager.Instance.GetTargetSpeedReference(_playerIndex);
             // _combo = ScoreManager.Instance.GetComboReference(_playerIndex);
+            _speedSoftCap = ScoreManager.Instance.GetSpeedSoftCap();
             
             ScoreManager.Instance.OnComboIncrement.Subscribe(OnComboIncrement, _playerIndex);
             ScoreManager.Instance.OnComboLost.Subscribe(OnComboStop, _playerIndex);
@@ -129,7 +126,7 @@ namespace MultiSuika.DebugInfo
         private void OnComboIncrement((int combo, float comboTimerFull) args)
         {
             _combo = args.combo;
-            _lastComboIncrementTimestamp = Time.time;
+            _onComboIncrementTimestamp = Time.time;
             _comboTimerFull = args.comboTimerFull;
             _isComboActive = true;
         }
@@ -171,7 +168,7 @@ namespace MultiSuika.DebugInfo
             // Combo bar
             if (_isComboActive)
             {
-                _comboBar.Size.Y = (_comboTimerFull - (Time.time - _lastComboIncrementTimestamp)) / _comboTimerFull * _comboBarMaxHeight ;
+                _comboBar.Size.Y = (_comboTimerFull - (Time.time - _onComboIncrementTimestamp)) / _comboTimerFull * _comboBarMaxHeight ;
                 _comboBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
             }
             else

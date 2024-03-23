@@ -18,124 +18,83 @@ namespace MultiSuika.GameLogic
     public class GameManager : MonoBehaviour
     {
         #region Singleton
-
+        
         public static GameManager Instance { get; private set; }
-
+        
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
             else
                 Destroy(gameObject);
-
+        
             Initialize();
         }
-
+        
         #endregion
-        // [Header("Score Parameters")]
-        // [FormerlySerializedAs("_scoreHandlerData")] [SerializeField] private ScoreHandlerDatattt scoreHandlerDatattt;
-        // public ScoreHandler ScoreHandler { get; private set; }
 
-        [Header("Speed Parameters")] [SerializeField]
-        private FloatReference _speedSoftCap; // 1200
+        [Header("Speed Parameters")] 
+        [SerializeField] private FloatReference _speedSoftCap; // 1200
 
-        [Header("Ball Collision Parameters")] [SerializeField]
-        private FloatReference _ballImpactMultiplier; // 2 
+        [Header("Ball Collision Parameters")] 
+        [SerializeField] private FloatReference _ballImpactMultiplier; // 2 
+        
+        [SerializeField] private WinConditionData _winConditionData;
+        
+        [Header("Movement Parameters")] 
+        [SerializeField] private FloatReference _minAdaptiveVerticalRange;
 
-        [Header("Damping Parameters")] [SerializeField]
-        private ContainerRacingMode.DampingMethod _dampingMethod; // AnimCurve
+        [Header("GameMode Parameters")] 
+        [SerializeField] public GameModeData gameModeData;
 
-        [SerializeField] private FloatReference _dampingFixedPercent; // 0.02
-        [SerializeField] private FloatReference _dampingFixedValue; // 1
-
-        [Tooltip("The animation curve can't be modified at runtime")] [SerializeField]
-        private AnimationCurve _dampingCurvePercent; // (0.0;0.0), (0.5;0.015), (1.0;0.05)
-
-        // [Header("Area Parameters")] [SerializeField]
-        // private FloatReference _containerMaxArea; // 60
-
-        [Header("Combo Parameters")] [SerializeField]
-        private FloatReference _comboTimerFull; // 3
-
-        [SerializeField] private FloatReference _acceleration; // 3
-
-        [Header("Lead Parameters")]
-        [Tooltip(
-            "If false, only increase the timer reducing the value of the condition variables when nobody is winning. Otherwise, always increase the timer")]
-        [SerializeField]
-        private bool _alwaysReduceConditionValues;
-
-        [SerializeField] private LeadReqProgressionMethod _leadReqProgressionMethod;
-        [SerializeField] private SpeedReqCheckMethod _speedReqCheckMethod;
-        [SerializeField] [Min(0f)] private Vector2 _timeLeadConditionMinRange;
-        [SerializeField] [Min(0f)] private Vector2 _speedLeadConditionMinRange;
-        [SerializeField] [Min(1f)] private float _leadTimeConditionTimerRange;
-        [SerializeField] [Min(1f)] private float _leadSpeedConditionTimerRange;
-        [SerializeField] private AnimationCurve _leadTimeReqCurve;
-        [SerializeField] private AnimationCurve _leadSpeedReqCurve;
-
-        [Header("Movement Parameters")] [SerializeField]
-        private FloatReference _minAdaptiveVerticalRange;
-
-        [Header("GameMode Parameters")] [SerializeField]
-        public GameModeData gameModeData;
-
-        [Header("DEBUG parameters")] public bool useDebugSpawnContainer = false;
-        [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
-        [SerializeField] public bool checkLeadCondition = true;
+        // [Header("DEBUG parameters")] public bool useDebugSpawnContainer = false;
+        // [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
+        // [SerializeField] public bool checkLeadCondition = true;
         [SerializeField] private BoolReference _isRacingModeDebugTextEnabled;
         [SerializeField] private BoolReference _isContainerSpeedBarDebugEnabled;
         [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
         [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
         [SerializeField] private FloatReference _debugScoreMultiplier;
         
-        private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
-        private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
-        private Dictionary<ContainerInstance, BoolReference> _playerLeadStatus;
-        private Dictionary<ContainerInstance, FloatReference> _playerLeadTimer;
-        private Dictionary<ContainerInstance, FloatReference> _playersYPositionRatio;
+        // private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
+        // private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
+        // private Dictionary<ContainerInstance, BoolReference> _playerLeadStatus;
+        // private Dictionary<ContainerInstance, FloatReference> _playerLeadTimer;
+        // private Dictionary<ContainerInstance, FloatReference> _playersYPositionRatio;
 
         private FloatReference _averageSpeed;
-        private FloatReference _firstPlayerSpeed;
-        private FloatReference _lastPlayerSpeed;
-        private FloatReference _standardDeviationSpeed;
+        // private FloatReference _firstPlayerSpeed;
+        // private FloatReference _lastPlayerSpeed;
+        // private FloatReference _standardDeviationSpeed;
 
+        private int _playerIndexInLead;
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;
-        private float _currentLeadTimeLeft;
-        private ContainerInstance _currentContainerInstanceInLead;
-        private float _timeReqProgressionTimer;
-        private float _speedReqProgressionTimer;
-
-        private IntReference _dampingMethodIndex;
-
-
-
-        private int _currentPlayerLeadIndex;
+        private float _leadRequirementProgressionTime;
         private Coroutine _leadTimerCoroutine;
+        // private float _currentLeadTimeLeft;
+        // private ContainerInstance _currentContainerInstanceInLead;
+        // private float _timeReqProgressionTimer;
+        // private float _speedReqProgressionTimer;
+
+        // private IntReference _dampingMethodIndex;
+
+
+
 
         
         
 
         private bool _isGameInProgress = true;
-        private RacingModeDebugInfo _racingModeDebugInfo;
+        // private RacingModeDebugInfo _racingModeDebugInfo;
 
-        private enum SpeedReqCheckMethod
-        {
-            FromAverage,
-            FromSecond,
-            FromStart
-        }
 
-        private enum LeadReqProgressionMethod
-        {
-            Fixed,
-            AnimCurve
-        }
+
+
+
 
         private void Initialize()
         {
-            
         }
 
         private void Start()
@@ -173,12 +132,17 @@ namespace MultiSuika.GameLogic
             //// Racing Stuff!!!
             SetRacingModeParameters();
             SetContainerRacingParameters();
+            
 
-            SetRacingModeDebugInfoParameters();
+            // SetRacingModeDebugInfoParameters();
+            // _racingModeDebugInfo.SetDebugActivationParameters(_isRacingModeDebugTextEnabled);
+
         }
 
         private void Update()
         {
+            _leadRequirementProgressionTime += Time.deltaTime;
+            
             if (!_isGameInProgress)
                 return;
             var currentPlayerRankings = ScoreManager.Instance.GetPlayerRankings();
@@ -189,219 +153,59 @@ namespace MultiSuika.GameLogic
                 return;
             }
 
-            if (currentPlayerRankings.First() == _currentPlayerLeadIndex)
+            if (currentPlayerRankings.First() == _playerIndexInLead)
                 return;
 
             StopLeadTimer();
             StartLeadTimer(currentPlayerRankings.First());
-            
-            
-            // ScoreManager.Instance.UpdateScore();
-            
-            // TODO: Clean this once we "hard set" the damping method
-            // _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
-
-            // UpdateSpeedParameters();
-            // UpdateRanking();
-
-            // TODO: REMOVE THIS CONDITION
-            // if (checkLeadCondition)
-            //     UpdateLead();
-            // CheckAndProcessWinCondition();
         }
 
         private bool CheckLeadConditions(List<int> currentPlayerRankings)
         {
             var firstPlayerSpeed = ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings.First());
-            return _speedReqCheckMethod switch
+            return _winConditionData.SpeedEvaluationMethod switch
             {
-                SpeedReqCheckMethod.FromAverage => firstPlayerSpeed > _averageSpeed + _currentLeadSpeedCondition,
-                SpeedReqCheckMethod.FromSecond => firstPlayerSpeed > (currentPlayerRankings.Count > 1
+                LeadSpeedEvaluationMethod.FromAverage => firstPlayerSpeed > _averageSpeed + _currentLeadSpeedCondition,
+                LeadSpeedEvaluationMethod.FromSecond => firstPlayerSpeed > (currentPlayerRankings.Count > 1
                     ? ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings[1]) + _currentLeadSpeedCondition
                     : _currentLeadSpeedCondition),
-                SpeedReqCheckMethod.FromStart => firstPlayerSpeed > _currentLeadSpeedCondition,
+                LeadSpeedEvaluationMethod.FromStart => firstPlayerSpeed > _currentLeadSpeedCondition,
                 _ => false
             };
         }
         
-        private void StopLeadTimer()
+        private void UpdateLeadRequirementsParameters()
         {
-            _currentPlayerLeadIndex = -1;
-            StopCoroutine(_leadTimerCoroutine);
-        }
+            if (_winConditionData.AdaptiveRequirementMethod == LeadAdaptiveRequirementMethod.Fixed)
+                return;
 
+            _currentLeadTimeCondition.Variable.SetValue(
+                _winConditionData.TimeProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / _winConditionData.TimeProgressionLength)) *
+                _winConditionData.TimeRequirementRange.y + _winConditionData.TimeRequirementRange.x);
+            _currentLeadSpeedCondition.Variable.SetValue(
+                _winConditionData.SpeedProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / _winConditionData.SpeedProgressionLength)) *
+                _winConditionData.SpeedRequirementRange.y + _winConditionData.SpeedRequirementRange.x);
+        }
+        
         private void StartLeadTimer(int playerIndex)
         {
-            _currentPlayerLeadIndex = playerIndex;
+            _playerIndexInLead = playerIndex;
             _leadTimerCoroutine = StartCoroutine(LeadTimer());
         }
-
+        
         private IEnumerator LeadTimer()
         {
             yield return new WaitForSeconds(_currentLeadTimeCondition);
             ProcessWinCondition();
         }
         
-        private void UpdateLeadRequirementsParameters()
+        private void StopLeadTimer()
         {
-            _timeReqProgressionTimer += Time.deltaTime;
-            _speedReqProgressionTimer += Time.deltaTime;
-
-            _currentLeadTimeCondition.Variable.SetValue(
-                _leadTimeReqCurve.Evaluate(Mathf.Clamp01(_timeReqProgressionTimer / _leadTimeConditionTimerRange)) *
-                _timeLeadConditionMinRange.y + _timeLeadConditionMinRange.x);
-            _currentLeadSpeedCondition.Variable.SetValue(
-                _leadSpeedReqCurve.Evaluate(Mathf.Clamp01(_speedReqProgressionTimer / _leadSpeedConditionTimerRange)) *
-                _speedLeadConditionMinRange.y + _speedLeadConditionMinRange.x);
+            _playerIndexInLead = -1;
+            if (_leadTimerCoroutine != null)
+                StopCoroutine(_leadTimerCoroutine);
         }
         
-        private void SetRacingModeDebugInfoParameters()
-        {
-            _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
-            if (_racingModeDebugInfo == null)
-                return;
-            _racingModeDebugInfo.SetRacingModeParameters(_averageSpeed, _standardDeviationSpeed,
-                _currentLeadTimeCondition, _currentLeadSpeedCondition);
-            _racingModeDebugInfo.SetDebugActivationParameters(_isRacingModeDebugTextEnabled);
-        }
-
-        private void SetRacingModeParameters()
-        {
-            _averageSpeed = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _firstPlayerSpeed = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _lastPlayerSpeed = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _standardDeviationSpeed = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _currentLeadTimeCondition = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _currentLeadSpeedCondition = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _dampingMethodIndex = new IntReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-
-            _playerCurrentSpeedReferences = new Dictionary<ContainerInstance, FloatReference>();
-            _playerRankingReferences = new Dictionary<ContainerInstance, IntReference>();
-            _playerLeadStatus = new Dictionary<ContainerInstance, BoolReference>();
-            _playerLeadTimer = new Dictionary<ContainerInstance, FloatReference>();
-            _playersYPositionRatio = new Dictionary<ContainerInstance, FloatReference>();
-
-            foreach (var container in ContainerTracker.Instance.GetItems())
-            {
-                FloatReference newCurrentSpeedVar = new FloatReference
-                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-                IntReference newPlayerRankingRef = new IntReference
-                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-                BoolReference newPlayerLeadStatus = new BoolReference
-                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<BoolVariable>() };
-                FloatReference newPlayerLeadTimer = new FloatReference
-                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-                var newYPositionRatioRef = new FloatReference
-                    { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-
-                newPlayerLeadStatus.Variable.SetValue(false);
-
-                _playerCurrentSpeedReferences[container] = newCurrentSpeedVar;
-                _playerRankingReferences[container] = newPlayerRankingRef;
-                _playerLeadStatus[container] = newPlayerLeadStatus;
-                _playerLeadTimer[container] = newPlayerLeadTimer;
-                _playersYPositionRatio[container] = newYPositionRatioRef;
-            }
-
-            _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
-
-            _currentLeadTimeCondition.Variable.SetValue(_timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y);
-            _currentLeadSpeedCondition.Variable.SetValue(_speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y);
-        }
-
-        private void SetContainerRacingParameters()
-        {
-            // TODO: clean up this, it's for a quick test
-            var playerIndex = 1;
-            foreach (var container in ContainerTracker.Instance.GetItems())
-            {
-                var containerRacing = container.GetComponent<ContainerRacingMode>();
-                // containerRacing.SetAreaParameters(_containerMaxArea);
-                containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed,
-                    _speedSoftCap, _firstPlayerSpeed, _lastPlayerSpeed);
-                containerRacing.SetDampingParameters(_dampingMethodIndex, _dampingFixedPercent, _dampingFixedValue,
-                    _dampingCurvePercent);
-                containerRacing.SetComboParameters(_comboTimerFull, _acceleration);
-                containerRacing.SetRankingParameters(_playerRankingReferences[container]);
-                containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
-                containerRacing.SetCollisionParameters(_ballImpactMultiplier);
-                containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
-                containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled,
-                    _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
-                containerRacing.SetLayer($"Container{playerIndex}");
-                playerIndex++;
-            }
-        }
-
-        private void UpdateRanking()
-        {
-            var playerOrder = (from container in _playerCurrentSpeedReferences
-                orderby container.Value.Value descending
-                select container).ToList();
-
-            _firstPlayerSpeed.Variable.SetValue(playerOrder.First().Value);
-            _lastPlayerSpeed.Variable.SetValue(playerOrder.Last().Value);
-
-            int rankingIndex = 1;
-            for (int i = 0; i < playerOrder.Count(); i++)
-            {
-                if (i == 0)
-                {
-                    _playerRankingReferences[playerOrder[i].Key].Variable.SetValue(rankingIndex);
-                    continue;
-                }
-
-                if (Mathf.Abs(playerOrder[i].Value.Value - playerOrder[i - 1].Value.Value) > Mathf.Epsilon)
-                    rankingIndex += 1;
-
-                _playerRankingReferences[playerOrder[i].Key].Variable.SetValue(rankingIndex);
-            }
-        }
-
-        private void UpdateLead()
-        {
-            var currentFirst =
-                _playerCurrentSpeedReferences.Aggregate((first, next) =>
-                    next.Value > first.Value ? next : first);
-
-            var passedPtsCheck = CheckPointsReqValue(currentFirst.Value);
-
-            if (_alwaysReduceConditionValues)
-                UpdateLeadRequirementsParameters();
-
-            if (passedPtsCheck && currentFirst.Key == _currentContainerInstanceInLead)
-            {
-                _currentLeadTimeLeft -= Time.deltaTime;
-                _playerLeadTimer[_currentContainerInstanceInLead].Variable.SetValue(_currentLeadTimeLeft);
-                return;
-            }
-
-            if (_currentContainerInstanceInLead != null)
-            {
-                _playerLeadStatus[_currentContainerInstanceInLead].Variable.SetValue(false);
-                _currentContainerInstanceInLead = null;
-            }
-
-            if (!passedPtsCheck)
-            {
-                if (!_alwaysReduceConditionValues)
-                    UpdateLeadRequirementsParameters();
-                return;
-            }
-
-            _currentContainerInstanceInLead = currentFirst.Key;
-            _playerLeadStatus[_currentContainerInstanceInLead].Variable.SetValue(true);
-            _currentLeadTimeLeft = _currentLeadTimeCondition;
-            _playerLeadTimer[_currentContainerInstanceInLead].Variable.SetValue(_currentLeadTimeLeft);
-        }
-
         private void ProcessWinCondition()
         {
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
@@ -424,28 +228,94 @@ namespace MultiSuika.GameLogic
             }
             _isGameInProgress = false;
         }
+        
+        // private void SetRacingModeDebugInfoParameters()
+        // {
+        //     _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
+        //     if (_racingModeDebugInfo == null)
+        //         return;
+        //     _racingModeDebugInfo.SetRacingModeParameters(_averageSpeed, _standardDeviationSpeed,
+        //         _currentLeadTimeCondition, _currentLeadSpeedCondition);
+        //     _racingModeDebugInfo.SetDebugActivationParameters(_isRacingModeDebugTextEnabled);
+        // }
 
-        private bool CheckPointsReqValue(float score)
+        private void SetRacingModeParameters()
         {
-            return _speedReqCheckMethod switch
-            {
-                SpeedReqCheckMethod.FromAverage => score > _averageSpeed + _currentLeadSpeedCondition,
-                SpeedReqCheckMethod.FromSecond => score > (_playerCurrentSpeedReferences.Count > 1
-                    ? _playerCurrentSpeedReferences.OrderByDescending(r => r.Value.Value).Skip(1).FirstOrDefault()
-                          .Value +
-                      _currentLeadSpeedCondition
-                    : _currentLeadSpeedCondition),
-                SpeedReqCheckMethod.FromStart => score > _currentLeadSpeedCondition,
-                _ => false
-            };
+            // _firstPlayerSpeed = new FloatReference
+            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            // _lastPlayerSpeed = new FloatReference
+            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            // _standardDeviationSpeed = new FloatReference
+            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _currentLeadTimeCondition = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            _currentLeadSpeedCondition = new FloatReference
+                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            // _dampingMethodIndex = new IntReference
+            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
+        
+            // _playerCurrentSpeedReferences = new Dictionary<ContainerInstance, FloatReference>();
+            // _playerRankingReferences = new Dictionary<ContainerInstance, IntReference>();
+            // _playerLeadStatus = new Dictionary<ContainerInstance, BoolReference>();
+            // _playerLeadTimer = new Dictionary<ContainerInstance, FloatReference>();
+            // _playersYPositionRatio = new Dictionary<ContainerInstance, FloatReference>();
+        
+            // foreach (var container in ContainerTracker.Instance.GetItems())
+            // {
+            //     // FloatReference newCurrentSpeedVar = new FloatReference
+            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            //     // IntReference newPlayerRankingRef = new IntReference
+            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
+            //     // BoolReference newPlayerLeadStatus = new BoolReference
+            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<BoolVariable>() };
+            //     // FloatReference newPlayerLeadTimer = new FloatReference
+            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            //     // var newYPositionRatioRef = new FloatReference
+            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
+            //
+            //     // newPlayerLeadStatus.Variable.SetValue(false);
+            //     //
+            //     // _playerCurrentSpeedReferences[container] = newCurrentSpeedVar;
+            //     // _playerRankingReferences[container] = newPlayerRankingRef;
+            //     // _playerLeadStatus[container] = newPlayerLeadStatus;
+            //     // _playerLeadTimer[container] = newPlayerLeadTimer;
+            //     // _playersYPositionRatio[container] = newYPositionRatioRef;
+            // }
+        
+            // _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
+        
+            // _currentLeadTimeCondition.Variable.SetValue(_timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y);
+            // _currentLeadSpeedCondition.Variable.SetValue(_speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y);
         }
 
-        // // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
-        // public void OnBallFusion(BallInstance ballInstance)
-        // {
-        //     var racingDebugInfo = ballInstance.ContainerInstance.GetComponent<ContainerRacingMode>();
-        //     if (racingDebugInfo != null)
-        //         racingDebugInfo.NewBallFused(ballInstance.ScoreValue);
-        // }
+        private void SetContainerRacingParameters()
+        {
+            // TODO: clean up this, it's for a quick test
+            var playerIndex = 1;
+            foreach (var container in ContainerTracker.Instance.GetItems())
+            {
+                var containerRacing = container.GetComponent<ContainerRacingMode>();
+                // // containerRacing.SetAreaParameters(_containerMaxArea);
+                // containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed,
+                //     _speedSoftCap, _firstPlayerSpeed, _lastPlayerSpeed);
+                // containerRacing.SetDampingParameters(_dampingMethodIndex, _dampingFixedPercent, _dampingFixedValue,
+                //     _dampingCurvePercent);
+                // containerRacing.SetComboParameters(_comboTimerFull, _acceleration);
+                // containerRacing.SetRankingParameters(_playerRankingReferences[container]);
+                // containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
+                // containerRacing.SetCollisionParameters(_ballImpactMultiplier);
+                // containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
+                containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled,
+                    _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
+                containerRacing.SetLayer($"Container{playerIndex}");
+                playerIndex++;
+            }
+        }
+
+        public (FloatReference timeRequirement, FloatReference speedRequirement) GetLeadRequirementReferences()
+        {
+            return (_currentLeadTimeCondition, _currentLeadSpeedCondition);
+        }
+
     }
 }

@@ -29,7 +29,7 @@ namespace MultiSuika.GameLogic
         // #endregion
         //
         // [Header("Score Parameters")]
-        [FormerlySerializedAs("_scoreHandlerData")] [SerializeField] private ScoreHandlerDatattt scoreHandlerDatattt;
+        // [FormerlySerializedAs("_scoreHandlerData")] [SerializeField] private ScoreHandlerDatattt scoreHandlerDatattt;
         // public ScoreManager ScoreManager { get; private set; }
         
         [SerializeField] public GameModeData gameModeData;

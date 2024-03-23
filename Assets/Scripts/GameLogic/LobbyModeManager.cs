@@ -50,6 +50,7 @@ namespace MultiSuika.GameLogic
             ContainerTracker.Instance.ClearItems();
             CannonTracker.Instance.ClearItems();
             
+            
             SceneManager.LoadScene(nextSceneName);
         }
 

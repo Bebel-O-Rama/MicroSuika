@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.DebugInfo;
@@ -9,8 +11,13 @@ namespace MultiSuika.Container
     public class ContainerRacingMode : ContainerInstance
     {
         // Score parameters
-        private FloatReference _playerScore;
+        // private FloatReference _playerScore;
 
+        private int _playerIndex;
+        [SerializeField] private List<SignalCollider2D> _hurtboxes; 
+        
+        
+        
         // // Area parameters
         // private FloatReference _areaFilledPercent;
         // private FloatReference _areaFilled;
@@ -18,18 +25,18 @@ namespace MultiSuika.Container
         
         // Speed parameters
         private FloatReference _currentSpeed;
-        private FloatReference _averageSpeed;
+        // private FloatReference _averageSpeed;
         private FloatReference _targetSpeed;
-        private FloatReference _speedSoftCap;
+        // private FloatReference _speedSoftCap;
         private FloatReference _firstPlayerSpeed;
         private FloatReference _lastPlayerSpeed;
 
-        // Damping parameters
-        private DampingMethod _dampingMethod; // AnimCurve
-        private IntReference _dampingMethodIndex;
-        private float _dampingFixedPercent; // 0.02
-        private float _dampingFixedValue; // 1
-        private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
+        // // Damping parameters
+        // private DampingMethod _dampingMethod; // AnimCurve
+        // private IntReference _dampingMethodIndex;
+        // private float _dampingFixedPercent; // 0.02
+        // private float _dampingFixedValue; // 1
+        // private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
         
         // Combo parameters
         private FloatReference _comboTimerFull; // 3
@@ -60,39 +67,31 @@ namespace MultiSuika.Container
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
         private ContainerCameraMovements _containerCameraMovements;
         private Camera _containerCamera;
-
-        public enum DampingMethod
-        {
-            FixedPercent,
-            Fixed,
-            AnimCurve,
-            None
-        }
-
-        private void Awake()
-        {
-            _targetSpeed = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            // _areaFilledPercent = _comboTimer = new FloatReference
-            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _combo = new IntReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-            _comboTimer = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            
-            // TODO: Why do we instantiate the ranking here?????
-            _ranking = new IntReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-            
-            _combo.Variable.SetValue(1);
-        }
+        
+        
 
         private void Start()
         {
-            _playerScore = transform.parent.GetComponentInChildren<CannonInstance>().scoreReference;
+            _playerIndex = ContainerTracker.Instance.GetPlayersByItem(this).First();
+            // _playerScore = transform.parent.GetComponentInChildren<CannonInstance>().scoreReference;
 
+            foreach (var hurtbox in _hurtboxes)
+            {
+                hurtbox.SubscribeTriggerEnter2D(HurtboxTriggered);
+            }
+            
+            
             SetContainerDebugInfoParameters();
-            SetContainerMovementParameters();
+            // SetContainerMovementParameters();
+        }
+        
+        private void HurtboxTriggered(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("Ball"))
+                return;
+            var ball = other.GetComponentInParent<BallInstance>();
+            ContainerTracker.Instance.OnContainerHit.CallAction((ball, this), _playerIndex);
+            ball.ClearBall(false);
         }
         
         // private void Update()
@@ -102,44 +101,27 @@ namespace MultiSuika.Container
         //     // UpdateData();
         // }
 
-        // TODO: Move that behaviour in its own data type (it's not the job of the container to do that)
-        public void NewBallFused(float scoreValue)
-        {
-            _combo.Variable.ApplyChange(1);
-            _comboTimer.Variable.SetValue(_comboTimerFull);
-            _targetSpeed.Variable.ApplyChange(scoreValue * 2f * _debugScoreMultiplier);
-        }
-
-        public void DamageReceived(BallInstance ballInstance)
-        {
-            var impactLevel = ballInstance.ScoreValue * _ballImpactMultiplier;
-            _currentSpeed.Variable.SetValue(Mathf.Clamp(_currentSpeed.Value - impactLevel, 0f, Mathf.Infinity));
-            _targetSpeed.Variable.SetValue(Mathf.Clamp(_targetSpeed - impactLevel, 0f, Mathf.Infinity));
-            
-            // Add dmg feedback here
-            
-            ballInstance.ClearBall(false);
-        }
+        
         
         #region Setter
 
-        public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap, FloatReference firstPlayerSpeed, FloatReference lastPlayerSpeed)
-        {
-            _currentSpeed = currentSpeed;
-            _averageSpeed = averageSpeed;
-            _speedSoftCap = speedSoftCap;
-            _firstPlayerSpeed = firstPlayerSpeed;
-            _lastPlayerSpeed = lastPlayerSpeed;
-        }
+        // public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference speedSoftCap, FloatReference firstPlayerSpeed, FloatReference lastPlayerSpeed)
+        // {
+        //     _currentSpeed = currentSpeed;
+        //     _averageSpeed = averageSpeed;
+        //     _speedSoftCap = speedSoftCap;
+        //     _firstPlayerSpeed = firstPlayerSpeed;
+        //     _lastPlayerSpeed = lastPlayerSpeed;
+        // }
 
-        public void SetDampingParameters(IntReference dampingMethodIndex, FloatReference dampingFixedPercent,
-            FloatReference dampingFixedValue, AnimationCurve dampingCurvePercent)
-        {
-            _dampingMethodIndex = dampingMethodIndex;
-            _dampingFixedPercent = dampingFixedPercent;
-            _dampingFixedValue = dampingFixedValue;
-            _dampingCurvePercent = dampingCurvePercent;
-        }
+        // public void SetDampingParameters(IntReference dampingMethodIndex, FloatReference dampingFixedPercent,
+        //     FloatReference dampingFixedValue, AnimationCurve dampingCurvePercent)
+        // {
+        //     _dampingMethodIndex = dampingMethodIndex;
+        //     _dampingFixedPercent = dampingFixedPercent;
+        //     _dampingFixedValue = dampingFixedValue;
+        //     _dampingCurvePercent = dampingCurvePercent;
+        // }
 
         public void SetComboParameters(FloatReference comboTimerFull, FloatReference acceleration)
         {
@@ -205,12 +187,12 @@ namespace MultiSuika.Container
             _containerRacingDebugInfo.gameObject.SetActive(true);
         }
 
-        private void SetContainerMovementParameters()
-        {
-            _containerCameraMovements = GetComponentInChildren<ContainerCameraMovements>();
-            
-            _containerCameraMovements.SetSpeedParameters(_currentSpeed, _firstPlayerSpeed, _lastPlayerSpeed);
-            _containerCameraMovements.SetPositionParameters(_verticalPositionRatio, _minAdaptiveVerticalRange);
-        }
+        // private void SetContainerMovementParameters()
+        // {
+        //     _containerCameraMovements = GetComponentInChildren<ContainerCameraMovements>();
+        //     
+        //     _containerCameraMovements.SetSpeedParameters(_currentSpeed, _firstPlayerSpeed, _lastPlayerSpeed);
+        //     _containerCameraMovements.SetPositionParameters(_verticalPositionRatio, _minAdaptiveVerticalRange);
+        // }
     }
 }

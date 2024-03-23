@@ -25,15 +25,15 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        // [SerializeField] private ScoreHandlerData _scoreHandlerData;
         [SerializeField] private List<ScoreHandler> _scoreHandlers;
-        [SerializeField] private FloatReference _minAdaptiveVerticalRange; // 500
+        [SerializeField] private float _minAdaptiveVerticalRange; // 500
 
         private FloatReference _averageSpeed;
         private readonly Dictionary<int, FloatReference> _currentSpeedRefs = new Dictionary<int, FloatReference>();
         private readonly Dictionary<int, FloatReference> _normalizedSpeedRefs = new Dictionary<int, FloatReference>();
         private readonly List<int> _playerRankings = new List<int>();
-        
+
         public ActionMethodPlayerWrapper<(int, float)> OnComboIncrement = new ActionMethodPlayerWrapper<(int, float)>();
         public ActionMethodPlayerWrapper<int> OnComboLost = new ActionMethodPlayerWrapper<int>();
 
@@ -46,7 +46,7 @@ namespace MultiSuika.Manager
         {
             foreach (var scoreHandler in _scoreHandlers)
             {
-                scoreHandler.SetScoreHandlerData(_scoreHandlerData);
+                // scoreHandler.SetScoreHandlerData(_scoreHandlerData);
                 _currentSpeedRefs[scoreHandler.playerIndex] = scoreHandler.GetCurrentSpeedReference();
                 _normalizedSpeedRefs[scoreHandler.playerIndex] = new FloatReference();
                 _playerRankings.Add(scoreHandler.playerIndex);
@@ -59,7 +59,7 @@ namespace MultiSuika.Manager
             UpdateNormalizedSpeed();
             UpdateAverageSpeed();
         }
-        
+
         private void UpdateRanking()
         {
             var sortedPlayers = new List<KeyValuePair<int, FloatReference>>(_currentSpeedRefs);
@@ -71,7 +71,7 @@ namespace MultiSuika.Manager
                 _playerRankings.Add(player.Key);
             }
         }
-        
+
         private void UpdateNormalizedSpeed()
         {
             float lowestSpeed = _currentSpeedRefs[_playerRankings.Last()];
@@ -95,7 +95,7 @@ namespace MultiSuika.Manager
         {
             OnComboIncrement.Clear(playerIndex);
             OnComboLost.Clear(playerIndex);
-            
+
             _scoreHandlers.RemoveAt(playerIndex);
             _currentSpeedRefs.Remove(playerIndex);
             _normalizedSpeedRefs.Remove(playerIndex);
@@ -109,7 +109,13 @@ namespace MultiSuika.Manager
 
         public FloatReference GetTargetSpeedReference(int playerIndex) =>
             _scoreHandlers[playerIndex].GetTargetSpeedReference();
-        
+
+        public FloatReference GetNormalizedSpeedReference(int playerIndex) => _normalizedSpeedRefs[playerIndex];
+
         public List<int> GetPlayerRankings() => _playerRankings;
+
+        public FloatReference GetAverageSpeedReference() => _averageSpeed;
+
+        public float GetSpeedSoftCap() => _scoreHandlers[0].GetSpeedSoftCap();
     }
 }

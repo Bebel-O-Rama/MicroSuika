@@ -7,7 +7,6 @@ using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MultiSuika.ScoreSystemTransition
 {
@@ -19,34 +18,17 @@ namespace MultiSuika.ScoreSystemTransition
         [SerializeField] private FloatReference _currentSpeed;
         [SerializeField] private FloatReference _targetSpeed;
         [SerializeField] private IntReference _combo;
-
-        // Container damage parameters
-        private float _damageMultiplier; // 2
-        private float _percentageInstant; // 0.6
-        private float _damageCooldownDuration; // 1.5
-        private Coroutine _damageCooldownCoroutine;
-
-        // Damping parameters
-        private FloatReference _speedSoftCap; // 1200
-        private ScoreHandlerData.DampingMethod _dampingMethod; // AnimCurve
-        private FloatReference _dampingFixedPercent; // 0.02
-        private FloatReference _dampingFixedValue; // 1
-        private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
-
-        // Combo and Acceleration parameters
-        private float _baseAcceleration; // 3
-        private FloatReference _timerFullDuration; // 5
-        private BoolReference _isDecreasingMaxTimer; // true
-        private FloatReference _fullTimerDecrementValue; // 0.1
-        private FloatReference _fullTimerMinValue; // 2
-        private Coroutine _comboTimerCoroutine;
+        [SerializeField] private ScoreHandlerData _scoreHandlerData;
         
+        private Coroutine _damageCooldownCoroutine;
+        private Coroutine _comboTimerCoroutine;
+
         // Active components parameters
         private bool _isContainerDamageActive;
         private bool _isBallFusionActive;
         private bool _isDampingActive;
         private bool _isComboActive;
-        
+
         private void Awake()
         {
             _currentSpeed = new FloatReference();
@@ -69,8 +51,8 @@ namespace MultiSuika.ScoreSystemTransition
             ApplyDamping();
 
             var acceleration = _currentSpeed < _targetSpeed
-                ? _baseAcceleration * _combo
-                : _baseAcceleration;
+                ? _scoreHandlerData.BaseAcceleration * _combo
+                : _scoreHandlerData.BaseAcceleration;
             _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed,
                 acceleration * Time.deltaTime));
         }
@@ -97,15 +79,17 @@ namespace MultiSuika.ScoreSystemTransition
 
         private IEnumerator ContainerDamageCooldown(BallInstance ball)
         {
-            var damageValue = ball.ScoreValue * _damageMultiplier;
-            _currentSpeed.Variable.ApplyChangeClamp(_currentSpeed - damageValue * _percentageInstant, min: 0f);
-            _targetSpeed.Variable.ApplyChangeClamp(_currentSpeed - damageValue * (_percentageInstant - 1f), min: 0f);
+            var damageValue = ball.ScoreValue * _scoreHandlerData.DamageMultiplier;
+            _currentSpeed.Variable.ApplyChangeClamp(_currentSpeed - damageValue * _scoreHandlerData.PercentageInstant,
+                min: 0f);
+            _targetSpeed.Variable.ApplyChangeClamp(
+                _currentSpeed - damageValue * (_scoreHandlerData.PercentageInstant - 1f), min: 0f);
 
             SetBallFusionActive(false);
             SetDampingActive(false);
             SetComboActive(false);
 
-            yield return new WaitForSeconds(_damageCooldownDuration);
+            yield return new WaitForSeconds(_scoreHandlerData.DamageCooldownDuration);
 
             SetBallFusionActive(true);
             SetDampingActive(true);
@@ -146,14 +130,14 @@ namespace MultiSuika.ScoreSystemTransition
             if (!_isDampingActive)
                 return;
 
-            var dampingValue = _dampingMethod switch
+            var dampingValue = _scoreHandlerData.DampingMethod switch
             {
-                ScoreHandlerData.DampingMethod.FixedPercent => _currentSpeed * _dampingFixedPercent,
-                ScoreHandlerData.DampingMethod.Fixed => _dampingFixedValue,
-                ScoreHandlerData.DampingMethod.AnimCurve => _currentSpeed *
-                                                            _dampingCurvePercent.Evaluate(_currentSpeed /
-                                                                _speedSoftCap),
-                ScoreHandlerData.DampingMethod.None => 0f,
+                DampingEvaluationMethod.FixedPercent => _currentSpeed * _scoreHandlerData.DampingFixedPercent,
+                DampingEvaluationMethod.Fixed => _scoreHandlerData.DampingFixedValue,
+                DampingEvaluationMethod.AnimCurve => _currentSpeed *
+                                                     _scoreHandlerData.DampingCurvePercent.Evaluate(_currentSpeed /
+                                                         _scoreHandlerData.SpeedSoftCap),
+                DampingEvaluationMethod.None => 0f,
                 _ => 0f
             };
 
@@ -189,10 +173,10 @@ namespace MultiSuika.ScoreSystemTransition
         {
             _combo.Variable.ApplyChange(1);
 
-            var comboTimer = _isDecreasingMaxTimer
-                ? Mathf.Clamp(_timerFullDuration - _fullTimerDecrementValue * _combo, _fullTimerMinValue,
-                    Mathf.Infinity)
-                : _timerFullDuration;
+            var comboTimer = _scoreHandlerData.IsDecreasingMaxTimer
+                ? Mathf.Clamp(_scoreHandlerData.TimerFullDuration - _scoreHandlerData.FullTimerDecrementValue * _combo,
+                    _scoreHandlerData.FullTimerMinValue, Mathf.Infinity)
+                : _scoreHandlerData.TimerFullDuration;
 
             ScoreManager.Instance.OnComboIncrement.CallAction((_combo, comboTimer), playerIndex);
 
@@ -222,9 +206,11 @@ namespace MultiSuika.ScoreSystemTransition
 
         private void ClearScoreHandler()
         {
-            StopCoroutine(_damageCooldownCoroutine);
-            StopCoroutine(_comboTimerCoroutine);
-            
+            if (_damageCooldownCoroutine != null)
+                StopCoroutine(_damageCooldownCoroutine);
+            if (_comboTimerCoroutine != null)
+                StopCoroutine(_comboTimerCoroutine);
+
             ScoreManager.Instance.ClearPlayerScoreComponents(playerIndex);
             Destroy(gameObject);
         }
@@ -233,26 +219,28 @@ namespace MultiSuika.ScoreSystemTransition
 
         public FloatReference GetCurrentSpeedReference() => _currentSpeed;
         public FloatReference GetTargetSpeedReference() => _targetSpeed;
+        public float GetSpeedSoftCap() => _scoreHandlerData.SpeedSoftCap;
 
-        public void SetScoreHandlerData(ScoreHandlerData scoreHandlerData)
-        {
-            _baseAcceleration = scoreHandlerData.baseAcceleration;
-
-            _damageMultiplier = scoreHandlerData.damageMultiplier;
-            _percentageInstant = scoreHandlerData.percentageInstant;
-            _damageCooldownDuration = scoreHandlerData.damageCooldownDuration;
-
-            _speedSoftCap = scoreHandlerData.speedSoftCap;
-            _dampingMethod = scoreHandlerData.dampingMethod;
-            _dampingFixedPercent = scoreHandlerData.dampingFixedPercent;
-            _dampingFixedValue = scoreHandlerData.dampingFixedValue;
-            _dampingCurvePercent = scoreHandlerData.dampingCurvePercent;
-
-            _timerFullDuration = scoreHandlerData.timerFullDuration;
-            _isDecreasingMaxTimer = scoreHandlerData.isDecreasingMaxTimer;
-            _fullTimerDecrementValue = scoreHandlerData.fullTimerDecrementValue;
-            _fullTimerMinValue = scoreHandlerData.fullTimerMinValue;
-        }
+        // public void SetScoreHandlerData(ScoreHandlerData scoreHandlerData)
+        // {
+        //     // _baseAcceleration = scoreHandlerData.baseAcceleration;
+        //     //
+        //     // _damageMultiplier = scoreHandlerData.damageMultiplier;
+        //     // _percentageInstant = scoreHandlerData.percentageInstant;
+        //     // _damageCooldownDuration = scoreHandlerData.damageCooldownDuration;
+        //     //
+        //     // _speedSoftCap = scoreHandlerData.speedSoftCap;
+        //     // _dampingEvaluationMethod = scoreHandlerData.dampingMethod;
+        //     // _dampingFixedPercent = scoreHandlerData.dampingFixedPercent;
+        //     // _dampingFixedValue = scoreHandlerData.dampingFixedValue;
+        //     // _dampingCurvePercent = scoreHandlerData.dampingCurvePercent;
+        //     //
+        //     // _timerFullDuration = scoreHandlerData.timerFullDuration;
+        //     // _isDecreasingMaxTimer = scoreHandlerData.isDecreasingMaxTimer;
+        //     // _fullTimerDecrementValue = scoreHandlerData.fullTimerDecrementValue;
+        //     // _fullTimerMinValue = scoreHandlerData.fullTimerMinValue;
+        //     _scoreHandlerData = scoreHandlerData;
+        // }
 
         #endregion
     }
