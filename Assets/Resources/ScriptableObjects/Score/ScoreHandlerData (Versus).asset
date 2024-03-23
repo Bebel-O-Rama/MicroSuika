@@ -53,7 +53,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _timerFullDuration: 5
+  _timerFullDuration: 4
   _isDecreasingMaxTimer: 1
   _fullTimerDecrementValue: 0.1
   _fullTimerMinValue: 2

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MultiSuika.Ball;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace MultiSuika.Container
         
         private GameObject _containerParent;
     
+        // TODO: What the heck is this???
         public GameObject ContainerParent
         {
             get => _containerParent;
@@ -52,14 +54,16 @@ namespace MultiSuika.Container
     
         public float GetContainerHorizontalHalfLength() => horizontalMvtHalfLength;
 
-        public void ContainerFailure()
+        public void OnGameOver(bool hasWon)
         {
-            failureSpriteRenderer.enabled = true;
-        }
-        
-        public void ContainerSuccess()
-        {
-            successSpriteRenderer.enabled = true;
+            if (hasWon)
+            {
+                successSpriteRenderer.enabled = true;
+            }
+            else
+            {
+                failureSpriteRenderer.enabled = true;
+            }
         }
 
         public void OnBallCollision(float velocity, BallInstance ballInstance)

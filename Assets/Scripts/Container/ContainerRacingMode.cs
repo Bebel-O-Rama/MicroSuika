@@ -59,10 +59,10 @@ namespace MultiSuika.Container
         private float _ballImpactMultiplier; // 2 
 
         // Debug parameters
-        private BoolReference _isContainerSpeedBarDebugEnabled;
-        private BoolReference _isContainerFullDebugTextEnabled;
-        private BoolReference _isContainerAbridgedDebugTextEnabled;
-        private FloatReference _debugScoreMultiplier;
+        // private BoolReference _isContainerSpeedBarDebugEnabled;
+        // private BoolReference _isContainerFullDebugTextEnabled;
+        // private BoolReference _isContainerAbridgedDebugTextEnabled;
+        // private FloatReference _debugScoreMultiplier;
         
         private ContainerRacingDebugInfo _containerRacingDebugInfo;
         private ContainerCameraMovements _containerCameraMovements;
@@ -149,15 +149,15 @@ namespace MultiSuika.Container
             _minAdaptiveVerticalRange = minAdaptiveVerticalRange;
         }
 
-        public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
-            BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled,
-            FloatReference debugScoreMultiplier)
-        {
-            _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
-            _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
-            _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
-            _debugScoreMultiplier = debugScoreMultiplier;
-        }
+        // public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
+        //     BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled,
+        //     FloatReference debugScoreMultiplier)
+        // {
+        //     _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
+        //     _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
+        //     _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
+        //     _debugScoreMultiplier = debugScoreMultiplier;
+        // }
         public void SetLayer(string layerName)
         {
             var layer = LayerMask.NameToLayer(layerName);
@@ -180,7 +180,7 @@ namespace MultiSuika.Container
             // _containerRacingDebugInfo.SetLeadParameters(_leadStatus, _leadTimer);
             // _containerRacingDebugInfo.SetRankingParameters(_ranking);
             // _containerRacingDebugInfo.SetPositionParameters(_verticalPositionRatio);
-            _containerRacingDebugInfo.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled, _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled);
+            // _containerRacingDebugInfo.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled, _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled);
             
             // NOTE: It's a workaround so that Nova's stuff can be parsed through the cameras
             _containerRacingDebugInfo.gameObject.SetActive(false);

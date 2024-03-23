@@ -102,7 +102,7 @@ namespace MultiSuika.GameLogic
                 Destroy(cannon);
             }
 
-            containerInstance.ContainerFailure();
+            // containerInstance.ContainerFailure();
             LookForPlayerSuccess();
         }
 
@@ -112,7 +112,7 @@ namespace MultiSuika.GameLogic
                 return;
             
             _cannons[0].DisconnectCannonToPlayer();
-            _cannons[0].containerInstance.ContainerSuccess();
+            // _cannons[0].containerInstance.ContainerSuccess();
         }
 
         public void OnBallFusion(BallInstance ballInstance)

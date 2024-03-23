@@ -15,11 +15,11 @@ using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
-    public class GameManager : MonoBehaviour
+    public class VersusManager : MonoBehaviour
     {
         #region Singleton
         
-        public static GameManager Instance { get; private set; }
+        public static VersusManager Instance { get; private set; }
         
         private void Awake()
         {
@@ -50,11 +50,11 @@ namespace MultiSuika.GameLogic
         // [Header("DEBUG parameters")] public bool useDebugSpawnContainer = false;
         // [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
         // [SerializeField] public bool checkLeadCondition = true;
-        [SerializeField] private BoolReference _isRacingModeDebugTextEnabled;
-        [SerializeField] private BoolReference _isContainerSpeedBarDebugEnabled;
-        [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
-        [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
-        [SerializeField] private FloatReference _debugScoreMultiplier;
+        // [SerializeField] private BoolReference _isRacingModeDebugTextEnabled;
+        // [SerializeField] private BoolReference _isContainerSpeedBarDebugEnabled;
+        // [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
+        // [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
+        // [SerializeField] private FloatReference _debugScoreMultiplier;
         
         // private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
         // private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
@@ -90,7 +90,8 @@ namespace MultiSuika.GameLogic
 
 
 
-
+        public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
+        public ActionMethodPlayerWrapper<bool> OnLeadStop { get; } = new ActionMethodPlayerWrapper<bool>();
 
 
         private void Initialize()
@@ -190,6 +191,7 @@ namespace MultiSuika.GameLogic
         private void StartLeadTimer(int playerIndex)
         {
             _playerIndexInLead = playerIndex;
+            OnLeadStart.CallAction(_currentLeadTimeCondition, _playerIndexInLead);
             _leadTimerCoroutine = StartCoroutine(LeadTimer());
         }
         
@@ -201,11 +203,16 @@ namespace MultiSuika.GameLogic
         
         private void StopLeadTimer()
         {
-            _playerIndexInLead = -1;
             if (_leadTimerCoroutine != null)
+            {
                 StopCoroutine(_leadTimerCoroutine);
+                OnLeadStop.CallAction(false, _playerIndexInLead);
+            }
+            _playerIndexInLead = -1;
         }
         
+        
+        // TODO: Have the main objects (container, cannon) subscribe to an Action that will call the gameOver
         private void ProcessWinCondition()
         {
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
@@ -216,10 +223,7 @@ namespace MultiSuika.GameLogic
             
             foreach (var container in ContainerTracker.Instance.GetItems())
             {
-                if (container == winnerContainer)
-                    container.ContainerSuccess();
-                else
-                    container.ContainerFailure();
+                container.OnGameOver(container == winnerContainer);
             }
 
             foreach (var ball in BallTracker.Instance.GetItems())
@@ -305,8 +309,8 @@ namespace MultiSuika.GameLogic
                 // containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
                 // containerRacing.SetCollisionParameters(_ballImpactMultiplier);
                 // containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
-                containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled,
-                    _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
+                // containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled,
+                    // _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
                 containerRacing.SetLayer($"Container{playerIndex}");
                 playerIndex++;
             }
@@ -316,6 +320,5 @@ namespace MultiSuika.GameLogic
         {
             return (_currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
-
     }
 }

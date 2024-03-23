@@ -33,7 +33,7 @@ namespace MultiSuika.DebugInfo
         {
             _averageSpeed = ScoreManager.Instance.GetAverageSpeedReference();
             (_currentLeadTimeCondition, _currentLeadSpeedCondition) =
-                GameManager.Instance.GetLeadRequirementReferences();
+                VersusManager.Instance.GetLeadRequirementReferences();
         }
 
         private void Update()

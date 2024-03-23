@@ -11431,6 +11431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f75fb01dc4074e4494598ad4611ee51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isContainerSpeedBarDebugEnabled: 1
+  _isContainerFullDebugTextEnabled: 0
+  _isContainerAbridgedDebugTextEnabled: 1
   _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
   _speedBarMaxHeight: 10
   _comboBarMaxHeight: 5

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using MultiSuika.Container;
+using MultiSuika.GameLogic;
 using MultiSuika.Manager;
 using MultiSuika.ScoreSystemTransition;
 using MultiSuika.Utilities;
@@ -12,6 +13,11 @@ namespace MultiSuika.DebugInfo
 {
     public class ContainerRacingDebugInfo : MonoBehaviour
     {
+        [Header("Activation parameters")]
+        [SerializeField] private bool _isContainerSpeedBarDebugEnabled;
+        [SerializeField] private bool _isContainerFullDebugTextEnabled;
+        [SerializeField] private bool _isContainerAbridgedDebugTextEnabled;
+        
         [Header("ScoreHandlerData parameters")]
         [SerializeField] private ScoreHandlerData _scoreHandlerData;
         
@@ -57,7 +63,7 @@ namespace MultiSuika.DebugInfo
         private FloatReference _currentSpeed;
         private FloatReference _averageSpeed;
         private FloatReference _targetSpeed;
-        private float _speedSoftCap;
+        private FloatReference _normalizedSpeed;
         private float _previousSpeed;
         
         // Combo parameters
@@ -78,19 +84,18 @@ namespace MultiSuika.DebugInfo
         // private FloatReference _verticalPositionRatio;
         
         // Debug activation parameters
-        private BoolReference _isContainerSpeedBarDebugEnabled;
-        private BoolReference _isContainerFullDebugTextEnabled;
-        private BoolReference _isContainerAbridgedDebugTextEnabled;
+
 
 
         private int _playerIndex;
+
+        private bool _isInLead = false;
+        private float _leadTimer;
         
         private void Awake()
         {
             _speedTextBlock.Color = _fixedDebugColor;
             _tmpLeadTimer.text = "";
-
-            _speedSoftCap = _scoreHandlerData.SpeedSoftCap;
         }
 
         private void Start()
@@ -99,9 +104,12 @@ namespace MultiSuika.DebugInfo
             _playerIndex = ContainerTracker.Instance.GetPlayersByItem(container).FirstOrDefault();
 
             _currentSpeed = ScoreManager.Instance.GetCurrentSpeedReference(_playerIndex);
+            _averageSpeed = ScoreManager.Instance.GetAverageSpeedReference();
             _targetSpeed = ScoreManager.Instance.GetTargetSpeedReference(_playerIndex);
-            // _combo = ScoreManager.Instance.GetComboReference(_playerIndex);
-            _speedSoftCap = ScoreManager.Instance.GetSpeedSoftCap();
+            _normalizedSpeed = ScoreManager.Instance.GetNormalizedSpeedReference(_playerIndex);
+
+            VersusManager.Instance.OnLeadStart.Subscribe(OnLeadStart, _playerIndex);
+            VersusManager.Instance.OnLeadStop.Subscribe(OnLeadStop, _playerIndex);
             
             ScoreManager.Instance.OnComboIncrement.Subscribe(OnComboIncrement, _playerIndex);
             ScoreManager.Instance.OnComboLost.Subscribe(OnComboStop, _playerIndex);
@@ -146,7 +154,7 @@ namespace MultiSuika.DebugInfo
             
             // Speed bar
             var speedBarSizePercent = _speedBar.Size.Percent;
-            speedBarSizePercent.y = _currentSpeed / _speedSoftCap;
+            speedBarSizePercent.y = _currentSpeed / _scoreHandlerData.SpeedSoftCap;
             _speedBar.Size.Percent = speedBarSizePercent;
             _speedBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
             
@@ -161,9 +169,9 @@ namespace MultiSuika.DebugInfo
             _previousSpeed = _currentSpeed.Value;
             
             // // Average speed bar
-            // var averageSpeedPositionPercent = _averageSpeedBar.Position.Percent;
-            // averageSpeedPositionPercent.y = _averageSpeed / _speedSoftCap;
-            // _averageSpeedBar.Position.Percent = averageSpeedPositionPercent;
+            var averageSpeedPositionPercent = _averageSpeedBar.Position.Percent;
+            averageSpeedPositionPercent.y = _averageSpeed / _scoreHandlerData.SpeedSoftCap;
+            _averageSpeedBar.Position.Percent = averageSpeedPositionPercent;
             
             // Combo bar
             if (_isComboActive)
@@ -185,8 +193,8 @@ namespace MultiSuika.DebugInfo
             // Combo
             _tmpCombo.text = string.Format($"{_combo}");
             
-            // // Acceleration
-            // _tmpAcceleration.text = string.Format($"{_acceleration * _combo:0.00}");
+            // Acceleration
+            _tmpAcceleration.text = string.Format($"{_scoreHandlerData.BaseAcceleration * _combo:0.00}");
             
             // Current speed
             _tmpSpeed.text = string.Format($"{_currentSpeed.Value:0.00}");
@@ -194,14 +202,14 @@ namespace MultiSuika.DebugInfo
             // Target speed
             _tmpTargetSpeed.text = string.Format($"{_targetSpeed.Value:0.00}");
 
-            // // Average speed
-            // _tmpAverageSpeed.text = string.Format($"{_averageSpeed.Value:0.00}");
+            // Average speed
+            _tmpAverageSpeed.text = string.Format($"{_averageSpeed.Value:0.00}");
 
-            // // Ranking
-            // _tmpRanking.text = string.Format($"{_ranking.Value}");
+            // Ranking
+            _tmpRanking.text = string.Format($"{ScoreManager.Instance.GetPlayerRanking(_playerIndex):0}");
             
-            // // Position
-            // _tmpPositionRatio.text = string.Format($"{(_verticalPositionRatio.Value * 100):00}%");
+            // Position
+            _tmpPositionRatio.text = string.Format($"{(_normalizedSpeed.Value * 100):00}%");
         }
         
         private void UpdateAbridgedDebugInfoText()
@@ -212,14 +220,27 @@ namespace MultiSuika.DebugInfo
             // Combo
             _tmpComboAbridged.text = string.Format($"{_combo}");
             
-            // // Position 
-            // _tmpPositionRatioAbridged.text = string.Format($"{(_verticalPositionRatio.Value * 100):00}%");
+            // Position 
+            _tmpPositionRatioAbridged.text = string.Format($"{(_normalizedSpeed.Value * 100):00}%");
         }
         
         private void UpdateLeadDebugText()
         {
-            // if (_leadStatus)
-            //     _tmpLeadTimer.text = _leadTimer > Mathf.Epsilon ? string.Format($"{_leadTimer.Value:0.0}") : "";
+            if (!_isInLead) 
+                return;
+            _tmpLeadTimer.text = _leadTimer > Mathf.Epsilon ? string.Format($"{_leadTimer:0.0}") : "";
+            _leadTimer -= Time.deltaTime;
+        }
+
+        private void OnLeadStart(float timer)
+        {
+            _leadTimer = timer;
+            _isInLead = true;
+        }
+
+        private void OnLeadStop(bool x)
+        {
+            _isInLead = false;
         }
         
         #endregion
@@ -261,13 +282,13 @@ namespace MultiSuika.DebugInfo
         //     _verticalPositionRatio = verticalPositionRatio;
         // }
         
-        public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
-            BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled)
-        {
-            _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
-            _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
-            _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
-        }
+        // public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
+        //     BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled)
+        // {
+        //     _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
+        //     _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
+        //     _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
+        // }
         #endregion
     }
 }

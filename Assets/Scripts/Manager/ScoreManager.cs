@@ -113,6 +113,7 @@ namespace MultiSuika.Manager
         public FloatReference GetNormalizedSpeedReference(int playerIndex) => _normalizedSpeedRefs[playerIndex];
 
         public List<int> GetPlayerRankings() => _playerRankings;
+        public int GetPlayerRanking(int playerIndex) => _playerRankings.FindIndex(r => r == playerIndex);
 
         public FloatReference GetAverageSpeedReference() => _averageSpeed;
 
