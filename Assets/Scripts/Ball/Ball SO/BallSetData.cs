@@ -46,9 +46,9 @@ namespace MultiSuika.Ball
             float randValue = Random.Range(0f, 1f);
             foreach (var ballData in _ballSet)
             {
-                randValue -= ballData.spawnChance / _totalWeight;
+                randValue -= ballData.SpawnChance / _totalWeight;
                 if (randValue <= 0)
-                    return ballData.index;
+                    return ballData.Index;
             }
             return 0;
         }
@@ -65,12 +65,12 @@ namespace MultiSuika.Ball
             _ballSet = tempSet;
         }
 
-        private void SetWeight() => _totalWeight = _ballSet.Sum(b => b.spawnChance);
+        private void SetWeight() => _totalWeight = _ballSet.Sum(b => b.SpawnChance);
 
         private void OnValidate()
         {
             _ballSet.RemoveAll(item => item == null);
-            _ballSet = _ballSet.OrderBy(ball => ball.index).ToList();
+            _ballSet = _ballSet.OrderBy(ball => ball.Index).ToList();
         }
 
         private void OnEnable()

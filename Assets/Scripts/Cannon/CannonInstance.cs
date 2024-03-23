@@ -110,7 +110,7 @@ namespace MultiSuika.Cannon
         private void LoadNewBall()
         {
             var newBallIndex = ballSetData.GetRandomBallTier();
-            _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).scale / 2f + emptyDistanceBetweenBallAndCannon;
+            _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).Scale / 2f + emptyDistanceBetweenBallAndCannon;
             _currentBallInstance = Initializer.InstantiateBall(ballSetData, containerInstance,
                 (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
             

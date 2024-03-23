@@ -91,7 +91,7 @@ namespace MultiSuika.Ball
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
         {
-            var realImpulseRadius = _ballSetData.GetBallData(newBallTier).scale * 0.5f * _ballSetData.ImpulseRangeMultiplier *
+            var realImpulseRadius = _ballSetData.GetBallData(newBallTier).Scale * 0.5f * _ballSetData.ImpulseRangeMultiplier *
                                       ContainerInstance.ContainerParent.transform.localScale.x;
 
             Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball", _ballSetData.ImpulseForcePerUnit,
@@ -119,7 +119,7 @@ namespace MultiSuika.Ball
             ScoreValue = ballData.GetScoreValue();
 
             // Physics
-            _rb2d.mass = ballData.mass;
+            _rb2d.mass = ballData.Mass;
             var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
             {
                 bounciness = _ballSetData.Bounciness,
@@ -135,7 +135,7 @@ namespace MultiSuika.Ball
 
             // Transform
             var tf = transform;
-            tf.localScale = Vector3.one * ballData.scale;
+            tf.localScale = Vector3.one * ballData.Scale;
             tf.name = $"Ball T{BallTierIndex} (ID: {transform.GetInstanceID()})";
 
             // Container
