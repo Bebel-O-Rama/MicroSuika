@@ -12,50 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70839f0b88da477caa08b13d1d9b4488, type: 3}
   m_Name: ScoreHandlerData (Versus)
   m_EditorClassIdentifier: 
-  baseAcceleration:
-    UseConstant: 1
-    ConstantValue: 3
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  damageMultiplier:
-    UseConstant: 1
-    ConstantValue: 2
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  percentageInstant:
-    UseConstant: 1
-    ConstantValue: 0.6
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  damageCooldownDuration:
-    UseConstant: 1
-    ConstantValue: 1.5
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  speedSoftCap:
-    UseConstant: 1
-    ConstantValue: 1200
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  dampingMethod: 2
-  dampingFixedPercent:
-    UseConstant: 1
-    ConstantValue: 0.02
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  dampingFixedValue:
-    UseConstant: 1
-    ConstantValue: 1
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  dampingCurvePercent:
+  _baseAcceleration: 3
+  _damageMultiplier: 2
+  _percentageInstant: 0.6
+  _damageCooldownDuration: 1.5
+  _speedSoftCap: 1200
+  _dampingMethod: 2
+  _dampingFixedPercent: 0.02
+  _dampingFixedValue: 1
+  _dampingCurvePercent:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -88,25 +53,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  timerFullDuration:
-    UseConstant: 1
-    ConstantValue: 5
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  isDecreasingMaxTimer:
-    UseConstant: 1
-    ConstantValue: 1
-    Variable: {fileID: 0}
-  fullTimerDecrementValue:
-    UseConstant: 1
-    ConstantValue: 0.1
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  fullTimerMinValue:
-    UseConstant: 1
-    ConstantValue: 2
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
+  _timerFullDuration: 5
+  _isDecreasingMaxTimer: 1
+  _fullTimerDecrementValue: 0.1
+  _fullTimerMinValue: 2

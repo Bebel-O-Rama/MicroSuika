@@ -20,7 +20,7 @@ namespace MultiSuika.ScoreSystemTransition
         [SerializeField] private DampingEvaluationMethod _dampingMethod; // AnimCurve
         [SerializeField] private float _dampingFixedPercent; // 0.02
         [SerializeField] private float _dampingFixedValue; // 1
-        [SerializeField] private AnimationCurve _dampingCurvePercent; // 0,0 - 0.5 ; 0.015 - 1.0 ; 0.05
+        [SerializeField] private AnimationCurve _dampingCurvePercent; // (0,0), (0.5 ; 0.015), (1.0 ; 0.05)
         
         [Header("Combo parameters")]
         [SerializeField] private float _timerFullDuration; // 5
