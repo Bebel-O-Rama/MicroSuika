@@ -75,16 +75,22 @@ namespace MultiSuika.Ball
                 return;
 
             FusionImpulse(BallTierIndex + 1, contactPosition);
-            var newBall = Initializer.InstantiateBall(_ballSetData, ContainerInstance,
-                Initializer.WorldToLocalPosition(ContainerInstance.ContainerParent.transform, contactPosition));
 
-            newBall.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSpriteThemeData);
-            newBall.transform.SetLayerRecursively(gameObject.layer);
-            newBall.SetSimulatedParameters(true);
+            var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
+            var ball = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
 
-            BallTracker.Instance.AddNewItem(newBall, newBall._playerIndex);
+            ball.SetBallPosition(UnityExtensions.WorldToLocalPosition(containerParentTransform, contactPosition));
 
-            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, newBall.gameObject);
+            // var newBall = Initializer.InstantiateBall(_ballSetData, ContainerInstance,
+            //     Initializer.WorldToLocalPosition(ContainerInstance.ContainerParent.transform, contactPosition));
+
+            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSpriteThemeData);
+            ball.transform.SetLayerRecursively(gameObject.layer);
+            ball.SetSimulatedParameters(true);
+
+            BallTracker.Instance.AddNewItem(ball, ball._playerIndex);
+
+            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, ball.gameObject);
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
@@ -100,6 +106,14 @@ namespace MultiSuika.Ball
         }
 
         #region Setter
+
+        public void SetBallPosition(Vector3 position, float randomRotationRange = 35f)
+        {
+            transform.ResetLocalTransform();
+            transform.SetLocalPositionAndRotation(position,
+                Quaternion.Euler(0f, 0f, Random.Range(-randomRotationRange, randomRotationRange)));
+        }
+
 
         public void SetBallParameters(int playerIndex, int ballTierIndex, BallSetData ballSetData,
             BallSpriteThemeData ballSpriteThemeData)
@@ -136,6 +150,9 @@ namespace MultiSuika.Ball
 
             // Container
             ContainerInstance = transform.parent.GetComponentInChildren<ContainerInstance>();
+            
+            // Layers
+            transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex+1}"));
         }
 
         public void SetSimulatedParameters(bool isSimulated) => rb2d.simulated = isSimulated;

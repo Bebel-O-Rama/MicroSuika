@@ -5,7 +5,9 @@ using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Skin;
+using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.AI;
 using Object = UnityEngine.Object;
 
 namespace MultiSuika.zOther
@@ -18,7 +20,7 @@ namespace MultiSuika.zOther
             GameModeData gameModeData)
         {
             playerCount = playerCount <= 0 ? 1 : playerCount; // For cases like the lobby
-            int containerToSpawn = DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
+            int containerToSpawn = UnityExtensions.DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
             if (containerToSpawn <= 0)
                 return null;
 
@@ -35,7 +37,7 @@ namespace MultiSuika.zOther
             for (int i = 0; i < containerToSpawn; i++)
             {
                 ContainerInstance newContainerInstance = Object.Instantiate(gameModeData.containerInstancePrefab);
-                ResetLocalTransform(newContainerInstance.transform);
+                UnityExtensions.ResetLocalTransform(newContainerInstance.transform);
 
                 instantiatedContainers.Add(newContainerInstance);
 
@@ -93,7 +95,7 @@ namespace MultiSuika.zOther
         {
             var newCannon = Object.Instantiate(gameModeData.cannonInstancePrefab,
                 containerInstance.ContainerParent.transform);
-            ResetLocalTransform(newCannon.transform);
+            UnityExtensions.ResetLocalTransform(newCannon.transform);
 
             float xPos = gameModeData.isCannonSpawnXPosRandom
                 ? Random.Range(-containerInstance.GetContainerHorizontalHalfLength(),
@@ -134,83 +136,9 @@ namespace MultiSuika.zOther
             cannonInstance.spriteRenderer.sprite = playerSkinData.cannonSprite;
         }
 
-        // public static void ConnectCannonsToPlayerInputs(List<CannonInstance> cannons,
-        //     List<PlayerInputSystem> playerInputHandlers)
-        // {
-        //     for (int i = 0; i < cannons.Count; ++i)
-        //     {
-        //         cannons[i].ConnectCannonToPlayer(playerInputHandlers[i]);
-        //     }
-        // }
 
         #endregion
-
-        #region Ball
-
-        public static BallInstance InstantiateBall(BallSetData ballSetData, ContainerInstance containerInstance,
-            Vector3 position, float randomRotationRange = 35f)
-        {
-            var newBall = Object.Instantiate(ballSetData.BallInstancePrefab,
-                containerInstance.ContainerParent.transform);
-            ResetLocalTransform(newBall.transform);
-
-            newBall.transform.SetLocalPositionAndRotation(position,
-                Quaternion.Euler(0f, 0f, Random.Range(-randomRotationRange, randomRotationRange)));
-
-            return newBall;
-        }
-
-        // public static void SetBallParameters(BallInstance ballInstance, int ballTierIndex, IntReference scoreRef,
-        //     BallSetData ballSetData, BallTracker ballTracker, BallSpriteThemeData ballSpriteThemeData,
-        //     ContainerInstance containerInstance, IGameModeManager gameModeManager, bool disableCollision = false)
-        // {
-        //     // var ballData = ballSetData.GetBallData(ballTierIndex);
-        //     // if (ballData == null)
-        //     // {
-        //     //     Debug.LogError("Trying to spawn a ball with a tier that doesn't exist");
-        //     //     Object.Destroy(ballInstance.gameObject);
-        //     // }
-        //
-        //     // ballInstance.spriteRenderer.sprite = ballSpriteThemeData.ballSprites[ballTierIndex];
-        //     
-        //     // Tout ça (pos et scale) devrait aller dans le init
-        //     
-        //     // var ballTransform = ballInstance.transform;
-        //     // ballTransform.localScale = Vector3.one * ballData.scale;
-        //     // ballTransform.name = $"Ball T{ballInstance.tier} (ID: {ballInstance.transform.GetInstanceID()})";
-        //
-        //     
-        //     
-        //     // ballInstance.rb2d.mass = ballData.mass;
-        //     // var ballPhysMat = new PhysicsMaterial2D("ballPhysMat")
-        //     // {
-        //     //     bounciness = ballSetData.bounciness,
-        //     //     friction = ballSetData.friction
-        //     // };
-        //     // ballInstance.rb2d.sharedMaterial = ballPhysMat;
-        //
-        //     // ballInstance.tier = ballData.index;
-        //     // ballInstance.scoreValue = ballData.GetScoreValue();
-        //     ballInstance.ballScoreRef = scoreRef;
-        //     // ballInstance.ballSetData = ballSetData;
-        //     // ballInstance.ballSpriteThemeData = ballSpriteThemeData;
-        //     // ballInstance.containerInstance = containerInstance;
-        //     ballInstance.ballTracker = ballTracker;
-        //
-        //     // ballInstance.impulseMultiplier = ballSetData.impulseForcePerUnit;
-        //     // ballInstance.impulseExpPower = ballSetData.impulseExpPower;
-        //     // ballInstance.impulseRangeMultiplier = ballSetData.impulseRangeMultiplier;
-        //
-        //
-        //     if (disableCollision)
-        //         ballInstance.rb2d.simulated = false;
-        // }
-
-        #endregion
-
-        public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
-            relativeTargetTransform.InverseTransformPoint(worldPosition);
-
+        
         private static Transform GetObjectsHolder()
         {
             var objects = GameObject.Find("Objects");
@@ -220,14 +148,14 @@ namespace MultiSuika.zOther
         }
 
         public static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
-            DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
-
-        private static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
-
-        private static void ResetLocalTransform(Transform child)
-        {
-            child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            child.localScale = Vector3.one;
-        }
+            UnityExtensions.DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
+        //
+        // private static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
+        //
+        // private static void ResetLocalTransform(Transform child)
+        // {
+        //     child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        //     child.localScale = Vector3.one;
+        // }
     }
 }

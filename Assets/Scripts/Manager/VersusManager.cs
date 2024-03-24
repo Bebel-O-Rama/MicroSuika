@@ -111,7 +111,7 @@ namespace MultiSuika.Manager
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
                 ContainerTracker.Instance.SetPlayerForItem(i, 
-                    containers[Initializer.GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)]);
+                    containers[UnityExtensions.DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1]);
             }
 
 

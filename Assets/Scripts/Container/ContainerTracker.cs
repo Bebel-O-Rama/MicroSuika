@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Utilities;
+using UnityEngine;
 
 namespace MultiSuika.Container
 {
@@ -34,6 +35,9 @@ namespace MultiSuika.Container
         {
             return new ContainerTrackerInformation(item, playerIndex);
         }
+
+        public Transform GetParentTransformFromPlayer(int playerIndex) =>
+            GetItemsByPlayer(playerIndex).First().ContainerParent.transform;
     }
 
     public class ContainerTrackerInformation : ItemInformation<ContainerInstance>

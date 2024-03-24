@@ -11,10 +11,10 @@ namespace MultiSuika.Cannon
     public class CannonInstance : MonoBehaviour
     {
         [SerializeField] public SpriteRenderer spriteRenderer;
-    
+
         // PlayerIndex
         private int _playerIndex;
-        
+
         // Cannon Parameters
         public float speed;
         public float reloadCooldown;
@@ -22,7 +22,7 @@ namespace MultiSuika.Cannon
         public float emptyDistanceBetweenBallAndCannon;
         public bool isUsingPeggleMode = false;
         private PlayerInputHandler _playerInputHandler;
-    
+
         // Positioning
         public float horizontalMargin;
         private float _shootingAngle = 0f;
@@ -37,7 +37,7 @@ namespace MultiSuika.Cannon
 
         // Wwise Events
         public AK.Wwise.Event WwiseEventCannonShoot;
-        
+
         public void DestroyCurrentBall()
         {
             if (_currentBallInstance != null)
@@ -67,24 +67,25 @@ namespace MultiSuika.Cannon
             SetCannonInputEnabled(false);
             _playerInputHandler = null;
         }
-        
+
         private void DropBall()
         {
             if (_currentBallInstance == null)
                 return;
-        
+
             _currentBallInstance.DropBallFromCannon();
             _currentBallInstance.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
             _currentBallInstance = null;
             Invoke("LoadNewBall", reloadCooldown);
             WwiseEventCannonShoot.Post(gameObject);
         }
-    
+
         private void MoveCannon(float xAxis)
         {
             if (isUsingPeggleMode)
             {
-                if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f || xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
+                if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f ||
+                    xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
                 {
                     _shootingAngle += xAxis * speed * Time.deltaTime;
                     _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
@@ -92,29 +93,34 @@ namespace MultiSuika.Cannon
             }
             else
             {
-                if (xAxis < 0 && transform.localPosition.x > -horizontalMargin || xAxis > 0 && transform.localPosition.x < horizontalMargin)
-                    transform.Translate(xAxis*Time.deltaTime*speed, 0, 0);
+                if (xAxis < 0 && transform.localPosition.x > -horizontalMargin ||
+                    xAxis > 0 && transform.localPosition.x < horizontalMargin)
+                    transform.Translate(xAxis * Time.deltaTime * speed, 0, 0);
             }
 
             if (_currentBallInstance != null)
-                _currentBallInstance.transform.localPosition = (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon;
+                _currentBallInstance.transform.localPosition = (Vector2)transform.localPosition +
+                                                               _shootingDirection.normalized *
+                                                               _currentBallDistanceFromCannon;
         }
-    
+
         private void LoadNewBall()
         {
             var newBallIndex = ballSetData.GetRandomBallTier();
-            _currentBallDistanceFromCannon = ballSetData.GetBallData(newBallIndex).Scale / 2f + emptyDistanceBetweenBallAndCannon;
-            _currentBallInstance = Initializer.InstantiateBall(ballSetData, containerInstance,
-                (Vector2)transform.localPosition + _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            
-            // TODO: Check if we can better fit that into the initialization encapsulation (we're setting in two different places)
-            _currentBallInstance.transform.SetLayerRecursively(gameObject.layer);
-            
+            _currentBallDistanceFromCannon =
+                ballSetData.GetBallData(newBallIndex).Scale / 2f + emptyDistanceBetweenBallAndCannon;
+
+            var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
+
+            _currentBallInstance = Instantiate(ballSetData.BallInstancePrefab, containerParentTransform);
+            _currentBallInstance.SetBallPosition((Vector2)transform.localPosition +
+                                                 _shootingDirection.normalized * _currentBallDistanceFromCannon);
             _currentBallInstance.SetBallParameters(_playerIndex, newBallIndex, ballSetData, ballSpriteData);
             _currentBallInstance.SetSimulatedParameters(false);
         }
 
         #region Setter
+
         public void SetInputParameters(PlayerInputHandler playerInputHandler)
         {
             _playerInputHandler = playerInputHandler;
@@ -124,9 +130,7 @@ namespace MultiSuika.Cannon
         {
             _playerIndex = playerIndex;
         }
-        
 
         #endregion
-        
     }
 }

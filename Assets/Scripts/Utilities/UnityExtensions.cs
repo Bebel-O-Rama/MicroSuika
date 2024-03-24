@@ -33,5 +33,16 @@ namespace MultiSuika.Utilities
         }
         
         public static T GetElementAtIndexOrDefault<T>(this List<T> list, int index) => index >= 0 && index < list.Count ? list[index] : default;
+        
+        public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
+            relativeTargetTransform.InverseTransformPoint(worldPosition);
+        
+        public static void ResetLocalTransform(this Transform child)
+        {
+            child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            child.localScale = Vector3.one;
+        }
+        
+        public static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
     }
 }
