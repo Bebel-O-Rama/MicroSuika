@@ -6,44 +6,36 @@ using MultiSuika.Player;
 using MultiSuika.Utilities;
 using MultiSuika.zOther;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.Cannon
 {
     public class CannonInstance : MonoBehaviour
     {
         [SerializeField] public SpriteRenderer spriteRenderer;
+        [FormerlySerializedAs("WwiseEventCannonShoot")] [SerializeField] public AK.Wwise.Event WwiseEventCannonShot;
 
         // PlayerIndex
         private int _playerIndex;
 
         // Cannon Parameters
-        public float speed;
-        public float reloadCooldown;
-        public float shootingForce;
-        public float emptyDistanceBetweenBallAndCannon;
-        public bool isUsingPeggleMode = false;
+        private float _movementSpeed;
+        private float _reloadCooldown;
+        private float _shootingForce;
+        private float _distanceBetweenBallAndCannon;
+        private bool _isUsingPeggleMode;
         private PlayerInputHandler _playerInputHandler;
 
         // Positioning
-        public float horizontalMargin;
+        private float _horizontalMargin;
         private float _shootingAngle = 0f;
         private Vector2 _shootingDirection = Vector2.down;
 
         // Ball Parameters
-        public BallSetData ballSetData;
-        public BallSpriteThemeData ballSpriteData;
-        public ContainerInstance containerInstance;
-        private BallInstance _currentBallInstance;
+        private BallSetData _ballSetData;
+        private BallSpriteThemeData _ballSpriteData;
         private float _currentBallDistanceFromCannon;
-
-        // Wwise Events
-        public AK.Wwise.Event WwiseEventCannonShoot;
-
-        public void DestroyCurrentBall()
-        {
-            if (_currentBallInstance != null)
-                Destroy(_currentBallInstance.gameObject);
-        }
+        private BallInstance _currentBallInstance;
 
         public void SetCannonInputEnabled(bool isActive)
         {
@@ -63,7 +55,7 @@ namespace MultiSuika.Cannon
             }
         }
 
-        public void DisconnectCannonToPlayer()
+        public void DisconnectCannonFromPlayer()
         {
             SetCannonInputEnabled(false);
             _playerInputHandler = null;
@@ -75,28 +67,28 @@ namespace MultiSuika.Cannon
                 return;
 
             _currentBallInstance.DropBallFromCannon();
-            _currentBallInstance.rb2d.AddForce(_shootingDirection.normalized * shootingForce);
+            _currentBallInstance.rb2d.AddForce(_shootingDirection.normalized * _shootingForce);
             _currentBallInstance = null;
-            Invoke("LoadNewBall", reloadCooldown);
-            WwiseEventCannonShoot.Post(gameObject);
+            Invoke("LoadNewBall", _reloadCooldown);
+            WwiseEventCannonShot.Post(gameObject);
         }
 
         private void MoveCannon(float xAxis)
         {
-            if (isUsingPeggleMode)
+            if (_isUsingPeggleMode)
             {
                 if (xAxis < 0 && _shootingAngle > -Mathf.PI / 2 + 0.1f ||
                     xAxis > 0 && _shootingAngle < Mathf.PI / 2 - 0.1f)
                 {
-                    _shootingAngle += xAxis * speed * Time.deltaTime;
+                    _shootingAngle += xAxis * _movementSpeed * Time.deltaTime;
                     _shootingDirection = new Vector2(Mathf.Sin(_shootingAngle), -Mathf.Cos(_shootingAngle));
                 }
             }
             else
             {
-                if (xAxis < 0 && transform.localPosition.x > -horizontalMargin ||
-                    xAxis > 0 && transform.localPosition.x < horizontalMargin)
-                    transform.Translate(xAxis * Time.deltaTime * speed, 0, 0);
+                if (xAxis < 0 && transform.localPosition.x > -_horizontalMargin ||
+                    xAxis > 0 && transform.localPosition.x < _horizontalMargin)
+                    transform.Translate(xAxis * Time.deltaTime * _movementSpeed, 0, 0);
             }
 
             if (_currentBallInstance != null)
@@ -107,41 +99,63 @@ namespace MultiSuika.Cannon
 
         private void LoadNewBall()
         {
-            var newBallIndex = ballSetData.GetRandomBallTier();
+            var newBallIndex = _ballSetData.GetRandomBallTier();
             _currentBallDistanceFromCannon =
-                ballSetData.GetBallData(newBallIndex).Scale / 2f + emptyDistanceBetweenBallAndCannon;
+                _ballSetData.GetBallData(newBallIndex).Scale / 2f + _distanceBetweenBallAndCannon;
 
             var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
 
-            _currentBallInstance = Instantiate(ballSetData.BallInstancePrefab, containerParentTransform);
+            _currentBallInstance = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
             _currentBallInstance.SetBallPosition((Vector2)transform.localPosition +
                                                  _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            _currentBallInstance.SetBallParameters(_playerIndex, newBallIndex, ballSetData, ballSpriteData);
+            _currentBallInstance.SetBallParameters(_playerIndex, newBallIndex, _ballSetData, _ballSpriteData);
             _currentBallInstance.SetSimulatedParameters(false);
+        }
+
+        public void DestroyCurrentBall()
+        {
+            if (_currentBallInstance != null)
+                Destroy(_currentBallInstance.gameObject);
         }
 
         #region Setter
 
-        public void SetCannonPosition(float verticalPositionDelta, bool isXPositionRandom = false,
-            float containerHalfLength = 0f)
+        public void SetCannonParameters(int playerIndex, GameModeData gameModeData)
         {
+            _playerIndex = playerIndex;
+            
+            // Set position
+            var tf = transform;
             transform.ResetLocalTransform();
 
-            var xPosition = isXPositionRandom
-                ? Random.Range(-containerHalfLength, containerHalfLength)
-                : 0f;
+            tf.localPosition = new Vector2(0f, gameModeData.CannonVerticalDistanceFromCenter);
+            _horizontalMargin = ContainerTracker.Instance.GetItemsByPlayer(_playerIndex).First()
+                .GetContainerHorizontalHalfLength();
+            
+            if (gameModeData.IsCannonXSpawnPositionRandom)
+            {
+                var localYPos = transform.localPosition.y;
+                transform.localPosition = 
+                    new Vector2(Random.Range(-_horizontalMargin, _horizontalMargin), localYPos);
+            }
+            
+            // Set basic cannon parameters
+            _movementSpeed = gameModeData.CannonSpeed;
+            _reloadCooldown = gameModeData.CannonReloadCooldown;
+            _shootingForce = gameModeData.CannonShootingForce;
+            _distanceBetweenBallAndCannon = gameModeData.DistanceBetweenBallAndCannon;
+            _isUsingPeggleMode = gameModeData.IsCannonUsingPeggleMode;
 
-            transform.localPosition = new Vector2(xPosition, verticalPositionDelta);
+            _ballSetData = gameModeData.BallSetData;
+            _ballSpriteData = gameModeData.SkinData.playersSkinData[_playerIndex].ballTheme;
+
+            // Set sprite
+            spriteRenderer.sprite = gameModeData.SkinData.playersSkinData[_playerIndex].cannonSprite;
         }
 
         public void SetInputParameters(PlayerInputHandler playerInputHandler)
         {
             _playerInputHandler = playerInputHandler;
-        }
-
-        public void SetPlayerIndex(int playerIndex)
-        {
-            _playerIndex = playerIndex;
         }
 
         #endregion

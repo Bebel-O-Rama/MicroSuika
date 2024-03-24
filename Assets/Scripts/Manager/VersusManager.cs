@@ -112,21 +112,15 @@ namespace MultiSuika.Manager
             }
 
 
-            //// Init and set cannons
+            //// Instantiate and Set CannonInstances
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
                 var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
                 var cannon = Instantiate(gameModeData.CannonInstancePrefab, container.ContainerParent.transform);
 
-                // var cannon = Initializer.InstantiateCannon(gameModeData, container);
-                cannon.SetCannonPosition(gameModeData.CannonVerticalDistanceFromCenter);
-
-
-                Initializer.SetCannonParameters(i, cannon, container, gameModeData,
-                    gameModeData.SkinData.playersSkinData[i]);
+                cannon.SetCannonParameters(i, gameModeData);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
-                
                 CannonTracker.Instance.AddNewItem(cannon, i);
             }
 
@@ -216,7 +210,7 @@ namespace MultiSuika.Manager
         {
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
-                cannon.DisconnectCannonToPlayer();
+                cannon.DisconnectCannonFromPlayer();
 
             var winnerContainer = ContainerTracker.Instance.GetItemsByPlayer(winnerPlayerIndex).First();
 
@@ -233,63 +227,12 @@ namespace MultiSuika.Manager
             _isGameInProgress = false;
         }
 
-        // private void SetRacingModeDebugInfoParameters()
-        // {
-        //     _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
-        //     if (_racingModeDebugInfo == null)
-        //         return;
-        //     _racingModeDebugInfo.SetRacingModeParameters(_averageSpeed, _standardDeviationSpeed,
-        //         _currentLeadTimeCondition, _currentLeadSpeedCondition);
-        //     _racingModeDebugInfo.SetDebugActivationParameters(_isRacingModeDebugTextEnabled);
-        // }
-
         private void SetRacingModeParameters()
         {
-            // _firstPlayerSpeed = new FloatReference
-            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            // _lastPlayerSpeed = new FloatReference
-            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            // _standardDeviationSpeed = new FloatReference
-            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             _currentLeadTimeCondition = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             _currentLeadSpeedCondition = new FloatReference
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            // _dampingMethodIndex = new IntReference
-            //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-
-            // _playerCurrentSpeedReferences = new Dictionary<ContainerInstance, FloatReference>();
-            // _playerRankingReferences = new Dictionary<ContainerInstance, IntReference>();
-            // _playerLeadStatus = new Dictionary<ContainerInstance, BoolReference>();
-            // _playerLeadTimer = new Dictionary<ContainerInstance, FloatReference>();
-            // _playersYPositionRatio = new Dictionary<ContainerInstance, FloatReference>();
-
-            // foreach (var container in ContainerTracker.Instance.GetItems())
-            // {
-            //     // FloatReference newCurrentSpeedVar = new FloatReference
-            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            //     // IntReference newPlayerRankingRef = new IntReference
-            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-            //     // BoolReference newPlayerLeadStatus = new BoolReference
-            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<BoolVariable>() };
-            //     // FloatReference newPlayerLeadTimer = new FloatReference
-            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            //     // var newYPositionRatioRef = new FloatReference
-            //     //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            //
-            //     // newPlayerLeadStatus.Variable.SetValue(false);
-            //     //
-            //     // _playerCurrentSpeedReferences[container] = newCurrentSpeedVar;
-            //     // _playerRankingReferences[container] = newPlayerRankingRef;
-            //     // _playerLeadStatus[container] = newPlayerLeadStatus;
-            //     // _playerLeadTimer[container] = newPlayerLeadTimer;
-            //     // _playersYPositionRatio[container] = newYPositionRatioRef;
-            // }
-
-            // _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
-
-            // _currentLeadTimeCondition.Variable.SetValue(_timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y);
-            // _currentLeadSpeedCondition.Variable.SetValue(_speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y);
         }
 
         private void SetContainerRacingParameters()
@@ -299,18 +242,6 @@ namespace MultiSuika.Manager
             foreach (var container in ContainerTracker.Instance.GetItems())
             {
                 var containerRacing = container.GetComponent<ContainerRacingMode>();
-                // // containerRacing.SetAreaParameters(_containerMaxArea);
-                // containerRacing.SetSpeedParameters(_playerCurrentSpeedReferences[container], _averageSpeed,
-                //     _speedSoftCap, _firstPlayerSpeed, _lastPlayerSpeed);
-                // containerRacing.SetDampingParameters(_dampingMethodIndex, _dampingFixedPercent, _dampingFixedValue,
-                //     _dampingCurvePercent);
-                // containerRacing.SetComboParameters(_comboTimerFull, _acceleration);
-                // containerRacing.SetRankingParameters(_playerRankingReferences[container]);
-                // containerRacing.SetLeadParameters(_playerLeadStatus[container], _playerLeadTimer[container]);
-                // containerRacing.SetCollisionParameters(_ballImpactMultiplier);
-                // containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
-                // containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled,
-                // _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
                 containerRacing.SetLayer($"Container{playerIndex}");
                 playerIndex++;
             }

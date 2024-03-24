@@ -68,14 +68,10 @@ namespace MultiSuika.Manager
 
             // Instantiate and Set the CannonInstance
             var cannon = Instantiate(gameModeData.CannonInstancePrefab, mainContainer.ContainerParent.transform);
-            cannon.SetCannonPosition(gameModeData.CannonVerticalDistanceFromCenter, gameModeData.IsCannonXSpawnPositionRandom,
-                mainContainer.GetContainerHorizontalHalfLength());
-
-            Initializer.SetCannonParameters(playerIndex, cannon, mainContainer, gameModeData,
-                gameModeData.SkinData.playersSkinData[playerIndex]);
+            
+            cannon.SetCannonParameters(playerIndex, gameModeData);
             cannon.SetInputParameters(playerInputHandler);
             cannon.SetCannonInputEnabled(true);
-
             CannonTracker.Instance.AddNewItem(cannon, playerIndex);
 
             // Other feedback after a player joined the lobby
