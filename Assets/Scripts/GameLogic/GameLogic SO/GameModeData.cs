@@ -13,44 +13,56 @@ namespace MultiSuika.GameLogic
     {
         // Skin parameters
         [Header("---- SKIN ----")] 
-        public SkinData skinData;
+        [SerializeField] private SkinData _skinData;
     
         // Container parameters
-        [FormerlySerializedAs("containerPrefab")] [Header("----- CONTAINER -----")]
-        public ContainerInstance containerInstancePrefab;
+        [Header("----- CONTAINER -----")]
+        [SerializeField] private ContainerInstance _containerInstancePrefab;
 
         [Header("Container Scaling and Position Parameters")]
         [Tooltip("This distances goes from one container center point to the other")]
-        public List<Vector2> leftmostContainerPositions;
-        public List<float> containerGeneralScaling;
+        [SerializeField] private List<Vector2> _leftmostContainerPositions;
+        [SerializeField] private List<float> _containerScaling;
 
         [Header("Other Parameters")]
-        [Min(1)] public int playerPerContainer = 1;
+        [SerializeField] [Min(1)] private int _playerPerContainer = 1;
     
         // Cannon parameters
-        [FormerlySerializedAs("cannonPrefab")] [Header("----- CANNON -----")]
-        public CannonInstance cannonInstancePrefab;
+        [Header("----- CANNON -----")]
+        [SerializeField] private CannonInstance _cannonInstancePrefab;
 
         [Header("Position Data")] 
-        public bool isCannonSpawnXPosRandom = false;
-        [Min(0f)] public float cannonVerticalDistanceFromCenter;
+        [SerializeField] private bool _isCannonXSpawnPositionRandom = false;
+        [SerializeField] [Min(0f)] private float _cannonVerticalDistanceFromCenter;
     
         [Header("Cannon Basic Parameters")]
-        public float cannonSpeed;
-        public float cannonReloadCooldown;
-        public float cannonShootingForce;
-        [Min(0f)] public float emptyDistanceBetweenBallAndCannon;
+        [SerializeField] private float _cannonSpeed;
+        [SerializeField] private float _cannonReloadCooldown;
+        [SerializeField] private float _cannonShootingForce;
+        [SerializeField] [Min(0f)] private float _distanceBetweenBallAndCannon;
 
     
         [Header("Cannon Modifiers")]
-        public bool isCannonUsingPeggleMode;
+        [SerializeField] private bool _isCannonUsingPeggleMode;
 
         // Ball parameters
         [Header("----- BALL -----")]
-        public BallSetData ballSetData;
-    
-        // Player parameters
-        [FormerlySerializedAs("playerPrefab")] [Header("----- PLAYER -----")]
-        public GameObject playerInputPrefab;
+        [SerializeField] private BallSetData _ballSetData;
+        
+        
+        public SkinData SkinData { get => _skinData; }
+        public ContainerInstance ContainerInstancePrefab { get => _containerInstancePrefab; }
+        public List<Vector2> LeftmostContainerPositions { get => _leftmostContainerPositions; }
+        public List<float> ContainerScaling { get => _containerScaling; }
+        public int PlayerPerContainer { get => _playerPerContainer; }
+        public CannonInstance CannonInstancePrefab { get => _cannonInstancePrefab; }
+        public bool IsCannonXSpawnPositionRandom {  get => _isCannonXSpawnPositionRandom; }
+        public float CannonVerticalDistanceFromCenter { get => _cannonVerticalDistanceFromCenter; }
+        public float CannonSpeed { get => _cannonSpeed; }
+        public float CannonReloadCooldown { get => _cannonReloadCooldown; }
+        public float CannonShootingForce { get => _cannonShootingForce; }
+        public float DistanceBetweenBallAndCannon { get => _distanceBetweenBallAndCannon; }
+        public bool IsCannonUsingPeggleMode { get => _isCannonUsingPeggleMode; }
+        public BallSetData BallSetData { get => _ballSetData; }
     }
 }

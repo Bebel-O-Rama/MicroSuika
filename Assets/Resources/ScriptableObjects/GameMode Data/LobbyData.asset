@@ -12,21 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
   m_Name: LobbyData
   m_EditorClassIdentifier: 
-  skinData: {fileID: 11400000, guid: 4e2ed692ca9de39489cb4334c3ffaaff, type: 2}
-  containerPrefab: {fileID: 5133208408491059016, guid: a7c10ebe55f7dfc43a37bc33ce8ec063, type: 3}
-  containerParentName: ContainerLobby
-  leftmostContainerPositions:
+  _skinData: {fileID: 11400000, guid: 4e2ed692ca9de39489cb4334c3ffaaff, type: 2}
+  _containerInstancePrefab: {fileID: 5133208408491059016, guid: a7c10ebe55f7dfc43a37bc33ce8ec063, type: 3}
+  _leftmostContainerPositions:
   - {x: 0, y: -0.875}
-  containerGeneralScaling:
+  _containerScaling:
   - 1
-  playerPerContainer: 4
-  cannonPrefab: {fileID: 6644540852985890257, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
-  isCannonSpawnXPosRandom: 1
-  cannonVerticalDistanceFromCenter: 4.875
-  cannonSpeed: 5
-  cannonReloadCooldown: 0.5
-  cannonShootingForce: 100
-  emptyDistanceBetweenBallAndCannon: 0.5
-  isCannonUsingPeggleMode: 0
-  ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
-  playerInputPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
+  _playerPerContainer: 4
+  _cannonInstancePrefab: {fileID: 6644540852985890257, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
+  _isCannonXSpawnPositionRandom: 1
+  _cannonVerticalDistanceFromCenter: 4.875
+  _cannonSpeed: 5
+  _cannonReloadCooldown: 0.5
+  _cannonShootingForce: 100
+  _distanceBetweenBallAndCannon: 0.5
+  _isCannonUsingPeggleMode: 0
+  _ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}

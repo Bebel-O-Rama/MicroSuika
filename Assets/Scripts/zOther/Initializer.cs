@@ -20,7 +20,7 @@ namespace MultiSuika.zOther
             GameModeData gameModeData)
         {
             playerCount = playerCount <= 0 ? 1 : playerCount; // For cases like the lobby
-            int containerToSpawn = UnityExtensions.DivideIntRoundedUp(playerCount, gameModeData.playerPerContainer);
+            int containerToSpawn = UnityExtensions.DivideIntRoundedUp(playerCount, gameModeData.PlayerPerContainer);
             if (containerToSpawn <= 0)
                 return null;
 
@@ -28,7 +28,7 @@ namespace MultiSuika.zOther
             Vector2 distanceBetweenContainers = Vector2.zero;
 
             distanceBetweenContainers.x = (containerToSpawn > 1)
-                ? Mathf.Abs(gameModeData.leftmostContainerPositions[containerToSpawn - 1].x) * 2f /
+                ? Mathf.Abs(gameModeData.LeftmostContainerPositions[containerToSpawn - 1].x) * 2f /
                   (containerToSpawn - 1)
                 : 0f;
 
@@ -36,7 +36,7 @@ namespace MultiSuika.zOther
 
             for (int i = 0; i < containerToSpawn; i++)
             {
-                ContainerInstance newContainerInstance = Object.Instantiate(gameModeData.containerInstancePrefab);
+                ContainerInstance newContainerInstance = Object.Instantiate(gameModeData.ContainerInstancePrefab);
                 UnityExtensions.ResetLocalTransform(newContainerInstance.transform);
 
                 instantiatedContainers.Add(newContainerInstance);
@@ -46,10 +46,10 @@ namespace MultiSuika.zOther
                 newContainerInstance.ContainerParent = containerParent;
 
                 containerParent.transform.position =
-                    gameModeData.leftmostContainerPositions[containerToSpawn - 1] +
+                    gameModeData.LeftmostContainerPositions[containerToSpawn - 1] +
                     (i * distanceBetweenContainers);
                 containerParent.transform.localScale =
-                    Vector3.one * gameModeData.containerGeneralScaling[containerToSpawn - 1];
+                    Vector3.one * gameModeData.ContainerScaling[containerToSpawn - 1];
             }
 
             return instantiatedContainers;
@@ -58,7 +58,7 @@ namespace MultiSuika.zOther
         public static void SetContainersParameters(List<ContainerInstance> containers, GameModeData gameModeData)
         {
             for (int i = 0; i < containers.Count; ++i)
-                SetContainerParameters(containers[i], gameModeData.skinData.playersSkinData[i]);
+                SetContainerParameters(containers[i], gameModeData.SkinData.playersSkinData[i]);
         }
 
         private static void SetContainerParameters(ContainerInstance containerInstance, PlayerSkinData playerSkinData)
@@ -122,14 +122,14 @@ namespace MultiSuika.zOther
         {
             cannonInstance.SetPlayerIndex(playerIndex);
             
-            cannonInstance.speed = gameModeData.cannonSpeed;
-            cannonInstance.reloadCooldown = gameModeData.cannonReloadCooldown;
-            cannonInstance.shootingForce = gameModeData.cannonShootingForce;
-            cannonInstance.emptyDistanceBetweenBallAndCannon = gameModeData.emptyDistanceBetweenBallAndCannon;
-            cannonInstance.isUsingPeggleMode = gameModeData.isCannonUsingPeggleMode;
+            cannonInstance.speed = gameModeData.CannonSpeed;
+            cannonInstance.reloadCooldown = gameModeData.CannonReloadCooldown;
+            cannonInstance.shootingForce = gameModeData.CannonShootingForce;
+            cannonInstance.emptyDistanceBetweenBallAndCannon = gameModeData.DistanceBetweenBallAndCannon;
+            cannonInstance.isUsingPeggleMode = gameModeData.IsCannonUsingPeggleMode;
             cannonInstance.horizontalMargin = containerInstance.GetContainerHorizontalHalfLength();
 
-            cannonInstance.ballSetData = gameModeData.ballSetData;
+            cannonInstance.ballSetData = gameModeData.BallSetData;
             cannonInstance.ballSpriteData = playerSkinData.ballTheme;
             // cannonInstance.scoreReference = playerScoreRef;
             cannonInstance.containerInstance = containerInstance;

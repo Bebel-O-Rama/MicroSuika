@@ -127,7 +127,7 @@ namespace MultiSuika.Cannon
         {
             transform.ResetLocalTransform();
 
-            float xPosition = isXPositionRandom
+            var xPosition = isXPositionRandom
                 ? Random.Range(-containerHalfLength, containerHalfLength)
                 : 0f;
 

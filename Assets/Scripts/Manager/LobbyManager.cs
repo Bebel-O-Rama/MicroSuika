@@ -67,19 +67,19 @@ namespace MultiSuika.Manager
             var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
 
             // Instantiate and Set the CannonInstance
-            var cannon = Instantiate(gameModeData.cannonInstancePrefab, mainContainer.ContainerParent.transform);
-            cannon.SetCannonPosition(gameModeData.cannonVerticalDistanceFromCenter, true,
+            var cannon = Instantiate(gameModeData.CannonInstancePrefab, mainContainer.ContainerParent.transform);
+            cannon.SetCannonPosition(gameModeData.CannonVerticalDistanceFromCenter, gameModeData.IsCannonXSpawnPositionRandom,
                 mainContainer.GetContainerHorizontalHalfLength());
 
             Initializer.SetCannonParameters(playerIndex, cannon, mainContainer, gameModeData,
-                gameModeData.skinData.playersSkinData[playerIndex]);
+                gameModeData.SkinData.playersSkinData[playerIndex]);
             cannon.SetInputParameters(playerInputHandler);
             cannon.SetCannonInputEnabled(true);
 
             CannonTracker.Instance.AddNewItem(cannon, playerIndex);
 
             // Other feedback after a player joined the lobby
-            Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
+            Color popupColor = gameModeData.SkinData.playersSkinData[playerIndex].baseColor;
             AddPlayerJoinPopup(playerIndex, cannon, popupColor);
 
             ConnectScoreboardToPlayer(lobbyScoreboard[playerIndex], popupColor);

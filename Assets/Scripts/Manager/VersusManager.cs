@@ -108,7 +108,7 @@ namespace MultiSuika.Manager
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
                 ContainerTracker.Instance.SetPlayerForItem(i,
-                    containers[UnityExtensions.DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1]);
+                    containers[UnityExtensions.DivideIntRoundedUp(i + 1, gameModeData.PlayerPerContainer) - 1]);
             }
 
 
@@ -116,14 +116,14 @@ namespace MultiSuika.Manager
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
                 var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
-                var cannon = Instantiate(gameModeData.cannonInstancePrefab, container.ContainerParent.transform);
+                var cannon = Instantiate(gameModeData.CannonInstancePrefab, container.ContainerParent.transform);
 
                 // var cannon = Initializer.InstantiateCannon(gameModeData, container);
-                cannon.SetCannonPosition(gameModeData.cannonVerticalDistanceFromCenter);
+                cannon.SetCannonPosition(gameModeData.CannonVerticalDistanceFromCenter);
 
 
                 Initializer.SetCannonParameters(i, cannon, container, gameModeData,
-                    gameModeData.skinData.playersSkinData[i]);
+                    gameModeData.SkinData.playersSkinData[i]);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
                 
