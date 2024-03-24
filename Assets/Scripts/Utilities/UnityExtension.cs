@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MultiSuika.Utilities
 {
-    public static class UnityExtensions
+    public static class UnityExtension
     {
         public static void SetLayerRecursively(this Transform parent, int layer)
         {

@@ -133,20 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 6185264480626093832}
-  speed: 0
-  reloadCooldown: 0
-  shootingForce: 0
-  emptyDistanceBetweenBallAndCannon: 0
-  isUsingPeggleMode: 0
-  horizontalMargin: 0
-  ballSetData: {fileID: 0}
-  ballSpriteData: {fileID: 0}
-  scoreReference:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  container: {fileID: 0}
-  WwiseEventCannonShoot:
+  wwiseEventCannonShot:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: bf39f8c109abc62428bfa845644e2bd5, type: 2}

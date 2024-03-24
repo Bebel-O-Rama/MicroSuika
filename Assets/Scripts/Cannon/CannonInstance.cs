@@ -4,7 +4,6 @@ using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Player;
 using MultiSuika.Utilities;
-using MultiSuika.zOther;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,7 +12,7 @@ namespace MultiSuika.Cannon
     public class CannonInstance : MonoBehaviour
     {
         [SerializeField] public SpriteRenderer spriteRenderer;
-        [FormerlySerializedAs("WwiseEventCannonShoot")] [SerializeField] public AK.Wwise.Event WwiseEventCannonShot;
+        [SerializeField] public AK.Wwise.Event wwiseEventCannonShot;
 
         // PlayerIndex
         private int _playerIndex;
@@ -60,6 +59,12 @@ namespace MultiSuika.Cannon
             SetCannonInputEnabled(false);
             _playerInputHandler = null;
         }
+        
+        public void DestroyCurrentBall()
+        {
+            if (_currentBallInstance != null)
+                Destroy(_currentBallInstance.gameObject);
+        }
 
         private void DropBall()
         {
@@ -70,7 +75,8 @@ namespace MultiSuika.Cannon
             _currentBallInstance.rb2d.AddForce(_shootingDirection.normalized * _shootingForce);
             _currentBallInstance = null;
             Invoke("LoadNewBall", _reloadCooldown);
-            WwiseEventCannonShot.Post(gameObject);
+            
+            wwiseEventCannonShot.Post(gameObject);
         }
 
         private void MoveCannon(float xAxis)
@@ -99,23 +105,19 @@ namespace MultiSuika.Cannon
 
         private void LoadNewBall()
         {
-            var newBallIndex = _ballSetData.GetRandomBallTier();
+            var ballIndex = _ballSetData.GetRandomBallTier();
             _currentBallDistanceFromCannon =
-                _ballSetData.GetBallData(newBallIndex).Scale / 2f + _distanceBetweenBallAndCannon;
+                _ballSetData.GetBallData(ballIndex).Scale / 2f + _distanceBetweenBallAndCannon;
 
             var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
 
             _currentBallInstance = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
+            BallTracker.Instance.AddNewItem(_currentBallInstance, _playerIndex);
+            
             _currentBallInstance.SetBallPosition((Vector2)transform.localPosition +
                                                  _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            _currentBallInstance.SetBallParameters(_playerIndex, newBallIndex, _ballSetData, _ballSpriteData);
+            _currentBallInstance.SetBallParameters(_playerIndex, ballIndex, _ballSetData, _ballSpriteData);
             _currentBallInstance.SetSimulatedParameters(false);
-        }
-
-        public void DestroyCurrentBall()
-        {
-            if (_currentBallInstance != null)
-                Destroy(_currentBallInstance.gameObject);
         }
 
         #region Setter
@@ -124,13 +126,14 @@ namespace MultiSuika.Cannon
         {
             _playerIndex = playerIndex;
             
-            // Set position
+            // Set position and layer
             var tf = transform;
             transform.ResetLocalTransform();
+            transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{playerIndex + 1}"));
 
             tf.localPosition = new Vector2(0f, gameModeData.CannonVerticalDistanceFromCenter);
             _horizontalMargin = ContainerTracker.Instance.GetItemsByPlayer(_playerIndex).First()
-                .GetContainerHorizontalHalfLength();
+                .HorizontalMvtHalfLength;
             
             if (gameModeData.IsCannonXSpawnPositionRandom)
             {

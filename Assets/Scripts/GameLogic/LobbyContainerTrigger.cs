@@ -1,4 +1,5 @@
 using MultiSuika.Ball;
+using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,8 @@ namespace MultiSuika.GameLogic
 
         private void Start()
         {
+            _numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
+            
             _isConditionMet = false;
             OnConditionFailed?.Invoke();
         }
@@ -53,8 +56,5 @@ namespace MultiSuika.GameLogic
             other.transform.parent.GetComponent<BallInstance>().ClearBall(false);
             OnTriggered?.Invoke();
         }
-
-        public void SetNumberOfActivePlayerParameters(IntReference numberOfActivePlayer) =>
-            _numberOfActivePlayer = numberOfActivePlayer;
     }
 }

@@ -29,8 +29,8 @@ namespace MultiSuika.Utilities
             for (int i = _itemInformation.Count - 1; i >= 0; i--)
             {
                 var item = _itemInformation[i].Item;
-                if (item != null)
-                    ClearItem(_itemInformation[i].Item);
+                if (item)
+                    ClearItem(item);
                 else
                     _itemInformation.RemoveAt(i);
             }
@@ -40,8 +40,7 @@ namespace MultiSuika.Utilities
             SetPlayerForItem(new List<int> { playerIndex }, item, isAdding);
 
 
-        public void SetPlayerForItem(List<int> playerIndex, T item, bool isAdding = true)
-        {
+        public void SetPlayerForItem(List<int> playerIndex, T item, bool isAdding = true) =>
             _itemInformation
                 .Where(info => info.CompareItem(item))
                 .ToList()
@@ -52,7 +51,16 @@ namespace MultiSuika.Utilities
                     else
                         info.RemovePlayerIndex(playerIndex);
                 });
-        }
+
+        public void ClearPlayersForItem(T item) =>
+            _itemInformation
+                .Where(info => info.CompareItem(item))
+                .ToList()
+                .ForEach(info =>
+                {
+                    info.ClearPlayerIndex();
+                });
+
 
         public T GetItemByIndex(int index)
         {
@@ -105,5 +113,6 @@ namespace MultiSuika.Utilities
         public void AddPlayerIndex(List<int> playerIndex) => PlayerIndex.AddRange(playerIndex.Except(PlayerIndex));
         public void RemovePlayerIndex(int playerIndex) => RemovePlayerIndex(new List<int> { playerIndex });
         public void RemovePlayerIndex(List<int> playerIndex) => PlayerIndex.RemoveAll(playerIndex.Contains);
+        public void ClearPlayerIndex() => PlayerIndex.Clear();
     }
 }

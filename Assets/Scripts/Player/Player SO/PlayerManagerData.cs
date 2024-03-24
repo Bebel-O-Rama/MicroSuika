@@ -14,11 +14,10 @@ namespace MultiSuika.Player
         private Stack<PlayerInformation> _playersInformation;
         private IntReference _numberOfActivePlayer;
 
-        public void Init()
+        public void Initialize()
         {
             _playersInformation ??= new Stack<PlayerInformation>();
-            _numberOfActivePlayer = new IntReference
-                { UseConstant = false, Variable = CreateInstance<IntVariable>() };
+            _numberOfActivePlayer = new IntReference();
             UpdateNumberOfActivePlayer();
         }
 

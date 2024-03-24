@@ -3,7 +3,6 @@ using MultiSuika.Audio;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
-using MultiSuika.zOther;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -36,7 +35,6 @@ namespace MultiSuika.Ball
 
         public void DropBallFromCannon()
         {
-            BallTracker.Instance.AddNewItem(this, _playerIndex);
             SetSimulatedParameters(true);
 
             var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
@@ -78,12 +76,9 @@ namespace MultiSuika.Ball
 
             var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
             var ball = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
+            BallTracker.Instance.AddNewItem(ball, _playerIndex);
 
-            ball.SetBallPosition(UnityExtensions.WorldToLocalPosition(containerParentTransform, contactPosition));
-
-            // var newBall = Initializer.InstantiateBall(_ballSetData, ContainerInstance,
-            //     Initializer.WorldToLocalPosition(ContainerInstance.ContainerParent.transform, contactPosition));
-
+            ball.SetBallPosition(UnityExtension.WorldToLocalPosition(containerParentTransform, contactPosition));
             ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSpriteThemeData);
             ball.transform.SetLayerRecursively(gameObject.layer);
             ball.SetSimulatedParameters(true);

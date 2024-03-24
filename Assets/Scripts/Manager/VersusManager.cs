@@ -6,7 +6,6 @@ using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
-using MultiSuika.zOther;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,40 +29,16 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        [Header("Speed Parameters")] [SerializeField]
-        private FloatReference _speedSoftCap; // 1200
-
-        [Header("Ball Collision Parameters")] [SerializeField]
-        private FloatReference _ballImpactMultiplier; // 2 
-
         [FormerlySerializedAs("versusData")] [FormerlySerializedAs("_winConditionData")] [SerializeField]
         private VersusWinConditionData versusWinConditionData;
 
-        [Header("Movement Parameters")] [SerializeField]
-        private FloatReference _minAdaptiveVerticalRange;
 
         [Header("GameMode Parameters")] [SerializeField]
         public GameModeData gameModeData;
 
-        // [Header("DEBUG parameters")] public bool useDebugSpawnContainer = false;
-        // [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
-        // [SerializeField] public bool checkLeadCondition = true;
-        // [SerializeField] private BoolReference _isRacingModeDebugTextEnabled;
-        // [SerializeField] private BoolReference _isContainerSpeedBarDebugEnabled;
-        // [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
-        // [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
-        // [SerializeField] private FloatReference _debugScoreMultiplier;
-
-        // private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
-        // private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
-        // private Dictionary<ContainerInstance, BoolReference> _playerLeadStatus;
-        // private Dictionary<ContainerInstance, FloatReference> _playerLeadTimer;
-        // private Dictionary<ContainerInstance, FloatReference> _playersYPositionRatio;
 
         private FloatReference _averageSpeed;
-        // private FloatReference _firstPlayerSpeed;
-        // private FloatReference _lastPlayerSpeed;
-        // private FloatReference _standardDeviationSpeed;
+
 
         private int _playerIndexInLead;
         private FloatReference _currentLeadTimeCondition;
@@ -71,16 +46,9 @@ namespace MultiSuika.Manager
         private float _leadRequirementProgressionTime;
 
         private Coroutine _leadTimerCoroutine;
-        // private float _currentLeadTimeLeft;
-        // private ContainerInstance _currentContainerInstanceInLead;
-        // private float _timeReqProgressionTimer;
-        // private float _speedReqProgressionTimer;
-
-        // private IntReference _dampingMethodIndex;
 
 
         private bool _isGameInProgress = true;
-        // private RacingModeDebugInfo _racingModeDebugInfo;
 
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
@@ -89,44 +57,16 @@ namespace MultiSuika.Manager
 
         private void Initialize()
         {
+            _currentLeadTimeCondition = new FloatReference();
+            _currentLeadSpeedCondition = new FloatReference();
         }
 
         private void Start()
         {
-            int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
-
-            var containers =
-                Initializer.InstantiateContainers(numberOfActivePlayer, gameModeData);
-            Initializer.SetContainersParameters(containers, gameModeData);
-
-            // TEMP STUFF BEFORE I TWEAK THE CONTAINERS
-            foreach (var container in containers)
-            {
-                ContainerTracker.Instance.AddNewItem(container);
-            }
-
-            for (int i = 0; i < numberOfActivePlayer; i++)
-            {
-                ContainerTracker.Instance.SetPlayerForItem(i,
-                    containers[UnityExtensions.DivideIntRoundedUp(i + 1, gameModeData.PlayerPerContainer) - 1]);
-            }
-
-
-            //// Instantiate and Set CannonInstances
-            for (int i = 0; i < numberOfActivePlayer; i++)
-            {
-                var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
-                var cannon = Instantiate(gameModeData.CannonInstancePrefab, container.ContainerParent.transform);
-
-                cannon.SetCannonParameters(i, gameModeData);
-                cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
-                cannon.SetCannonInputEnabled(true);
-                CannonTracker.Instance.AddNewItem(cannon, i);
-            }
-
-            //// Racing Stuff!!!
-            SetRacingModeParameters();
-            SetContainerRacingParameters();
+            SpawnContainersVersus();
+            SpawnCannonsVersus();
+            
+            // SetContainerRacingParameters();
         }
 
         private void Update()
@@ -149,6 +89,61 @@ namespace MultiSuika.Manager
             StopLeadTimer();
             StartLeadTimer(currentPlayerRankings.First());
         }
+
+        private void SpawnContainersVersus()
+        {
+            var objHolder = GameObject.Find("Objects");
+            if (!objHolder)
+            {
+                objHolder = new GameObject("Objects");
+            }
+            
+            // Get the number of container to instantiate
+            int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
+            if (numberOfActivePlayer <= 0)
+                return;
+
+            var containersToSpawn =
+                UnityExtension.DivideIntRoundedUp(numberOfActivePlayer, gameModeData.PlayerPerContainer);
+
+            for (int i = 0; i < containersToSpawn; i++)
+            {
+                var containerParent = new GameObject($"Container ({(i + 1)})");
+                containerParent.transform.SetParent(objHolder.transform, false);
+                
+                var container = Instantiate(gameModeData.ContainerInstancePrefab, containerParent.transform);
+
+                // Quick workaround to get the list of playerIndex for the container before we add it to the Tracker
+                var playerIndexes = new List<int>();
+                for (int j = i * gameModeData.PlayerPerContainer;
+                     j < Mathf.Min(i + gameModeData.PlayerPerContainer, numberOfActivePlayer);
+                     j++)
+                {
+                    playerIndexes.Add(j);
+                }
+
+                ContainerTracker.Instance.AddNewItem(container, playerIndexes);
+                container.SetContainerParameters(gameModeData, i, containersToSpawn);
+            }
+        }
+
+        private void SpawnCannonsVersus()
+        {
+            int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
+            for (int i = 0; i < numberOfActivePlayer; i++)
+            {
+                var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
+                var cannon = Instantiate(gameModeData.CannonInstancePrefab, container.ContainerParent.transform);
+                CannonTracker.Instance.AddNewItem(cannon, i);
+
+                cannon.SetCannonParameters(i, gameModeData);
+                cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
+                cannon.SetCannonInputEnabled(true);
+            }
+        }
+
+
+        #region LeadCondition
 
         private bool CheckLeadConditions(List<int> currentPlayerRankings)
         {
@@ -190,7 +185,7 @@ namespace MultiSuika.Manager
         private IEnumerator LeadTimer()
         {
             yield return new WaitForSeconds(_currentLeadTimeCondition);
-            ProcessWinCondition();
+            ProcessGameOver();
         }
 
         private void StopLeadTimer()
@@ -204,9 +199,13 @@ namespace MultiSuika.Manager
             _playerIndexInLead = -1;
         }
 
+        #endregion
 
-        // TODO: Have the main objects (container, cannon) subscribe to an Action that will call the gameOver
-        private void ProcessWinCondition()
+        #region GameOver
+
+        // It would be nicer if the main objects (Containers and Cannons) could subscribe to an Action and
+        // be directly called when the game is over. We could also pass the inState as parameter.
+        private void ProcessGameOver()
         {
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
@@ -227,25 +226,19 @@ namespace MultiSuika.Manager
             _isGameInProgress = false;
         }
 
-        private void SetRacingModeParameters()
-        {
-            _currentLeadTimeCondition = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-            _currentLeadSpeedCondition = new FloatReference
-                { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
-        }
+        #endregion
 
-        private void SetContainerRacingParameters()
-        {
-            // TODO: clean up this, it's for a quick test
-            var playerIndex = 1;
-            foreach (var container in ContainerTracker.Instance.GetItems())
-            {
-                var containerRacing = container.GetComponent<ContainerRacingMode>();
-                containerRacing.SetLayer($"Container{playerIndex}");
-                playerIndex++;
-            }
-        }
+        // private void SetContainerRacingParameters()
+        // {
+        //     // TODO: clean up this, it's for a quick test
+        //     var playerIndex = 1;
+        //     foreach (var container in ContainerTracker.Instance.GetItems())
+        //     {
+        //         var containerRacing = container.GetComponent<ContainerRacingMode>();
+        //         containerRacing.SetLayer($"Container{playerIndex}");
+        //         playerIndex++;
+        //     }
+        // }
 
         public (FloatReference timeRequirement, FloatReference speedRequirement) GetLeadRequirementReferences()
         {

@@ -14,7 +14,7 @@ namespace MultiSuika.Manager
     public class PlayerManager : MonoBehaviour
     {
         #region Singleton
-        
+
         public static PlayerManager Instance { get; private set; }
 
         private void Awake()
@@ -24,7 +24,7 @@ namespace MultiSuika.Manager
             else
                 Destroy(gameObject);
 
-            Init();
+            Initialize();
         }
 
         #endregion
@@ -32,10 +32,10 @@ namespace MultiSuika.Manager
         [Header("Players Information")] [SerializeField] [Min(1)]
         private int _maximumNumberOfPlayer = 4;
 
-        [FormerlySerializedAs("_playerInformationData")] [SerializeField] private PlayerManagerData playerManagerData;
+        [SerializeField] private PlayerManagerData playerManagerData;
 
-        [Header("Input System")] [SerializeField]
-        private PlayerInputManager _inputManagerPrefab;
+        [Header("Input System")] 
+        [SerializeField] private PlayerInputManager _inputManagerPrefab;
 
         [SerializeField] private GameObject _inputHandlerPrefab;
 
@@ -45,7 +45,24 @@ namespace MultiSuika.Manager
         private Stack<PlayerInputHandler> _playerInputHandler;
         private PlayerInputManager _playerInputManager;
         private bool _isJoiningEnabled = false;
-        
+
+        private void Initialize()
+        {
+            playerManagerData.Initialize();
+            
+            // Spawn players who were registered in the previous scene
+            _playerInputHandler = new Stack<PlayerInputHandler>();
+            var numberOfActivePlayer = GetNumberOfActivePlayer();
+            if (numberOfActivePlayer <= 0)
+                return;
+            var inputDevices = playerManagerData.GetOrderedInputDevices();
+            for (int i = 0; i < inputDevices.Count; i++)
+            {
+                var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: inputDevices[i]);
+                PushPlayerInputHandler(playerInputObj);
+            }
+        }
+
         public void SetJoiningEnabled(bool isEnabled)
         {
             if (_isJoiningEnabled == isEnabled)
@@ -64,12 +81,6 @@ namespace MultiSuika.Manager
             UpdatePlayerJoining();
         }
 
-        public void ClearAllPlayers()
-        {
-            while (GetNumberOfActivePlayer() > 0)
-                PopPlayer();
-        }
-
         private void PushPlayer(PlayerInput playerInput)
         {
             var playerIndex = playerManagerData.PushPlayerInformation(playerInput.devices[0]);
@@ -86,19 +97,22 @@ namespace MultiSuika.Manager
             _onPlayerPop?.Invoke(playerIndex);
         }
 
+        public void ClearAllPlayers()
+        {
+            while (GetNumberOfActivePlayer() > 0)
+                PopPlayer();
+        }
+
         private void PushPlayerInputHandler(PlayerInput playerInput = null)
         {
-            if (playerInput != null)
+            if (playerInput)
             {
-                var handler = playerInput.GetComponent<PlayerInputHandler>();
-                _playerInputHandler.Push(handler != null
-                    ? handler
-                    : InstantiatePlayerInputHandler());
+                _playerInputHandler.Push(playerInput.GetComponent<PlayerInputHandler>() ??
+                                         InstantiatePlayerInputHandler());
+                return;
             }
-            else
-            {
-                InstantiatePlayerInputHandler();
-            }
+
+            InstantiatePlayerInputHandler();
         }
 
         private void PopPlayerInputHandler()
@@ -106,7 +120,7 @@ namespace MultiSuika.Manager
             var handler = _playerInputHandler.Pop();
             Destroy(handler.gameObject);
         }
-        
+
         private void UpdatePlayerJoining()
         {
             if (!_isJoiningEnabled)
@@ -117,7 +131,7 @@ namespace MultiSuika.Manager
             else
                 _playerInputManager.DisableJoining();
         }
-        
+
         private PlayerInputHandler InstantiatePlayerInputHandler()
         {
             var playerIndex = _playerInputHandler.Count - 1;
@@ -129,27 +143,8 @@ namespace MultiSuika.Manager
             return playerInputObj.GetComponentInParent<PlayerInputHandler>();
         }
 
-        private void Init()
-        {
-            playerManagerData.Init();
-            InitializePlayerInputHandler();
-        }
-        
-        private void InitializePlayerInputHandler()
-        {
-            _playerInputHandler = new Stack<PlayerInputHandler>();
-            var numberOfActivePlayer = GetNumberOfActivePlayer();
-            if (numberOfActivePlayer <= 0)
-                return;
-            var inputDevices = playerManagerData.GetOrderedInputDevices();
-            for (int i = 0; i < inputDevices.Count; i++)
-            {
-                var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: inputDevices[i]);
-                PushPlayerInputHandler(playerInputObj);
-            }
-        }
-
         #region Getter
+
         public PlayerInputHandler GetPlayerInputHandler(int playerIndex = -1)
         {
             if (playerIndex < 0 || playerIndex >= _playerInputHandler.Count)
@@ -158,13 +153,16 @@ namespace MultiSuika.Manager
         }
 
         public IntReference GetNumberOfActivePlayer() => playerManagerData.GetNumberOfActivePlayer();
+
         #endregion
 
         #region Delegate
+
         public void SubscribePlayerPush(Action<int, PlayerInput> method) => _onPlayerPush += method;
         public void UnsubscribePlayerPush(Action<int, PlayerInput> method) => _onPlayerPush -= method;
         public void SubscribePlayerPop(Action<int> method) => _onPlayerPop += method;
         public void UnsubscribePlayerPop(Action<int> method) => _onPlayerPop -= method;
+
         #endregion
     }
 }
