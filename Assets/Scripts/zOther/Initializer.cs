@@ -73,49 +73,49 @@ namespace MultiSuika.zOther
 
         #region Cannon
 
-        public static List<CannonInstance> InstantiateCannons(int playerCount, GameModeData gameModeData,
-            List<ContainerInstance> containers)
-        {
-            if (!containers.Any() || playerCount <= 0)
-                return null;
+        // public static List<CannonInstance> InstantiateCannons(int playerCount, GameModeData gameModeData,
+        //     List<ContainerInstance> containers)
+        // {
+        //     if (!containers.Any() || playerCount <= 0)
+        //         return null;
+        //
+        //     List<CannonInstance> instantiatedCannons = new List<CannonInstance>();
+        //
+        //     for (int i = 0; i < playerCount; i++)
+        //     {
+        //         ContainerInstance cannonContainerInstance =
+        //             containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)];
+        //         instantiatedCannons.Add(InstantiateCannon(gameModeData, cannonContainerInstance));
+        //     }
+        //
+        //     return instantiatedCannons;
+        // }
 
-            List<CannonInstance> instantiatedCannons = new List<CannonInstance>();
+        // public static CannonInstance InstantiateCannon(GameModeData gameModeData, ContainerInstance containerInstance)
+        // {
+        //     var newCannon = Object.Instantiate(gameModeData.cannonInstancePrefab,
+        //         containerInstance.ContainerParent.transform);
+        //     UnityExtensions.ResetLocalTransform(newCannon.transform);
+        //
+        //     float xPos = gameModeData.isCannonSpawnXPosRandom
+        //         ? Random.Range(-containerInstance.GetContainerHorizontalHalfLength(),
+        //             containerInstance.GetContainerHorizontalHalfLength())
+        //         : 0f;
+        //     newCannon.transform.localPosition = new Vector2(xPos, gameModeData.cannonVerticalDistanceFromCenter);
+        //
+        //     return newCannon;
+        // }
 
-            for (int i = 0; i < playerCount; i++)
-            {
-                ContainerInstance cannonContainerInstance =
-                    containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)];
-                instantiatedCannons.Add(InstantiateCannon(gameModeData, cannonContainerInstance));
-            }
-
-            return instantiatedCannons;
-        }
-
-        public static CannonInstance InstantiateCannon(GameModeData gameModeData, ContainerInstance containerInstance)
-        {
-            var newCannon = Object.Instantiate(gameModeData.cannonInstancePrefab,
-                containerInstance.ContainerParent.transform);
-            UnityExtensions.ResetLocalTransform(newCannon.transform);
-
-            float xPos = gameModeData.isCannonSpawnXPosRandom
-                ? Random.Range(-containerInstance.GetContainerHorizontalHalfLength(),
-                    containerInstance.GetContainerHorizontalHalfLength())
-                : 0f;
-            newCannon.transform.localPosition = new Vector2(xPos, gameModeData.cannonVerticalDistanceFromCenter);
-
-            return newCannon;
-        }
-
-        public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
-            GameModeData gameModeData)
-        {
-            for (int i = 0; i < cannons.Count; ++i)
-            {
-                SetCannonParameters(i, cannons[i],
-                    containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
-                    gameModeData, gameModeData.skinData.playersSkinData[i]);
-            }
-        }
+        // public static void SetCannonsParameters(List<CannonInstance> cannons, List<ContainerInstance> containers,
+        //     GameModeData gameModeData)
+        // {
+        //     for (int i = 0; i < cannons.Count; ++i)
+        //     {
+        //         SetCannonParameters(i, cannons[i],
+        //             containers[GetContainerIndexForPlayer(i, gameModeData.playerPerContainer)],
+        //             gameModeData, gameModeData.skinData.playersSkinData[i]);
+        //     }
+        // }
 
         public static void SetCannonParameters(int playerIndex, CannonInstance cannonInstance, ContainerInstance containerInstance,
             GameModeData gameModeData, PlayerSkinData playerSkinData)
@@ -149,13 +149,5 @@ namespace MultiSuika.zOther
 
         public static int GetContainerIndexForPlayer(int playerIndex, int playerPerContainer) =>
             UnityExtensions.DivideIntRoundedUp(playerIndex + 1, playerPerContainer) - 1;
-        //
-        // private static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
-        //
-        // private static void ResetLocalTransform(Transform child)
-        // {
-        //     child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        //     child.localScale = Vector3.one;
-        // }
     }
 }

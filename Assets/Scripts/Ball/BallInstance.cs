@@ -114,7 +114,6 @@ namespace MultiSuika.Ball
                 Quaternion.Euler(0f, 0f, Random.Range(-randomRotationRange, randomRotationRange)));
         }
 
-
         public void SetBallParameters(int playerIndex, int ballTierIndex, BallSetData ballSetData,
             BallSpriteThemeData ballSpriteThemeData)
         {

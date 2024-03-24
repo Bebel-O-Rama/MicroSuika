@@ -19,7 +19,7 @@ namespace MultiSuika.Manager
     {
         [SerializeField] public GameModeData gameModeData;
 
-        [Header("Lobby Specific Parameters"), SerializeField] 
+        [Header("Lobby Specific Parameters"), SerializeField]
         public string nextSceneName;
 
         [SerializeField] public GameObject onJoinPopup;
@@ -32,6 +32,7 @@ namespace MultiSuika.Manager
             {
                 trigger.SetNumberOfActivePlayerParameters(PlayerManager.Instance.GetNumberOfActivePlayer());
             }
+
             ContainerTracker.Instance.AddNewItem(Initializer.InstantiateContainers(0, gameModeData)[0]);
 
             PlayerManager.Instance.SetJoiningEnabled(true);
@@ -51,30 +52,35 @@ namespace MultiSuika.Manager
             PlayerManager.Instance.SetJoiningEnabled(false);
             ContainerTracker.Instance.ClearItems();
             CannonTracker.Instance.ClearItems();
-            
-            
+
+
             SceneManager.LoadScene(nextSceneName);
         }
 
         private void NewPlayerDetected(int playerIndex, PlayerInput playerInput)
         {
-            // Register the player for the container
+            // Register the player with its control device
             var mainContainer = ContainerTracker.Instance.GetItemByIndex(0);
             ContainerTracker.Instance.SetPlayerForItem(playerIndex, mainContainer);
-            
-            // Instantiate and Set CannonInstance
+
+            // Fetch the PlayerInputHandler
             var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
 
-            CannonInstance cannonInstance = Initializer.InstantiateCannon(gameModeData, mainContainer);
-            Initializer.SetCannonParameters(playerIndex, cannonInstance, mainContainer, gameModeData, gameModeData.skinData.playersSkinData[playerIndex]);
-            cannonInstance.SetInputParameters(playerInputHandler);
-            cannonInstance.SetCannonInputEnabled(true);
-            
-            CannonTracker.Instance.AddNewItem(cannonInstance, playerIndex);
-            
-            // Feedback
+            // Instantiate and Set the CannonInstance
+            var cannon = Instantiate(gameModeData.cannonInstancePrefab, mainContainer.ContainerParent.transform);
+            cannon.SetCannonPosition(gameModeData.cannonVerticalDistanceFromCenter, true,
+                mainContainer.GetContainerHorizontalHalfLength());
+
+            Initializer.SetCannonParameters(playerIndex, cannon, mainContainer, gameModeData,
+                gameModeData.skinData.playersSkinData[playerIndex]);
+            cannon.SetInputParameters(playerInputHandler);
+            cannon.SetCannonInputEnabled(true);
+
+            CannonTracker.Instance.AddNewItem(cannon, playerIndex);
+
+            // Other feedback after a player joined the lobby
             Color popupColor = gameModeData.skinData.playersSkinData[playerIndex].baseColor;
-            AddPlayerJoinPopup(playerIndex, cannonInstance, popupColor);
+            AddPlayerJoinPopup(playerIndex, cannon, popupColor);
 
             ConnectScoreboardToPlayer(lobbyScoreboard[playerIndex], popupColor);
         }
@@ -84,7 +90,7 @@ namespace MultiSuika.Manager
             scoreboard.connectedColor = color;
             scoreboard.SetScoreboardActive(true);
         }
-        
+
         private void AddPlayerJoinPopup(int playerIndex, CannonInstance cannonInstance, Color randColor)
         {
             var popup = Instantiate(onJoinPopup, cannonInstance.transform);

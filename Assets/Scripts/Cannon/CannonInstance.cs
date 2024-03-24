@@ -1,3 +1,4 @@
+using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
@@ -120,6 +121,18 @@ namespace MultiSuika.Cannon
         }
 
         #region Setter
+
+        public void SetCannonPosition(float verticalPositionDelta, bool isXPositionRandom = false,
+            float containerHalfLength = 0f)
+        {
+            transform.ResetLocalTransform();
+
+            float xPosition = isXPositionRandom
+                ? Random.Range(-containerHalfLength, containerHalfLength)
+                : 0f;
+
+            transform.localPosition = new Vector2(xPosition, verticalPositionDelta);
+        }
 
         public void SetInputParameters(PlayerInputHandler playerInputHandler)
         {

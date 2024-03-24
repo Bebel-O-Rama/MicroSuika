@@ -15,34 +15,35 @@ namespace MultiSuika.Manager
     public class VersusManager : MonoBehaviour
     {
         #region Singleton
-        
+
         public static VersusManager Instance { get; private set; }
-        
+
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
             else
                 Destroy(gameObject);
-        
+
             Initialize();
         }
-        
+
         #endregion
 
-        [Header("Speed Parameters")] 
-        [SerializeField] private FloatReference _speedSoftCap; // 1200
+        [Header("Speed Parameters")] [SerializeField]
+        private FloatReference _speedSoftCap; // 1200
 
-        [Header("Ball Collision Parameters")] 
-        [SerializeField] private FloatReference _ballImpactMultiplier; // 2 
-        
-        [FormerlySerializedAs("versusData")] [FormerlySerializedAs("_winConditionData")] [SerializeField] private VersusWinConditionData versusWinConditionData;
-        
-        [Header("Movement Parameters")] 
-        [SerializeField] private FloatReference _minAdaptiveVerticalRange;
+        [Header("Ball Collision Parameters")] [SerializeField]
+        private FloatReference _ballImpactMultiplier; // 2 
 
-        [Header("GameMode Parameters")] 
-        [SerializeField] public GameModeData gameModeData;
+        [FormerlySerializedAs("versusData")] [FormerlySerializedAs("_winConditionData")] [SerializeField]
+        private VersusWinConditionData versusWinConditionData;
+
+        [Header("Movement Parameters")] [SerializeField]
+        private FloatReference _minAdaptiveVerticalRange;
+
+        [Header("GameMode Parameters")] [SerializeField]
+        public GameModeData gameModeData;
 
         // [Header("DEBUG parameters")] public bool useDebugSpawnContainer = false;
         // [Range(0, 4)] [SerializeField] public int debugFakeNumberCount = 2;
@@ -52,7 +53,7 @@ namespace MultiSuika.Manager
         // [SerializeField] private BoolReference _isContainerFullDebugTextEnabled;
         // [SerializeField] private BoolReference _isContainerAbridgedDebugTextEnabled;
         // [SerializeField] private FloatReference _debugScoreMultiplier;
-        
+
         // private Dictionary<ContainerInstance, FloatReference> _playerCurrentSpeedReferences;
         // private Dictionary<ContainerInstance, IntReference> _playerRankingReferences;
         // private Dictionary<ContainerInstance, BoolReference> _playerLeadStatus;
@@ -68,6 +69,7 @@ namespace MultiSuika.Manager
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;
         private float _leadRequirementProgressionTime;
+
         private Coroutine _leadTimerCoroutine;
         // private float _currentLeadTimeLeft;
         // private ContainerInstance _currentContainerInstanceInLead;
@@ -77,14 +79,8 @@ namespace MultiSuika.Manager
         // private IntReference _dampingMethodIndex;
 
 
-
-
-        
-        
-
         private bool _isGameInProgress = true;
         // private RacingModeDebugInfo _racingModeDebugInfo;
-
 
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
@@ -108,9 +104,10 @@ namespace MultiSuika.Manager
             {
                 ContainerTracker.Instance.AddNewItem(container);
             }
+
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
-                ContainerTracker.Instance.SetPlayerForItem(i, 
+                ContainerTracker.Instance.SetPlayerForItem(i,
                     containers[UnityExtensions.DivideIntRoundedUp(i + 1, gameModeData.playerPerContainer) - 1]);
             }
 
@@ -119,28 +116,29 @@ namespace MultiSuika.Manager
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
                 var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
-                var cannon = Initializer.InstantiateCannon(gameModeData, container);
-                CannonTracker.Instance.AddNewItem(cannon, i);
+                var cannon = Instantiate(gameModeData.cannonInstancePrefab, container.ContainerParent.transform);
 
-                Initializer.SetCannonParameters(i, cannon, container, gameModeData, gameModeData.skinData.playersSkinData[i]);
+                // var cannon = Initializer.InstantiateCannon(gameModeData, container);
+                cannon.SetCannonPosition(gameModeData.cannonVerticalDistanceFromCenter);
+
+
+                Initializer.SetCannonParameters(i, cannon, container, gameModeData,
+                    gameModeData.skinData.playersSkinData[i]);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
+                
+                CannonTracker.Instance.AddNewItem(cannon, i);
             }
 
             //// Racing Stuff!!!
             SetRacingModeParameters();
             SetContainerRacingParameters();
-            
-
-            // SetRacingModeDebugInfoParameters();
-            // _racingModeDebugInfo.SetDebugActivationParameters(_isRacingModeDebugTextEnabled);
-
         }
 
         private void Update()
         {
             _leadRequirementProgressionTime += Time.deltaTime;
-            
+
             if (!_isGameInProgress)
                 return;
             var currentPlayerRankings = ScoreManager.Instance.GetPlayerRankings();
@@ -165,39 +163,42 @@ namespace MultiSuika.Manager
             {
                 LeadSpeedEvaluationMethod.FromAverage => firstPlayerSpeed > _averageSpeed + _currentLeadSpeedCondition,
                 LeadSpeedEvaluationMethod.FromSecond => firstPlayerSpeed > (currentPlayerRankings.Count > 1
-                    ? ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings[1]) + _currentLeadSpeedCondition
+                    ? ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings[1]) +
+                      _currentLeadSpeedCondition
                     : _currentLeadSpeedCondition),
                 LeadSpeedEvaluationMethod.FromStart => firstPlayerSpeed > _currentLeadSpeedCondition,
                 _ => false
             };
         }
-        
+
         private void UpdateLeadRequirementsParameters()
         {
             if (versusWinConditionData.AdaptiveRequirementMethod == LeadAdaptiveRequirementMethod.Fixed)
                 return;
 
             _currentLeadTimeCondition.Variable.SetValue(
-                versusWinConditionData.TimeProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / versusWinConditionData.TimeProgressionLength)) *
+                versusWinConditionData.TimeProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime /
+                    versusWinConditionData.TimeProgressionLength)) *
                 versusWinConditionData.TimeRequirementRange.y + versusWinConditionData.TimeRequirementRange.x);
             _currentLeadSpeedCondition.Variable.SetValue(
-                versusWinConditionData.SpeedProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime / versusWinConditionData.SpeedProgressionLength)) *
+                versusWinConditionData.SpeedProgressionCurve.Evaluate(Mathf.Clamp01(_leadRequirementProgressionTime /
+                    versusWinConditionData.SpeedProgressionLength)) *
                 versusWinConditionData.SpeedRequirementRange.y + versusWinConditionData.SpeedRequirementRange.x);
         }
-        
+
         private void StartLeadTimer(int playerIndex)
         {
             _playerIndexInLead = playerIndex;
             OnLeadStart.CallAction(_currentLeadTimeCondition, _playerIndexInLead);
             _leadTimerCoroutine = StartCoroutine(LeadTimer());
         }
-        
+
         private IEnumerator LeadTimer()
         {
             yield return new WaitForSeconds(_currentLeadTimeCondition);
             ProcessWinCondition();
         }
-        
+
         private void StopLeadTimer()
         {
             if (_leadTimerCoroutine != null)
@@ -205,10 +206,11 @@ namespace MultiSuika.Manager
                 StopCoroutine(_leadTimerCoroutine);
                 OnLeadStop.CallAction(false, _playerIndexInLead);
             }
+
             _playerIndexInLead = -1;
         }
-        
-        
+
+
         // TODO: Have the main objects (container, cannon) subscribe to an Action that will call the gameOver
         private void ProcessWinCondition()
         {
@@ -217,7 +219,7 @@ namespace MultiSuika.Manager
                 cannon.DisconnectCannonToPlayer();
 
             var winnerContainer = ContainerTracker.Instance.GetItemsByPlayer(winnerPlayerIndex).First();
-            
+
             foreach (var container in ContainerTracker.Instance.GetItems())
             {
                 container.OnGameOver(container == winnerContainer);
@@ -227,9 +229,10 @@ namespace MultiSuika.Manager
             {
                 ball.SetSimulatedParameters(false);
             }
+
             _isGameInProgress = false;
         }
-        
+
         // private void SetRacingModeDebugInfoParameters()
         // {
         //     _racingModeDebugInfo = FindObjectOfType<RacingModeDebugInfo>();
@@ -254,13 +257,13 @@ namespace MultiSuika.Manager
                 { UseConstant = false, Variable = ScriptableObject.CreateInstance<FloatVariable>() };
             // _dampingMethodIndex = new IntReference
             //     { UseConstant = false, Variable = ScriptableObject.CreateInstance<IntVariable>() };
-        
+
             // _playerCurrentSpeedReferences = new Dictionary<ContainerInstance, FloatReference>();
             // _playerRankingReferences = new Dictionary<ContainerInstance, IntReference>();
             // _playerLeadStatus = new Dictionary<ContainerInstance, BoolReference>();
             // _playerLeadTimer = new Dictionary<ContainerInstance, FloatReference>();
             // _playersYPositionRatio = new Dictionary<ContainerInstance, FloatReference>();
-        
+
             // foreach (var container in ContainerTracker.Instance.GetItems())
             // {
             //     // FloatReference newCurrentSpeedVar = new FloatReference
@@ -282,9 +285,9 @@ namespace MultiSuika.Manager
             //     // _playerLeadTimer[container] = newPlayerLeadTimer;
             //     // _playersYPositionRatio[container] = newYPositionRatioRef;
             // }
-        
+
             // _dampingMethodIndex.Variable.SetValue((int)_dampingMethod);
-        
+
             // _currentLeadTimeCondition.Variable.SetValue(_timeLeadConditionMinRange.x + _timeLeadConditionMinRange.y);
             // _currentLeadSpeedCondition.Variable.SetValue(_speedLeadConditionMinRange.x + _speedLeadConditionMinRange.y);
         }
@@ -307,7 +310,7 @@ namespace MultiSuika.Manager
                 // containerRacing.SetCollisionParameters(_ballImpactMultiplier);
                 // containerRacing.SetPositionParameters(_playersYPositionRatio[container], _minAdaptiveVerticalRange);
                 // containerRacing.SetDebugActivationParameters(_isContainerSpeedBarDebugEnabled,
-                    // _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
+                // _isContainerFullDebugTextEnabled, _isContainerAbridgedDebugTextEnabled, _debugScoreMultiplier);
                 containerRacing.SetLayer($"Container{playerIndex}");
                 playerIndex++;
             }
