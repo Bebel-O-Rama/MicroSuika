@@ -31,7 +31,7 @@ namespace MultiSuika.Cannon
 
         // Ball Parameters
         private BallSetData _ballSetData;
-        private BallSpriteThemeData _ballSpriteData;
+        private BallSkinData _ballSpriteData;
         private float _currentBallDistanceFromCannon;
         private BallInstance _currentBallInstance;
 

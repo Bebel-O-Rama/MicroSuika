@@ -18,7 +18,7 @@ namespace MultiSuika.Ball
 
         private int _playerIndex;
         private BallSetData _ballSetData;
-        private BallSpriteThemeData _ballSpriteThemeData;
+        private BallSkinData _ballSkinData;
         private Rigidbody2D _rb2d;
         private bool _isBallCleared;
 
@@ -76,7 +76,7 @@ namespace MultiSuika.Ball
             BallTracker.Instance.AddNewItem(ball, _playerIndex);
 
             ball.SetBallPosition(UnityExtension.WorldToLocalPosition(containerParentTransform, contactPosition));
-            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSpriteThemeData);
+            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSkinData);
             ball.transform.SetLayerRecursively(gameObject.layer);
             ball.SetSimulatedParameters(true);
 
@@ -107,7 +107,7 @@ namespace MultiSuika.Ball
         }
 
         public void SetBallParameters(int playerIndex, int ballTierIndex, BallSetData ballSetData,
-            BallSpriteThemeData ballSpriteThemeData)
+            BallSkinData ballSkinData)
         {
             // PlayerIndex
             _playerIndex = playerIndex;
@@ -131,8 +131,8 @@ namespace MultiSuika.Ball
             _rb2d.gravityScale = _ballSetData.GravityScale;
 
             // Sprite
-            _ballSpriteThemeData = ballSpriteThemeData;
-            spriteRenderer.sprite = _ballSpriteThemeData.GetBallSprite(BallTierIndex);
+            _ballSkinData = ballSkinData;
+            spriteRenderer.sprite = _ballSkinData.GetBallSprite(BallTierIndex);
 
             // Transform
             var tf = transform;

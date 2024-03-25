@@ -2,7 +2,7 @@
 
 namespace MultiSuika.GameLogic
 {
-    [CreateAssetMenu(menuName = "Versus Win Condition Data")]
+    [CreateAssetMenu(menuName = "Versus/Win Condition Data")]
     public class VersusWinConditionData : ScriptableObject
     {
         [SerializeField] private LeadAdaptiveRequirementMethod _adaptiveRequirementMethod; // AnimCurve

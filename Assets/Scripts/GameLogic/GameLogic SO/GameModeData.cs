@@ -10,11 +10,9 @@ namespace MultiSuika.GameLogic
     [CreateAssetMenu(menuName = "Game Logic/Game Mode Data")]
     public class GameModeData : ScriptableObject
     {
-        // Skin parameters
         [Header("---- SKIN ----")] 
         [SerializeField] private SkinData _skinData;
     
-        // Container parameters
         [Header("----- CONTAINER -----")]
         [SerializeField] private ContainerInstance _containerInstancePrefab;
 
@@ -23,7 +21,6 @@ namespace MultiSuika.GameLogic
         [SerializeField] private List<Vector2> _leftmostContainerPositions;
         [SerializeField] private List<float> _containerScaling;
 
-        // Cannon parameters
         [Header("----- CANNON -----")]
         [SerializeField] private CannonInstance _cannonInstancePrefab;
 
@@ -36,12 +33,10 @@ namespace MultiSuika.GameLogic
         [SerializeField] private float _cannonReloadCooldown;
         [SerializeField] private float _cannonShootingForce;
         [SerializeField] [Min(0f)] private float _distanceBetweenBallAndCannon;
-
-    
+        
         [Header("Cannon Modifiers")]
         [SerializeField] private bool _isCannonUsingPeggleMode;
 
-        // Ball parameters
         [Header("----- BALL -----")]
         [SerializeField] private BallSetData _ballSetData;
         

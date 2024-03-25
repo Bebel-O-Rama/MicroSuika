@@ -2,7 +2,7 @@
 
 namespace MultiSuika.GameLogic
 {
-    [CreateAssetMenu(menuName = "Versus Data/Score Handler Data")]
+    [CreateAssetMenu(menuName = "Versus/Score Handler Data")]
     public class ScoreHandlerData : ScriptableObject
     {
         [Header("Base parameters")] 

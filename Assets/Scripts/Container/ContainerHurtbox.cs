@@ -16,11 +16,6 @@ namespace MultiSuika.Container
         private void Start()
         {
             _containerInstance = GetComponent<ContainerInstance>();
-            if (!_containerInstance)
-            {
-                Destroy(gameObject);
-                return;
-            }
             _playerIndex = ContainerTracker.Instance.GetPlayersByItem(_containerInstance).First();
 
             foreach (var hurtbox in _hurtboxes)

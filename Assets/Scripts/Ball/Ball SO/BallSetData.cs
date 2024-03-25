@@ -58,12 +58,12 @@ namespace MultiSuika.Ball
             return 0;
         }
 
+        // It's not flawless, but at least it takes care of null elements and duplicates.
+        // The OnValidate should already take care of the order of the BallData
         #region Editor
 
         private void TestingAndCleaningSet()
         {
-            // It's not flawless, but at least it takes care of null elements and duplicates.
-            // The OnValidate should already take care of the order of the BallData
             var tempSet = new List<BallData>();
             foreach (var ballData in _ballSet)
             {

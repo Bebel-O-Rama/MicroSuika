@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;

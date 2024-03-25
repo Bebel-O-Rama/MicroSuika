@@ -3,13 +3,14 @@ using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
     public class LobbyContainerTrigger : MonoBehaviour
     {
-        [Range(0, 4)][SerializeField] public int playerNumberThreshold;
-        [SerializeField] private SignalCollider2D colliderSignal;    
+        [SerializeField] [Range(0, 4)] private int _playerNumberThreshold;
+        [SerializeField] private SignalCollider2D _colliderSignal;    
         
         public UnityEvent OnConditionFailed;
         public UnityEvent OnConditionPassed;
@@ -28,7 +29,7 @@ namespace MultiSuika.GameLogic
 
         public void Update()
         {
-            if (_numberOfActivePlayer >= playerNumberThreshold == _isConditionMet)
+            if (_numberOfActivePlayer >= _playerNumberThreshold == _isConditionMet)
                 return;
             SetConditionStatus(!_isConditionMet);
         }
@@ -37,12 +38,12 @@ namespace MultiSuika.GameLogic
         {
             if (isActive)
             {
-                colliderSignal.SubscribeTriggerEnter2D(ColliderTriggered);
+                _colliderSignal.SubscribeTriggerEnter2D(ColliderTriggered);
                 OnConditionPassed?.Invoke();
             }
             else
             {
-                colliderSignal.UnsubscribeTriggerEnter2D(ColliderTriggered);
+                _colliderSignal.UnsubscribeTriggerEnter2D(ColliderTriggered);
                 OnConditionFailed?.Invoke();
             }
 

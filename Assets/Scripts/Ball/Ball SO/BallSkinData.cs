@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace MultiSuika.Ball
 {
-    [CreateAssetMenu(menuName = "Ball/Ball Sprite Theme Data")]
-    public class BallSpriteThemeData : ScriptableObject
+    [CreateAssetMenu(menuName = "Ball/Ball Skin Data")]
+    public class BallSkinData : ScriptableObject
     {
         [SerializeField] private List<Sprite> _ballSprites;
 

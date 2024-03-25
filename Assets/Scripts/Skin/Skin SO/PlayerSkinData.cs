@@ -19,7 +19,7 @@ namespace MultiSuika.Skin
 
         // Ball skin parameters
         [Header("----- BALL -----")] 
-        public BallSpriteThemeData ballTheme;
+        public BallSkinData ballTheme;
     
         // Ball skin parameters
         [Header("----- OTHER -----")] 
