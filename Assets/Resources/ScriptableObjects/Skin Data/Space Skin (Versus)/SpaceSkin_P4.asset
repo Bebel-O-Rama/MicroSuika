@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16b021f844da1194e855f2cc54cb563f, type: 3}
-  m_Name: RacingPlanetSkin_P2
+  m_Name: SpaceSkin_P4
   m_EditorClassIdentifier: 
-  _containerBackground: {fileID: 21300000, guid: 4edcad16764cdc0499326e323c8768ed, type: 3}
+  _containerBackground: {fileID: 21300000, guid: 67e8519c66f29654cb2f138a47a18a70, type: 3}
   _containerSide: {fileID: 0}
   _containerFailure: {fileID: 21300000, guid: 619deb81d1b4aea488b63049e99a2039, type: 3}
   _containerSuccess: {fileID: 21300000, guid: 9b5d738cb15432042b0e9ea4d7564da1, type: 3}
-  _cannonSprite: {fileID: 21300000, guid: 35550a1f1747dcf409094f6f6dafcf2d, type: 3}
+  _cannonSprite: {fileID: 21300000, guid: cef031e2da1818441880b0b2ecf1f57f, type: 3}
   _ballTheme: {fileID: 11400000, guid: 5773125cc26b20b42a2179238d75604e, type: 2}
-  _baseColor: {r: 0.49803922, g: 0.827451, b: 1, a: 1}
+  _baseColor: {r: 0.6039216, g: 0.9882353, b: 0.7647059, a: 1}

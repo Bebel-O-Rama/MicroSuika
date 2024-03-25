@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 4841903817118757254}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1638451884337578472}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 14
-  m_Sprite: {fileID: 21300000, guid: 96eafcb068ddf61428ca391e33dccbc9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 928b4f36e47152d4785aea41e59a7d2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6789699022388938096}
   - component: {fileID: 1662450970523499341}
   m_Layer: 7
-  m_Name: PF_Cannon_Racing
+  m_Name: PF_CannonLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MultiSuika.DebugInfo
 {
-    public class ContainerRacingDebugInfo : MonoBehaviour
+    public class ContainerVersusDebugInfo : MonoBehaviour
     {
         [Header("Activation parameters")]
         [SerializeField] private bool _isContainerSpeedBarDebugEnabled;
