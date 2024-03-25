@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d27a865ab14a54e910ae9679fdffeb, type: 3}
   m_Name: PoolTheme
   m_EditorClassIdentifier: 
-  ballSprites:
+  _ballSprites:
   - {fileID: 21300000, guid: 2840a696a20ed424489cbc440c9a3c0d, type: 3}
   - {fileID: 21300000, guid: 0b0bc95e6f6c1d54eac5d71e1c0d7a37, type: 3}
   - {fileID: 21300000, guid: 237659ff20eb5a34abc24f277e4b2171, type: 3}

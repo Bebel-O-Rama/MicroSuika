@@ -32,18 +32,23 @@ namespace MultiSuika.Ball
         public FloatReference Friction { get => _friction; }
         public FloatReference GravityScale { get => _gravityScale; }
         
-    
         private float _totalWeight;
         
         public BallData GetBallData(int index) => _ballSet.Count > index ? _ballSet[index] : null;
         public int GetMaxTier => _ballSet.Count - 1;
     
+        private void OnEnable()
+        {
+            TestingAndCleaningSet();
+            SetWeight();
+        }
+        
         public int GetRandomBallTier(bool usingWeight = true)
         {
             if (!usingWeight)
                 return Random.Range(0, _ballSet.Count - 1);
         
-            float randValue = Random.Range(0f, 1f);
+            var randValue = Random.Range(0f, 1f);
             foreach (var ballData in _ballSet)
             {
                 randValue -= ballData.SpawnChance / _totalWeight;
@@ -53,9 +58,12 @@ namespace MultiSuika.Ball
             return 0;
         }
 
+        #region Editor
+
         private void TestingAndCleaningSet()
         {
-            // It's not flawless, but at least it takes care of null elements and duplicates. The OnValidate should already take care of the order of the BallData
+            // It's not flawless, but at least it takes care of null elements and duplicates.
+            // The OnValidate should already take care of the order of the BallData
             var tempSet = new List<BallData>();
             foreach (var ballData in _ballSet)
             {
@@ -73,10 +81,6 @@ namespace MultiSuika.Ball
             _ballSet = _ballSet.OrderBy(ball => ball.Index).ToList();
         }
 
-        private void OnEnable()
-        {
-            TestingAndCleaningSet();
-            SetWeight();
-        }
+        #endregion
     }
 }

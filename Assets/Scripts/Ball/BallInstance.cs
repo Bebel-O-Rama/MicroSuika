@@ -1,11 +1,8 @@
 using System.Linq;
 using MultiSuika.Audio;
 using MultiSuika.Container;
-using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace MultiSuika.Ball
 {
@@ -135,7 +132,7 @@ namespace MultiSuika.Ball
 
             // Sprite
             _ballSpriteThemeData = ballSpriteThemeData;
-            spriteRenderer.sprite = _ballSpriteThemeData.ballSprites[BallTierIndex];
+            spriteRenderer.sprite = _ballSpriteThemeData.GetBallSprite(BallTierIndex);
 
             // Transform
             var tf = transform;

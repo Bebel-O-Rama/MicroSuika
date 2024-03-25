@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using MultiSuika.Utilities;
 
 namespace MultiSuika.Ball
@@ -14,11 +13,6 @@ namespace MultiSuika.Ball
 
         private BallTracker()
         {
-        }
-
-        private void Awake()
-        {
-            _instance = this;
         }
 
         #endregion

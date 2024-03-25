@@ -20,11 +20,6 @@ namespace MultiSuika.Container
         {
         }
 
-        private void Awake()
-        {
-            _instance = this;
-        }
-
         #endregion
 
         public ActionMethodPlayerWrapper<(BallInstance, ContainerInstance)> OnContainerHit { get; } =

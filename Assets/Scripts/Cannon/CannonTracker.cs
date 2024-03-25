@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using MultiSuika.Utilities;
 
 namespace MultiSuika.Cannon
@@ -16,10 +15,6 @@ namespace MultiSuika.Cannon
         {
         }
 
-        private void Awake()
-        {
-            _instance = this;
-        }
         #endregion
         
         protected override CannonTrackerInformation CreateInformationInstance(CannonInstance item, List<int> playerIndex)

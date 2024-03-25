@@ -37,13 +37,13 @@ namespace MultiSuika.Cannon
 
         public void SetCannonInputEnabled(bool isActive)
         {
-            if (_playerInputHandler == null)
+            if (!_playerInputHandler)
                 return;
             if (isActive)
             {
                 _playerInputHandler.onHorizontalMvtContinuous += MoveCannon;
                 _playerInputHandler.onShoot += DropBall;
-                if (_currentBallInstance == null)
+                if (!_currentBallInstance)
                     LoadNewBall();
             }
             else
@@ -61,13 +61,13 @@ namespace MultiSuika.Cannon
         
         public void DestroyCurrentBall()
         {
-            if (_currentBallInstance != null)
+            if (_currentBallInstance)
                 Destroy(_currentBallInstance.gameObject);
         }
 
         private void DropBall()
         {
-            if (_currentBallInstance == null)
+            if (!_currentBallInstance)
                 return;
 
             _currentBallInstance.DropBallFromCannon();
@@ -96,7 +96,7 @@ namespace MultiSuika.Cannon
                     transform.Translate(xAxis * Time.deltaTime * _movementSpeed, 0, 0);
             }
 
-            if (_currentBallInstance != null)
+            if (_currentBallInstance)
                 _currentBallInstance.transform.localPosition = (Vector2)transform.localPosition +
                                                                _shootingDirection.normalized *
                                                                _currentBallDistanceFromCannon;
