@@ -5,7 +5,6 @@ using MultiSuika.GameLogic;
 using MultiSuika.Player;
 using MultiSuika.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MultiSuika.Cannon
 {

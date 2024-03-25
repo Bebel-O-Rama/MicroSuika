@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
-using MultiSuika.Manager;
 using MultiSuika.UI;
-using MultiSuika.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -55,20 +52,11 @@ namespace MultiSuika.Manager
             var mainContainer = ContainerTracker.Instance.GetItemByIndex(0);
             ContainerTracker.Instance.SetPlayerForItem(playerIndex, mainContainer);
 
-            // Fetch the PlayerInputHandler
-            var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
-
-            // Instantiate and Set the CannonInstance
-            var cannon = Instantiate(gameModeData.CannonInstancePrefab, mainContainer.ContainerParent.transform);
-            CannonTracker.Instance.AddNewItem(cannon, playerIndex);
-            
-            cannon.SetCannonParameters(playerIndex, gameModeData);
-            cannon.SetInputParameters(playerInputHandler);
-            cannon.SetCannonInputEnabled(true);
+            SpawnPlayerCannonLobby(playerIndex);
 
             // Other feedback after a player joined the lobby
             Color popupColor = gameModeData.SkinData.playersSkinData[playerIndex].baseColor;
-            AddPlayerJoinPopup(playerIndex, cannon, popupColor);
+            AddPlayerJoinPopup(playerIndex, CannonTracker.Instance.GetItemsByPlayer(playerIndex).First(), popupColor);
 
             ConnectScoreboardToPlayer(lobbyScoreboard[playerIndex], popupColor);
         }
@@ -81,12 +69,25 @@ namespace MultiSuika.Manager
                 objHolder = new GameObject("Objects");
             }
             
-            GameObject containerParent = new GameObject($"Container 1");
+            GameObject containerParent = new GameObject($"Container Lobby");
             containerParent.transform.SetParent(objHolder.transform, false);
             ContainerInstance container = Instantiate(gameModeData.ContainerInstancePrefab, containerParent.transform);
             
             ContainerTracker.Instance.AddNewItem(container);
             container.SetContainerParameters(gameModeData);
+        }
+
+        private void SpawnPlayerCannonLobby(int playerIndex)
+        {
+            var mainContainer = ContainerTracker.Instance.GetItemByIndex(0);
+            var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
+
+            var cannon = Instantiate(gameModeData.CannonInstancePrefab, mainContainer.ContainerParent.transform);
+            CannonTracker.Instance.AddNewItem(cannon, playerIndex);
+            
+            cannon.SetCannonParameters(playerIndex, gameModeData);
+            cannon.SetInputParameters(playerInputHandler);
+            cannon.SetCannonInputEnabled(true);
         }
 
         private void ConnectScoreboardToPlayer(Scoreboard scoreboard, Color color)

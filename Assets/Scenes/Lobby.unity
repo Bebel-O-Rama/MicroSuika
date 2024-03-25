@@ -4219,7 +4219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameModeData: {fileID: 11400000, guid: 9b5c63acfe67cac4a91874298d97d021, type: 2}
-  nextSceneName: PrototypeRacing
+  nextSceneName: Versus
   onJoinPopup: {fileID: 7707874888000536716, guid: c05f9afffd133304981240e865d0ad69, type: 3}
   lobbyScoreboard:
   - {fileID: 1833672427}

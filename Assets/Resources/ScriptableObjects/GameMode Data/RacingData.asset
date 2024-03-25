@@ -24,7 +24,7 @@ MonoBehaviour:
   - 0.5
   - 0.5
   - 0.5
-  _playerPerContainer: 1
+  _playerPerContainer: 2
   _cannonInstancePrefab: {fileID: 6644540852985890257, guid: 61e76c64ee0a3a44e827eac2668dcec0, type: 3}
   _isCannonXSpawnPositionRandom: 0
   _cannonVerticalDistanceFromCenter: 5.6

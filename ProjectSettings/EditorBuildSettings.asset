@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: d84837c9ce1d25f46992f47320ea49d9
   - enabled: 1
-    path: Assets/Scenes/PrototypeRacing.unity
+    path: Assets/Scenes/Versus.unity
     guid: 61f53120373b02c49a06272249b35420
   - enabled: 1
     path: Assets/Scenes/RefactoringRacingTesting.unity

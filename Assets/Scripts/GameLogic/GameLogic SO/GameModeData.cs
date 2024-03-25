@@ -4,7 +4,6 @@ using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.Skin;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
@@ -24,9 +23,6 @@ namespace MultiSuika.GameLogic
         [SerializeField] private List<Vector2> _leftmostContainerPositions;
         [SerializeField] private List<float> _containerScaling;
 
-        [Header("Other Parameters")]
-        [SerializeField] [Min(1)] private int _playerPerContainer = 1;
-    
         // Cannon parameters
         [Header("----- CANNON -----")]
         [SerializeField] private CannonInstance _cannonInstancePrefab;
@@ -54,7 +50,6 @@ namespace MultiSuika.GameLogic
         public ContainerInstance ContainerInstancePrefab { get => _containerInstancePrefab; }
         public List<Vector2> LeftmostContainerPositions { get => _leftmostContainerPositions; }
         public List<float> ContainerScaling { get => _containerScaling; }
-        public int PlayerPerContainer { get => _playerPerContainer; }
         public CannonInstance CannonInstancePrefab { get => _cannonInstancePrefab; }
         public bool IsCannonXSpawnPositionRandom {  get => _isCannonXSpawnPositionRandom; }
         public float CannonVerticalDistanceFromCenter { get => _cannonVerticalDistanceFromCenter; }

@@ -7,7 +7,6 @@ using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MultiSuika.Manager
 {
@@ -29,32 +28,21 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        [FormerlySerializedAs("versusData")] [FormerlySerializedAs("_winConditionData")] [SerializeField]
-        private VersusWinConditionData versusWinConditionData;
-
-
-        [Header("GameMode Parameters")] [SerializeField]
-        public GameModeData gameModeData;
-
-
+        [SerializeField] public GameModeData gameModeData;
+        [SerializeField] private VersusWinConditionData versusWinConditionData;
+        
+        private bool _isGameInProgress = true;
         private FloatReference _averageSpeed;
-
-
+        
         private int _playerIndexInLead;
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;
         private float _leadRequirementProgressionTime;
-
         private Coroutine _leadTimerCoroutine;
-
-
-        private bool _isGameInProgress = true;
-
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
         public ActionMethodPlayerWrapper<bool> OnLeadStop { get; } = new ActionMethodPlayerWrapper<bool>();
-
-
+        
         private void Initialize()
         {
             _currentLeadTimeCondition = new FloatReference();
@@ -65,8 +53,6 @@ namespace MultiSuika.Manager
         {
             SpawnContainersVersus();
             SpawnCannonsVersus();
-            
-            // SetContainerRacingParameters();
         }
 
         private void Update()
@@ -103,27 +89,15 @@ namespace MultiSuika.Manager
             if (numberOfActivePlayer <= 0)
                 return;
 
-            var containersToSpawn =
-                UnityExtension.DivideIntRoundedUp(numberOfActivePlayer, gameModeData.PlayerPerContainer);
-
-            for (int i = 0; i < containersToSpawn; i++)
+            for (int i = 0; i < numberOfActivePlayer; i++)
             {
                 var containerParent = new GameObject($"Container ({(i + 1)})");
                 containerParent.transform.SetParent(objHolder.transform, false);
                 
                 var container = Instantiate(gameModeData.ContainerInstancePrefab, containerParent.transform);
 
-                // Quick workaround to get the list of playerIndex for the container before we add it to the Tracker
-                var playerIndexes = new List<int>();
-                for (int j = i * gameModeData.PlayerPerContainer;
-                     j < Mathf.Min(i + gameModeData.PlayerPerContainer, numberOfActivePlayer);
-                     j++)
-                {
-                    playerIndexes.Add(j);
-                }
-
-                ContainerTracker.Instance.AddNewItem(container, playerIndexes);
-                container.SetContainerParameters(gameModeData, i, containersToSpawn);
+                ContainerTracker.Instance.AddNewItem(container, i);
+                container.SetContainerParameters(gameModeData, i, numberOfActivePlayer);
             }
         }
 
@@ -141,7 +115,6 @@ namespace MultiSuika.Manager
                 cannon.SetCannonInputEnabled(true);
             }
         }
-
 
         #region LeadCondition
 
@@ -228,21 +201,14 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        // private void SetContainerRacingParameters()
-        // {
-        //     // TODO: clean up this, it's for a quick test
-        //     var playerIndex = 1;
-        //     foreach (var container in ContainerTracker.Instance.GetItems())
-        //     {
-        //         var containerRacing = container.GetComponent<ContainerRacingMode>();
-        //         containerRacing.SetLayer($"Container{playerIndex}");
-        //         playerIndex++;
-        //     }
-        // }
+        #region Getter/Setter
 
         public (FloatReference timeRequirement, FloatReference speedRequirement) GetLeadRequirementReferences()
         {
             return (_currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
+        
+        #endregion
+        
     }
 }
