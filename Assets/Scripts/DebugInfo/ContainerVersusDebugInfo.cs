@@ -38,7 +38,6 @@ namespace MultiSuika.DebugInfo
 
         [Header("Full debug text parameters")]
         [SerializeField] private GameObject _fullTextDebugHolder;
-        [SerializeField] private TMP_Text _tmpScore;
         [SerializeField] private TMP_Text _tmpCombo;
         [SerializeField] private TMP_Text _tmpSpeed;
         [SerializeField] private TMP_Text _tmpTargetSpeed;
@@ -53,8 +52,7 @@ namespace MultiSuika.DebugInfo
         [SerializeField] private TMP_Text _tmpComboAbridged;
         [SerializeField] private TMP_Text _tmpPositionRatioAbridged;
         
-        // Score parameters
-        private FloatReference _playerScore;
+        private int _playerIndex;
 
         // Speed parameters
         private FloatReference _currentSpeed;
@@ -64,29 +62,13 @@ namespace MultiSuika.DebugInfo
         private float _previousSpeed;
         
         // Combo parameters
-        private int _combo;
+        private int _combo = 1;
         private float _onComboIncrementTimestamp;
         private float _comboTimerFull;
-        private bool _isComboActive = false;
-        // private FloatReference _acceleration;
-        
-        // // Lead parameters
-        // private BoolReference _leadStatus;
-        // private FloatReference _leadTimer;
-        
-        // // Ranking parameters
-        // private IntReference _ranking;
-        
-        // // Position parameters
-        // private FloatReference _verticalPositionRatio;
-        
-        // Debug activation parameters
+        private bool _isComboActive;
 
-
-
-        private int _playerIndex;
-
-        private bool _isInLead = false;
+        // Lead parameters
+        private bool _isInLead;
         private float _leadTimer;
         
         private void Awake()
@@ -120,30 +102,16 @@ namespace MultiSuika.DebugInfo
         {
             _progressBarsDebugHolder.SetActive(_isContainerSpeedBarDebugEnabled);
             _abridgedTextDebugHolder.SetActive(_isContainerAbridgedDebugTextEnabled);
-            _fullTextDebugHolder.SetActive(_isContainerFullDebugTextEnabled);
+            _fullTextDebugHolder.SetActive(_isContainerFullDebugTextEnabled && !_isContainerAbridgedDebugTextEnabled);
             
             if (_isContainerSpeedBarDebugEnabled)
                 UpdateSpeedBarDebugInfo();
             if (_isContainerAbridgedDebugTextEnabled)
                 UpdateAbridgedDebugInfoText();
-            else if (_isContainerFullDebugTextEnabled)
+            if (_isContainerFullDebugTextEnabled && !_isContainerAbridgedDebugTextEnabled)
                 UpdateFullDebugInfoText();
             
             UpdateLeadDebugText();
-        }
-
-        private void OnComboIncrement((int combo, float comboTimerFull) args)
-        {
-            _combo = args.combo;
-            _onComboIncrementTimestamp = Time.time;
-            _comboTimerFull = args.comboTimerFull;
-            _isComboActive = true;
-        }
-
-        private void OnComboStop(int combo)
-        {
-            _combo = 1;
-            _isComboActive = false;
         }
 
         #region UpdateDebugInfo
@@ -188,14 +156,14 @@ namespace MultiSuika.DebugInfo
         
         private void UpdateFullDebugInfoText()
         {
-            // Score
-            _tmpScore.text = string.Format($"{_playerScore.Value:0}");
-
             // Combo
             _tmpCombo.text = string.Format($"{_combo}");
             
             // Acceleration
-            _tmpAcceleration.text = string.Format($"{_scoreHandlerData.BaseAcceleration * _combo:0.00}");
+            var acceleration = _currentSpeed < _targetSpeed
+                ? _scoreHandlerData.BaseAcceleration * _combo
+                : _scoreHandlerData.BaseAcceleration;
+            _tmpAcceleration.text = string.Format($"{acceleration:0.00}");
             
             // Current speed
             _tmpSpeed.text = string.Format($"{_currentSpeed.Value:0.00}");
@@ -207,7 +175,7 @@ namespace MultiSuika.DebugInfo
             _tmpAverageSpeed.text = string.Format($"{_averageSpeed.Value:0.00}");
 
             // Ranking
-            _tmpRanking.text = string.Format($"{ScoreManager.Instance.GetPlayerRanking(_playerIndex):0}");
+            _tmpRanking.text = string.Format($"{ScoreManager.Instance.GetPlayerRanking(_playerIndex) + 1:0}");
             
             // Position
             _tmpPositionRatio.text = string.Format($"{(_normalizedSpeed.Value * 100):00}%");
@@ -233,6 +201,22 @@ namespace MultiSuika.DebugInfo
             _leadTimer -= Time.deltaTime;
         }
 
+        #endregion
+        
+        private void OnComboIncrement((int combo, float comboTimerFull) args)
+        {
+            _combo = args.combo;
+            _onComboIncrementTimestamp = Time.time;
+            _comboTimerFull = args.comboTimerFull;
+            _isComboActive = true;
+        }
+
+        private void OnComboStop(int combo)
+        {
+            _combo = 1;
+            _isComboActive = false;
+        }
+        
         private void OnLeadStart(float timer)
         {
             _leadTimer = timer;
@@ -243,53 +227,5 @@ namespace MultiSuika.DebugInfo
         {
             _isInLead = false;
         }
-        
-        #endregion
-
-        #region Setter
-        // public void SetScoreParameters(FloatReference playerScore) => _playerScore = playerScore;
-        //
-        // public void SetBallAreaParameters(FloatReference areaPercentFilled) => _areaPercentFilled = areaPercentFilled;
-        //
-        // public void SetSpeedParameters(FloatReference currentSpeed, FloatReference averageSpeed, FloatReference targetSpeed, FloatReference speedSoftCap)
-        // {
-        //     _currentSpeed = currentSpeed;
-        //     _averageSpeed = averageSpeed;
-        //     _targetSpeed = targetSpeed;
-        //     _speedSoftCap = speedSoftCap;
-        // }
-        //
-        // public void SetComboParameters(IntReference combo, FloatReference comboTimer, FloatReference comboTimerFull, FloatReference acceleration)
-        // {
-        //     _combo = combo;
-        //     _comboTimer = comboTimer;
-        //     _comboTimerFull = comboTimerFull;
-        //     _acceleration = acceleration;
-        // }
-        //
-        // public void SetLeadParameters(BoolReference leadStatus, FloatReference leadTimer)
-        // {
-        //     _leadStatus = leadStatus;
-        //     _leadTimer = leadTimer;
-        // }
-        //
-        // public void SetRankingParameters(IntReference ranking)
-        // {
-        //     _ranking = ranking;
-        // }
-        
-        // public void SetPositionParameters(FloatReference verticalPositionRatio)
-        // {
-        //     _verticalPositionRatio = verticalPositionRatio;
-        // }
-        
-        // public void SetDebugActivationParameters(BoolReference isContainerSpeedBarDebugEnabled,
-        //     BoolReference isContainerFullDebugTextEnabled, BoolReference isContainerAbridgedDebugTextEnabled)
-        // {
-        //     _isContainerSpeedBarDebugEnabled = isContainerSpeedBarDebugEnabled;
-        //     _isContainerFullDebugTextEnabled = isContainerFullDebugTextEnabled;
-        //     _isContainerAbridgedDebugTextEnabled = isContainerAbridgedDebugTextEnabled;
-        // }
-        #endregion
     }
 }

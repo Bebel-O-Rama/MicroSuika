@@ -15,7 +15,6 @@ namespace MultiSuika.Ball
 
         public int BallTierIndex { get; private set; }
         public int ScoreValue { get; private set; }
-        public ContainerInstance ContainerInstance { get; private set; }
 
         private int _playerIndex;
         private BallSetData _ballSetData;
@@ -140,9 +139,6 @@ namespace MultiSuika.Ball
             tf.localScale = Vector3.one * ballData.Scale;
             tf.name = $"Ball T{BallTierIndex} (ID: {transform.GetInstanceID()})";
 
-            // Container
-            ContainerInstance = transform.parent.GetComponentInChildren<ContainerInstance>();
-            
             // Layers
             transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex+1}"));
         }
