@@ -1,8 +1,4 @@
-using System;
 using MultiSuika.Ball;
-using MultiSuika.GameLogic;
-using MultiSuika.Manager;
-using MultiSuika.Utilities;
 using TMPro;
 using UnityEngine;
 
