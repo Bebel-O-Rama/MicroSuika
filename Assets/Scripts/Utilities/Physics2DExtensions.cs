@@ -21,7 +21,7 @@ namespace MultiSuika.Utilities
                 Vector2 pushDirection = obj.transform.position - (Vector3)position;
                 pushDirection.Normalize();
 
-                float pushIntensity =
+                var pushIntensity =
                     Mathf.Pow(
                         Mathf.Abs(radius - Vector2.Distance(obj.ClosestPoint(position), position)) *
                         impulseForcePerUnit, impulseExpPower);
@@ -42,7 +42,7 @@ namespace MultiSuika.Utilities
                 Vector2 pushDirection = obj.transform.position - (Vector3)position;
                 pushDirection.Normalize();
 
-                float pushIntensity =
+                var pushIntensity =
                     Mathf.Pow(
                         Mathf.Abs(radius - Vector2.Distance(obj.ClosestPoint(position), position)) *
                         impulseForcePerUnit, impulseExpPower);

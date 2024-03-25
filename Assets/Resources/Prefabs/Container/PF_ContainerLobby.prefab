@@ -808,51 +808,51 @@ MonoBehaviour:
   - {fileID: 3552220692328165085}
   - {fileID: 1345886869227186218}
   _collisionVelocityMinThreshold: 3
-  rtpc_ballImpactVelocity:
+  _rtpc_ballImpactVelocity:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT0:
+  _wwiseEventBallContainerCollisionT0:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT1:
+  _wwiseEventBallContainerCollisionT1:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT2:
+  _wwiseEventBallContainerCollisionT2:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT3:
+  _wwiseEventBallContainerCollisionT3:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT4:
+  _wwiseEventBallContainerCollisionT4:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT5:
+  _wwiseEventBallContainerCollisionT5:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT6:
+  _wwiseEventBallContainerCollisionT6:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT7:
+  _wwiseEventBallContainerCollisionT7:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT8:
+  _wwiseEventBallContainerCollisionT8:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT9:
+  _wwiseEventBallContainerCollisionT9:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
-  WwiseEventBallContainerCollisionT10:
+  _wwiseEventBallContainerCollisionT10:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}

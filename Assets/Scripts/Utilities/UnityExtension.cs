@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MultiSuika.Utilities
@@ -14,26 +13,7 @@ namespace MultiSuika.Utilities
                 parent.GetChild(i).SetLayerRecursively(layer);
             }
         }
-        
-        public static void AddUnique<T>(this List<T> list, T obj)
-        {
-            if (list.Contains(obj))
-                return;
-            list.Add(obj);
-        }
-        
-        public static void SetInList<T>(this List<T> list, T obj, bool isAdding = true)
-        {
-            if (isAdding)
-                list.Add(obj);
-            else
-            {
-                list.Remove(obj);
-            }
-        }
-        
-        public static T GetElementAtIndexOrDefault<T>(this List<T> list, int index) => index >= 0 && index < list.Count ? list[index] : default;
-        
+
         public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
             relativeTargetTransform.InverseTransformPoint(worldPosition);
         
@@ -42,7 +22,5 @@ namespace MultiSuika.Utilities
             child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             child.localScale = Vector3.one;
         }
-        
-        public static int DivideIntRoundedUp(int a, int b) => a / b + (a % b > 0 ? 1 : 0);
     }
 }

@@ -11,18 +11,18 @@ namespace MultiSuika.Container
         [Header("Audio Parameters")]
         [SerializeField] private List<SignalCollider2D> _containerColliders;
         [SerializeField] private float _collisionVelocityMinThreshold;
-        [SerializeField] private AK.Wwise.RTPC rtpc_ballImpactVelocity;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT0;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT1;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT2;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT3;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT4;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT5;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT6;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT7;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT8;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT9;
-        private AK.Wwise.Event _wwiseEventBallContainerCollisionT10;
+        [SerializeField] private AK.Wwise.RTPC _rtpc_ballImpactVelocity;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT0;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT1;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT2;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT3;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT4;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT5;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT6;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT7;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT8;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT9;
+        [SerializeField] private AK.Wwise.Event _wwiseEventBallContainerCollisionT10;
 
         private void Start()
         {
@@ -43,7 +43,7 @@ namespace MultiSuika.Container
                 return;
             
             
-            rtpc_ballImpactVelocity.SetValue(gameObject, velocity);
+            _rtpc_ballImpactVelocity.SetValue(gameObject, velocity);
             switch (ball.BallTierIndex)
             {
                 case 0:
