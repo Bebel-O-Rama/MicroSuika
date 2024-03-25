@@ -2513,7 +2513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6632f4fcf904a2646a2e76bb6b973fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maximumNumberOfPlayer: 4
+  _maximumNumberOfPlayers: 4
   playerManagerData: {fileID: 11400000, guid: b6592486d1297584487c7f30034a8d32, type: 2}
   _inputManagerPrefab: {fileID: 6618661410425451850, guid: 76a32bda98f0e5f41aeecf5beb550ad8, type: 3}
   _inputHandlerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
@@ -4549,8 +4549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b248f0e4be2fe469b622b6ad7de109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumberThreshold: 1
-  colliderSignal: {fileID: 359843281}
+  _playerNumberThreshold: 0
+  _colliderSignal: {fileID: 359843281}
   OnConditionFailed:
     m_PersistentCalls:
       m_Calls:
@@ -5171,8 +5171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b248f0e4be2fe469b622b6ad7de109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumberThreshold: 1
-  colliderSignal: {fileID: 1850903797}
+  _playerNumberThreshold: 0
+  _colliderSignal: {fileID: 1850903797}
   OnConditionFailed:
     m_PersistentCalls:
       m_Calls:

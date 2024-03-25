@@ -18,7 +18,7 @@ namespace MultiSuika.Manager
 
         private void Awake()
         {
-            if (Instance == null)
+            if (!Instance)
                 Instance = this;
             else
                 Destroy(gameObject);
@@ -34,6 +34,7 @@ namespace MultiSuika.Manager
         private bool _isGameInProgress = true;
         private FloatReference _averageSpeed;
         
+        // Lead parameters
         private int _playerIndexInLead;
         private FloatReference _currentLeadTimeCondition;
         private FloatReference _currentLeadSpeedCondition;

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using MultiSuika.Player;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using PlayerInputManager = UnityEngine.InputSystem.PlayerInputManager;
 
 namespace MultiSuika.Manager
@@ -19,7 +17,7 @@ namespace MultiSuika.Manager
 
         private void Awake()
         {
-            if (Instance == null)
+            if (!Instance)
                 Instance = this;
             else
                 Destroy(gameObject);
@@ -29,8 +27,8 @@ namespace MultiSuika.Manager
 
         #endregion
 
-        [Header("Players Information")] [SerializeField] [Min(1)]
-        private int _maximumNumberOfPlayer = 4;
+        [Header("Players Information")] 
+        [SerializeField] [Min(1)] private int _maximumNumberOfPlayers = 4;
 
         [SerializeField] private PlayerManagerData playerManagerData;
 
@@ -126,7 +124,7 @@ namespace MultiSuika.Manager
             if (!_isJoiningEnabled)
                 return;
 
-            if (GetNumberOfActivePlayer() < _maximumNumberOfPlayer)
+            if (GetNumberOfActivePlayer() < _maximumNumberOfPlayers)
                 _playerInputManager.EnableJoining();
             else
                 _playerInputManager.DisableJoining();

@@ -3,7 +3,6 @@ using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {

@@ -3,6 +3,7 @@ using MultiSuika.Ball;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Player;
+using MultiSuika.Skin;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -149,10 +150,10 @@ namespace MultiSuika.Cannon
             _isUsingPeggleMode = gameModeData.IsCannonUsingPeggleMode;
 
             _ballSetData = gameModeData.BallSetData;
-            _ballSpriteData = gameModeData.SkinData.playersSkinData[_playerIndex].ballTheme;
+            _ballSpriteData = gameModeData.SkinData.GetPlayerSkinData(_playerIndex).BallTheme;
 
             // Set sprite
-            spriteRenderer.sprite = gameModeData.SkinData.playersSkinData[_playerIndex].cannonSprite;
+            spriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(_playerIndex).CannonSprite;
         }
 
         public void SetInputParameters(PlayerInputHandler playerInputHandler)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5715a3d467a93243b541acb15dd268c, type: 3}
   m_Name: LobbySkin
   m_EditorClassIdentifier: 
-  playersSkinData:
+  _playersSkinData:
   - {fileID: 11400000, guid: b0c427a8af207ea4083e09897c4cd7f3, type: 2}
   - {fileID: 11400000, guid: dd6907efe573a034bb7e7bbe73fd4054, type: 2}
   - {fileID: 11400000, guid: 3d830e709e3db584e95b6797d19fe850, type: 2}

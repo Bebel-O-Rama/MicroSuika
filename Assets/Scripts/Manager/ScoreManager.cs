@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace MultiSuika.Manager
 
         private void Awake()
         {
-            if (Instance == null)
+            if (!Instance)
                 Instance = this;
             else
                 Destroy(gameObject);
@@ -74,7 +73,7 @@ namespace MultiSuika.Manager
         {
             float lowestSpeed = _currentSpeedRefs[_playerRankings.Last()];
             float highestSpeed = _currentSpeedRefs[_playerRankings.First()];
-            float currentRange = Mathf.Max(_minAdaptiveVerticalRange,
+            var currentRange = Mathf.Max(_minAdaptiveVerticalRange,
                 highestSpeed - lowestSpeed);
 
             foreach (var player in _normalizedSpeedRefs)

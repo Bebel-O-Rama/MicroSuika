@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5715a3d467a93243b541acb15dd268c, type: 3}
   m_Name: RacingPlanetSkin
   m_EditorClassIdentifier: 
-  playersSkinData:
+  _playersSkinData:
   - {fileID: 11400000, guid: 7373a3bcb6244ea44a3b743acf52a28f, type: 2}
   - {fileID: 11400000, guid: f2e3d9238aaf573499f341ab02e01eb2, type: 2}
   - {fileID: 11400000, guid: 757ed553d6c7035468a6ba4416f2c96b, type: 2}

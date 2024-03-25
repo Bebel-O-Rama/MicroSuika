@@ -51,10 +51,10 @@ namespace MultiSuika.Container
                 Vector3.one * gameModeData.ContainerScaling[containerToSpawn - 1];
             
             // Set sprites
-            _backgroundSpriteRenderer.sprite = gameModeData.SkinData.playersSkinData[containerIndex].containerBackground;
-            _sideSpriteRenderer.sprite = gameModeData.SkinData.playersSkinData[containerIndex].containerSide;
-            _failureSpriteRenderer.sprite = gameModeData.SkinData.playersSkinData[containerIndex].containerFailure;
-            _successSpriteRenderer.sprite = gameModeData.SkinData.playersSkinData[containerIndex].containerSuccess;
+            _backgroundSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerBackground;
+            _sideSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSide;
+            _failureSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerFailure;
+            _successSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSuccess;
         }
     }
 }

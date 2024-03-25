@@ -28,7 +28,8 @@ namespace MultiSuika.Container
         {
             foreach (var colliders in _containerColliders)
             {
-                colliders.SubscribeCollision2DEnter(OnBallCollision);
+                // TODO: Fill the events and fix the collision audio feedback. https://cyberturret.atlassian.net/browse/MS-103
+                // colliders.SubscribeCollision2DEnter(OnBallCollision);
             }        
         }
         

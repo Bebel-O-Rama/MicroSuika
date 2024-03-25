@@ -42,20 +42,19 @@ namespace MultiSuika.Manager
             ContainerTracker.Instance.ClearItems();
             CannonTracker.Instance.ClearItems();
 
-
             SceneManager.LoadScene(nextSceneName);
         }
 
         private void NewPlayerDetected(int playerIndex, PlayerInput playerInput)
         {
-            // Register the player with its control device
+            // Register the player to its control device
             var mainContainer = ContainerTracker.Instance.GetItemByIndex(0);
             ContainerTracker.Instance.SetPlayerForItem(playerIndex, mainContainer);
 
             SpawnPlayerCannonLobby(playerIndex);
 
-            // Other feedback after a player joined the lobby
-            Color popupColor = gameModeData.SkinData.playersSkinData[playerIndex].baseColor;
+            // Feedback after a player joined the lobby
+            Color popupColor = gameModeData.SkinData.GetPlayerSkinData(playerIndex).BaseColor;
             AddPlayerJoinPopup(playerIndex, CannonTracker.Instance.GetItemsByPlayer(playerIndex).First(), popupColor);
 
             ConnectScoreboardToPlayer(lobbyScoreboard[playerIndex], popupColor);

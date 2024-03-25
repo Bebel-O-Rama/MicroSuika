@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.Skin
 {
-    [CreateAssetMenu(menuName = "Skin/Complete Skin Data")]
+    [CreateAssetMenu(menuName = "Skin/Complete Theme Data")]
     public class SkinData : ScriptableObject
     {
-        public List<PlayerSkinData> playersSkinData;
+        [SerializeField] private List<PlayerVariationSkinData> _playersSkinData;
 
-        public PlayerSkinData GetPlayerSkinData(int playerNumber) => playersSkinData.Count >= playerNumber + 1
-            ? playersSkinData[playerNumber]
-            : playersSkinData[0];
+        public PlayerVariationSkinData GetPlayerSkinData(int playerNumber) => _playersSkinData.Count >= playerNumber + 1
+            ? _playersSkinData[playerNumber]
+            : _playersSkinData[0];
     }
 }
