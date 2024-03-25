@@ -77,10 +77,10 @@ namespace MultiSuika.GameLogic
         private IEnumerator ContainerDamageCooldown(BallInstance ball)
         {
             var damageValue = ball.ScoreValue * _scoreHandlerData.DamageMultiplier;
-            _currentSpeed.Variable.ApplyChangeClamp(_currentSpeed - damageValue * _scoreHandlerData.PercentageInstant,
+            _currentSpeed.Variable.ApplyChangeClamp(-damageValue * _scoreHandlerData.PercentageInstant,
                 min: 0f);
-            _targetSpeed.Variable.ApplyChangeClamp(
-                _currentSpeed - damageValue * (_scoreHandlerData.PercentageInstant - 1f), min: 0f);
+            _targetSpeed.Variable.SetValue(Mathf.Min(_targetSpeed, _currentSpeed));
+            _targetSpeed.Variable.ApplyChangeClamp(-damageValue * (Mathf.Abs(_scoreHandlerData.PercentageInstant - 1f)), min: 0f);
 
             SetBallFusionActive(false);
             SetDampingActive(false);

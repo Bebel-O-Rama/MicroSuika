@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace MultiSuika.Container
         private void Start()
         {
             _containerInstance = GetComponent<ContainerInstance>();
-            _playerIndex = ContainerTracker.Instance.GetPlayersByItem(_containerInstance).First();
+            _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(_containerInstance);
 
             foreach (var hurtbox in _hurtboxes)
             {

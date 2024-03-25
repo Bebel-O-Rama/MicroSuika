@@ -1,4 +1,3 @@
-using System.Linq;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -21,7 +20,7 @@ namespace MultiSuika.Container
         private void Start()
         {
             var container = GetComponentInParent<ContainerInstance>();
-            _playerIndex = ContainerTracker.Instance.GetPlayersByItem(container).FirstOrDefault();
+            _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(container);
             _normalizedVerticalPosition = ScoreManager.Instance.GetNormalizedSpeedReference(_playerIndex);
             _camera.cullingMask |= (1 << gameObject.layer);
         }

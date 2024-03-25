@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MultiSuika.Utilities;
 
 namespace MultiSuika.Ball
@@ -20,7 +19,7 @@ namespace MultiSuika.Ball
         public ActionMethodPlayerWrapper<BallInstance> OnBallFusion { get; } =
             new ActionMethodPlayerWrapper<BallInstance>();
         
-        protected override BallTrackerInformation CreateInformationInstance(BallInstance item, List<int> playerIndex)
+        protected override BallTrackerInformation CreateInformationInstance(BallInstance item, int playerIndex)
         {
             return new BallTrackerInformation(item, playerIndex);
         }
@@ -28,7 +27,7 @@ namespace MultiSuika.Ball
 
     public class BallTrackerInformation : ItemInformation<BallInstance>
     {
-        public BallTrackerInformation(BallInstance item, List<int> playerIndex) : base(item, playerIndex)
+        public BallTrackerInformation(BallInstance item, int playerIndex) : base(item, playerIndex)
         {
         }
     }

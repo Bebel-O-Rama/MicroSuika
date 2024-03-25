@@ -1,4 +1,3 @@
-using System.Linq;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Manager;
@@ -84,7 +83,7 @@ namespace MultiSuika.DebugInfo
             gameObject.SetActive(true);
             
             var container = GetComponentInParent<ContainerInstance>();
-            _playerIndex = ContainerTracker.Instance.GetPlayersByItem(container).FirstOrDefault();
+            _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(container);
 
             _currentSpeed = ScoreManager.Instance.GetCurrentSpeedReference(_playerIndex);
             _averageSpeed = ScoreManager.Instance.GetAverageSpeedReference();

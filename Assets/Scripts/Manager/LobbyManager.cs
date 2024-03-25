@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
@@ -29,7 +28,6 @@ namespace MultiSuika.Manager
 
         public void ResetPlayers()
         {
-            ContainerTracker.Instance.ClearPlayersForItem(ContainerTracker.Instance.GetItemByIndex(0));
             CannonTracker.Instance.ClearItems();
             foreach (var ls in lobbyScoreboard)
                 ls.SetScoreboardActive(false);
@@ -47,15 +45,11 @@ namespace MultiSuika.Manager
 
         private void NewPlayerDetected(int playerIndex, PlayerInput playerInput)
         {
-            // Register the player to its control device
-            var mainContainer = ContainerTracker.Instance.GetItemByIndex(0);
-            ContainerTracker.Instance.SetPlayerForItem(playerIndex, mainContainer);
-
             SpawnPlayerCannonLobby(playerIndex);
 
             // Feedback after a player joined the lobby
             Color popupColor = gameModeData.SkinData.GetPlayerSkinData(playerIndex).BaseColor;
-            AddPlayerJoinPopup(playerIndex, CannonTracker.Instance.GetItemsByPlayer(playerIndex).First(), popupColor);
+            AddPlayerJoinPopup(playerIndex, CannonTracker.Instance.GetItemFromPlayerOrDefault(playerIndex), popupColor);
 
             ConnectScoreboardToPlayer(lobbyScoreboard[playerIndex], popupColor);
         }
@@ -78,7 +72,7 @@ namespace MultiSuika.Manager
 
         private void SpawnPlayerCannonLobby(int playerIndex)
         {
-            var mainContainer = ContainerTracker.Instance.GetItemByIndex(0);
+            var mainContainer = ContainerTracker.Instance.GetItemFromPlayerOrDefault(0);
             var playerInputHandler = PlayerManager.Instance.GetPlayerInputHandler();
 
             var cannon = Instantiate(gameModeData.CannonInstancePrefab, mainContainer.ContainerParent.transform);

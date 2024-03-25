@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MultiSuika.Utilities;
 
 namespace MultiSuika.Cannon
@@ -16,8 +15,8 @@ namespace MultiSuika.Cannon
         }
 
         #endregion
-        
-        protected override CannonTrackerInformation CreateInformationInstance(CannonInstance item, List<int> playerIndex)
+
+        protected override CannonTrackerInformation CreateInformationInstance(CannonInstance item, int playerIndex)
         {
             return new CannonTrackerInformation(item, playerIndex);
         }
@@ -32,7 +31,7 @@ namespace MultiSuika.Cannon
 
     public class CannonTrackerInformation : ItemInformation<CannonInstance>
     {
-        public CannonTrackerInformation(CannonInstance item, List<int> playerIndex) : base(item, playerIndex)
+        public CannonTrackerInformation(CannonInstance item, int playerIndex) : base(item, playerIndex)
         {
         }
     }

@@ -1,4 +1,3 @@
-using System.Linq;
 using MultiSuika.Audio;
 using MultiSuika.Container;
 using MultiSuika.Skin;
@@ -79,9 +78,7 @@ namespace MultiSuika.Ball
             ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSkinData);
             ball.transform.SetLayerRecursively(gameObject.layer);
             ball.SetSimulatedParameters(true);
-
-            BallTracker.Instance.AddNewItem(ball, ball._playerIndex);
-
+            
             ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, ball.gameObject);
         }
 
@@ -89,8 +86,7 @@ namespace MultiSuika.Ball
         {
             var realImpulseRadius = _ballSetData.GetBallData(newBallTier).Scale * 0.5f *
                                     _ballSetData.ImpulseRangeMultiplier *
-                                    ContainerTracker.Instance.GetItemsByPlayer(_playerIndex).First().ContainerParent
-                                        .transform.localScale.x;
+                                    ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex).localScale.x;
 
             Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball",
                 _ballSetData.ImpulseForcePerUnit,

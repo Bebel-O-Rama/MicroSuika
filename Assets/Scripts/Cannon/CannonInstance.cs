@@ -1,4 +1,3 @@
-using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
@@ -132,7 +131,7 @@ namespace MultiSuika.Cannon
             transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{playerIndex + 1}"));
 
             tf.localPosition = new Vector2(0f, gameModeData.CannonVerticalDistanceFromCenter);
-            _horizontalMargin = ContainerTracker.Instance.GetItemsByPlayer(_playerIndex).First()
+            _horizontalMargin = ContainerTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex)
                 .HorizontalMvtHalfLength;
             
             if (gameModeData.IsCannonXSpawnPositionRandom)

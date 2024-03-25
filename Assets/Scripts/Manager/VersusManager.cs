@@ -107,7 +107,7 @@ namespace MultiSuika.Manager
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
-                var container = ContainerTracker.Instance.GetItemsByPlayer(i)[0];
+                var container = ContainerTracker.Instance.GetItemFromPlayerOrDefault(i);
                 var cannon = Instantiate(gameModeData.CannonInstancePrefab, container.ContainerParent.transform);
                 CannonTracker.Instance.AddNewItem(cannon, i);
 
@@ -185,7 +185,7 @@ namespace MultiSuika.Manager
             foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.DisconnectCannonFromPlayer();
 
-            var winnerContainer = ContainerTracker.Instance.GetItemsByPlayer(winnerPlayerIndex).First();
+            var winnerContainer = ContainerTracker.Instance.GetItemFromPlayerOrDefault(winnerPlayerIndex);
 
             foreach (var container in ContainerTracker.Instance.GetItems())
             {
