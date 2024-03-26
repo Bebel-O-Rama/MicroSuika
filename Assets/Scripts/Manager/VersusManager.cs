@@ -121,6 +121,8 @@ namespace MultiSuika.Manager
 
         private bool CheckLeadConditions(List<int> currentPlayerRankings)
         {
+            if (versusWinConditionData.AdaptiveRequirementMethod == LeadAdaptiveRequirementMethod.Disabled)
+                return false;
             var firstPlayerSpeed = ScoreManager.Instance.GetCurrentSpeedReference(currentPlayerRankings.First());
             return versusWinConditionData.SpeedEvaluationMethod switch
             {
@@ -136,7 +138,7 @@ namespace MultiSuika.Manager
 
         private void UpdateLeadRequirementsParameters()
         {
-            if (versusWinConditionData.AdaptiveRequirementMethod == LeadAdaptiveRequirementMethod.Fixed)
+            if (versusWinConditionData.AdaptiveRequirementMethod != LeadAdaptiveRequirementMethod.AnimCurve)
                 return;
 
             _currentLeadTimeCondition.Variable.SetValue(

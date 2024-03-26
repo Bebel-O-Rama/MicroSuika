@@ -23,7 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9b1b114ffdefcf4ca824bd6635c21f2, type: 2}
   - {fileID: 11400000, guid: 23affccda10ca544d92254597d5ccd95, type: 2}
   - {fileID: 11400000, guid: 7745bf13856cddf4bbc7775efbb84951, type: 2}
-  - {fileID: 11400000, guid: 6f0dc4419768a434c8228dc97c1d2194, type: 2}
   _ballInstancePrefab: {fileID: 2597736224161766, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
   _impulseForcePerUnit:
     UseConstant: 1

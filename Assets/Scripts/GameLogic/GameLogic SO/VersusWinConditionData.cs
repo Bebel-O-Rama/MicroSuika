@@ -27,7 +27,8 @@ namespace MultiSuika.GameLogic
     public enum LeadAdaptiveRequirementMethod
     {
         Fixed,
-        AnimCurve
+        AnimCurve,
+        Disabled
     }
     
     public enum LeadSpeedEvaluationMethod
