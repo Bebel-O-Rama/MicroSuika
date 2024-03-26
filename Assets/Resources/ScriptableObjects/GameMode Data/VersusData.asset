@@ -15,10 +15,10 @@ MonoBehaviour:
   _skinData: {fileID: 11400000, guid: b214bad76dc157241bed95142cbe5ade, type: 2}
   _containerInstancePrefab: {fileID: 4487663686502644732, guid: c98317986e807344dbc068be114a864e, type: 3}
   _leftmostContainerPositions:
-  - {x: 0, y: 0.5}
-  - {x: -3.4, y: 0.5}
-  - {x: -5.6, y: 0.5}
-  - {x: -6.3, y: 0.5}
+  - {x: 0, y: 0}
+  - {x: -3.4, y: 0}
+  - {x: -5.6, y: 0}
+  - {x: -6.3, y: 0}
   _containerScaling:
   - 0.5
   - 0.5
@@ -26,10 +26,10 @@ MonoBehaviour:
   - 0.5
   _cannonInstancePrefab: {fileID: 6644540852985890257, guid: 61e76c64ee0a3a44e827eac2668dcec0, type: 3}
   _isCannonXSpawnPositionRandom: 0
-  _cannonVerticalDistanceFromCenter: 5.6
+  _cannonVerticalDistanceFromCenter: 4.6
   _cannonSpeed: 5
   _cannonReloadCooldown: 0.5
   _cannonShootingForce: 100
-  _distanceBetweenBallAndCannon: 0.5
+  _distanceBetweenBallAndCannon: 0.75
   _isCannonUsingPeggleMode: 0
   _ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}

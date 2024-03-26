@@ -12,6 +12,7 @@ namespace MultiSuika.Container
         [Header("Sprite Parameters")] 
         [SerializeField] private SpriteRenderer _backgroundSpriteRenderer;
         [SerializeField] private SpriteRenderer _sideSpriteRenderer;
+        [SerializeField] private SpriteRenderer _nextBallHolderSpriteRenderer;
         [SerializeField] private SpriteRenderer _failureSpriteRenderer;
         [SerializeField] private SpriteRenderer _successSpriteRenderer;
         
@@ -53,6 +54,8 @@ namespace MultiSuika.Container
             // Set sprites
             _backgroundSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerBackground;
             _sideSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSide;
+            _nextBallHolderSpriteRenderer.sprite =
+                gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerNextBallHolder; 
             _failureSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerFailure;
             _successSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSuccess;
         }
