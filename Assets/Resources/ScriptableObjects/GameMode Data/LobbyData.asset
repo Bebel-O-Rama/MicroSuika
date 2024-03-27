@@ -18,7 +18,7 @@ MonoBehaviour:
   - {x: 0, y: -0.875}
   _containerScaling:
   - 1
-  _cannonInstancePrefab: {fileID: 6644540852985890257, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
+  _cannonInstancePrefab: {fileID: 8557932591584255319, guid: 7be2144b474701742a213f265d432cb7, type: 3}
   _isCannonXSpawnPositionRandom: 1
   _cannonVerticalDistanceFromCenter: 4.875
   _cannonSpeed: 5
