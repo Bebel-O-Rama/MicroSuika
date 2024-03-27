@@ -65,21 +65,13 @@ namespace MultiSuika.Ball
             other.ClearBall();
             ClearBall();
 
+            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, gameObject);
+
             if (BallTierIndex >= _ballSetData.GetMaxTier)
                 return;
-
-            FusionImpulse(BallTierIndex + 1, contactPosition);
-
-            var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
-            var ball = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
-            BallTracker.Instance.AddNewItem(ball, _playerIndex);
-
-            ball.SetBallPosition(UnityExtension.WorldToLocalPosition(containerParentTransform, contactPosition));
-            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSkinData);
-            ball.transform.SetLayerRecursively(gameObject.layer);
-            ball.SetSimulatedParameters(true);
             
-            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, ball.gameObject);
+            FusionImpulse(BallTierIndex + 1, contactPosition);
+            SpawnBall(contactPosition);
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
@@ -91,6 +83,18 @@ namespace MultiSuika.Ball
             Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball",
                 _ballSetData.ImpulseForcePerUnit,
                 _ballSetData.ImpulseExpPower);
+        }
+
+        private void SpawnBall(Vector3 contactPosition)
+        {
+            var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
+            var ball = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
+            BallTracker.Instance.AddNewItem(ball, _playerIndex);
+
+            ball.SetBallPosition(UnityExtension.WorldToLocalPosition(containerParentTransform, contactPosition));
+            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSkinData);
+            ball.transform.SetLayerRecursively(gameObject.layer);
+            ball.SetSimulatedParameters(true);
         }
 
         #region Setter
