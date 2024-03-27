@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: LobbyData
   m_EditorClassIdentifier: 
   _skinData: {fileID: 11400000, guid: 4e2ed692ca9de39489cb4334c3ffaaff, type: 2}
-  _containerInstancePrefab: {fileID: 5133208408491059016, guid: a7c10ebe55f7dfc43a37bc33ce8ec063, type: 3}
+  _containerInstancePrefab: {fileID: 1673501813733954253, guid: 6ac417e0077a0f740bbd28192da94e54, type: 3}
   _leftmostContainerPositions:
   - {x: 0, y: -0.875}
   _containerScaling:
   - 1
-  _playerPerContainer: 4
   _cannonInstancePrefab: {fileID: 6644540852985890257, guid: 5f31e3232bff53044a33bd98c79ab866, type: 3}
   _isCannonXSpawnPositionRandom: 1
   _cannonVerticalDistanceFromCenter: 4.875

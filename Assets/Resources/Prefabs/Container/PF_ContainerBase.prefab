@@ -10280,7 +10280,7 @@ GameObject:
   - component: {fileID: 6721351630208359259}
   - component: {fileID: 3463537035169167772}
   m_Layer: 0
-  m_Name: PF_ContainerVersus
+  m_Name: PF_ContainerBase
   m_TagString: Container
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
