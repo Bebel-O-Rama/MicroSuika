@@ -1,3 +1,4 @@
+using System;
 using MultiSuika.Ball;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
@@ -5,6 +6,7 @@ using MultiSuika.Player;
 using MultiSuika.Skin;
 using MultiSuika.Utilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace MultiSuika.Cannon
 {
@@ -16,6 +18,11 @@ namespace MultiSuika.Cannon
         // PlayerIndex
         private int _playerIndex;
 
+        // Positioning
+        private float _horizontalMargin;
+        private float _shootingAngle;
+        private Vector2 _shootingDirection = Vector2.down;
+
         // Cannon Parameters
         private float _movementSpeed;
         private float _reloadCooldown;
@@ -24,16 +31,20 @@ namespace MultiSuika.Cannon
         private bool _isUsingPeggleMode;
         private PlayerInputHandler _playerInputHandler;
 
-        // Positioning
-        private float _horizontalMargin;
-        private float _shootingAngle = 0f;
-        private Vector2 _shootingDirection = Vector2.down;
-
         // Ball Parameters
         private BallSetData _ballSetData;
-        private BallSkinData _ballSpriteData;
-        private float _currentBallDistanceFromCannon;
+        private BallSkinData _ballSkinData;
+        private float _ballHeldDistanceFromCannon;
         private BallInstance _currentBallInstance;
+
+        // Container Parameters
+        private ContainerNextBall _containerNextBall;
+
+        public void Start()
+        {
+            var container = ContainerTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex);
+            _containerNextBall = container.GetComponent<ContainerNextBall>();
+        }
 
         public void SetCannonInputEnabled(bool isActive)
         {
@@ -44,7 +55,7 @@ namespace MultiSuika.Cannon
                 _playerInputHandler.onHorizontalMvtContinuous += MoveCannon;
                 _playerInputHandler.onShoot += DropBall;
                 if (!_currentBallInstance)
-                    LoadNewBall();
+                    LoadBall();
             }
             else
             {
@@ -53,16 +64,12 @@ namespace MultiSuika.Cannon
             }
         }
 
-        public void DisconnectCannonFromPlayer()
+        public void ClearCannon()
         {
             SetCannonInputEnabled(false);
-            _playerInputHandler = null;
-        }
-        
-        public void DestroyCurrentBall()
-        {
+
             if (_currentBallInstance)
-                Destroy(_currentBallInstance.gameObject);
+                BallTracker.Instance.ClearItem(_currentBallInstance);
         }
 
         private void DropBall()
@@ -73,8 +80,8 @@ namespace MultiSuika.Cannon
             _currentBallInstance.DropBallFromCannon();
             _currentBallInstance.Rb2d.AddForce(_shootingDirection.normalized * _shootingForce);
             _currentBallInstance = null;
-            Invoke("LoadNewBall", _reloadCooldown);
-            
+            Invoke("LoadBall", _reloadCooldown);
+
             wwiseEventCannonShot.Post(gameObject);
         }
 
@@ -99,32 +106,47 @@ namespace MultiSuika.Cannon
             if (_currentBallInstance)
                 _currentBallInstance.transform.localPosition = (Vector2)transform.localPosition +
                                                                _shootingDirection.normalized *
-                                                               _currentBallDistanceFromCannon;
+                                                               _ballHeldDistanceFromCannon;
         }
 
-        private void LoadNewBall()
+        private void LoadBall()
+        {
+            if (!_containerNextBall)
+            {
+                SpawnBall();
+                return;
+            }
+
+            _currentBallInstance = _containerNextBall.GetNextBall();
+            _currentBallInstance.SetBallPosition(GetBallHeldPosition());
+            _currentBallInstance.SetBallScale();
+        }
+
+        private void SpawnBall()
         {
             var ballIndex = _ballSetData.GetRandomBallTier();
-            _currentBallDistanceFromCannon =
+            _ballHeldDistanceFromCannon =
                 _ballSetData.GetBallData(ballIndex).Scale / 2f + _distanceBetweenBallAndCannon;
 
             var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
 
             _currentBallInstance = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
             BallTracker.Instance.AddNewItem(_currentBallInstance, _playerIndex);
-            
-            _currentBallInstance.SetBallPosition((Vector2)transform.localPosition +
-                                                 _shootingDirection.normalized * _currentBallDistanceFromCannon);
-            _currentBallInstance.SetBallParameters(_playerIndex, ballIndex, _ballSetData, _ballSpriteData);
+
+            _currentBallInstance.SetBallPosition(GetBallHeldPosition());
+            _currentBallInstance.SetBallParameters(_playerIndex, ballIndex, _ballSetData, _ballSkinData);
             _currentBallInstance.SetSimulatedParameters(false);
         }
 
-        #region Setter
+        #region Getter/Setter
+
+        private Vector3 GetBallHeldPosition() => (Vector2)transform.localPosition +
+                                                 _shootingDirection.normalized * _ballHeldDistanceFromCannon;
 
         public void SetCannonParameters(int playerIndex, GameModeData gameModeData)
         {
             _playerIndex = playerIndex;
-            
+
             // Set position and layer
             var tf = transform;
             transform.ResetLocalTransform();
@@ -133,14 +155,14 @@ namespace MultiSuika.Cannon
             tf.localPosition = new Vector2(0f, gameModeData.CannonVerticalDistanceFromCenter);
             _horizontalMargin = ContainerTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex)
                 .HorizontalMvtHalfLength;
-            
+
             if (gameModeData.IsCannonXSpawnPositionRandom)
             {
                 var localYPos = transform.localPosition.y;
-                transform.localPosition = 
+                transform.localPosition =
                     new Vector2(Random.Range(-_horizontalMargin, _horizontalMargin), localYPos);
             }
-            
+
             // Set basic cannon parameters
             _movementSpeed = gameModeData.CannonSpeed;
             _reloadCooldown = gameModeData.CannonReloadCooldown;
@@ -149,11 +171,12 @@ namespace MultiSuika.Cannon
             _isUsingPeggleMode = gameModeData.IsCannonUsingPeggleMode;
 
             _ballSetData = gameModeData.BallSetData;
-            _ballSpriteData = gameModeData.SkinData.GetPlayerSkinData(_playerIndex).BallTheme;
+            _ballSkinData = gameModeData.SkinData.GetPlayerSkinData(_playerIndex).BallTheme;
 
             // Set sprite
             spriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(_playerIndex).CannonSprite;
         }
+
 
         public void SetInputParameters(PlayerInputHandler playerInputHandler)
         {

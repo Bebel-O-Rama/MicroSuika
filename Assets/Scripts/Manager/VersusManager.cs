@@ -99,6 +99,13 @@ namespace MultiSuika.Manager
 
                 ContainerTracker.Instance.AddNewItem(container, i);
                 container.SetContainerParameters(gameModeData, i, numberOfActivePlayer);
+                
+                // Set the info in the ContainerNextBall components
+                var containerNextBall = container.GetComponent<ContainerNextBall>();
+                if (containerNextBall)
+                {
+                    containerNextBall.SetNextBallParameters(i, gameModeData);
+                }
             }
         }
 
@@ -185,7 +192,7 @@ namespace MultiSuika.Manager
         {
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
-                cannon.DisconnectCannonFromPlayer();
+                cannon.SetCannonInputEnabled(false);
 
             var winnerContainer = ContainerTracker.Instance.GetItemFromPlayerOrDefault(winnerPlayerIndex);
 

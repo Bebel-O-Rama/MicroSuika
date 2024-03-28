@@ -12,10 +12,14 @@ namespace MultiSuika.Ball
         [SerializeField] public SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D _rb2d;
         [SerializeField] private SignalCollider2D _signalCollider2D;
-        
+
         public int BallTierIndex { get; private set; }
         public int ScoreValue { get; private set; }
-        public Rigidbody2D Rb2d { get => _rb2d; }
+
+        public Rigidbody2D Rb2d
+        {
+            get => _rb2d;
+        }
 
         private int _playerIndex;
         private BallSetData _ballSetData;
@@ -68,7 +72,7 @@ namespace MultiSuika.Ball
 
             if (BallTierIndex >= _ballSetData.GetMaxTier)
                 return;
-            
+
             FusionImpulse(BallTierIndex + 1, contactPosition);
             SpawnBall(contactPosition);
         }
@@ -139,7 +143,19 @@ namespace MultiSuika.Ball
             tf.name = $"Ball T{BallTierIndex} (ID: {transform.GetInstanceID()})";
 
             // Layers
-            transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex+1}"));
+            transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex + 1}"));
+        }
+
+        public void SetBallScale(float scale)
+        {
+            transform.localScale = Vector3.one * scale;
+        }
+
+        public void SetBallScale()
+        {
+            if (_playerIndex == default || !_ballSetData)
+                return;
+            transform.localScale = Vector3.one * _ballSetData.GetBallData(_playerIndex).Scale;
         }
 
         public void SetSimulatedParameters(bool isSimulated) => _rb2d.simulated = isSimulated;
