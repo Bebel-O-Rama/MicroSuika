@@ -71,7 +71,7 @@ namespace MultiSuika.Cannon
                 return;
 
             _currentBallInstance.DropBallFromCannon();
-            _currentBallInstance.rb2d.AddForce(_shootingDirection.normalized * _shootingForce);
+            _currentBallInstance.Rb2d.AddForce(_shootingDirection.normalized * _shootingForce);
             _currentBallInstance = null;
             Invoke("LoadNewBall", _reloadCooldown);
             

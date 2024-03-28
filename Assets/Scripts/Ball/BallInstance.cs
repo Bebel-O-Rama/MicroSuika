@@ -10,23 +10,22 @@ namespace MultiSuika.Ball
     {
         [SerializeField] public WwiseEventsData ballFusionWwiseEvents;
         [SerializeField] public SpriteRenderer spriteRenderer;
-        [SerializeField] public Rigidbody2D rb2d;
-
+        [SerializeField] private Rigidbody2D _rb2d;
+        [SerializeField] private SignalCollider2D _signalCollider2D;
+        
         public int BallTierIndex { get; private set; }
         public int ScoreValue { get; private set; }
+        public Rigidbody2D Rb2d { get => _rb2d; }
 
         private int _playerIndex;
         private BallSetData _ballSetData;
         private BallSkinData _ballSkinData;
-        private Rigidbody2D _rb2d;
         private bool _isBallCleared;
 
         private void Awake()
         {
             _isBallCleared = false;
-            _rb2d = GetComponent<Rigidbody2D>();
-
-            GetComponentInChildren<SignalCollider2D>().SubscribeCollision2DEnter(FusionCheck);
+            _signalCollider2D.SubscribeCollision2DEnter(FusionCheck);
         }
 
         public void DropBallFromCannon()
@@ -34,7 +33,7 @@ namespace MultiSuika.Ball
             SetSimulatedParameters(true);
 
             var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
-            rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
+            _rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
         }
 
         public void ClearBall(bool addToScore = true)
@@ -143,7 +142,7 @@ namespace MultiSuika.Ball
             transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex+1}"));
         }
 
-        public void SetSimulatedParameters(bool isSimulated) => rb2d.simulated = isSimulated;
+        public void SetSimulatedParameters(bool isSimulated) => _rb2d.simulated = isSimulated;
 
         #endregion
     }
