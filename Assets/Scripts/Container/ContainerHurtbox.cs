@@ -19,7 +19,7 @@ namespace MultiSuika.Container
 
             foreach (var hurtbox in _hurtboxes)
             {
-                hurtbox.SubscribeTriggerEnter2D(HurtboxTriggered);
+                hurtbox.OnTrigger2DEnter.Subscribe(HurtboxTriggered);
             }
         }
         

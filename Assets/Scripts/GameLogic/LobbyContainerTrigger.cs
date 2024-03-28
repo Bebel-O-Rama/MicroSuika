@@ -37,12 +37,12 @@ namespace MultiSuika.GameLogic
         {
             if (isActive)
             {
-                _colliderSignal.SubscribeTriggerEnter2D(ColliderTriggered);
+                _colliderSignal.OnTrigger2DEnter.Subscribe(ColliderTriggered);
                 OnConditionPassed?.Invoke();
             }
             else
             {
-                _colliderSignal.UnsubscribeTriggerEnter2D(ColliderTriggered);
+                _colliderSignal.OnTrigger2DEnter.Unsubscribe(ColliderTriggered);
                 OnConditionFailed?.Invoke();
             }
 

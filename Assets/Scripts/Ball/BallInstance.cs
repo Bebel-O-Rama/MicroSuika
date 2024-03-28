@@ -25,7 +25,7 @@ namespace MultiSuika.Ball
         private void Awake()
         {
             _isBallCleared = false;
-            _signalCollider2D.SubscribeCollision2DEnter(FusionCheck);
+            _signalCollider2D.OnCollision2DEnter.Subscribe(FusionCheck);
         }
 
         public void DropBallFromCannon()
