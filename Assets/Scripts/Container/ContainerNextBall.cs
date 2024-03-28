@@ -21,7 +21,7 @@ namespace MultiSuika.Container
 
         private void Start()
         {
-            throw new NotImplementedException();
+            SpawnNextBall();
         }
 
         public BallInstance GetNextBall()
@@ -39,8 +39,9 @@ namespace MultiSuika.Container
             
             _nextBall = Instantiate(_ballSetData.BallInstancePrefab, _containerParentTransform);
             BallTracker.Instance.AddNewItem(_nextBall, _playerIndex);
-            _nextBall.SetBallPosition(_nextBallPosition.localPosition);
+            _nextBall.SetBallPosition(_nextBallPosition.localPosition, 10f);
             _nextBall.SetBallParameters(_playerIndex, ballIndex, _ballSetData, _ballSkinData);
+            _nextBall.SetSimulatedParameters(false);
 
             _nextBall.SetBallScale(1);
         }
@@ -54,8 +55,6 @@ namespace MultiSuika.Container
             _ballSetData = gameModeData.BallSetData;
             _ballSkinData = gameModeData.SkinData.GetPlayerSkinData(_playerIndex).BallTheme;
             _containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
-
-            SpawnNextBall();
         }
 
         #endregion

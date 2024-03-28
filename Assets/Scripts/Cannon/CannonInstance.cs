@@ -119,7 +119,7 @@ namespace MultiSuika.Cannon
 
             _currentBallInstance = _containerNextBall.GetNextBall();
             _currentBallInstance.SetBallPosition(GetBallHeldPosition());
-            _currentBallInstance.SetBallScale();
+            _currentBallInstance.ResetBallScale();
         }
 
         private void SpawnBall()

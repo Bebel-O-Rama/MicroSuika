@@ -151,11 +151,9 @@ namespace MultiSuika.Ball
             transform.localScale = Vector3.one * scale;
         }
 
-        public void SetBallScale()
+        public void ResetBallScale()
         {
-            if (_playerIndex == default || !_ballSetData)
-                return;
-            transform.localScale = Vector3.one * _ballSetData.GetBallData(_playerIndex).Scale;
+            transform.localScale = Vector3.one * _ballSetData.GetBallData(BallTierIndex).Scale;
         }
 
         public void SetSimulatedParameters(bool isSimulated) => _rb2d.simulated = isSimulated;
