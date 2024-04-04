@@ -10,7 +10,7 @@ namespace MultiSuika.Ball
             var colliderSignals = GetComponentsInChildren<SignalCollider2D>();
             foreach (var signal in colliderSignals)
             {
-                signal.SubscribeTriggerEnter2D(ObjectOutOfBound);
+                signal.OnTrigger2DEnter.Subscribe(ObjectOutOfBound);
             }
         }
 

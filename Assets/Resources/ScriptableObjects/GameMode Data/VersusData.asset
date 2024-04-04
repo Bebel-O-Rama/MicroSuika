@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VersusData
   m_EditorClassIdentifier: 
   _skinData: {fileID: 11400000, guid: b214bad76dc157241bed95142cbe5ade, type: 2}
-  _containerInstancePrefab: {fileID: 4487663686502644732, guid: c98317986e807344dbc068be114a864e, type: 3}
+  _containerInstancePrefab: {fileID: 5615603098344396705, guid: bd67910348dc7d34aaecb32de96a6037, type: 3}
   _leftmostContainerPositions:
   - {x: 0, y: 0}
   - {x: -3.4, y: 0}
@@ -24,7 +24,7 @@ MonoBehaviour:
   - 0.5
   - 0.5
   - 0.5
-  _cannonInstancePrefab: {fileID: 6644540852985890257, guid: 61e76c64ee0a3a44e827eac2668dcec0, type: 3}
+  _cannonInstancePrefab: {fileID: 8557932591584255319, guid: fef68376f51d2d840875cbaed8e9fcf0, type: 3}
   _isCannonXSpawnPositionRandom: 0
   _cannonVerticalDistanceFromCenter: 4.6
   _cannonSpeed: 5

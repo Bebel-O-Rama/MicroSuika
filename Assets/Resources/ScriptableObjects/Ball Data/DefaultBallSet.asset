@@ -26,9 +26,9 @@ MonoBehaviour:
   _ballInstancePrefab: {fileID: 2597736224161766, guid: f59f7ed640e17b145a891551db7b1aaf, type: 3}
   _impulseForcePerUnit:
     UseConstant: 1
-    ConstantValue: 3
+    ConstantValue: 4
     UseRandomRange: 1
-    RandomCoefficient: 0.05
+    RandomCoefficient: 0.2
     Variable: {fileID: 0}
   _impulseExpPower:
     UseConstant: 1
@@ -38,9 +38,9 @@ MonoBehaviour:
     Variable: {fileID: 0}
   _impulseRangeMultiplier:
     UseConstant: 1
-    ConstantValue: 1.2
+    ConstantValue: 1.3
     UseRandomRange: 1
-    RandomCoefficient: 0.1
+    RandomCoefficient: 0.15
     Variable: {fileID: 0}
   _bounciness:
     UseConstant: 1

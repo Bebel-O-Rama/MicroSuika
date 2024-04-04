@@ -10,23 +10,26 @@ namespace MultiSuika.Ball
     {
         [SerializeField] public WwiseEventsData ballFusionWwiseEvents;
         [SerializeField] public SpriteRenderer spriteRenderer;
-        [SerializeField] public Rigidbody2D rb2d;
+        [SerializeField] private Rigidbody2D _rb2d;
+        [SerializeField] private SignalCollider2D _signalCollider2D;
 
         public int BallTierIndex { get; private set; }
         public int ScoreValue { get; private set; }
 
+        public Rigidbody2D Rb2d
+        {
+            get => _rb2d;
+        }
+
         private int _playerIndex;
         private BallSetData _ballSetData;
         private BallSkinData _ballSkinData;
-        private Rigidbody2D _rb2d;
         private bool _isBallCleared;
 
         private void Awake()
         {
             _isBallCleared = false;
-            _rb2d = GetComponent<Rigidbody2D>();
-
-            GetComponentInChildren<SignalCollider2D>().SubscribeCollision2DEnter(FusionCheck);
+            _signalCollider2D.OnCollision2DEnter.Subscribe(FusionCheck);
         }
 
         public void DropBallFromCannon()
@@ -34,7 +37,7 @@ namespace MultiSuika.Ball
             SetSimulatedParameters(true);
 
             var zRotationValue = Random.Range(0.1f, 0.2f) * (Random.Range(0, 2) * 2 - 1);
-            rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
+            _rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
         }
 
         public void ClearBall(bool addToScore = true)
@@ -65,21 +68,13 @@ namespace MultiSuika.Ball
             other.ClearBall();
             ClearBall();
 
+            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, gameObject);
+
             if (BallTierIndex >= _ballSetData.GetMaxTier)
                 return;
 
             FusionImpulse(BallTierIndex + 1, contactPosition);
-
-            var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
-            var ball = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
-            BallTracker.Instance.AddNewItem(ball, _playerIndex);
-
-            ball.SetBallPosition(UnityExtension.WorldToLocalPosition(containerParentTransform, contactPosition));
-            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSkinData);
-            ball.transform.SetLayerRecursively(gameObject.layer);
-            ball.SetSimulatedParameters(true);
-            
-            ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, ball.gameObject);
+            SpawnBall(contactPosition);
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
@@ -91,6 +86,18 @@ namespace MultiSuika.Ball
             Physics2DExtensions.ApplyCircularImpulse(realImpulseRadius, contactPosition, "Ball",
                 _ballSetData.ImpulseForcePerUnit,
                 _ballSetData.ImpulseExpPower);
+        }
+
+        private void SpawnBall(Vector3 contactPosition)
+        {
+            var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
+            var ball = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
+            BallTracker.Instance.AddNewItem(ball, _playerIndex);
+
+            ball.SetBallPosition(UnityExtension.WorldToLocalPosition(containerParentTransform, contactPosition));
+            ball.SetBallParameters(_playerIndex, BallTierIndex + 1, _ballSetData, _ballSkinData);
+            ball.transform.SetLayerRecursively(gameObject.layer);
+            ball.SetSimulatedParameters(true);
         }
 
         #region Setter
@@ -136,10 +143,20 @@ namespace MultiSuika.Ball
             tf.name = $"Ball T{BallTierIndex} (ID: {transform.GetInstanceID()})";
 
             // Layers
-            transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex+1}"));
+            transform.SetLayerRecursively(LayerMask.NameToLayer($"Container{_playerIndex + 1}"));
         }
 
-        public void SetSimulatedParameters(bool isSimulated) => rb2d.simulated = isSimulated;
+        public void SetBallScale(float scale)
+        {
+            transform.localScale = Vector3.one * scale;
+        }
+
+        public void ResetBallScale()
+        {
+            transform.localScale = Vector3.one * _ballSetData.GetBallData(BallTierIndex).Scale;
+        }
+
+        public void SetSimulatedParameters(bool isSimulated) => _rb2d.simulated = isSimulated;
 
         #endregion
     }

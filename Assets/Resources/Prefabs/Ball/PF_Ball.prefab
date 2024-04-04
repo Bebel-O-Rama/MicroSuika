@@ -49,7 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballFusionWwiseEvents: {fileID: 11400000, guid: a80f6c5f803af5c459b998b6ed6bfbd4, type: 2}
   spriteRenderer: {fileID: 4711732001261019832}
-  rb2d: {fileID: 5569739223193615492}
+  _rb2d: {fileID: 5569739223193615492}
+  _signalCollider2D: {fileID: 5200500628832948644}
 --- !u!50 &5569739223193615492
 Rigidbody2D:
   serializedVersion: 4
