@@ -29,7 +29,7 @@ namespace MultiSuika.Container
                 return;
             var ball = other.GetComponentInParent<BallInstance>();
             ContainerTracker.Instance.OnContainerHit.CallAction((ball, _containerInstance), _playerIndex);
-            ball.ClearBall(false);
+            ball.ClearBall(false, true);
         }
     }
 }

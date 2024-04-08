@@ -12,6 +12,7 @@ namespace MultiSuika.Ball
         [SerializeField] public SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D _rb2d;
         [SerializeField] private SignalCollider2D _signalCollider2D;
+        [SerializeField] private BallVisualEffects _ballVisualEffects;
 
         public int BallTierIndex { get; private set; }
         public int ScoreValue { get; private set; }
@@ -40,16 +41,26 @@ namespace MultiSuika.Ball
             _rb2d.AddTorque(zRotationValue, ForceMode2D.Force);
         }
 
-        public void ClearBall(bool addToScore = true)
+        public void ClearBall(bool isFused = true, bool isContainerDmg = false)
         {
-            if (addToScore)
+            if (isFused)
+            {
                 BallTracker.Instance.OnBallFusion.CallAction(this, _playerIndex);
+                if (_ballVisualEffects)
+                    _ballVisualEffects.PlayBallFusedClear();
+            }
+
+            if (isContainerDmg)
+            {
+                if (_ballVisualEffects)
+                    _ballVisualEffects.PlayContainerBallDamage();
+            }
             BallTracker.Instance.ClearItem(this);
             SetSimulatedParameters(false);
             _isBallCleared = true;
             Destroy(gameObject);
         }
-
+        
         private void FusionCheck(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Ball"))
@@ -68,6 +79,8 @@ namespace MultiSuika.Ball
             other.ClearBall();
             ClearBall();
 
+            _ballVisualEffects.PlayBallFusedContact(contactPosition);
+            
             ballFusionWwiseEvents.PostEventAtIndex(BallTierIndex, gameObject);
 
             if (BallTierIndex >= _ballSetData.GetMaxTier)
@@ -75,6 +88,7 @@ namespace MultiSuika.Ball
 
             FusionImpulse(BallTierIndex + 1, contactPosition);
             SpawnBall(contactPosition);
+            
         }
 
         private void FusionImpulse(int newBallTier, Vector3 contactPosition)
