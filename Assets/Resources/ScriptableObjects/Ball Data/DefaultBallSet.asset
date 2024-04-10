@@ -38,7 +38,7 @@ MonoBehaviour:
     Variable: {fileID: 0}
   _impulseRangeMultiplier:
     UseConstant: 1
-    ConstantValue: 1.3
+    ConstantValue: 2
     UseRandomRange: 1
     RandomCoefficient: 0.15
     Variable: {fileID: 0}

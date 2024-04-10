@@ -39,6 +39,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitVibrato
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitRandomness
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitStrength.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _hitStrength.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4564159779651758605, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
