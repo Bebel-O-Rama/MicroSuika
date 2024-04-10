@@ -67,11 +67,11 @@ namespace MultiSuika.GameLogic
                 ContainerTracker.Instance.OnContainerHit.Unsubscribe(OnContainerHit, playerIndex);
         }
 
-        private void OnContainerHit((BallInstance ball, ContainerInstance container) args)
+        private void OnContainerHit(BallInstance ball)
         {
             if (_damageCooldownCoroutine != null)
                 StopCoroutine(_damageCooldownCoroutine);
-            _damageCooldownCoroutine = StartCoroutine(ContainerDamageCooldown(args.ball));
+            _damageCooldownCoroutine = StartCoroutine(ContainerDamageCooldown(ball));
         }
 
         private IEnumerator ContainerDamageCooldown(BallInstance ball)

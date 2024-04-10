@@ -23,13 +23,10 @@ namespace MultiSuika.Container
         [SerializeField] private bool _hitFadeOut = true;
         [SerializeField] private ShakeRandomnessMode _hitMode = ShakeRandomnessMode.Full;
         [SerializeField] private bool _isTestingEnabled = false;
-        
-        
+
         private int _playerIndex;
         private FloatReference _normalizedVerticalPosition;
         private Tweener _tweener;
-        
-        
 
         private void Start()
         {
@@ -50,7 +47,7 @@ namespace MultiSuika.Container
                 ContainerHitShakeTest();
         }
 
-        private void ContainerHitShake((BallInstance ball, ContainerInstance container) args)
+        private void ContainerHitShake(BallInstance ball)
         {
             if (_tweener.IsActive())
             {

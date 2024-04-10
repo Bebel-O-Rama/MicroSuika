@@ -18,8 +18,8 @@ namespace MultiSuika.Container
 
         #endregion
 
-        public ActionMethodPlayerWrapper<(BallInstance, ContainerInstance)> OnContainerHit { get; } =
-            new ActionMethodPlayerWrapper<(BallInstance, ContainerInstance)>();
+        public ActionMethodPlayerWrapper<BallInstance> OnContainerHit { get; } =
+            new ActionMethodPlayerWrapper<BallInstance>();
 
         public Transform GetParentTransformFromPlayer(int playerIndex) =>
             GetItemFromPlayerOrDefault(playerIndex).ContainerParent.transform;
