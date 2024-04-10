@@ -28,7 +28,7 @@ namespace MultiSuika.Container
             if (!other.gameObject.CompareTag("Ball"))
                 return;
             var ball = other.GetComponentInParent<BallInstance>();
-            ContainerTracker.Instance.OnContainerHit.CallAction((ball, _containerInstance), _playerIndex);
+            ContainerTracker.Instance.OnContainerHit.CallAction(ball, _playerIndex);
             ball.ClearBall(false);
         }
     }
