@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: _hitStrength.y
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _shakeTestKeycode
+      value: 98
+      objectReference: {fileID: 0}
     - target: {fileID: 4564159779651758605, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

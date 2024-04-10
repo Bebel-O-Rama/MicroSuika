@@ -15,7 +15,7 @@ namespace MultiSuika.Container
         [SerializeField] private float _yMinHeight;
         [SerializeField] private float _yMaxHeight;
 
-        [Header("Screen Shake parameters (OnContainerHit)")]
+        [Header("OnHit Shake parameters")]
         [SerializeField] private float _hitDuration = 0.5f;
         [SerializeField] private Vector3 _hitStrength;
         [SerializeField] private int _hitVibrato = 20;
@@ -23,6 +23,7 @@ namespace MultiSuika.Container
         [SerializeField] private bool _hitFadeOut = true;
         [SerializeField] private ShakeRandomnessMode _hitMode = ShakeRandomnessMode.Full;
         [SerializeField] private bool _isTestingEnabled = false;
+        [SerializeField] private KeyCode _shakeTestKeycode;
 
         private int _playerIndex;
         private FloatReference _normalizedVerticalPosition;
@@ -43,10 +44,11 @@ namespace MultiSuika.Container
             var newYPos = _yMinHeight + _normalizedVerticalPosition * (_yMaxHeight - _yMinHeight);
             _mainVerticalTransform.position = new Vector3(0, -newYPos, 0);
             
-            if (_isTestingEnabled && Input.GetKeyDown(KeyCode.B))
-                ContainerHitShakeTest();
+            if (_isTestingEnabled && Input.GetKeyDown(_shakeTestKeycode))
+                ContainerHitShake(null);
         }
 
+        // TODO: We should be able to call the method with a null once we make the shake adaptive (MS-130)
         private void ContainerHitShake(BallInstance ball)
         {
             if (_tweener.IsActive())
@@ -55,16 +57,6 @@ namespace MultiSuika.Container
                 return;
             }
             _tweener = _secondaryTransform.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato, _hitRandomness, fadeOut: _hitFadeOut, randomnessMode: _hitMode);
-        }
-        
-        private void ContainerHitShakeTest()
-        {
-            if (_tweener.IsActive())
-            {
-                _tweener.Restart();
-                return;
-            }
-            _tweener = _secondaryTransform.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato, _hitRandomness);
         }
     }
 }
