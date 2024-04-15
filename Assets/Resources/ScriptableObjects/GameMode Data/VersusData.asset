@@ -32,4 +32,4 @@ MonoBehaviour:
   _cannonShootingForce: 100
   _distanceBetweenBallAndCannon: 0.75
   _isCannonUsingPeggleMode: 0
-  _ballSetData: {fileID: 11400000, guid: e4c8bbf6fd9bce74bb0776fb8040c578, type: 2}
+  _ballSetData: {fileID: 11400000, guid: 92243c0562aa7e1489f697843be4aa3f, type: 2}

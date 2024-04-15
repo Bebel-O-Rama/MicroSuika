@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_ContainerVersus
       objectReference: {fileID: 0}
+    - target: {fileID: 8160098725988186950, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
