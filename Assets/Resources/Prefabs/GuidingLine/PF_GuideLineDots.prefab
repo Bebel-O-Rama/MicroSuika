@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6630931403167151559}
   - component: {fileID: 3757568422592194911}
   m_Layer: 0
-  m_Name: GuideLineDots
+  m_Name: PF_GuideLineDots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

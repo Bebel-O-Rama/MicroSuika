@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7976382461676864874}
   - component: {fileID: 8652360048379591756}
   m_Layer: 0
-  m_Name: GuideLineStraight
+  m_Name: PF_GuideLineStraight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
