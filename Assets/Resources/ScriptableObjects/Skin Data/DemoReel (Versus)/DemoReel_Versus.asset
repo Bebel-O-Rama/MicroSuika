@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5715a3d467a93243b541acb15dd268c, type: 3}
+  m_Name: DemoReel_Versus
+  m_EditorClassIdentifier: 
+  _playersSkinData:
+  - {fileID: 11400000, guid: 6c738edc269fb9441afc28b2e4c33b28, type: 2}
+  - {fileID: 11400000, guid: 063bc41451f607a45847a9b9c23d0222, type: 2}
+  - {fileID: 11400000, guid: 9a168a32047336c49a9b5ca4f0ef3059, type: 2}
+  - {fileID: 11400000, guid: 7549c9bd2c58ac54cad7711981e3b6e3, type: 2}

@@ -1449,7 +1449,7 @@ GameObject:
   - component: {fileID: 825600732}
   - component: {fileID: 825600736}
   m_Layer: 0
-  m_Name: Racing Manager
+  m_Name: Versus Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1482,7 +1482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f7643866a2cbd4f84e3a79f7b25384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameModeData: {fileID: 11400000, guid: 683c96a97f72ebf499a210aca2b1747c, type: 2}
+  gameModeData: {fileID: 11400000, guid: 8f870313f7333c241bf5e9aab8f07082, type: 2}
   versusWinConditionData: {fileID: 11400000, guid: fce45878d4dba9d4d90cdebc3f35c2a1, type: 2}
 --- !u!1 &877577911
 GameObject:

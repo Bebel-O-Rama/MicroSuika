@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
+  m_Name: DemoReel_VersusData
+  m_EditorClassIdentifier: 
+  _skinData: {fileID: 11400000, guid: 039e0dd2d8f8dfa4d9ddc69baf9d7c73, type: 2}
+  _containerInstancePrefab: {fileID: 5615603098344396705, guid: bd67910348dc7d34aaecb32de96a6037, type: 3}
+  _leftmostContainerPositions:
+  - {x: 0, y: 0}
+  - {x: -3.4, y: 0}
+  - {x: -5.6, y: 0}
+  - {x: -6.3, y: 0}
+  _containerScaling:
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
+  _cannonInstancePrefab: {fileID: 8557932591584255319, guid: fef68376f51d2d840875cbaed8e9fcf0, type: 3}
+  _isCannonXSpawnPositionRandom: 0
+  _cannonVerticalDistanceFromCenter: 4.6
+  _cannonSpeed: 5
+  _cannonReloadCooldown: 0.5
+  _cannonShootingForce: 100
+  _distanceBetweenBallAndCannon: 0.65
+  _isCannonUsingPeggleMode: 0
+  _ballSetData: {fileID: 11400000, guid: 92243c0562aa7e1489f697843be4aa3f, type: 2}
