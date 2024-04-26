@@ -42,8 +42,8 @@ namespace MultiSuika.Skin
 
         void Update()
         {
-            Debug.Log(_currentTimerFull - (Time.time - _comboIncrementTimestamp) / _currentTimerFull);
-            _comboFilledLevel = Mathf.Clamp01(_currentTimerFull - (Time.time - _comboIncrementTimestamp) / _currentTimerFull);
+            Debug.Log((_currentTimerFull - (Time.time - _comboIncrementTimestamp)) / _currentTimerFull);
+            _comboFilledLevel = Mathf.Clamp01((_currentTimerFull - (Time.time - _comboIncrementTimestamp)) / _currentTimerFull);
             _containerSideMat.SetFloat("_FilledLevel", _comboFilledLevel);
         }
 
