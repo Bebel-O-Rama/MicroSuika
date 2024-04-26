@@ -76,7 +76,9 @@ namespace MultiSuika.Ball
 
         private void FuseWithOtherBall(BallInstance other, Vector3 contactPosition)
         {
-            other.ClearBall();
+            // TEMPORARY FIX : When two ball fuses, either the combo is incremented twice or the added score is incremented for half the ball
+            // It's linked to the other temporary fix in ScoreHandler.cs, OnBallFusionPoints() (the * 2)
+            other.ClearBall(false);
             ClearBall();
 
             _ballVisualEffects.PlayBallFusedContact(contactPosition);

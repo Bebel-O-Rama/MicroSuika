@@ -46,7 +46,7 @@ namespace MultiSuika.GameLogic
         private void Update()
         {
             ApplyDamping();
-
+            
             var acceleration = _currentSpeed < _targetSpeed
                 ? _scoreHandlerData.BaseAcceleration * _combo
                 : _scoreHandlerData.BaseAcceleration;
@@ -110,7 +110,9 @@ namespace MultiSuika.GameLogic
 
         private void OnBallFusionPoints(BallInstance ball)
         {
-            _targetSpeed.Variable.ApplyChange(ball.ScoreValue);
+            // TEMPORARY FIX : When two ball fuses, either the combo is incremented twice or the added score is incremented for half the ball
+            // It's linked to the other temporary fix in BallInstance.cs, FuseWithOtherBall() (the other.ClearBall(false))
+            _targetSpeed.Variable.ApplyChange(ball.ScoreValue * 2);
         }
 
         #endregion
