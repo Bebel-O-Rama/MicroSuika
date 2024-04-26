@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: b5bdb8e3a471c9e4b8ce0595989afaa7
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _ShaderMask: {fileID: 2800000, guid: 15d4bd54ec633ee459c82071b5041eb6, type: 3}
+  - _SideSpriteFull: {fileID: 2800000, guid: 8d99ab9896a6ffb4c8d1b966d0b6029a, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

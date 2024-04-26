@@ -39,6 +39,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2152491933752628166, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d99ab9896a6ffb4c8d1b966d0b6029a, type: 3}
+    - target: {fileID: 2152491933752628166, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eecd14a646bb2aa498a6a7c792a1dc88, type: 2}
     - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: _hitMode
       value: 1
@@ -129,6 +137,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4793840066780438698, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       insertIndex: 3
       addedObject: {fileID: 6455094745589790212}
+    - targetCorrespondingSourceObject: {fileID: 1044472961192800080, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7995942067597875380}
   m_SourcePrefab: {fileID: 100100000, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
 --- !u!1 &3544024214949711095 stripped
 GameObject:
@@ -153,3 +164,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4564159779651758605, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
   m_PrefabInstance: {fileID: 8334407107315919965}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9067845586952897293 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1044472961192800080, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+  m_PrefabInstance: {fileID: 8334407107315919965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7995942067597875380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067845586952897293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6a0b89ad0bfea419a99912a18f0a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerSpeedShaderMasks:
+  - {fileID: 2800000, guid: 81af9f3f49d8a22418cb104e286d6096, type: 3}
+  - {fileID: 2800000, guid: de47e6d8bcc49b94784a077ef06ebf58, type: 3}
+  - {fileID: 2800000, guid: 77680a3359683ad4c9dbb282f1071917, type: 3}
+  - {fileID: 2800000, guid: d0ab66c636a311f4b91cba78662db879, type: 3}

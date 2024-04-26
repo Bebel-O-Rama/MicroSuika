@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_ContainerAttackMeter
+  m_Name: MAT_ContainerSpeedMeter
   m_Shader: {fileID: 4800000, guid: 4bfee589c3c247c49b9f5c1bf9329223, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
