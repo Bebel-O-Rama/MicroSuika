@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_ContainerSpeedMeter
-  m_Shader: {fileID: 4800000, guid: 4bfee589c3c247c49b9f5c1bf9329223, type: 3}
+  m_Name: MAT_ContainerSideMeter
+  m_Shader: {fileID: 4800000, guid: b5bdb8e3a471c9e4b8ce0595989afaa7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -27,14 +27,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ContainerSide:
-        m_Texture: {fileID: 2800000, guid: 239dc0a5297f8b84194381e183b5b8f5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ContainerSide1:
-        m_Texture: {fileID: 2800000, guid: 239dc0a5297f8b84194381e183b5b8f5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -45,6 +37,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShaderMask:
+        m_Texture: {fileID: 2800000, guid: 15d4bd54ec633ee459c82071b5041eb6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SideSpriteFull:
+        m_Texture: {fileID: 2800000, guid: 8d99ab9896a6ffb4c8d1b966d0b6029a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -67,11 +67,12 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _EnableExternalAlpha: 0
-    - _FilledLevel: 0.446
+    - _FilledLevel: 0.375
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DefaultColor: {r: 0.30980393, g: 0.5254902, b: 0.9960785, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FillingColor: {r: 0.9150943, g: 0, b: 0, a: 1}
+    - _FillingColor: {r: 0.08627451, g: 0.7294118, b: 0.8588236, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

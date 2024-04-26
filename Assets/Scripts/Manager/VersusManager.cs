@@ -213,6 +213,8 @@ namespace MultiSuika.Manager
 
         #region Getter/Setter
 
+        public FloatReference GetSpeedConditionCeiling() => _currentLeadSpeedCondition;
+
         public (FloatReference timeRequirement, FloatReference speedRequirement) GetLeadRequirementReferences()
         {
             return (_currentLeadTimeCondition, _currentLeadSpeedCondition);

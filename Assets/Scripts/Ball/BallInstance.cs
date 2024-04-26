@@ -76,7 +76,7 @@ namespace MultiSuika.Ball
 
         private void FuseWithOtherBall(BallInstance other, Vector3 contactPosition)
         {
-            other.ClearBall();
+            other.ClearBall(false);
             ClearBall();
 
             _ballVisualEffects.PlayBallFusedContact(contactPosition);
