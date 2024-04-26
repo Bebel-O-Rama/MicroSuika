@@ -66,20 +66,21 @@ namespace MultiSuika.Container
 
         }
 
-        void Update()
-        {
-            if (!_isComboActive)
-                return;
-            
-            
-            
-        }
+        // void Update()
+        // {
+        //     if (!_isComboActive)
+        //         return;
+        //     
+        //     
+        //     
+        // }
 
         private void OnComboIncrement((int combo, float timer) args)
         {
             
             // Update text
-            
+            _comboTMP.text = string.Format($"x{args.combo + 1}");
+            _comboTMP.color = _fullColor;
             
             // Update timer parameters
             
@@ -121,9 +122,10 @@ namespace MultiSuika.Container
             if (_timerSequence.IsActive())
                 _timerSequence.Kill();
             // Update text
-            
-            // Manually update combo one last time
+            _comboTMP.text = "x1";
+            _comboTMP.color = _noComboColor;
 
+            // Manually update combo one last time
             _comboTimerParentUIBlock2D.Size.X.Percent = 0;
             _comboTimerColorHolderUIBlock2D.Color = _fullColor;
         }
