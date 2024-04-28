@@ -2467,10 +2467,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1923475198216978561, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2152491933752628166, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 13bc447de62b1bd4791c7f069da64761, type: 3}
+    - target: {fileID: 2730792498488622944, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2730792498488622944, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: _hitMode
       value: 1
@@ -2562,6 +2574,14 @@ PrefabInstance:
     - target: {fileID: 4955835805348050958, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742048254189937095, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742048254189937095, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 8150750558523342551, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: _isContainerSpeedBarDebugEnabled

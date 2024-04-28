@@ -15,7 +15,7 @@ MonoBehaviour:
   _baseAcceleration: 3
   _damageMultiplier: 2
   _percentageInstant: 0.6
-  _damageCooldownDuration: 1.5
+  _damageCooldownDuration: 1
   _speedSoftCap: 1200
   _dampingMethod: 2
   _dampingFixedPercent: 0.02
