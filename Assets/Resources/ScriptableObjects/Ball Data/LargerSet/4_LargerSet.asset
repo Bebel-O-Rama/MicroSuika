@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4_LargerSet
   m_EditorClassIdentifier: 
   _index: 4
-  _scale: 1.86
+  _scale: 1.6
   _mass:
     UseConstant: 1
     ConstantValue: 1
