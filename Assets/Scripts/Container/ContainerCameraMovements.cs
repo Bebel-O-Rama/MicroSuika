@@ -8,15 +8,18 @@ namespace MultiSuika.Container
 {
     public class ContainerCameraMovements : MonoBehaviour
     {
-        [Header("Camera parameters")] 
-        [SerializeField] private Camera _camera;
+        [Header("Camera parameters")] [SerializeField]
+        private Camera _camera;
+
         [SerializeField] private Transform _mainVerticalTransform;
         [SerializeField] private Transform _secondaryTransform;
         [SerializeField] private float _yMinHeight;
         [SerializeField] private float _yMaxHeight;
+        [SerializeField] private float _yAmplitude = 1f;
 
-        [Header("OnHit Shake parameters")]
-        [SerializeField] private float _hitDuration = 0.5f;
+        [Header("OnHit Shake parameters")] [SerializeField]
+        private float _hitDuration = 0.5f;
+
         [SerializeField] private Vector3 _hitStrength;
         [SerializeField] private int _hitVibrato = 20;
         [SerializeField] private float _hitRandomness = 90f;
@@ -41,9 +44,16 @@ namespace MultiSuika.Container
 
         private void Update()
         {
-            var newYPos = _yMinHeight + _normalizedVerticalPosition * (_yMaxHeight - _yMinHeight);
+            // var newYPos = _yMinHeight + _normalizedVerticalPosition * (_yMaxHeight - _yMinHeight);
+            var newYPos = (_normalizedVerticalPosition * 2 - 1) * _yAmplitude;
             _mainVerticalTransform.position = new Vector3(0, -newYPos, 0);
-            
+            if(_playerIndex == 0)
+            {
+                Debug.Log("norm : " + _normalizedVerticalPosition.Value);
+                Debug.Log(-newYPos);
+                Debug.Log(_mainVerticalTransform.position);
+            }
+
             if (_isTestingEnabled && Input.GetKeyDown(_shakeTestKeycode))
                 ContainerHitShake(null);
         }
@@ -56,7 +66,9 @@ namespace MultiSuika.Container
                 _tweener.Restart();
                 return;
             }
-            _tweener = _secondaryTransform.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato, _hitRandomness, fadeOut: _hitFadeOut, randomnessMode: _hitMode);
+
+            _tweener = _secondaryTransform.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato, _hitRandomness,
+                fadeOut: _hitFadeOut, randomnessMode: _hitMode);
         }
     }
 }

@@ -2480,6 +2480,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _yAmplitude
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: _hitDuration
       value: 1
       objectReference: {fileID: 0}
@@ -2503,6 +2507,14 @@ PrefabInstance:
       propertyPath: _shakeTestKeycode
       value: 98
       objectReference: {fileID: 0}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _secondaryTransform
+      value: 
+      objectReference: {fileID: 8065343540354605263}
+    - target: {fileID: 2861833113527373731, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _mainVerticalTransform
+      value: 
+      objectReference: {fileID: 4481627203572414950}
     - target: {fileID: 4564159779651758605, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2551,6 +2563,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -1.56
       objectReference: {fileID: 0}
+    - target: {fileID: 8150750558523342551, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: _isContainerSpeedBarDebugEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8160098725988186950, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2587,8 +2603,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextBallPosition: {fileID: 2023536278856927061}
+--- !u!4 &4481627203572414950 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5591275189265978811, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+  m_PrefabInstance: {fileID: 8334407107315919965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5548122722171274832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4564159779651758605, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+  m_PrefabInstance: {fileID: 8334407107315919965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8065343540354605263 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2036779511141207186, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
   m_PrefabInstance: {fileID: 8334407107315919965}
   m_PrefabAsset: {fileID: 0}

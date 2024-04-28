@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_GuideLineDots_Versus
       objectReference: {fileID: 0}
+    - target: {fileID: 4821615446539168788, guid: 43aa90527d86723479ec4a163b46d950, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8476854482370392124, guid: 43aa90527d86723479ec4a163b46d950, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

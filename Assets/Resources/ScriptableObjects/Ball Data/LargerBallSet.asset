@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36eeacb4215eee4585d029a799aacd7, type: 3}
+  m_Name: LargerBallSet
+  m_EditorClassIdentifier: 
+  _ballSet:
+  - {fileID: 11400000, guid: 3f3aaeed556e0854c9da995aa5331aa8, type: 2}
+  - {fileID: 11400000, guid: 827f36242d9ad354f93522ab9b468cc8, type: 2}
+  - {fileID: 11400000, guid: e9ac6b254f291eb4d8bd21e07f01dfc3, type: 2}
+  - {fileID: 11400000, guid: 8bf81a9d550d0bc44a77cd020a1ec846, type: 2}
+  - {fileID: 11400000, guid: 96afd7e181a82f647a11713d476ccbeb, type: 2}
+  - {fileID: 11400000, guid: 57e5dac0f4142dd419a62e6784d9beeb, type: 2}
+  - {fileID: 11400000, guid: 83911897283be304cbc5825a7d39ae90, type: 2}
+  - {fileID: 11400000, guid: 8efed925180b0994a8dcec64f9351d3f, type: 2}
+  - {fileID: 11400000, guid: be8015c82e4dddd4a9dda7d08748575d, type: 2}
+  _ballInstancePrefab: {fileID: 472101648082075991, guid: a0806ca0f63721742a624a01077b420c, type: 3}
+  _impulseForcePerUnit:
+    UseConstant: 1
+    ConstantValue: 4
+    UseRandomRange: 1
+    RandomCoefficient: 0.2
+    Variable: {fileID: 0}
+  _impulseExpPower:
+    UseConstant: 1
+    ConstantValue: 2.3
+    UseRandomRange: 1
+    RandomCoefficient: 0.15
+    Variable: {fileID: 0}
+  _impulseRangeMultiplier:
+    UseConstant: 1
+    ConstantValue: 1.3
+    UseRandomRange: 1
+    RandomCoefficient: 0.15
+    Variable: {fileID: 0}
+  _bounciness:
+    UseConstant: 1
+    ConstantValue: 0.1
+    UseRandomRange: 1
+    RandomCoefficient: 0.1
+    Variable: {fileID: 0}
+  _friction:
+    UseConstant: 1
+    ConstantValue: 0.3
+    UseRandomRange: 1
+    RandomCoefficient: 0.1
+    Variable: {fileID: 0}
+  _gravityScale:
+    UseConstant: 1
+    ConstantValue: 1
+    UseRandomRange: 1
+    RandomCoefficient: 0.05
+    Variable: {fileID: 0}
