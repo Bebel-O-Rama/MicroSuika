@@ -22,5 +22,13 @@ namespace MultiSuika.Utilities
             child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             child.localScale = Vector3.one;
         }
+
+        public static float EvaluateClamp(this AnimationCurve animeCurve, float time)
+        {
+            if (animeCurve.length == 0)
+                return 0f;
+            return animeCurve.Evaluate(Mathf.Clamp(time, animeCurve.Evaluate(animeCurve[0].time),
+                animeCurve.Evaluate(animeCurve[animeCurve.length - 1].time)));
+        }
     }
 }

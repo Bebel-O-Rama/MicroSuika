@@ -53,7 +53,40 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _timerFullDuration: 4
+  _timerFullDuration: 7
   _isDecreasingMaxTimer: 1
   _fullTimerDecrementValue: 0.1
-  _fullTimerMinValue: 2
+  _fullTimerMinValue: 3
+  _comboImpact:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0
+      outSlope: 1.3657284
+      tangentMode: 5
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.15202981
+    - serializedVersion: 3
+      time: 100.102844
+      value: 40
+      inSlope: 0.038145624
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 1
+      inWeight: 0.532723
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

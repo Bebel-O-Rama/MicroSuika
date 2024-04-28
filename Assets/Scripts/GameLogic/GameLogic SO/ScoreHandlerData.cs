@@ -25,6 +25,8 @@ namespace MultiSuika.GameLogic
         [SerializeField] private bool _isDecreasingMaxTimer; // true
         [SerializeField] private float _fullTimerDecrementValue; // 0.1
         [SerializeField] private float _fullTimerMinValue; // 2
+        [SerializeField] private AnimationCurve _comboImpact;
+        
 
         public float BaseAcceleration { get => _baseAcceleration; }
         public float DamageMultiplier { get => _damageMultiplier; }
@@ -39,6 +41,7 @@ namespace MultiSuika.GameLogic
         public bool IsDecreasingMaxTimer { get => _isDecreasingMaxTimer; }
         public float FullTimerDecrementValue { get => _fullTimerDecrementValue; }
         public float FullTimerMinValue { get => _fullTimerMinValue; }
+        public AnimationCurve ComboImpact { get => _comboImpact; }
     }
     public enum DampingEvaluationMethod
     {

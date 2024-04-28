@@ -48,7 +48,7 @@ namespace MultiSuika.GameLogic
             ApplyDamping();
             
             var acceleration = _currentSpeed < _targetSpeed
-                ? _scoreHandlerData.BaseAcceleration * _combo
+                ? _scoreHandlerData.BaseAcceleration * _scoreHandlerData.ComboImpact.EvaluateClamp(_combo)
                 : _scoreHandlerData.BaseAcceleration;
             _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed,
                 acceleration * Time.deltaTime));
