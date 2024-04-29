@@ -49,8 +49,8 @@ namespace MultiSuika.Container
 
             if (_timerSequence.IsPlaying())
             {
-                _timerSequence.Restart();
-                return;
+                _timerSequence.Kill();
+                // return;
             }
             
             _timerSequence = DOTween.Sequence();

@@ -584,7 +584,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 1.359
+        Raw: 0.906
         Type: 0
       Z:
         Raw: 0
@@ -1199,7 +1199,7 @@ MonoBehaviour:
         Raw: 3
         Type: 0
       Y:
-        Raw: 1.812
+        Raw: 1.359
         Type: 0
       Z:
         Raw: 0
@@ -2642,7 +2642,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0.906
+        Raw: 0.453
         Type: 0
       Z:
         Raw: 0
@@ -4455,7 +4455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1779945704
 Transform:
   m_ObjectHideFlags: 0
