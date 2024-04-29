@@ -2655,8 +2655,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5928377483008146479, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_RenderShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928377483008146479, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928377483008146479, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8150750558523342551, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: _isContainerSpeedBarDebugEnabled
