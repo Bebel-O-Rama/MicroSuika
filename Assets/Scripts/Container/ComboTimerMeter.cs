@@ -13,17 +13,15 @@ namespace MultiSuika.Container
     {
         [Header("Combo Text")]
         [SerializeField] private Color _noComboColor;
+        [SerializeField] private Color _comboActiveColor;
         [SerializeField] private TMP_Text _comboTMP;
         
         [Header("Combo Timer")]
         [SerializeField] private UIBlock2D _comboTimerParentUIBlock2D;
-        [SerializeField] private UIBlock2D _comboTimerColorHolderUIBlock2D;
-        [SerializeField] private Color _fullColor;
-        [SerializeField] private Color _emptyColor;
-        
+
         private int _playerIndex;
         private Sequence _timerSequence;
-
+        
         private void Awake()
         {
             _timerSequence = DOTween.Sequence();        
@@ -38,7 +36,7 @@ namespace MultiSuika.Container
             var containerInstance = GetComponentInParent<ContainerInstance>();
             _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(containerInstance);
             
-            OnComboStop(1);
+            OnComboStop();
 
             ScoreManager.Instance.OnComboIncrement.Subscribe(OnComboIncrement, _playerIndex);
             ScoreManager.Instance.OnComboLost.Subscribe(OnComboStop, _playerIndex);
@@ -47,8 +45,7 @@ namespace MultiSuika.Container
         private void OnComboIncrement((int combo, float timer) args)
         {
             // Update text
-            _comboTMP.text = string.Format($"x{args.combo + 1}");
-            _comboTMP.color = _fullColor;
+            UpdateComboTextValue(args.combo + 1);
 
             if (_timerSequence.IsPlaying())
             {
@@ -59,21 +56,15 @@ namespace MultiSuika.Container
             _timerSequence = DOTween.Sequence();
                 
             _timerSequence.Append(
-                DOTween.To(() => _comboTimerParentUIBlock2D.Size.X.Percent, x => _comboTimerParentUIBlock2D.Size.X.Percent = x, 1f, 0.15f)
+                DOTween.To(() => _comboTimerParentUIBlock2D.Size.X.Percent, x => _comboTimerParentUIBlock2D.Size.X.Percent = x, 0f, 0.15f)
                     .SetEase(Ease.OutBack, 0.8f));
-            _timerSequence.Join(
-                DOTween.To(() => _comboTimerColorHolderUIBlock2D.Color, x => _comboTimerColorHolderUIBlock2D.Color = x, _fullColor, 0.15f)
-                    .SetEase(Ease.Linear));
 
             _timerSequence.Append(
-                DOTween.To(() => _comboTimerParentUIBlock2D.Size.X.Percent, x => _comboTimerParentUIBlock2D.Size.X.Percent = x, 0f, args.timer - 0.16f)
+                DOTween.To(() => _comboTimerParentUIBlock2D.Size.X.Percent, x => _comboTimerParentUIBlock2D.Size.X.Percent = x, 1f, args.timer - 0.16f)
                     .SetEase(Ease.InSine, 0.5f));
-            _timerSequence.Join(
-                DOTween.To(() => _comboTimerColorHolderUIBlock2D.Color, x => _comboTimerColorHolderUIBlock2D.Color = x, _emptyColor, args.timer - 0.16f)
-                    .SetEase(Ease.InCubic, 2f));
         }
 
-        private void OnComboStop(int comboLost)
+        private void OnComboStop(int comboLost = 1)
         {
             if (_timerSequence.IsActive())
             {
@@ -81,12 +72,16 @@ namespace MultiSuika.Container
             }
             
             // Update text
-            _comboTMP.text = "x1";
-            _comboTMP.color = _noComboColor;
+            UpdateComboTextValue(1);
 
-            // Manually update combo one last time
-            _comboTimerParentUIBlock2D.Size.X.Percent = 0;
-            _comboTimerColorHolderUIBlock2D.Color = _fullColor;
+            // Set the timer back to zero
+            _comboTimerParentUIBlock2D.Size.X.Percent = 1;
+        }
+
+        private void UpdateComboTextValue(int value)
+        {
+            _comboTMP.text = $"<size=70%>x</size>{value}";
+            _comboTMP.color = value > 1 ? _comboActiveColor : _noComboColor;
         }
     }
 }
