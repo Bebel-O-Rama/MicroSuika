@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScoreHandlerData (Versus)
   m_EditorClassIdentifier: 
   _baseAcceleration: 3
-  _damageMultiplier: 2
+  _damageMultiplier: 7
   _percentageInstant: 0.6
   _damageCooldownDuration: 1
   _speedSoftCap: 1200
