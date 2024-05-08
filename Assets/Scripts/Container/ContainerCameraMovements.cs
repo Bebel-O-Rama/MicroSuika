@@ -44,15 +44,8 @@ namespace MultiSuika.Container
 
         private void Update()
         {
-            // var newYPos = _yMinHeight + _normalizedVerticalPosition * (_yMaxHeight - _yMinHeight);
             var newYPos = (_normalizedVerticalPosition * 2 - 1) * _yAmplitude;
             _mainVerticalTransform.position = new Vector3(0, -newYPos, 0);
-            if(_playerIndex == 0)
-            {
-                Debug.Log("norm : " + _normalizedVerticalPosition.Value);
-                Debug.Log(-newYPos);
-                Debug.Log(_mainVerticalTransform.position);
-            }
 
             if (_isTestingEnabled && Input.GetKeyDown(_shakeTestKeycode))
                 ContainerHitShake(null);
