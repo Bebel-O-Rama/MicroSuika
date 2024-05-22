@@ -15379,7 +15379,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -16500,8 +16500,15 @@ MonoBehaviour:
   _camera: {fileID: 3849794145929147250}
   _mainVerticalTransform: {fileID: 4702546732342137214}
   _secondaryTransform: {fileID: 5591275189265978811}
-  _yMinHeight: -1
-  _yMaxHeight: 1
+  _yAmplitude: 1
+  _hitDuration: 0.5
+  _hitStrength: {x: 0, y: 0, z: 0}
+  _hitVibrato: 20
+  _hitRandomness: 90
+  _hitFadeOut: 1
+  _hitMode: 0
+  _isTestingEnabled: 0
+  _shakeTestKeycode: 0
 --- !u!1 &8922087108210478693
 GameObject:
   m_ObjectHideFlags: 0

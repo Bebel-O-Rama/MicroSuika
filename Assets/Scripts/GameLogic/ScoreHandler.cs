@@ -10,12 +10,18 @@ namespace MultiSuika.GameLogic
     public class ScoreHandler : MonoBehaviour
     {
         [SerializeField] public int playerIndex;
-
-        // Main score parameters
-        [SerializeField] private FloatReference _currentSpeed;
-        [SerializeField] private FloatReference _targetSpeed;
-        [SerializeField] private IntReference _combo;
         [SerializeField] private ScoreHandlerData _scoreHandlerData;
+
+        [Header("Data Reader")]
+        [SerializeField] private float _currentSpeedReader;
+        [SerializeField] private float _targetSpeedReader;
+        [SerializeField] private int _comboReader;
+        
+        
+        // Main score parameters
+        private FloatReference _currentSpeed;
+        private FloatReference _targetSpeed;
+        private IntReference _combo;
         
         private Coroutine _damageCooldownCoroutine;
         private Coroutine _comboTimerCoroutine;
@@ -52,6 +58,8 @@ namespace MultiSuika.GameLogic
                 : _scoreHandlerData.BaseAcceleration;
             _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed,
                 acceleration * Time.deltaTime));
+
+            UpdateReaders();
         }
 
         #region ContainerDamage
@@ -214,6 +222,13 @@ namespace MultiSuika.GameLogic
             Destroy(gameObject);
         }
 
+        private void UpdateReaders()
+        {
+            _currentSpeedReader = _currentSpeed;
+            _targetSpeedReader = _targetSpeed;
+            _comboReader = _combo;
+        }
+        
         #region Getter/Setter
 
         public FloatReference GetCurrentSpeedReference() => _currentSpeed;

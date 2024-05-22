@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -2414,23 +2414,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 3
-  _currentSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _targetSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _combo:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
   _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _currentSpeedReader: 0
+  _targetSpeedReader: 0
+  _comboReader: 0
 --- !u!1 &1027728462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2977,23 +2964,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 2
-  _currentSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _targetSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _combo:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
   _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _currentSpeedReader: 0
+  _targetSpeedReader: 0
+  _comboReader: 0
 --- !u!1 &1235458176
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,23 +3724,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 0
-  _currentSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _targetSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _combo:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
   _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _currentSpeedReader: 0
+  _targetSpeedReader: 0
+  _comboReader: 0
 --- !u!1 &1738965882
 GameObject:
   m_ObjectHideFlags: 0
@@ -5109,23 +5070,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 1
-  _currentSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _targetSpeed:
-    UseConstant: 0
-    ConstantValue: 0
-    UseRandomRange: 0
-    RandomCoefficient: 0
-    Variable: {fileID: 0}
-  _combo:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 0}
   _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _currentSpeedReader: 0
+  _targetSpeedReader: 0
+  _comboReader: 0
 --- !u!33 &661635104497917796
 MeshFilter:
   m_ObjectHideFlags: 0
