@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b021f844da1194e855f2cc54cb563f, type: 3}
   m_Name: SpaceSkin_P4
   m_EditorClassIdentifier: 
-  _containerBackground: {fileID: 21300000, guid: 03e0d80463b8b634085bec0b766b193a, type: 3}
-  _containerSide: {fileID: 21300000, guid: d3facf775387c7141996c0ac8aff4da6, type: 3}
-  _containerNextBallHolder: {fileID: 21300000, guid: a0fa9511f4a07a641a0da1e73cf4f5b7, type: 3}
+  _containerBackground: {fileID: 21300000, guid: a39c0c5456bd8f54fa40304b6ec52b71, type: 3}
+  _containerSide: {fileID: 0}
+  _containerNextBallHolder: {fileID: 0}
   _containerFailure: {fileID: 21300000, guid: 619deb81d1b4aea488b63049e99a2039, type: 3}
   _containerSuccess: {fileID: 21300000, guid: 9b5d738cb15432042b0e9ea4d7564da1, type: 3}
-  _cannonSprite: {fileID: 21300000, guid: cef031e2da1818441880b0b2ecf1f57f, type: 3}
+  _cannonSprite: {fileID: 21300000, guid: b5187a1b234ab1943995cde77aaff60e, type: 3}
   _ballTheme: {fileID: 11400000, guid: 5773125cc26b20b42a2179238d75604e, type: 2}
   _baseColor: {r: 0.6039216, g: 0.9882353, b: 0.7647059, a: 1}

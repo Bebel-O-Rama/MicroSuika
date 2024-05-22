@@ -76,6 +76,8 @@ namespace MultiSuika.Manager
             StopLeadTimer();
             StartLeadTimer(currentPlayerRankings.First());
         }
+        
+        #region Spawner
 
         private void SpawnContainersVersus()
         {
@@ -123,6 +125,8 @@ namespace MultiSuika.Manager
                 cannon.SetCannonInputEnabled(true);
             }
         }
+        
+        #endregion
 
         #region LeadCondition
 
@@ -217,7 +221,7 @@ namespace MultiSuika.Manager
         {
             return (_currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
-        
+
         #endregion
         
     }

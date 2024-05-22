@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpaceSkin
   m_EditorClassIdentifier: 
   _playersSkinData:
-  - {fileID: 11400000, guid: 7373a3bcb6244ea44a3b743acf52a28f, type: 2}
-  - {fileID: 11400000, guid: f2e3d9238aaf573499f341ab02e01eb2, type: 2}
-  - {fileID: 11400000, guid: 757ed553d6c7035468a6ba4416f2c96b, type: 2}
-  - {fileID: 11400000, guid: 14fc5fbe7a2d2d64493a06df76a4a81d, type: 2}
+  - {fileID: 11400000, guid: 5d3fab31ab6581b4190a2395656f2456, type: 2}
+  - {fileID: 11400000, guid: dd96ec035f058144a801db8d85572aee, type: 2}
+  - {fileID: 11400000, guid: 1b090fa0bbc9fab4ab654d139fbdfb63, type: 2}
+  - {fileID: 11400000, guid: 7d6a3ab01606dfe4fa5cc28b7f38366f, type: 2}

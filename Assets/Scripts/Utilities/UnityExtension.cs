@@ -7,7 +7,7 @@ namespace MultiSuika.Utilities
         public static void SetLayerRecursively(this Transform parent, int layer)
         {
             parent.gameObject.layer = layer;
- 
+
             for (int i = 0, count = parent.childCount; i < count; i++)
             {
                 parent.GetChild(i).SetLayerRecursively(layer);
@@ -16,7 +16,7 @@ namespace MultiSuika.Utilities
 
         public static Vector3 WorldToLocalPosition(Transform relativeTargetTransform, Vector3 worldPosition) =>
             relativeTargetTransform.InverseTransformPoint(worldPosition);
-        
+
         public static void ResetLocalTransform(this Transform child)
         {
             child.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -25,10 +25,9 @@ namespace MultiSuika.Utilities
 
         public static float EvaluateClamp(this AnimationCurve animeCurve, float time)
         {
-            if (animeCurve.length == 0)
-                return 0f;
-            return animeCurve.Evaluate(Mathf.Clamp(time, animeCurve.Evaluate(animeCurve[0].time),
-                animeCurve.Evaluate(animeCurve[animeCurve.length - 1].time)));
+            return animeCurve.length == 0
+                ? 0f
+                : animeCurve.Evaluate(Mathf.Clamp(time, animeCurve[0].time, animeCurve[animeCurve.length - 1].time));
         }
     }
 }
