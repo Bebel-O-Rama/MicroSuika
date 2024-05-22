@@ -17,8 +17,8 @@ MonoBehaviour:
   _leftmostContainerPositions:
   - {x: 0, y: -0.25}
   - {x: -3.4, y: -0.25}
-  - {x: -5.6, y: -0.25}
-  - {x: -6.3, y: -0.25}
+  - {x: -4.3, y: -0.25}
+  - {x: -5.2, y: -0.25}
   _containerScaling:
   - 0.4
   - 0.4
