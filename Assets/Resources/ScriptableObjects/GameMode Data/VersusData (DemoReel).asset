@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c3a4a3e407804196b88725774a38d, type: 3}
   m_Name: VersusData (DemoReel)
   m_EditorClassIdentifier: 
-  _skinData: {fileID: 11400000, guid: b214bad76dc157241bed95142cbe5ade, type: 2}
-  _containerInstancePrefab: {fileID: 5615603098344396705, guid: bd67910348dc7d34aaecb32de96a6037, type: 3}
+  _skinData: {fileID: 11400000, guid: e28b71645fd1ac24680448e03f1ae1ff, type: 2}
+  _containerInstancePrefab: {fileID: 5615603098344396705, guid: f5cabe8c5a0f7a2459e78351a4c51184, type: 3}
   _leftmostContainerPositions:
   - {x: 0, y: -0.25}
   - {x: -3.4, y: -0.25}

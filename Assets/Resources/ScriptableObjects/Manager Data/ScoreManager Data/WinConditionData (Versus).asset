@@ -15,9 +15,9 @@ MonoBehaviour:
   _adaptiveRequirementMethod: 1
   _speedEvaluationMethod: 1
   _timeRequirementRange: {x: 3, y: 7}
-  _speedRequirementRange: {x: 400, y: 1000}
-  _timeProgressionLength: 60
-  _speedProgressionLength: 120
+  _speedRequirementRange: {x: 400, y: 800}
+  _timeProgressionLength: 240
+  _speedProgressionLength: 240
   _timeProgressionCurve:
     serializedVersion: 2
     m_Curve:
@@ -30,6 +30,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.31217104
+      value: 0.8812962
+      inSlope: -1.5102245
+      outSlope: -1.5102245
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.2670013
+      outWeight: 0.25720337
     - serializedVersion: 3
       time: 1
       value: 0
@@ -54,6 +63,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.31217104
+      value: 0.8812962
+      inSlope: -1.5102245
+      outSlope: -1.5102245
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.2670013
+      outWeight: 0.25720337
     - serializedVersion: 3
       time: 1
       value: 0

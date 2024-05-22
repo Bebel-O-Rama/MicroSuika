@@ -13,8 +13,6 @@ namespace MultiSuika.Container
 
         [SerializeField] private Transform _mainVerticalTransform;
         [SerializeField] private Transform _secondaryTransform;
-        [SerializeField] private float _yMinHeight;
-        [SerializeField] private float _yMaxHeight;
         [SerializeField] private float _yAmplitude = 1f;
 
         [Header("OnHit Shake parameters")] [SerializeField]

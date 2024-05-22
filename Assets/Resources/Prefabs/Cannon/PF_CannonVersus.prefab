@@ -126,10 +126,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4841903817118757254, guid: 4274330a7dd927949bac8f32eccc9fa0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6185264480626093832, guid: 4274330a7dd927949bac8f32eccc9fa0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 96eafcb068ddf61428ca391e33dccbc9, type: 3}
+      objectReference: {fileID: 21300000, guid: dc4a077e277039b4abfc13a2f1533551, type: 3}
+    - target: {fileID: 6185264480626093832, guid: 4274330a7dd927949bac8f32eccc9fa0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8209449368855194967, guid: 4274330a7dd927949bac8f32eccc9fa0, type: 3}
       propertyPath: m_Name
       value: PF_CannonVersus
