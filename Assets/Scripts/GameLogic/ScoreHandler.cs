@@ -147,8 +147,10 @@ namespace MultiSuika.GameLogic
                 DampingEvaluationMethod.None => 0f,
                 _ => 0f
             };
-
-            _targetSpeed.Variable.ApplyChangeClamp(-dampingValue * Time.deltaTime, min: 0f);
+            
+            // Safeguards the player from getting a ridiculously low targetSpeed (the kind that can't be recovered) 
+            if (_currentSpeed - _targetSpeed <= 20)
+                _targetSpeed.Variable.ApplyChangeClamp(-dampingValue * Time.deltaTime, min: 0f);
         }
 
         #endregion
