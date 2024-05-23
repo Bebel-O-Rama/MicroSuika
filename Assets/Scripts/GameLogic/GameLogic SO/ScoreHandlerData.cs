@@ -10,8 +10,7 @@ namespace MultiSuika.GameLogic
         
         [Header("Container damage parameters")]
         [SerializeField] private float _damageMultiplier; // 2
-        [SerializeField] private float _percentageInstant; // 0.6
-        [SerializeField] private float _damageCooldownDuration; // 1.5
+        [SerializeField] private float _damageCooldownDuration; // 1
         
         [Header("Damping parameters")]
         [SerializeField] private float _speedSoftCap; // 1200
@@ -30,7 +29,6 @@ namespace MultiSuika.GameLogic
 
         public float BaseAcceleration { get => _baseAcceleration; }
         public float DamageMultiplier { get => _damageMultiplier; }
-        public float PercentageInstant { get => _percentageInstant; }
         public float DamageCooldownDuration { get => _damageCooldownDuration; }
         public float SpeedSoftCap { get => _speedSoftCap; }
         public DampingEvaluationMethod DampingMethod { get => _dampingMethod; }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using MultiSuika.Ball;
 using MultiSuika.Container;
 using MultiSuika.Manager;
@@ -19,6 +20,8 @@ namespace MultiSuika.GameLogic
         
         
         // Main score parameters
+        private Sequence _damageTimerSequence;
+        
         private FloatReference _currentSpeed;
         private FloatReference _targetSpeed;
         private IntReference _combo;
@@ -34,6 +37,7 @@ namespace MultiSuika.GameLogic
 
         private void Awake()
         {
+            _damageTimerSequence = DOTween.Sequence();
             _currentSpeed = new FloatReference();
             _targetSpeed = new FloatReference();
             _combo = new IntReference();
@@ -85,11 +89,17 @@ namespace MultiSuika.GameLogic
         private IEnumerator ContainerDamageCooldown(BallInstance ball)
         {
             var damageValue = ball.ScoreValue * _scoreHandlerData.DamageMultiplier;
-            _currentSpeed.Variable.ApplyChangeClamp(-damageValue * _scoreHandlerData.PercentageInstant,
-                min: 0f);
-            _targetSpeed.Variable.SetValue(Mathf.Min(_targetSpeed, _currentSpeed));
-            _targetSpeed.Variable.ApplyChangeClamp(-damageValue * (Mathf.Abs(_scoreHandlerData.PercentageInstant - 1f)), min: 0f);
+            if (_targetSpeed > _currentSpeed)
+                _targetSpeed.Variable.SetValue(_currentSpeed);
+            _targetSpeed.Variable.ApplyChangeClamp(-damageValue, min: 0f);
+            
+            if (_damageTimerSequence.IsPlaying())
+                _damageTimerSequence.Kill();
+            _damageTimerSequence = DOTween.Sequence();
 
+            _damageTimerSequence.Append(
+                DOTween.To(() => _currentSpeed, x => _currentSpeed.Variable.SetValue(x), _targetSpeed, _scoreHandlerData.DamageCooldownDuration));
+            
             SetBallFusionActive(false);
             SetDampingActive(false);
             SetComboActive(false);
