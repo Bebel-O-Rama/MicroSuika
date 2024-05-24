@@ -15,8 +15,7 @@ MonoBehaviour:
   _containerBackground: {fileID: 21300000, guid: 7bfea429014cb8b42846c0744e811421, type: 3}
   _containerSide: {fileID: 0}
   _containerNextBallHolder: {fileID: 0}
-  _containerFailure: {fileID: 21300000, guid: 619deb81d1b4aea488b63049e99a2039, type: 3}
-  _containerSuccess: {fileID: 21300000, guid: 9b5d738cb15432042b0e9ea4d7564da1, type: 3}
+  _containerOutside: {fileID: 21300000, guid: 8313b5dbaa540da428a89215ad71df2e, type: 3}
   _cannonSprite: {fileID: 21300000, guid: c5b0d365f8c3af94dae666a7d79c4c92, type: 3}
   _ballTheme: {fileID: 11400000, guid: 5773125cc26b20b42a2179238d75604e, type: 2}
   _baseColor: {r: 0.49803922, g: 0.827451, b: 1, a: 1}

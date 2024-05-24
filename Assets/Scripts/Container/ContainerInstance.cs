@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -13,24 +15,33 @@ namespace MultiSuika.Container
         [SerializeField] private SpriteRenderer _backgroundSpriteRenderer;
         [SerializeField] private SpriteRenderer _sideSpriteRenderer;
         [SerializeField] private SpriteRenderer _nextBallHolderSpriteRenderer;
-        [SerializeField] private SpriteRenderer _failureSpriteRenderer;
-        [SerializeField] private SpriteRenderer _successSpriteRenderer;
+        // [SerializeField] private SpriteRenderer _failureSpriteRenderer;
+        // [SerializeField] private SpriteRenderer _successSpriteRenderer;
+
+        [Header("VFXs")] 
+        [SerializeField] private ParticleSystem _speedLines;
+        [SerializeField] private ParticleSystem _glowEffect;
+        [SerializeField] private SpriteRenderer _winOutsideSprite;
+        [SerializeField] private ParticleSystem _loseExplosion;
         
         public float HorizontalMvtHalfLength { get => _horizontalMvtHalfLength; }
         public Transform ContainerParent { get; private set; }
+        
 
         public void OnGameOver(bool hasWon)
         {
             if (hasWon)
             {
-                _successSpriteRenderer.enabled = true;
+                if (_winOutsideSprite)
+                    _winOutsideSprite.DOFade(1, 1);
             }
             else
             {
-                _failureSpriteRenderer.enabled = true;
+                if (_loseExplosion)
+                    _loseExplosion.Play();
             }
         }
-        
+
         public void SetContainerParameters(GameModeData gameModeData, int containerIndex = 0, int containerToSpawn = 1)
         {
             // Set layers
@@ -56,8 +67,9 @@ namespace MultiSuika.Container
             _sideSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSide;
             _nextBallHolderSpriteRenderer.sprite =
                 gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerNextBallHolder; 
-            _failureSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerFailure;
-            _successSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSuccess;
+            
+            if (_winOutsideSprite)
+                _winOutsideSprite.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerOutside;
         }
     }
 }

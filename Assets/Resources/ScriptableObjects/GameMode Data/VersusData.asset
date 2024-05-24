@@ -30,6 +30,6 @@ MonoBehaviour:
   _cannonSpeed: 5
   _cannonReloadCooldown: 0.5
   _cannonShootingForce: 100
-  _distanceBetweenBallAndCannon: 0.65
+  _distanceBetweenBallAndCannon: 0.7
   _isCannonUsingPeggleMode: 0
   _ballSetData: {fileID: 11400000, guid: afd2e16c02acc3d4d8c09fd82540dca8, type: 2}
