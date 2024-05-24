@@ -2942,6 +2942,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket_Glow 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3215954193757713278, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
