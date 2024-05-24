@@ -784,9 +784,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedLines: {fileID: 6791983153791539937}
-  _glowEffect: {fileID: 7179668980642997390}
   _winOutsideSprite: {fileID: 989704248648398240}
   _loseExplosion: {fileID: 6791035218842441067}
+  _glowEffect: {fileID: 7179668980642997390}
+  _speedLinesMinScale: 3
+  _speedLinesMaxScale: 5
+  _speedLinesMinRateOverEmission: 100
+  _speedLinesMaxRateOverEmission: 250
+  _glowDuration: 5
 --- !u!1 &3328340526196220793
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,6 +2779,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6543573903509435514, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543573903509435514, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
+      propertyPath: EmissionModule.rateOverTime.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566278039722694928, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566278039722694928, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566278039722694928, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6566278039722694928, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2813,6 +2838,10 @@ PrefabInstance:
     - target: {fileID: 6566278039722694928, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566278039722694928, guid: ddd91f5eee0b8e440898c4cb9be6b2af, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3172,7 +3201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6753133004322232568, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7062864920862617797, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
       propertyPath: m_IsActive

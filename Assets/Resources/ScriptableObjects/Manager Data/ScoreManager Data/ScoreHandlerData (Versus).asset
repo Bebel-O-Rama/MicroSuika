@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseAcceleration: 3
   _damageMultiplier: 7
-  _percentageInstant: 0.6
   _damageCooldownDuration: 1
   _speedSoftCap: 1200
-  _dampingMethod: 0
+  _dampingMethod: 3
   _dampingFixedPercent: 0.02
   _dampingFixedValue: 1
   _dampingCurvePercent:
