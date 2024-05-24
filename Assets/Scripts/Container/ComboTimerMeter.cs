@@ -21,6 +21,7 @@ namespace MultiSuika.Container
 
         private int _playerIndex;
         private Sequence _timerSequence;
+        private bool _isGameOver = false;
         
         private void Awake()
         {
@@ -35,6 +36,8 @@ namespace MultiSuika.Container
             
             var containerInstance = GetComponentInParent<ContainerInstance>();
             _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(containerInstance);
+            
+            VersusManager.Instance.OnGameOver.Subscribe(OnGameOver, _playerIndex);
             
             OnComboStop();
 
@@ -70,6 +73,9 @@ namespace MultiSuika.Container
             {
                 _timerSequence.Kill();
             }
+
+            if (_isGameOver)
+                return;
             
             // Update text
             UpdateComboTextValue(1);
@@ -82,6 +88,16 @@ namespace MultiSuika.Container
         {
             _comboTMP.text = $"<size=70%>x</size>{value}";
             _comboTMP.color = value > 1 ? _comboActiveColor : _noComboColor;
+        }
+
+        private void OnGameOver(bool x)
+        {
+            if (_timerSequence.IsActive())
+            {
+                _timerSequence.Kill();
+            }
+
+            _isGameOver = true;
         }
     }
 }
