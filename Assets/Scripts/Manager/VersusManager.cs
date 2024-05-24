@@ -43,7 +43,9 @@ namespace MultiSuika.Manager
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
         public ActionMethodPlayerWrapper<bool> OnLeadStop { get; } = new ActionMethodPlayerWrapper<bool>();
-        
+        public ActionMethodPlayerWrapper<bool> OnGameOver { get; } = new ActionMethodPlayerWrapper<bool>();
+
+
         private void Initialize()
         {
             _currentLeadTimeCondition = new FloatReference();
@@ -197,12 +199,10 @@ namespace MultiSuika.Manager
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.SetCannonInputEnabled(false);
-
-            var winnerContainer = ContainerTracker.Instance.GetItemFromPlayerOrDefault(winnerPlayerIndex);
-
-            foreach (var container in ContainerTracker.Instance.GetItems())
+            
+            for (var i = 0; i < PlayerManager.Instance.GetNumberOfActivePlayer(); i++)
             {
-                container.OnGameOver(container == winnerContainer);
+                OnGameOver.CallAction(i == winnerPlayerIndex, i);
             }
 
             foreach (var ball in BallTracker.Instance.GetItems())

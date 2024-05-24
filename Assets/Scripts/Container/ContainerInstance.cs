@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using MultiSuika.GameLogic;
+using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -15,32 +16,45 @@ namespace MultiSuika.Container
         [SerializeField] private SpriteRenderer _backgroundSpriteRenderer;
         [SerializeField] private SpriteRenderer _sideSpriteRenderer;
         [SerializeField] private SpriteRenderer _nextBallHolderSpriteRenderer;
-        // [SerializeField] private SpriteRenderer _failureSpriteRenderer;
-        // [SerializeField] private SpriteRenderer _successSpriteRenderer;
 
-        [Header("VFXs")] 
-        [SerializeField] private ParticleSystem _speedLines;
-        [SerializeField] private ParticleSystem _glowEffect;
-        [SerializeField] private SpriteRenderer _winOutsideSprite;
-        [SerializeField] private ParticleSystem _loseExplosion;
+
         
         public float HorizontalMvtHalfLength { get => _horizontalMvtHalfLength; }
         public Transform ContainerParent { get; private set; }
-        
 
-        public void OnGameOver(bool hasWon)
-        {
-            if (hasWon)
-            {
-                if (_winOutsideSprite)
-                    _winOutsideSprite.DOFade(1, 1);
-            }
-            else
-            {
-                if (_loseExplosion)
-                    _loseExplosion.Play();
-            }
-        }
+        // private int _playerIndex;
+        
+        // private void Start()
+        // {
+        //     _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(this);
+        //
+        //     VersusManager.Instance.OnLeadStart.Subscribe(OnLeadStart, _playerIndex);
+        //     VersusManager.Instance.OnLeadStop.Subscribe(OnLeadStop, _playerIndex);
+        // }
+
+        // public void OnGameOver(bool hasWon)
+        // {
+        //     if (hasWon)
+        //     {
+        //         if (_winOutsideSprite)
+        //             _winOutsideSprite.DOFade(1, 1);
+        //     }
+        //     else
+        //     {
+        //         if (_loseExplosion)
+        //             _loseExplosion.Play();
+        //     }
+        // }
+        //
+        // private void OnLeadStart(float timerDuration)
+        // {
+        //     _speedLines.Play();
+        // }
+        //
+        // private void OnLeadStop(bool x)
+        // {
+        //     // stop lead
+        // }
 
         public void SetContainerParameters(GameModeData gameModeData, int containerIndex = 0, int containerToSpawn = 1)
         {
@@ -66,10 +80,7 @@ namespace MultiSuika.Container
             _backgroundSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerBackground;
             _sideSpriteRenderer.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerSide;
             _nextBallHolderSpriteRenderer.sprite =
-                gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerNextBallHolder; 
-            
-            if (_winOutsideSprite)
-                _winOutsideSprite.sprite = gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerOutside;
+                gameModeData.SkinData.GetPlayerSkinData(containerIndex).ContainerNextBallHolder;
         }
     }
 }
