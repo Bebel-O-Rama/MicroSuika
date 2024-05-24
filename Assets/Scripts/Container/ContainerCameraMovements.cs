@@ -49,6 +49,10 @@ namespace MultiSuika.Container
                 ContainerHitShake(null);
         }
 
+        // Oh well, it's one of those time where quicker is better
+        public (Transform mainTf, Transform secondaryTf) GetCameraJointsTransform() =>
+            (_mainVerticalTransform, _secondaryTransform);
+
         // TODO: We should be able to call the method with a null once we make the shake adaptive (MS-130)
         private void ContainerHitShake(BallInstance ball)
         {

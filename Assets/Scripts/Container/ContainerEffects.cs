@@ -4,6 +4,7 @@ using DG.Tweening;
 using MultiSuika.Cannon;
 using MultiSuika.Manager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.Container
 {
@@ -14,6 +15,7 @@ namespace MultiSuika.Container
         [SerializeField] private SpriteRenderer _winOutsideSprite;
         [SerializeField] private ParticleSystem _loseExplosion;
         [SerializeField] private ParticleSystem _glowEffect;
+        [SerializeField] private ParticleSystem _thrusterParticleSystem;
 
         [Header("Lead Parameters")]
         [SerializeField] private float _speedLinesMinScale; // 3
@@ -22,9 +24,18 @@ namespace MultiSuika.Container
         [SerializeField] private float _speedLinesMaxRateOverEmission; // 250
         
         [SerializeField] private float _glowDuration;
-
+        
         [Header("Win Parameters")] 
-        [SerializeField] private SpriteRenderer _containerSkin;
+        [SerializeField] private SpriteRenderer _containerBackgroundSkin;
+        [SerializeField] private ContainerCameraMovements _containerCameraMovements;
+        
+        [SerializeField] private float _hitDuration = 0.5f;
+        [SerializeField] private Vector3 _hitStrength;
+        [SerializeField] private int _hitVibrato = 20;
+        [SerializeField] private float _hitRandomness = 90f;
+        [SerializeField] private bool _hitFadeOut = true;
+        [SerializeField] private ShakeRandomnessMode _hitMode = ShakeRandomnessMode.Full;
+
         
         private int _playerIndex;
         private Sequence _speedLinesSequence;
@@ -71,12 +82,18 @@ namespace MultiSuika.Container
             var nextBallSpriteRenderer = CannonTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex)
                 .GetNextBallSpriteRenderer();
             var cannonSpriteRenderer = CannonTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex).spriteRenderer;
+            var thrusterVfxMain = _thrusterParticleSystem.main;
+            var cameraJoints = _containerCameraMovements.GetCameraJointsTransform();
             
             var winSequence = DOTween.Sequence();
             winSequence.Append(_winOutsideSprite.DOFade(1, 1))
-                .Join(_containerSkin.DOFade(0, 1).SetEase(Ease.InQuart))
+                .Join(_containerBackgroundSkin.DOFade(0, 1).SetEase(Ease.InQuart))
                 .Join(nextBallSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart))
-                .Join(cannonSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart));
+                .Join(cannonSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart))
+                .AppendCallback(() => thrusterVfxMain.loop = false)
+                .AppendInterval(1)
+                .Append(cameraJoints.secondaryTf.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato, _hitRandomness,
+                fadeOut: _hitFadeOut, randomnessMode: _hitMode).SetLoops(1000));
             
             
             _winOutsideSprite.DOFade(1, 1);
