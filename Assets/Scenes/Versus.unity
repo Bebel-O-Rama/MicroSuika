@@ -1869,7 +1869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameModeData: {fileID: 11400000, guid: 5f97b648953df2d47bdae435fd836040, type: 2}
-  versusWinConditionData: {fileID: 11400000, guid: 131fe76a80937974eb61627e38e07e39, type: 2}
+  versusWinConditionData: {fileID: 11400000, guid: fce45878d4dba9d4d90cdebc3f35c2a1, type: 2}
 --- !u!1 &877577911
 GameObject:
   m_ObjectHideFlags: 0

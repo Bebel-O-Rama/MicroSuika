@@ -15,7 +15,7 @@ MonoBehaviour:
   _adaptiveRequirementMethod: 1
   _speedEvaluationMethod: 1
   _timeRequirementRange: {x: 6, y: 6}
-  _speedRequirementRange: {x: 200, y: 400}
+  _speedRequirementRange: {x: 100, y: 100}
   _timeProgressionLength: 240
   _speedProgressionLength: 240
   _timeProgressionCurve:
