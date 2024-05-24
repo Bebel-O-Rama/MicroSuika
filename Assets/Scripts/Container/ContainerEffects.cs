@@ -38,6 +38,8 @@ namespace MultiSuika.Container
         {
             _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(GetComponentInParent<ContainerInstance>());
 
+            _winOutsideSprite.sprite = VersusManager.Instance.GetContainerOutsideSprite(_playerIndex);
+            
             VersusManager.Instance.OnLeadStart.Subscribe(OnLeadStart, _playerIndex);
             VersusManager.Instance.OnLeadStop.Subscribe(OnLeadStop, _playerIndex);
             VersusManager.Instance.OnGameOver.Subscribe(OnGameOver, _playerIndex);

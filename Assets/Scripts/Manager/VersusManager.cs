@@ -222,7 +222,10 @@ namespace MultiSuika.Manager
             return (_currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
 
+        public Sprite GetContainerOutsideSprite(int playerIndex) =>
+            gameModeData.SkinData.GetPlayerSkinData(playerIndex).ContainerOutside;
+
         #endregion
-        
+
     }
 }
