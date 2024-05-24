@@ -104,9 +104,7 @@ namespace MultiSuika.Cannon
             }
 
             if (_currentBallInstance)
-                _currentBallInstance.transform.localPosition = (Vector2)transform.localPosition +
-                                                               _shootingDirection.normalized *
-                                                               _ballHeldDistanceFromCannon;
+                _currentBallInstance.transform.localPosition = GetBallHeldPosition(_currentBallInstance.BallTierIndex);
         }
 
         private void LoadBall()
@@ -118,30 +116,31 @@ namespace MultiSuika.Cannon
             }
 
             _currentBallInstance = _containerNextBall.GetNextBall();
-            _currentBallInstance.SetBallPosition(GetBallHeldPosition());
+            _currentBallInstance.SetBallPosition(GetBallHeldPosition(_currentBallInstance.BallTierIndex));
             _currentBallInstance.ResetBallScale();
         }
 
         private void SpawnBall()
         {
             var ballIndex = _ballSetData.GetRandomBallTier();
-            _ballHeldDistanceFromCannon =
-                _ballSetData.GetBallData(ballIndex).Scale / 2f + _distanceBetweenBallAndCannon;
 
             var containerParentTransform = ContainerTracker.Instance.GetParentTransformFromPlayer(_playerIndex);
 
             _currentBallInstance = Instantiate(_ballSetData.BallInstancePrefab, containerParentTransform);
             BallTracker.Instance.AddNewItem(_currentBallInstance, _playerIndex);
 
-            _currentBallInstance.SetBallPosition(GetBallHeldPosition());
+            _currentBallInstance.SetBallPosition(GetBallHeldPosition(ballIndex));
             _currentBallInstance.SetBallParameters(_playerIndex, ballIndex, _ballSetData, _ballSkinData);
             _currentBallInstance.SetSimulatedParameters(false);
         }
 
         #region Getter/Setter
 
-        private Vector3 GetBallHeldPosition() => (Vector2)transform.localPosition +
-                                                 _shootingDirection.normalized * _ballHeldDistanceFromCannon;
+        private Vector3 GetBallHeldPosition(int ballIndex) => (Vector2)transform.localPosition +
+                                                                  _shootingDirection.normalized *
+                                                                  (_distanceBetweenBallAndCannon +
+                                                                   _ballSetData.GetBallData(ballIndex).Scale *
+                                                                   0.5f);
 
         public void SetCannonParameters(int playerIndex, GameModeData gameModeData)
         {
