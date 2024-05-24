@@ -30,10 +30,10 @@ namespace MultiSuika.Manager
 
         [SerializeField] public GameModeData gameModeData;
         [SerializeField] private VersusWinConditionData versusWinConditionData;
-        
+
         private bool _isGameInProgress = true;
         private FloatReference _averageSpeed;
-        
+
         // Lead parameters
         private int _playerIndexInLead;
         private FloatReference _currentLeadTimeCondition;
@@ -78,7 +78,7 @@ namespace MultiSuika.Manager
             StopLeadTimer();
             StartLeadTimer(currentPlayerRankings.First());
         }
-        
+
         #region Spawner
 
         private void SpawnContainersVersus()
@@ -88,7 +88,7 @@ namespace MultiSuika.Manager
             {
                 objHolder = new GameObject("Objects");
             }
-            
+
             // Get the number of container to instantiate
             int numberOfActivePlayer = PlayerManager.Instance.GetNumberOfActivePlayer();
             if (numberOfActivePlayer <= 0)
@@ -98,12 +98,12 @@ namespace MultiSuika.Manager
             {
                 var containerParent = new GameObject($"Container ({(i + 1)})");
                 containerParent.transform.SetParent(objHolder.transform, false);
-                
+
                 var container = Instantiate(gameModeData.ContainerInstancePrefab, containerParent.transform);
 
                 ContainerTracker.Instance.AddNewItem(container, i);
                 container.SetContainerParameters(gameModeData, i, numberOfActivePlayer);
-                
+
                 // Set the info in the ContainerNextBall components
                 var containerNextBall = container.GetComponent<ContainerNextBall>();
                 if (containerNextBall)
@@ -127,7 +127,7 @@ namespace MultiSuika.Manager
                 cannon.SetCannonInputEnabled(true);
             }
         }
-        
+
         #endregion
 
         #region LeadCondition
@@ -199,7 +199,7 @@ namespace MultiSuika.Manager
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.SetCannonInputEnabled(false);
-            
+
             for (var i = 0; i < PlayerManager.Instance.GetNumberOfActivePlayer(); i++)
             {
                 OnGameOver.CallAction(i == winnerPlayerIndex, i);
@@ -222,10 +222,10 @@ namespace MultiSuika.Manager
             return (_currentLeadTimeCondition, _currentLeadSpeedCondition);
         }
 
-        public Sprite GetContainerOutsideSprite(int playerIndex) =>
-            gameModeData.SkinData.GetPlayerSkinData(playerIndex).ContainerOutside;
+        public (Sprite outside, Material glow) GetContainerEffectAssets(int playerIndex) =>
+            (gameModeData.SkinData.GetPlayerSkinData(playerIndex).ContainerOutside,
+                gameModeData.SkinData.GetPlayerSkinData(playerIndex).ContainerGlow);
 
         #endregion
-
     }
 }

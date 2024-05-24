@@ -12,6 +12,7 @@ namespace MultiSuika.Skin
         [SerializeField] private Sprite _containerSide;
         [SerializeField] private Sprite _containerNextBallHolder;
         [SerializeField] private Sprite _containerOutside;
+        [SerializeField] private Material _containerGlow;
         
 
         // Cannon skin parameters
@@ -31,6 +32,7 @@ namespace MultiSuika.Skin
         public Sprite ContainerSide { get => _containerSide; }
         public Sprite ContainerNextBallHolder { get => _containerNextBallHolder; }
         public Sprite ContainerOutside { get => _containerOutside; }
+        public Material ContainerGlow { get => _containerGlow; }
         public Sprite CannonSprite { get => _cannonSprite; }
         public BallSkinData BallTheme { get => _ballTheme; }
         public Color BaseColor { get => _baseColor; }

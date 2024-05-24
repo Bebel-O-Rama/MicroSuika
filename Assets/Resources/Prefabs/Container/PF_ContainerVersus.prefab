@@ -793,29 +793,89 @@ MonoBehaviour:
   _speedLinesMaxScale: 4
   _speedLinesMinRateOverTime: 100
   _speedLinesMaxRateOverEmission: 200
-  _glowDuration: 5
+  _glowDuration: 4.5
   _containerBackgroundSkin: {fileID: 7663282003110071619}
   _containerCameraMovements: {fileID: 6061428480693871614}
   _hitDuration: 0.5
-  _hitStrength: {x: 0.5, y: 0.5, z: 0}
-  _hitVibrato: 50
+  _hitStrength: {x: 0.4, y: 0.4, z: 0}
+  _hitVibrato: 40
   _hitRandomness: 50
   _hitFadeOut: 0
   _hitMode: 1
+  _easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.033907864
+      outSlope: -0.031061832
+      tangentMode: 65
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.20977707
+    - serializedVersion: 3
+      time: 0.098703906
+      value: -0.0030659242
+      inSlope: -0.08153456
+      outSlope: -0.08153456
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.41601157
+      outWeight: 0.28688884
+    - serializedVersion: 3
+      time: 0.3422598
+      value: -0.037895903
+      inSlope: 0.19389872
+      outSlope: 0.19389872
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.3319142
+      outWeight: 0.4514673
+    - serializedVersion: 3
+      time: 0.46516135
+      value: 0.26377407
+      inSlope: 4.329858
+      outSlope: 4.329858
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.23985484
+      outWeight: 0.40868634
+    - serializedVersion: 3
+      time: 0.65323985
+      value: 0.99619603
+      inSlope: 1.0690429
+      outSlope: 0.010970027
+      tangentMode: 65
+      weightedMode: 3
+      inWeight: 0.39236146
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.010970027
+      outSlope: 0.010970027
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _rateOverTime: 15
   _colorGradient:
     serializedVersion: 2
-    key0: {r: 0.49982202, g: 0.5704022, b: 0.9056604, a: 1}
-    key1: {r: 0.5109024, g: 0.8396226, b: 0.7604612, a: 0}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 0.29803923, g: 0.972549, b: 0.9764706, a: 1}
+    key1: {r: 0.3019608, g: 0.627451, b: 0.9529412, a: 0}
+    key2: {r: 0.058823526, g: 0.3333333, b: 0.8352941, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 193
-    ctime1: 65535
-    ctime2: 0
+    ctime1: 8674
+    ctime2: 26600
     ctime3: 0
     ctime4: 0
     ctime5: 0
@@ -831,7 +891,7 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: -1
-    m_NumColorKeys: 2
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _sizeOverTime:
     m_Mode: 1
@@ -3060,15 +3120,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 172995788818335539, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.7
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 172995788818335539, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.7
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 172995788818335539, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.7
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 172995788818335539, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3113,10 +3173,6 @@ PrefabInstance:
     - target: {fileID: 2326698050266673647, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
       propertyPath: m_Name
       value: Rocket_Glow 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3215954193757713278, guid: c70656f308cffc54dacd96bb8748b256, type: 3}
-      propertyPath: playOnAwake
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3427,17 +3483,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3183785185572116891}
     m_Modifications:
+    - target: {fileID: 2534876640843548011, guid: 31f6a7d39ecd6f2448107d7d40f50e87, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534876640843548011, guid: 31f6a7d39ecd6f2448107d7d40f50e87, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5442246717345918846, guid: 31f6a7d39ecd6f2448107d7d40f50e87, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2.13
       objectReference: {fileID: 0}
     - target: {fileID: 5442246717345918846, guid: 31f6a7d39ecd6f2448107d7d40f50e87, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2.13
       objectReference: {fileID: 0}
     - target: {fileID: 5442246717345918846, guid: 31f6a7d39ecd6f2448107d7d40f50e87, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2.13
       objectReference: {fileID: 0}
     - target: {fileID: 5442246717345918846, guid: 31f6a7d39ecd6f2448107d7d40f50e87, type: 3}
       propertyPath: m_LocalPosition.x

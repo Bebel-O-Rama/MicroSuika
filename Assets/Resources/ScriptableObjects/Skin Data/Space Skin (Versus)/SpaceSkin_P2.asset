@@ -16,6 +16,7 @@ MonoBehaviour:
   _containerSide: {fileID: 0}
   _containerNextBallHolder: {fileID: 0}
   _containerOutside: {fileID: 21300000, guid: 8313b5dbaa540da428a89215ad71df2e, type: 3}
+  _containerGlow: {fileID: 2100000, guid: b1426b0d06d3e5742a5a7898021f22b3, type: 2}
   _cannonSprite: {fileID: 21300000, guid: c5b0d365f8c3af94dae666a7d79c4c92, type: 3}
   _ballTheme: {fileID: 11400000, guid: 5773125cc26b20b42a2179238d75604e, type: 2}
   _baseColor: {r: 0.49803922, g: 0.827451, b: 1, a: 1}
