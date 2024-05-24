@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using MultiSuika.Cannon;
 using MultiSuika.Manager;
 using UnityEngine;
 
@@ -22,8 +23,10 @@ namespace MultiSuika.Container
         
         [SerializeField] private float _glowDuration;
 
+        [Header("Win Parameters")] 
+        [SerializeField] private SpriteRenderer _containerSkin;
+        
         private int _playerIndex;
-
         private Sequence _speedLinesSequence;
 
         private void Awake()
@@ -63,6 +66,17 @@ namespace MultiSuika.Container
 
         private void OnWin()
         {
+            var nextBallSpriteRenderer = CannonTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex)
+                .GetNextBallSpriteRenderer();
+            var cannonSpriteRenderer = CannonTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex).spriteRenderer;
+            
+            var winSequence = DOTween.Sequence();
+            winSequence.Append(_winOutsideSprite.DOFade(1, 1))
+                .Join(_containerSkin.DOFade(0, 1).SetEase(Ease.InQuart))
+                .Join(nextBallSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart))
+                .Join(cannonSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart));
+            
+            
             _winOutsideSprite.DOFade(1, 1);
         }
 

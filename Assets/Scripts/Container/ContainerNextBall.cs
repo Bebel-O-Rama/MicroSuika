@@ -49,6 +49,8 @@ namespace MultiSuika.Container
 
         #region Getter/Setter
 
+        public SpriteRenderer GetNextBallSpriteRenderer() => _nextBall.transform.GetComponentInChildren<SpriteRenderer>();
+
         public void SetNextBallParameters(int playerIndex, GameModeData gameModeData)
         {
             _playerIndex = playerIndex;

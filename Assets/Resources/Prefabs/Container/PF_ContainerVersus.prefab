@@ -792,6 +792,7 @@ MonoBehaviour:
   _speedLinesMinRateOverEmission: 100
   _speedLinesMaxRateOverEmission: 250
   _glowDuration: 5
+  _containerSkin: {fileID: 7663282003110071619}
 --- !u!1 &3328340526196220793
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,6 +3270,11 @@ Transform:
 --- !u!4 &5548122722171274832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4564159779651758605, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
+  m_PrefabInstance: {fileID: 8334407107315919965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7663282003110071619 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1869188983104954654, guid: 44077a73800651a44906cf0a005bc7c3, type: 3}
   m_PrefabInstance: {fileID: 8334407107315919965}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8065343540354605263 stripped

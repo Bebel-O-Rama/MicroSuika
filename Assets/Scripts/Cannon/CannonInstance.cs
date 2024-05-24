@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using MultiSuika.Ball;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
+using MultiSuika.Manager;
 using MultiSuika.Player;
 using MultiSuika.Skin;
 using MultiSuika.Utilities;
@@ -40,10 +42,16 @@ namespace MultiSuika.Cannon
         // Container Parameters
         private ContainerNextBall _containerNextBall;
 
+        private Coroutine _loadBallCoroutine;
+
         public void Start()
         {
             var container = ContainerTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex);
             _containerNextBall = container.GetComponent<ContainerNextBall>();
+            
+            // This is exactly what I didn't want to do... sigh
+            if (VersusManager.Instance)
+                VersusManager.Instance.OnGameOver.Subscribe(OnGameOver, _playerIndex);
         }
 
         public void SetCannonInputEnabled(bool isActive)
@@ -76,13 +84,25 @@ namespace MultiSuika.Cannon
         {
             if (!_currentBallInstance)
                 return;
-
+            
             _currentBallInstance.DropBallFromCannon();
             _currentBallInstance.Rb2d.AddForce(_shootingDirection.normalized * _shootingForce);
             _currentBallInstance = null;
-            Invoke("LoadBall", _reloadCooldown);
-
             wwiseEventCannonShot.Post(gameObject);
+            
+            _loadBallCoroutine = StartCoroutine(LoadBallWait());
+        }
+
+        private IEnumerator LoadBallWait()
+        {
+            yield return new WaitForSeconds(_reloadCooldown);
+            LoadBall();
+        }
+
+        private void OnGameOver(bool hasWon)
+        {
+            if (hasWon && _loadBallCoroutine != null)
+                StopCoroutine(_loadBallCoroutine);
         }
 
         private void MoveCannon(float xAxis)
@@ -142,6 +162,8 @@ namespace MultiSuika.Cannon
                                                                    _ballSetData.GetBallData(ballIndex).Scale *
                                                                    0.5f);
 
+        public SpriteRenderer GetNextBallSpriteRenderer() => _containerNextBall.GetNextBallSpriteRenderer();
+        
         public void SetCannonParameters(int playerIndex, GameModeData gameModeData)
         {
             _playerIndex = playerIndex;
