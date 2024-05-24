@@ -30,6 +30,8 @@ namespace MultiSuika.Container
         private FloatReference _normalizedVerticalPosition;
         private Tweener _tweener;
 
+        private bool _isGameOver = false;
+
         private void Start()
         {
             var container = GetComponentInParent<ContainerInstance>();
@@ -42,6 +44,8 @@ namespace MultiSuika.Container
 
         private void Update()
         {
+            if (_isGameOver)
+                return;
             var newYPos = (_normalizedVerticalPosition * 2 - 1) * _yAmplitude;
             _mainVerticalTransform.position = new Vector3(0, -newYPos, 0);
 
@@ -50,8 +54,11 @@ namespace MultiSuika.Container
         }
 
         // Oh well, it's one of those time where quicker is better
-        public (Transform mainTf, Transform secondaryTf) GetCameraJointsTransform() =>
-            (_mainVerticalTransform, _secondaryTransform);
+        public (Transform mainTf, Transform secondaryTf) GetCameraJointsTransform()
+        {
+            _isGameOver = true;
+            return (_mainVerticalTransform, _secondaryTransform);
+        }
 
         // TODO: We should be able to call the method with a null once we make the shake adaptive (MS-130)
         private void ContainerHitShake(BallInstance ball)

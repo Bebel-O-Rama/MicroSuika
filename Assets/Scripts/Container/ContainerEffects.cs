@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Codice.CM.Client.Differences.Graphic;
 using DG.Tweening;
 using MultiSuika.Cannon;
 using MultiSuika.Manager;
@@ -20,7 +21,7 @@ namespace MultiSuika.Container
         [Header("Lead Parameters")]
         [SerializeField] private float _speedLinesMinScale; // 3
         [SerializeField] private float _speedLinesMaxScale; // 5
-        [SerializeField] private float _speedLinesMinRateOverEmission; // 100
+        [FormerlySerializedAs("_speedLinesMinRateOverEmission")] [SerializeField] private float _speedLinesMinRateOverTime; // 100
         [SerializeField] private float _speedLinesMaxRateOverEmission; // 250
         
         [SerializeField] private float _glowDuration;
@@ -28,13 +29,18 @@ namespace MultiSuika.Container
         [Header("Win Parameters")] 
         [SerializeField] private SpriteRenderer _containerBackgroundSkin;
         [SerializeField] private ContainerCameraMovements _containerCameraMovements;
-        
+        [Header("Movement burst")]
         [SerializeField] private float _hitDuration = 0.5f;
         [SerializeField] private Vector3 _hitStrength;
         [SerializeField] private int _hitVibrato = 20;
         [SerializeField] private float _hitRandomness = 90f;
         [SerializeField] private bool _hitFadeOut = true;
         [SerializeField] private ShakeRandomnessMode _hitMode = ShakeRandomnessMode.Full;
+
+        [Header("Thruster effect")]
+        [SerializeField] private float _rateOverTime;
+        [SerializeField] private Gradient _colorGradient;
+        [SerializeField] private ParticleSystem.MinMaxCurve _sizeOverTime;
 
         
         private int _playerIndex;
@@ -86,17 +92,34 @@ namespace MultiSuika.Container
             var cameraJoints = _containerCameraMovements.GetCameraJointsTransform();
             
             var winSequence = DOTween.Sequence();
-            winSequence.Append(_winOutsideSprite.DOFade(1, 1))
-                .Join(_containerBackgroundSkin.DOFade(0, 1).SetEase(Ease.InQuart))
-                .Join(nextBallSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart))
-                .Join(cannonSpriteRenderer.DOFade(0, 1).SetEase(Ease.InQuart))
+            winSequence
+                .Append(_winOutsideSprite.DOFade(1, 0.6f))
+                .Join(_containerBackgroundSkin.DOFade(0, 0.6f).SetEase(Ease.InQuart))
+                .Join(nextBallSpriteRenderer.DOFade(0, 0.6f).SetEase(Ease.InQuart))
+                .Join(cannonSpriteRenderer.DOFade(0, 0.6f).SetEase(Ease.InQuart))
                 .AppendCallback(() => thrusterVfxMain.loop = false)
-                .AppendInterval(1)
-                .Append(cameraJoints.secondaryTf.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato, _hitRandomness,
-                fadeOut: _hitFadeOut, randomnessMode: _hitMode).SetLoops(1000));
+                .AppendInterval(0.8f)
+                .AppendCallback(StartWinThruster)
+                .AppendInterval(0.5f)
+                .Append(cameraJoints.secondaryTf.DOShakePosition(_hitDuration, _hitStrength, _hitVibrato,
+                    _hitRandomness,
+                    fadeOut: _hitFadeOut, randomnessMode: _hitMode).SetLoops(10000))
+                .Insert(2f, cameraJoints.mainTf.DOMoveY(-20, 3));
+        }
+
+        private void StartWinThruster()
+        {
+            var main = _thrusterParticleSystem.main;
+            var emission = _thrusterParticleSystem.emission;
+            var colorOverLifetime = _thrusterParticleSystem.colorOverLifetime;
+            var sizeOverLifetime = _thrusterParticleSystem.sizeOverLifetime;
+
+            main.loop = true;
+            emission.rateOverTime = 15;
+            colorOverLifetime.color = _colorGradient;
+            sizeOverLifetime.size = _sizeOverTime;
             
-            
-            _winOutsideSprite.DOFade(1, 1);
+            _thrusterParticleSystem.Play();
         }
 
         private void OnLose()
@@ -122,7 +145,7 @@ namespace MultiSuika.Container
             var speedLineEmission = _speedLines.emission;
             
             _speedLines.transform.localScale = Vector3.one * _speedLinesMinScale;
-            speedLineEmission.rateOverTime = _speedLinesMinRateOverEmission;
+            speedLineEmission.rateOverTime = _speedLinesMinRateOverTime;
             
             _speedLinesSequence.AppendCallback(() => _speedLines.Play())
                 .Append(_speedLines.transform.DOScale(_speedLinesMaxScale, speedLinesRampUpDuration))
