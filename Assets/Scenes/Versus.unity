@@ -1835,7 +1835,7 @@ GameObject:
   - component: {fileID: 825600732}
   - component: {fileID: 825600736}
   m_Layer: 0
-  m_Name: Racing Manager
+  m_Name: Versus Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
