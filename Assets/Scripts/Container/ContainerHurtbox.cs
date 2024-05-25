@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using MultiSuika.Ball;
 using MultiSuika.Utilities;
 using UnityEngine;
@@ -30,6 +31,18 @@ namespace MultiSuika.Container
             var ball = other.GetComponentInParent<BallInstance>();
             ContainerTracker.Instance.OnContainerHit.CallAction(ball, _playerIndex);
             ball.ClearBall(false, true);
+            ClearBallOnDamage();
+        }
+
+        // TODO: It should probably be somewhere else, but for now it gets the job now
+        private void ClearBallOnDamage()
+        {
+            var ballList = BallTracker.Instance.GetItemsFromPlayer(_playerIndex);
+            foreach (var ball in ballList.Where(ball => Random.Range(0f, 1f) > 0.5f))
+            {
+                if (ball.Rb2d.simulated)
+                    ball.ClearBall(false, true);
+            }
         }
     }
 }
