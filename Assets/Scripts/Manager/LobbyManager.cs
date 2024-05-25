@@ -20,6 +20,8 @@ namespace MultiSuika.Manager
 
         private void Start()
         {
+            PlayerManager.Instance.ClearAllPlayers();
+
             SpawnContainerLobby();
 
             PlayerManager.Instance.SetJoiningEnabled(true);

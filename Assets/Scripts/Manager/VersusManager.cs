@@ -7,6 +7,7 @@ using MultiSuika.Container;
 using MultiSuika.GameLogic;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MultiSuika.Manager
 {
@@ -40,6 +41,11 @@ namespace MultiSuika.Manager
         private FloatReference _currentLeadSpeedCondition;
         private float _leadRequirementProgressionTime;
         private Coroutine _leadTimerCoroutine;
+        
+        // Reset parameters
+        private KeyCode _resetbutton = KeyCode.Escape;
+        private float _resetTimeRequirement = 3f;
+        private float _heldButtonTimestamp = Mathf.Infinity;
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
         public ActionMethodPlayerWrapper<bool> OnLeadStop { get; } = new ActionMethodPlayerWrapper<bool>();
@@ -60,6 +66,8 @@ namespace MultiSuika.Manager
 
         private void Update()
         {
+            CheckForReset();
+            
             _leadRequirementProgressionTime += Time.deltaTime;
 
             if (!_isGameInProgress)
@@ -77,6 +85,23 @@ namespace MultiSuika.Manager
 
             StopLeadTimer();
             StartLeadTimer(currentPlayerRankings.First());
+        }
+
+        private void CheckForReset()
+        {
+            if (Input.GetKeyDown(_resetbutton))
+                _heldButtonTimestamp = Time.time;
+            if (Input.GetKeyUp(_resetbutton))
+                _heldButtonTimestamp = Mathf.Infinity;
+
+            if (!(_heldButtonTimestamp + _resetTimeRequirement < Time.time)) 
+                return;
+            
+            ContainerTracker.Instance.ClearItems();
+            CannonTracker.Instance.ClearItems();
+            BallTracker.Instance.ClearItems();
+                
+            SceneManager.LoadScene("Lobby");
         }
 
         #region Spawner
