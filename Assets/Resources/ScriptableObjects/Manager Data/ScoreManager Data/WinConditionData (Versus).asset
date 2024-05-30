@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _adaptiveRequirementMethod: 1
   _speedEvaluationMethod: 1
-  _timeRequirementRange: {x: 6, y: 6}
-  _speedRequirementRange: {x: 100, y: 100}
-  _timeProgressionLength: 240
-  _speedProgressionLength: 240
+  _timeRequirementRange: {x: 6, y: 3}
+  _speedRequirementRange: {x: 50, y: 75}
+  _timeProgressionLength: 120
+  _speedProgressionLength: 120
   _timeProgressionCurve:
     serializedVersion: 2
     m_Curve:
