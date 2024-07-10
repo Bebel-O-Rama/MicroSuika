@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #if !(UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
@@ -42,7 +42,7 @@ public class WwiseSettings
 	public bool CreateWwiseGlobal = true;
 	public bool CreateWwiseListener = true;
 	public bool ObjectReferenceAutoCleanup = true;
-	public bool LoadSoundEngineInEditMode = false;
+	public bool LoadSoundEngineInEditMode = true;
 	public bool ShowMissingRigidBodyWarning = true;
 	public bool ShowSpatialAudioWarningMsg = true;
 	public string WwiseInstallationPathMac;
@@ -114,7 +114,12 @@ public class WwiseSettings
 					baseDir = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(platformSoundBankPaths.Values.First()));
 				}
 			}
-			var generatedSoundbanksDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(settings.WwiseProjectPath), baseDir);
+
+			var wwiseProjectPath = System.IO.Path.Combine(UnityEngine.Application.dataPath, System.IO.Path.GetDirectoryName(settings.WwiseProjectPath));
+			wwiseProjectPath = System.IO.Path.GetFullPath(wwiseProjectPath);
+			var generatedSoundbanksDir = System.IO.Path.Combine(wwiseProjectPath, baseDir);
+			generatedSoundbanksDir = System.IO.Path.GetFullPath(generatedSoundbanksDir);
+			generatedSoundbanksDir = generatedSoundbanksDir.Remove(0, (UnityEngine.Application.dataPath + "/").Length);
 			settings.GeneratedSoundbanksPath = generatedSoundbanksDir;
 		}
 		settings.CheckGeneratedBanksPath();

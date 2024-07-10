@@ -14,7 +14,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 
@@ -105,6 +105,15 @@ public class AkSoundEngineController
 
 	public void Init(AkInitializer akInitializer)
 	{
+#if UNITY_EDITOR
+		var arguments = System.Environment.GetCommandLineArgs();
+		if (UnityEngine.Application.isBatchMode && System.Array.IndexOf(arguments, "-wwiseEnableWithNoGraphics") < 0)
+		{
+			UnityEngine.Debug.LogWarning("WwiseUnity: Sound engine will not be initialized in batch/nographics mode. To override, specify -wwiseEnableWithNoGraphics");
+			return;
+		}
+#endif
+
 		// Only initialize the room manager during play.
 		bool initRoomManager = true;
 #if UNITY_EDITOR
@@ -172,7 +181,7 @@ public class AkSoundEngineController
 	public void OnDisable()
 	{
 #if UNITY_EDITOR
-		if(UnityEditor.EditorApplication.isPlaying)
+		if(UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
 		{
 			OnDisableEditorListener();
 		}
@@ -204,12 +213,16 @@ public class AkSoundEngineController
 	public void OnApplicationPause(bool pauseStatus) 
 	{
 		if (!UnityEngine.Debug.isDebugBuild)
+		{
 			ActivateAudio(!pauseStatus);
+		}
 	}
 	public void OnApplicationFocus(bool focus)
 	{
 		if (!UnityEngine.Debug.isDebugBuild)
+		{
 			ActivateAudio(focus, AkWwiseInitializationSettings.Instance.RenderDuringFocusLoss);
+		}
 	}
 #else
 	public void OnApplicationPause(bool pauseStatus) 
@@ -306,7 +319,9 @@ public class AkSoundEngineController
 	private void OnDisableEditorListener()
 	{
 		if (IsPlayingOrIsNotInitialized || editorListenerGameObject == null)
+		{
 			return;
+		}
 
 		UnityEditor.EditorApplication.update -= UpdateEditorListenerPosition;
 
@@ -327,23 +342,33 @@ public class AkSoundEngineController
 	private void UpdateEditorListenerPosition()
 	{
 		if (IsPlayingOrIsNotInitialized || editorListenerGameObject == null)
+		{
 			return;
+		}
 
 		if (UnityEditor.SceneView.lastActiveSceneView == null)
+		{
 			return;
+		}
 
 		var sceneViewCamera = UnityEditor.SceneView.lastActiveSceneView.camera;
 		if (sceneViewCamera == null)
+		{
 			return;
+		}
 
 		var sceneViewTransform = sceneViewCamera.transform;
 		if (sceneViewTransform == null)
+		{
 			return;
+		}
 
 		if (editorListenerPosition == sceneViewTransform.position &&
 			editorListenerForward == sceneViewTransform.forward &&
 			editorListenerUp == sceneViewTransform.up)
+		{
 			return;
+		}
 
 		AkSoundEngine.SetObjectPosition(editorListenerGameObject, sceneViewTransform);
 

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #if UNITY_EDITOR
@@ -506,7 +506,7 @@ public class WwiseSetupWizard
 		var currentConfig = AkPluginActivator.GetCurrentConfig();
 
 		if (string.IsNullOrEmpty(currentConfig))
-			currentConfig = AkPluginActivator.CONFIG_PROFILE;
+			currentConfig = AkPluginActivatorConstants.CONFIG_PROFILE;
 
 		AkPluginActivator.DeactivateAllPlugins();
 		AkPluginActivator.Update();
@@ -520,6 +520,8 @@ public class WwiseSetupWizard
 	{
 		UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.DefaultGameObjects);
 
+		AkPluginActivator.IsVerboseLogging = true;
+		UnityEngine.Debug.Log("WwiseUnity: Deactivating all plugins...");
 		AkPluginActivator.DeactivateAllPlugins();
 
 		// 0. Make sure the SoundBank directory exists
@@ -547,7 +549,9 @@ public class WwiseSetupWizard
 		// 6. Enable "Run In Background" in PlayerSettings (PlayerSettings.runInbackground property)
 		UnityEditor.PlayerSettings.runInBackground = true;
 
+		UnityEngine.Debug.Log("WwiseUnity: Updating PluginActivator...");
 		AkPluginActivator.Update();
+		UnityEngine.Debug.Log("WwiseUnity: Activating plugins for editor...");
 		AkPluginActivator.ActivatePluginsForEditor();
 
 		// 9. Activate WwiseIDs file generation, and point Wwise to the Assets/Wwise folder

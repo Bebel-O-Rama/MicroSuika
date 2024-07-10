@@ -13,7 +13,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 [UnityEngine.AddComponentMenu("Wwise/Spatial Audio/AkRoom")]
@@ -211,8 +211,25 @@ public class AkRoom : AkTriggerHandler
 
 		if (roomCollider.GetType() == typeof(UnityEngine.MeshCollider))
 		{
+			var MeshGeometryData = new AkSurfaceReflector.GeometryData();
+			AkSurfaceReflector.GetGeometryDataFromMesh(((UnityEngine.MeshCollider)roomCollider).sharedMesh, ref MeshGeometryData);
+			for (int s = 0; s < MeshGeometryData.numSurfaces; s++)
+			{
+				MeshGeometryData.surfaces[s].transmissionLoss = 0;
+			}
+
 			geometryID = GetID();
-			AkSurfaceReflector.SetGeometryFromMesh(((UnityEngine.MeshCollider)roomCollider).sharedMesh, geometryID, false, false);
+			AkSoundEngine.SetGeometry(
+				geometryID,
+				MeshGeometryData.triangles,
+				MeshGeometryData.numTriangles,
+				MeshGeometryData.vertices,
+				MeshGeometryData.numVertices,
+				MeshGeometryData.surfaces,
+				MeshGeometryData.numSurfaces,
+				false,
+				false);
+
 			bGeometrySetByRoom = true;
 		}
 		else if ((roomCollider.GetType() == typeof(UnityEngine.BoxCollider) || (roomCollider.GetType() == typeof(UnityEngine.CapsuleCollider)) && AkInitializer.CubeGeometryData.numTriangles != 0))
@@ -221,15 +238,15 @@ public class AkRoom : AkTriggerHandler
 			geometryID = GetID();
 
 			AkSoundEngine.SetGeometry(
-			geometryID,
-			AkInitializer.CubeGeometryData.triangles,
-			AkInitializer.CubeGeometryData.numTriangles,
-			AkInitializer.CubeGeometryData.vertices,
-			AkInitializer.CubeGeometryData.numVertices,
-			AkInitializer.CubeGeometryData.surfaces,
-			AkInitializer.CubeGeometryData.numSurfaces,
-			false,
-			false);
+				geometryID,
+				AkInitializer.CubeGeometryData.triangles,
+				AkInitializer.CubeGeometryData.numTriangles,
+				AkInitializer.CubeGeometryData.vertices,
+				AkInitializer.CubeGeometryData.numVertices,
+				AkInitializer.CubeGeometryData.surfaces,
+				AkInitializer.CubeGeometryData.numSurfaces,
+				false,
+				false);
 
 			bGeometrySetByRoom = true;
 		}
@@ -238,15 +255,15 @@ public class AkRoom : AkTriggerHandler
 			geometryID = GetID();
 
 			AkSoundEngine.SetGeometry(
-			geometryID,
-			AkInitializer.SphereGeometryData.triangles,
-			AkInitializer.SphereGeometryData.numTriangles,
-			AkInitializer.SphereGeometryData.vertices,
-			AkInitializer.SphereGeometryData.numVertices,
-			AkInitializer.SphereGeometryData.surfaces,
-			AkInitializer.SphereGeometryData.numSurfaces,
-			false,
-			false);
+				geometryID,
+				AkInitializer.SphereGeometryData.triangles,
+				AkInitializer.SphereGeometryData.numTriangles,
+				AkInitializer.SphereGeometryData.vertices,
+				AkInitializer.SphereGeometryData.numVertices,
+				AkInitializer.SphereGeometryData.surfaces,
+				AkInitializer.SphereGeometryData.numSurfaces,
+				false,
+				false);
 
 			bGeometrySetByRoom = true;
 		}

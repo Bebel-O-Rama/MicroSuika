@@ -13,7 +13,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 [UnityEngine.AddComponentMenu("Wwise/Spatial Audio/AkRoomPortal")]
 [UnityEngine.RequireComponent(typeof(UnityEngine.BoxCollider))]
@@ -42,6 +42,7 @@ public class AkRoomPortal : AkTriggerHandler
 		set
 		{
 			active = value;
+			portalNeedsUpdate = true;
 			AkRoomManager.RegisterPortalUpdate(this);
 		}
 	}
@@ -65,9 +66,12 @@ public class AkRoomPortal : AkTriggerHandler
 	public AkRoom frontRoom { get { return rooms[1]; } }
 	public AkRoom backRoom { get { return rooms[0]; } }
 
+	public bool isSetInWwise() { return portalSet; }
+
 	private AkTransform portalTransform;
 	private UnityEngine.BoxCollider portalCollider;
 	private bool portalSet = false;
+	private bool portalNeedsUpdate = false;
 	private UnityEngine.Vector3 previousPosition;
 	private UnityEngine.Vector3 previousScale;
 	private UnityEngine.Quaternion previousRotation;
@@ -95,6 +99,7 @@ public class AkRoomPortal : AkTriggerHandler
 				UnityEngine.Mathf.Abs(extentVector.z));
 			AkSoundEngine.SetRoomPortal(GetID(), frontRoomID, backRoomID, portalTransform, extent, active, name);
 			portalSet = true;
+			portalNeedsUpdate = false;
 		}
 		else
 		{
@@ -109,7 +114,8 @@ public class AkRoomPortal : AkTriggerHandler
 
 	public void UpdateRoomPortal()
 	{
-		if (UpdateRooms() || !portalSet)
+		bool roomsChanged = UpdateRooms();
+		if (roomsChanged || !portalSet || portalNeedsUpdate)
 		{
 			SetRoomPortal();
 		}
@@ -247,6 +253,7 @@ public class AkRoomPortal : AkTriggerHandler
 			previousScale != transform.lossyScale ||
 			previousRotation != transform.rotation)
 		{
+			portalNeedsUpdate = true;
 			AkRoomManager.RegisterPortalUpdate(this);
 			previousPosition = transform.position;
 			previousScale = transform.lossyScale;

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
+	<RootPaths>
+		<ProjectRoot>../../../../MultiSuika_WwiseProject</ProjectRoot>
+		<SourceFilesRoot>../../../../MultiSuika_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>../../../../MultiSuika_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{7A6605B0-633C-BE5A-2F17-DBE743B5820B}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="393239870" Name="SFX"/>
+				<Bus Id="412724365" Name="BGM"/>
+				<Bus Id="1117531639" Name="Amb"/>
+				<Bus Id="1551306167" Name="UI"/>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="140602910" Name="RTPC_Vol_SFX"/>
+				<GameParameter Id="160087661" Name="RTPC_Vol_BGM"/>
+				<GameParameter Id="2444185415" Name="RTPC_BallImpactVelocity"/>
+				<GameParameter Id="3336838409" Name="RTPC_Sidechain"/>
+				<GameParameter Id="3961043687" Name="RTPC_Vol_Master"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="766723505" Name="Game_State">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="984691642" Name="InGame"/>
+						<State Id="2679786610" Name="InMainMenu"/>
+						<State Id="2876317275" Name="InPauseMenu"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+			<SwitchGroups>
+				<SwitchGroup Id="2942832789" Name="Switch_sound">
+					<Switches>
+						<Switch Id="290285391" Name="Lobby"/>
+						<Switch Id="491961918" Name="Forest"/>
+						<Switch Id="4164838345" Name="Space"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{253A8756-9E72-0972-2B47-45AC60A7415F}">
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
+			<Media>
+				<File Id="73572143" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Cannon_Appears_Whoosh_Var_01.wav</ShortName>
+					<CachePath>SFX/SFX_Cannon_Appears_Whoosh_Var_01_818F3B66.wem</CachePath>
+				</File>
+				<File Id="95099025" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_A9494242.wem</CachePath>
+				</File>
+				<File Id="175014415" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Cannon_Appears_Beeps_Var_02.wav</ShortName>
+					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_02_818F3B66.wem</CachePath>
+				</File>
+				<File Id="185255546" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_AAA28F61.wem</CachePath>
+				</File>
+				<File Id="227426752" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_6158BE32.wem</CachePath>
+				</File>
+				<File Id="264829482" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_89FDD0DC.wem</CachePath>
+				</File>
+				<File Id="288952451" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Drop.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Drop_74632B8C.wem</CachePath>
+				</File>
+				<File Id="307977073" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Amb_Space.wav</ShortName>
+					<CachePath>SFX/PH_Amb_Space_1387AF9C.wem</CachePath>
+				</File>
+				<File Id="323463379" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_95913DAA.wem</CachePath>
+				</File>
+				<File Id="334275636" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Cannon_Appears_Beeps_Var_03.wav</ShortName>
+					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_03_818F3B66.wem</CachePath>
+				</File>
+				<File Id="335258020" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_78250ADB.wem</CachePath>
+				</File>
+				<File Id="355877884" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Cannon_Appears_Transient_Var_01.wav</ShortName>
+					<CachePath>SFX/SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem</CachePath>
+				</File>
+				<File Id="356072598" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_7A974858.wem</CachePath>
+				</File>
+				<File Id="460676898" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Cannon_Appears_Beeps_Var_04.wav</ShortName>
+					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_04_818F3B66.wem</CachePath>
+				</File>
+				<File Id="594276553" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_FF53E0EA.wem</CachePath>
+				</File>
+				<File Id="641987909" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_01113E63.wem</CachePath>
+				</File>
+				<File Id="816961611" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_18BE48CA.wem</CachePath>
+				</File>
+				<File Id="918024247" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Cannon_Appears_Beeps_Var_01.wav</ShortName>
+					<CachePath>SFX/SFX_Cannon_Appears_Beeps_Var_01_818F3B66.wem</CachePath>
+				</File>
+				<File Id="1058423354" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_Ball_Fusion.wav</ShortName>
+					<CachePath>SFX/PH_Ball_Fusion_FB836219.wem</CachePath>
+				</File>
+				<File Id="1072983843" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PH_UI_Gamemode_Transition_01.wav</ShortName>
+					<CachePath>SFX/PH_UI_Gamemode_Transition_01_818F3B66.wem</CachePath>
+				</File>
+			</Media>
+			<Plugins>
+				<Custom>
+					<Plugin Id="76144842" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="222047041" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="266429384" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="429707094" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="527276681" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="591550250" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="816370044" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="852678014" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="1006777763" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="1030862755" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+					<Plugin Id="1047714122" Name="Meter (Custom)" LibName="Wwise Meter" LibId="8454147"/>
+					<Plugin Id="1066427951" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+				</Custom>
+			</Plugins>
+			<Events>
+				<Event Id="1256202815" Name="Play" DurationType="OneShot" DurationMin="5" DurationMax="5">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="266429384"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="1823612792" Name="Play_Gamemode_Switch_InGame" DurationType="OneShot" DurationMin="1.0333333" DurationMax="1.0333333">
+					<MediaRefs>
+						<MediaRef Id="1072983843"/>
+					</MediaRefs>
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="766723505" Id="984691642" Name="InGame"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="3684788607" Name="Play_Gamemode_Switch_InMenu" DurationType="OneShot" DurationMin="1.0333333" DurationMax="1.0333333">
+					<MediaRefs>
+						<MediaRef Id="1072983843"/>
+					</MediaRefs>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="738730148" Name="Play_PH_Amb_Space"/>
+					</ActionPostEvent>
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="766723505" Id="2679786610" Name="InMainMenu"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="738730148" Name="Play_PH_Amb_Space" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="307977073"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="942049713" Name="Play_PH_Ball_Bounce" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="408353238" Name="Play_PH_Ball_Drop" DurationType="OneShot" DurationMin="0.13087071" DurationMax="0.13087071">
+					<MediaRefs>
+						<MediaRef Id="288952451"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210564" Name="Play_PH_Ball_Fusion_00" DurationType="OneShot" DurationMin="0.048909094" DurationMax="0.048909094">
+					<MediaRefs>
+						<MediaRef Id="335258020"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210565" Name="Play_PH_Ball_Fusion_01" DurationType="OneShot" DurationMin="0.0358301" DurationMax="0.0358301">
+					<MediaRefs>
+						<MediaRef Id="594276553"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210566" Name="Play_PH_Ball_Fusion_02" DurationType="OneShot" DurationMin="0.05020224" DurationMax="0.05020224">
+					<MediaRefs>
+						<MediaRef Id="264829482"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210567" Name="Play_PH_Ball_Fusion_03" DurationType="OneShot" DurationMin="0.054425158" DurationMax="0.054425158">
+					<MediaRefs>
+						<MediaRef Id="641987909"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210560" Name="Play_PH_Ball_Fusion_04" DurationType="OneShot" DurationMin="0.067144156" DurationMax="0.067144156">
+					<MediaRefs>
+						<MediaRef Id="356072598"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210561" Name="Play_PH_Ball_Fusion_05" DurationType="OneShot" DurationMin="0.09638435" DurationMax="0.09638435">
+					<MediaRefs>
+						<MediaRef Id="1058423354"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210562" Name="Play_PH_Ball_Fusion_06" DurationType="OneShot" DurationMin="0.12258686" DurationMax="0.12258686">
+					<MediaRefs>
+						<MediaRef Id="816961611"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210563" Name="Play_PH_Ball_Fusion_07" DurationType="OneShot" DurationMin="0.13017312" DurationMax="0.13017312">
+					<MediaRefs>
+						<MediaRef Id="323463379"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210572" Name="Play_PH_Ball_Fusion_08" DurationType="OneShot" DurationMin="0.13532741" DurationMax="0.13532741">
+					<MediaRefs>
+						<MediaRef Id="95099025"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2448210573" Name="Play_PH_Ball_Fusion_09" DurationType="OneShot" DurationMin="0.15079917" DurationMax="0.15079917">
+					<MediaRefs>
+						<MediaRef Id="185255546"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2464988279" Name="Play_PH_Ball_Fusion_10" DurationType="OneShot" DurationMin="0.15116394" DurationMax="0.15116394">
+					<MediaRefs>
+						<MediaRef Id="227426752"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3103249001" Name="Play_PH_UI_Gamemode_Transition_01" DurationType="OneShot" DurationMin="1.0333333" DurationMax="1.0333333">
+					<MediaRefs>
+						<MediaRef Id="1072983843"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1141855710" Name="Play_SFX_Cannon_Appears" DurationType="OneShot" DurationMin="0.36666667" DurationMax="0.46197107">
+					<MediaRefs>
+						<MediaRef Id="73572143"/>
+						<MediaRef Id="175014415"/>
+						<MediaRef Id="334275636"/>
+						<MediaRef Id="355877884"/>
+						<MediaRef Id="460676898"/>
+						<MediaRef Id="918024247"/>
+					</MediaRefs>
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1047714122"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="3187507146" Name="Play_Test" DurationType="OneShot" DurationMin="5" DurationMax="5">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="266429384"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420168" Name="Play_Test_01" DurationType="OneShot" DurationMin="5.6123104" DurationMax="5.6123104">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="76144842"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420171" Name="Play_Test_02" DurationType="OneShot" DurationMin="6.2996054" DurationMax="6.2996054">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1006777763"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420170" Name="Play_Test_03" DurationType="OneShot" DurationMin="7.071068" DurationMax="7.071068">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="852678014"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420173" Name="Play_Test_04" DurationType="OneShot" DurationMin="7.937005" DurationMax="7.937005">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="816370044"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420172" Name="Play_Test_05" DurationType="OneShot" DurationMin="8.908987" DurationMax="8.908987">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1030862755"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420175" Name="Play_Test_06" DurationType="OneShot" DurationMin="10" DurationMax="10">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="222047041"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420174" Name="Play_Test_07" DurationType="OneShot" DurationMin="11.224621" DurationMax="11.224621">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="429707094"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420161" Name="Play_Test_08" DurationType="OneShot" DurationMin="12.599211" DurationMax="12.599211">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="1066427951"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2788420160" Name="Play_Test_09" DurationType="OneShot" DurationMin="14.142136" DurationMax="14.142136">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="527276681"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+				<Event Id="2771642582" Name="Play_Test_10" DurationType="OneShot" DurationMin="15.87401" DurationMax="15.87401">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="591550250"/>
+						</Custom>
+					</PluginRefs>
+				</Event>
+			</Events>
+			<GameParameters>
+				<GameParameter Id="2444185415" Name="RTPC_BallImpactVelocity"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="766723505" Name="Game_State">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="984691642" Name="InGame"/>
+						<State Id="2679786610" Name="InMainMenu"/>
+						<State Id="2876317275" Name="InPauseMenu"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{670A801D-38F3-EDD5-3056-E2E5A9EB7D2F}</FileHash>
+</SoundBanksInfo>

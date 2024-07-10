@@ -3310,6 +3310,7 @@ GameObject:
   - component: {fileID: 1610416036}
   - component: {fileID: 1610416035}
   - component: {fileID: 1610416037}
+  - component: {fileID: 1610416038}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -3382,6 +3383,19 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!114 &1610416038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610416034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed39f2b237e573f4f85990bb5d1440ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitBank: {fileID: 11400000, guid: f6c268723bce47341ae24285f9299f1f, type: 2}
 --- !u!1 &1624573784
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,7 +3426,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
+  m_LocalScale: {x: 0.01165134, y: 0.01165134, z: 0.01165134}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1721856547}
@@ -3471,7 +3485,7 @@ MonoBehaviour:
         Raw: 1920
         Type: 0
       Y:
-        Raw: 1080
+        Raw: 858.2704
         Type: 0
       Z:
         Raw: 0

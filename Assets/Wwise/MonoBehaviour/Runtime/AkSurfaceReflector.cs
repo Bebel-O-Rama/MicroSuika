@@ -13,7 +13,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 [UnityEngine.AddComponentMenu("Wwise/Spatial Audio/AkSurfaceReflector")]
@@ -59,6 +59,8 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 	private int PreviousTransformState;
 	private int PreviousGeometryState;
 	private int PreviousAssociatedRoomState;
+
+	private bool isGeometrySetInWwise = false;
 
 	private int GetTransformState()
 	{
@@ -135,7 +137,8 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 	/// <param name="acousticTextures">The acoustic texture of each surface of the geometry. Acoustic textures describe the filtering when sound reflects on the surface.</param>
 	/// <param name="transmissionLossValues">The transmission loss value of each surface of the geometry. Transmission loss is the filtering when the sound goes through the surface.</param>
 	/// <param name="name">A name for the geometry.</param>
-	public static void SetGeometryFromMesh(
+	/// <returns>Returns true if the Geometry was sent to Wwise.</returns>
+	public static bool SetGeometryFromMesh(
 		UnityEngine.Mesh mesh,
 		ulong geometryID,
 		bool enableDiffraction,
@@ -146,11 +149,11 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 	{
 		if (!AkSoundEngine.IsInitialized())
 		{
-			return;
+			return false;
 		}
 
 #if UNITY_EDITOR
-		if (!UnityEditor.EditorApplication.isPlaying) return;
+		if (!UnityEditor.EditorApplication.isPlaying) return false;
 #endif
 
 		var geometryData = new GeometryData();
@@ -158,7 +161,7 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 
 		if (geometryData.numTriangles > 0)
 		{
-			AkSoundEngine.SetGeometry(
+			var result = AkSoundEngine.SetGeometry(
 				geometryID,
 				geometryData.triangles,
 				geometryData.numTriangles,
@@ -168,10 +171,13 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 				geometryData.numSurfaces,
 				enableDiffraction,
 				enableDiffractionOnBoundaryEdges);
+
+			return result == AKRESULT.AK_Success;
 		}
 		else
 		{
 			UnityEngine.Debug.LogFormat("SetGeometry({0}): No valid triangle was found. Geometry was not set", mesh.name);
+			return false;
 		}
 	}
 
@@ -353,14 +359,17 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 			return;
 		}
 
-		SetGeometryFromMesh(
+		if (SetGeometryFromMesh(
 			Mesh,
 			GetID(),
 			EnableDiffraction,
 			EnableDiffractionOnBoundaryEdges,
 			AcousticTextures,
 			TransmissionLossValues,
-			name);
+			name))
+		{
+			isGeometrySetInWwise = true;
+		}
 	}
 
 	/// <summary>
@@ -420,12 +429,17 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 			UnityEngine.GUIUtility.hotControl = 0;
 
 			if (AcousticTextures == null || AcousticTextures.Length < 1)
+			{
 				AcousticTextures = new AK.Wwise.AcousticTexture[1];
+			}
 
 			if (AcousticTextures[0] == null)
+			{
 				AcousticTextures[0] = new AK.Wwise.AcousticTexture();
+			}
 
 			AcousticTextures[0].ObjectReference = reference;
+			AkWwiseTypes.DragAndDropObjectReference = null;
 		}
 
 		if (!UnityEditor.EditorApplication.isPlaying)
@@ -504,7 +518,10 @@ public class AkSurfaceReflector : UnityEngine.MonoBehaviour
 			return;
 		}
 #endif
-		RemoveGeometry();
+		if (isGeometrySetInWwise)
+		{
+			RemoveGeometry();
+		}
 	}
 
 	private void Update()

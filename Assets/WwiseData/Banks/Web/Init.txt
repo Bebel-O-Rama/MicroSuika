@@ -1,0 +1,26 @@
+State Group	ID	Name			Wwise Object Path	Notes
+	766723505	Game_State			\Default Work Unit\Game_State	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Game_State			
+	984691642	InGame	Game_State			
+	2679786610	InMainMenu	Game_State			
+	2876317275	InPauseMenu	Game_State			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	140602910	RTPC_Vol_SFX			\Default Work Unit\RTPC_Vol_SFX	
+	160087661	RTPC_Vol_BGM			\Default Work Unit\RTPC_Vol_BGM	
+	3336838409	RTPC_Sidechain			\Default Work Unit\RTPC_Sidechain	
+	3961043687	RTPC_Vol_Master			\Default Work Unit\RTPC_Vol_Master	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	393239870	SFX			\Default Work Unit\Master Audio Bus\SFX	
+	412724365	BGM			\Default Work Unit\Master Audio Bus\BGM	
+	1117531639	Amb			\Default Work Unit\Master Audio Bus\SFX\Amb	
+	1551306167	UI			\Default Work Unit\Master Audio Bus\SFX\UI	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+
+Audio Devices	ID	Name	Type				Notes
+	2317455096	No_Output	No Output			
+	3859886410	System	System			
+

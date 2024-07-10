@@ -1,0 +1,82 @@
+Event	ID	Name			Wwise Object Path	Notes
+	408353238	Play_PH_Ball_Drop			\Default Work Unit\Play_PH_Ball_Drop	
+	738730148	Play_PH_Amb_Space			\Default Work Unit\Play_PH_Amb_Space	
+	942049713	Play_PH_Ball_Bounce			\Default Work Unit\Play_PH_Ball_Bounce	
+	1141855710	Play_SFX_Cannon_Appears			\Default Work Unit\Play_SFX_Cannon_Appears	
+	1256202815	Play			\Default Work Unit\Play	
+	1823612792	Play_Gamemode_Switch_InGame			\Default Work Unit\Play_Gamemode_Switch_InGame	
+	2448210560	Play_PH_Ball_Fusion_04			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_04	
+	2448210561	Play_PH_Ball_Fusion_05			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_05	
+	2448210562	Play_PH_Ball_Fusion_06			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_06	
+	2448210563	Play_PH_Ball_Fusion_07			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_07	
+	2448210564	Play_PH_Ball_Fusion_00			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_00	
+	2448210565	Play_PH_Ball_Fusion_01			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_01	
+	2448210566	Play_PH_Ball_Fusion_02			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_02	
+	2448210567	Play_PH_Ball_Fusion_03			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_03	
+	2448210572	Play_PH_Ball_Fusion_08			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_08	
+	2448210573	Play_PH_Ball_Fusion_09			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_09	
+	2464988279	Play_PH_Ball_Fusion_10			\Default Work Unit\Play_Ball_Fusion\Play_PH_Ball_Fusion_10	
+	2771642582	Play_Test_10			\Default Work Unit\Test_Ball_Impact\Play_Test_10	
+	2788420160	Play_Test_09			\Default Work Unit\Test_Ball_Impact\Play_Test_09	
+	2788420161	Play_Test_08			\Default Work Unit\Test_Ball_Impact\Play_Test_08	
+	2788420168	Play_Test_01			\Default Work Unit\Test_Ball_Impact\Play_Test_01	
+	2788420170	Play_Test_03			\Default Work Unit\Test_Ball_Impact\Play_Test_03	
+	2788420171	Play_Test_02			\Default Work Unit\Test_Ball_Impact\Play_Test_02	
+	2788420172	Play_Test_05			\Default Work Unit\Test_Ball_Impact\Play_Test_05	
+	2788420173	Play_Test_04			\Default Work Unit\Test_Ball_Impact\Play_Test_04	
+	2788420174	Play_Test_07			\Default Work Unit\Test_Ball_Impact\Play_Test_07	
+	2788420175	Play_Test_06			\Default Work Unit\Test_Ball_Impact\Play_Test_06	
+	3103249001	Play_PH_UI_Gamemode_Transition_01			\Default Work Unit\Play_PH_UI_Gamemode_Transition_01	
+	3187507146	Play_Test			\Default Work Unit\Test_Ball_Impact\Play_Test	
+	3684788607	Play_Gamemode_Switch_InMenu			\Default Work Unit\Play_Gamemode_Switch_InMenu	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	766723505	Game_State			\Default Work Unit\Game_State	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Game_State			
+	984691642	InGame	Game_State			
+	2679786610	InMainMenu	Game_State			
+	2876317275	InPauseMenu	Game_State			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	2444185415	RTPC_BallImpactVelocity			\Default Work Unit\RTPC_BallImpactVelocity	
+
+Effect plug-ins	ID	Name	Type				Notes
+	1047714122	Meter (Custom)	Wwise Meter			
+
+Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	76144842	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_01\Sine	
+	222047041	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_06\Sine	
+	266429384	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test\Sine	
+	429707094	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_07\Sine	
+	527276681	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_09\Sine	
+	591550250	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_10\Sine	
+	816370044	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_04\Sine	
+	852678014	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_03\Sine	
+	1006777763	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_02\Sine	
+	1030862755	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_05\Sine	
+	1066427951	Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Test_08\Sine	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	73572143	SFX_Cannon_Appears_Whoosh_Var_01	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\SFX_Cannon_Appears_Whoosh_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Whoosh_Var_01		70496
+	95099025	PH_Ball_Fusion_09	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_A9494242.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_09		18468
+	175014415	SFX_Cannon_Appears_Beeps_Var_02	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\SFX_Cannon_Appears_Beeps_Var_02_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_02		70496
+	185255546	PH_Ball_Fusion_10	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_AAA28F61.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_10		18336
+	227426752	PH_Ball_Fusion_11	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_6158BE32.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_11		14608
+	264829482	PH_Ball_Fusion_03	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_89FDD0DC.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_03		17272
+	288952451	PH_Ball_Drop	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Drop_74632B8C.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\PH_Ball_Drop		25224
+	307977073	PH_Amb_Space_LP	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Amb_Space_1387AF9C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Amb\PH_Amb_Space_LP		5760144
+	323463379	PH_Ball_Fusion_08	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_95913DAA.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_08		19932
+	334275636	SFX_Cannon_Appears_Beeps_Var_03	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\SFX_Cannon_Appears_Beeps_Var_03_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_03		70496
+	335258020	PH_Ball_Fusion_01	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_78250ADB.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_01		26656
+	355877884	SFX_Cannon_Appears_Transient_Var_01	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\SFX_Cannon_Appears_Transient_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Transient_Var_01		70496
+	356072598	PH_Ball_Fusion_05	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_7A974858.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_05		16336
+	460676898	SFX_Cannon_Appears_Beeps_Var_04	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\SFX_Cannon_Appears_Beeps_Var_04_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_04		70496
+	594276553	PH_Ball_Fusion_02	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_FF53E0EA.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_02		15540
+	641987909	PH_Ball_Fusion_04	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_01113E63.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_04		14872
+	816961611	PH_Ball_Fusion_07	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_18BE48CA.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_07		21064
+	918024247	SFX_Cannon_Appears_Beeps_Var_01	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\SFX_Cannon_Appears_Beeps_Var_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Cannon_Appears\SFX_Cannon_Appears_Beeps_Layer\SFX_Cannon_Appears_Beeps_Var_01		70496
+	1058423354	PH_Ball_Fusion_06	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_Ball_Fusion_FB836219.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\SFX_Ball_Fusion\PH_Ball_Fusion_06		18600
+	1072983843	PH_UI_Gamemode_Transition_01	C:\Main Storage\Game Development\MultiSuika\MultiSuika (repo)\MultiSuika_WwiseProject\.cache\Web\SFX\PH_UI_Gamemode_Transition_01_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\UI\PH_UI_Gamemode_Transition_01		198496
+
