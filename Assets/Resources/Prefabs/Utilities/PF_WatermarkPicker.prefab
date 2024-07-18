@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6750682881050191816}
   - component: {fileID: 6792306297923315005}
   m_Layer: 0
-  m_Name: WatermarkPicker
+  m_Name: PF_WatermarkPicker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

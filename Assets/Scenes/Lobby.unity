@@ -3913,6 +3913,7 @@ Transform:
   m_Children:
   - {fileID: 1624573785}
   - {fileID: 223538570}
+  - {fileID: 4874193290001521232}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1735871495
@@ -5286,11 +5287,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1721856547}
     m_Modifications:
     - target: {fileID: 1558500530824363708, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
       propertyPath: m_Name
-      value: WatermarkPicker
+      value: PF_WatermarkPicker
       objectReference: {fileID: 0}
     - target: {fileID: 6750682881050191816, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5310,15 +5311,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6750682881050191816, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6750682881050191816, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6750682881050191816, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6750682881050191816, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5337,6 +5338,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
+--- !u!4 &4874193290001521232 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6750682881050191816, guid: 33bdc24c9d4a8ca40b4c68d508990dfd, type: 3}
+  m_PrefabInstance: {fileID: 4874193290001521231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5347,4 +5353,3 @@ SceneRoots:
   - {fileID: 1218831244}
   - {fileID: 726899494}
   - {fileID: 1610416036}
-  - {fileID: 4874193290001521231}
