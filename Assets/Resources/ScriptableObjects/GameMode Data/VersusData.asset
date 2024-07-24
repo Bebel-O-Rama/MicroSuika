@@ -26,7 +26,7 @@ MonoBehaviour:
   - 0.4
   _cannonInstancePrefab: {fileID: 8557932591584255319, guid: fef68376f51d2d840875cbaed8e9fcf0, type: 3}
   _isCannonXSpawnPositionRandom: 0
-  _cannonVerticalDistanceFromCenter: 4.6
+  _cannonVerticalDistanceFromCenter: 4.8
   _cannonSpeed: 5
   _cannonReloadCooldown: 0.5
   _cannonShootingForce: 100
