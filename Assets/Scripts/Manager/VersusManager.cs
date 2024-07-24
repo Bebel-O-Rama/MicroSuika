@@ -79,6 +79,18 @@ namespace MultiSuika.Manager
             StartLeadTimer(currentPlayerRankings.First());
         }
 
+        public void ResetGame()
+        {
+            ScoreManager.Instance.ResetScoreInformation();
+
+            BallTracker.Instance.ClearItems();
+            CannonTracker.Instance.ClearItems();
+            ContainerTracker.Instance.ClearItems();
+
+            SpawnContainersVersus();
+            SpawnCannonsVersus();
+        }
+        
         #region Spawner
 
         private void SpawnContainersVersus()
@@ -96,7 +108,7 @@ namespace MultiSuika.Manager
 
             for (int i = 0; i < numberOfActivePlayer; i++)
             {
-                var containerParent = new GameObject($"Container ({(i + 1)})");
+                var containerParent = GameObject.Find($"Container ({(i + 1)})") ?? new GameObject($"Container ({(i + 1)})");
                 containerParent.transform.SetParent(objHolder.transform, false);
 
                 var container = Instantiate(gameModeData.ContainerInstancePrefab, containerParent.transform);
