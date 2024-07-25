@@ -24,13 +24,14 @@ namespace MultiSuika.Manager
 
         #endregion
 
+        [SerializeField] [Min(1)] private int _finalScoreTarget;
         [SerializeField] private List<ScoreHandler> _scoreHandlers;
         [SerializeField] private float _minAdaptiveVerticalRange; // 500
 
         private FloatReference _averageSpeed;
         private readonly Dictionary<int, FloatReference> _currentSpeedRefs = new Dictionary<int, FloatReference>();
         private readonly Dictionary<int, FloatReference> _normalizedSpeedRefs = new Dictionary<int, FloatReference>();
-        private readonly List<int> _playerRankings = new List<int>();
+        private readonly List<int> _playerSpeedRankings = new List<int>();
 
         public ActionMethodPlayerWrapper<(int, float)> OnComboIncrement = new ActionMethodPlayerWrapper<(int, float)>();
         public ActionMethodPlayerWrapper<int> OnComboLost = new ActionMethodPlayerWrapper<int>();
@@ -44,35 +45,35 @@ namespace MultiSuika.Manager
         {
             foreach (var scoreHandler in _scoreHandlers)
             {
-                _currentSpeedRefs[scoreHandler.playerIndex] = scoreHandler.GetCurrentSpeedReference();
-                _normalizedSpeedRefs[scoreHandler.playerIndex] = new FloatReference();
-                _playerRankings.Add(scoreHandler.playerIndex);
+                _currentSpeedRefs[scoreHandler.PlayerIndex] = scoreHandler.CurrentSpeed;
+                _normalizedSpeedRefs[scoreHandler.PlayerIndex] = new FloatReference();
+                _playerSpeedRankings.Add(scoreHandler.PlayerIndex);
             }
         }
 
         private void Update()
         {
-            UpdateRanking();
+            UpdateSpeedRanking();
             UpdateNormalizedSpeed();
             UpdateAverageSpeed();
         }
 
-        private void UpdateRanking()
+        private void UpdateSpeedRanking()
         {
             var sortedPlayers = new List<KeyValuePair<int, FloatReference>>(_currentSpeedRefs);
             sortedPlayers.Sort((a, b) => b.Value.Value.CompareTo(a.Value));
 
-            _playerRankings.Clear();
+            _playerSpeedRankings.Clear();
             foreach (var player in sortedPlayers)
             {
-                _playerRankings.Add(player.Key);
+                _playerSpeedRankings.Add(player.Key);
             }
         }
 
         private void UpdateNormalizedSpeed()
         {
-            float lowestSpeed = _currentSpeedRefs[_playerRankings.Last()];
-            float highestSpeed = _currentSpeedRefs[_playerRankings.First()];
+            float lowestSpeed = _currentSpeedRefs[_playerSpeedRankings.Last()];
+            float highestSpeed = _currentSpeedRefs[_playerSpeedRankings.First()];
             var currentRange = Mathf.Max(_minAdaptiveVerticalRange,
                 highestSpeed - lowestSpeed);
 
@@ -96,22 +97,35 @@ namespace MultiSuika.Manager
             _scoreHandlers.RemoveAt(playerIndex);
             _currentSpeedRefs.Remove(playerIndex);
             _normalizedSpeedRefs.Remove(playerIndex);
-            _playerRankings.Remove(playerIndex);
+            _playerSpeedRankings.Remove(playerIndex);
         }
 
-        public void ResetScoreInformation() => _scoreHandlers.ForEach(s => s.ResetScore());
+        public bool UpdateWinnerScore(int playerIndex)
+        {
+            var newScore = _scoreHandlers[playerIndex].IncrementScore();
+            return newScore >= _finalScoreTarget;
+        }
+        
+
+        public void ResetSpeedInformation() => _scoreHandlers.ForEach(s => s.ResetSpeedHandler());
 
         public FloatReference GetCurrentSpeedReference(int playerIndex) =>
-            _scoreHandlers[playerIndex].GetCurrentSpeedReference();
+            _scoreHandlers[playerIndex].CurrentSpeed;
 
         public FloatReference GetTargetSpeedReference(int playerIndex) =>
-            _scoreHandlers[playerIndex].GetTargetSpeedReference();
+            _scoreHandlers[playerIndex].TargetSpeed;
 
         public FloatReference GetNormalizedSpeedReference(int playerIndex) => _normalizedSpeedRefs[playerIndex];
 
-        public List<int> GetPlayerRankings() => _playerRankings;
-        public int GetPlayerRanking(int playerIndex) => _playerRankings.FindIndex(r => r == playerIndex);
+        public List<int> GetPlayerSpeedRankings() => _playerSpeedRankings;
+        public int GetPlayerSpeedRanking(int playerIndex) => _playerSpeedRankings.FindIndex(r => r == playerIndex);
 
         public FloatReference GetAverageSpeedReference() => _averageSpeed;
+
+        public List<int> GetPlayerScores() =>
+            _scoreHandlers
+                .Select(handler => handler.PlayerScore)
+                .ToList();
+
     }
 }

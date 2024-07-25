@@ -5,13 +5,15 @@ using MultiSuika.Container;
 using MultiSuika.Manager;
 using MultiSuika.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.GameLogic
 {
     public class ScoreHandler : MonoBehaviour
     {
-        [SerializeField] public int playerIndex;
-        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        [SerializeField] private int _playerIndex;
+        [SerializeField] private int _playerScore;
+        [SerializeField] private SpeedHandlerData speedHandlerData;
 
         [Header("Data Reader")]
         [SerializeField] private float _currentSpeedReader;
@@ -45,8 +47,8 @@ namespace MultiSuika.GameLogic
 
         private void Start()
         {
-            if (playerIndex >= PlayerManager.Instance.GetNumberOfActivePlayer())
-                ClearScoreHandler();
+            if (_playerIndex >= PlayerManager.Instance.GetNumberOfActivePlayer())
+                ClearSpeedHandler();
             SetContainerDamageActive(true);
             SetBallFusionActive(true);
             SetDampingActive(true);
@@ -58,8 +60,8 @@ namespace MultiSuika.GameLogic
             ApplyDamping();
             
             var acceleration = _currentSpeed < _targetSpeed
-                ? _scoreHandlerData.BaseAcceleration * _scoreHandlerData.ComboImpact.EvaluateClamp(_combo)
-                : _scoreHandlerData.BaseAcceleration;
+                ? speedHandlerData.BaseAcceleration * speedHandlerData.ComboImpact.EvaluateClamp(_combo)
+                : speedHandlerData.BaseAcceleration;
             _currentSpeed.Variable.SetValue(Mathf.MoveTowards(_currentSpeed, _targetSpeed,
                 acceleration * Time.deltaTime));
 
@@ -74,9 +76,9 @@ namespace MultiSuika.GameLogic
                 return;
             _isContainerDamageActive = isActive;
             if (_isContainerDamageActive)
-                ContainerTracker.Instance.OnContainerHit.Subscribe(OnContainerHit, playerIndex);
+                ContainerTracker.Instance.OnContainerHit.Subscribe(OnContainerHit, _playerIndex);
             else
-                ContainerTracker.Instance.OnContainerHit.Unsubscribe(OnContainerHit, playerIndex);
+                ContainerTracker.Instance.OnContainerHit.Unsubscribe(OnContainerHit, _playerIndex);
         }
 
         private void OnContainerHit(BallInstance ball)
@@ -88,7 +90,7 @@ namespace MultiSuika.GameLogic
 
         private IEnumerator ContainerDamageCooldown(BallInstance ball)
         {
-            var damageValue = ball.ScoreValue * _scoreHandlerData.DamageMultiplier;
+            var damageValue = ball.ScoreValue * speedHandlerData.DamageMultiplier;
             if (_targetSpeed > _currentSpeed)
                 _targetSpeed.Variable.SetValue(_currentSpeed);
             _targetSpeed.Variable.ApplyChangeClamp(-damageValue, min: 0f);
@@ -98,13 +100,13 @@ namespace MultiSuika.GameLogic
             _damageTimerSequence = DOTween.Sequence();
 
             _damageTimerSequence.Append(
-                DOTween.To(() => _currentSpeed, x => _currentSpeed.Variable.SetValue(x), _targetSpeed, _scoreHandlerData.DamageCooldownDuration));
+                DOTween.To(() => _currentSpeed, x => _currentSpeed.Variable.SetValue(x), _targetSpeed, speedHandlerData.DamageCooldownDuration));
             
             SetBallFusionActive(false);
             SetDampingActive(false);
             SetComboActive(false);
 
-            yield return new WaitForSeconds(_scoreHandlerData.DamageCooldownDuration);
+            yield return new WaitForSeconds(speedHandlerData.DamageCooldownDuration);
 
             SetBallFusionActive(true);
             SetDampingActive(true);
@@ -121,9 +123,9 @@ namespace MultiSuika.GameLogic
                 return;
             _isBallFusionActive = isActive;
             if (_isBallFusionActive)
-                BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusionPoints, playerIndex);
+                BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusionPoints, _playerIndex);
             else
-                BallTracker.Instance.OnBallFusion.Unsubscribe(OnBallFusionPoints, playerIndex);
+                BallTracker.Instance.OnBallFusion.Unsubscribe(OnBallFusionPoints, _playerIndex);
         }
 
         private void OnBallFusionPoints(BallInstance ball)
@@ -147,13 +149,13 @@ namespace MultiSuika.GameLogic
             if (!_isDampingActive)
                 return;
 
-            var dampingValue = _scoreHandlerData.DampingMethod switch
+            var dampingValue = speedHandlerData.DampingMethod switch
             {
-                DampingEvaluationMethod.FixedPercent => _currentSpeed * _scoreHandlerData.DampingFixedPercent,
-                DampingEvaluationMethod.Fixed => _scoreHandlerData.DampingFixedValue,
+                DampingEvaluationMethod.FixedPercent => _currentSpeed * speedHandlerData.DampingFixedPercent,
+                DampingEvaluationMethod.Fixed => speedHandlerData.DampingFixedValue,
                 DampingEvaluationMethod.AnimCurve => _currentSpeed *
-                                                     _scoreHandlerData.DampingCurvePercent.Evaluate(_currentSpeed /
-                                                         _scoreHandlerData.SpeedSoftCap),
+                                                     speedHandlerData.DampingCurvePercent.Evaluate(_currentSpeed /
+                                                         speedHandlerData.SpeedSoftCap),
                 DampingEvaluationMethod.None => 0f,
                 _ => 0f
             };
@@ -173,10 +175,10 @@ namespace MultiSuika.GameLogic
                 return;
             _isComboActive = isActive;
             if (_isComboActive)
-                BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusionCombo, playerIndex);
+                BallTracker.Instance.OnBallFusion.Subscribe(OnBallFusionCombo, _playerIndex);
             else
             {
-                BallTracker.Instance.OnBallFusion.Unsubscribe(OnBallFusionCombo, playerIndex);
+                BallTracker.Instance.OnBallFusion.Unsubscribe(OnBallFusionCombo, _playerIndex);
                 StopCombo();
             }
         }
@@ -192,12 +194,12 @@ namespace MultiSuika.GameLogic
         {
             _combo.Variable.ApplyChange(1);
 
-            var comboTimer = _scoreHandlerData.IsDecreasingMaxTimer
-                ? Mathf.Clamp(_scoreHandlerData.TimerFullDuration - _scoreHandlerData.FullTimerDecrementValue * _combo,
-                    _scoreHandlerData.FullTimerMinValue, Mathf.Infinity)
-                : _scoreHandlerData.TimerFullDuration;
+            var comboTimer = speedHandlerData.IsDecreasingMaxTimer
+                ? Mathf.Clamp(speedHandlerData.TimerFullDuration - speedHandlerData.FullTimerDecrementValue * _combo,
+                    speedHandlerData.FullTimerMinValue, Mathf.Infinity)
+                : speedHandlerData.TimerFullDuration;
 
-            ScoreManager.Instance.OnComboIncrement.CallAction((_combo, comboTimer), playerIndex);
+            ScoreManager.Instance.OnComboIncrement.CallAction((_combo, comboTimer), _playerIndex);
 
             yield return new WaitForSeconds(comboTimer);
 
@@ -210,27 +212,39 @@ namespace MultiSuika.GameLogic
                 StopCoroutine(_comboTimerCoroutine);
 
             if (_combo > 1)
-                ScoreManager.Instance.OnComboLost.CallAction(_combo, playerIndex);
+                ScoreManager.Instance.OnComboLost.CallAction(_combo, _playerIndex);
             _combo.Variable.SetValue(1);
         }
 
         #endregion
 
-        public void ResetScore()
+        #region Score
+
+        public int IncrementScore()
+        {
+            _playerScore += 1;
+            return _playerScore;
+        }
+
+        public void ResetScore() => _playerScore = 0;
+
+        #endregion 
+        
+        public void ResetSpeedHandler()
         {
             _currentSpeed.Variable.SetValue(0);
             _targetSpeed.Variable.SetValue(0);
             _combo.Variable.SetValue(1);
         }
 
-        private void ClearScoreHandler()
+        private void ClearSpeedHandler()
         {
             if (_damageCooldownCoroutine != null)
                 StopCoroutine(_damageCooldownCoroutine);
             if (_comboTimerCoroutine != null)
                 StopCoroutine(_comboTimerCoroutine);
 
-            ScoreManager.Instance.ClearPlayerScoreComponents(playerIndex);
+            ScoreManager.Instance.ClearPlayerScoreComponents(_playerIndex);
             Destroy(gameObject);
         }
 
@@ -241,10 +255,12 @@ namespace MultiSuika.GameLogic
             _comboReader = _combo;
         }
         
-        #region Getter/Setter
-
-        public FloatReference GetCurrentSpeedReference() => _currentSpeed;
-        public FloatReference GetTargetSpeedReference() => _targetSpeed;
+        #region Getter
+        
+        public int PlayerIndex { get => _playerIndex; }
+        public int PlayerScore { get => _playerScore; }
+        public FloatReference CurrentSpeed { get => _currentSpeed; }
+        public FloatReference TargetSpeed { get => _targetSpeed; }
 
         #endregion
     }

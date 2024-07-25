@@ -5,6 +5,7 @@ using MultiSuika.Utilities;
 using Nova;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MultiSuika.DebugInfo
 {
@@ -15,8 +16,9 @@ namespace MultiSuika.DebugInfo
         [SerializeField] private bool _isContainerFullDebugTextEnabled;
         [SerializeField] private bool _isContainerAbridgedDebugTextEnabled;
         
+        [FormerlySerializedAs("_scoreHandlerData")]
         [Header("ScoreHandlerData parameters")]
-        [SerializeField] private ScoreHandlerData _scoreHandlerData;
+        [SerializeField] private SpeedHandlerData speedHandlerData;
         
         [Header("Main UI parameters")]
         [SerializeField] private float _comboBarMaxHeight; // 5
@@ -122,7 +124,7 @@ namespace MultiSuika.DebugInfo
             
             // Speed bar
             var speedBarSizePercent = _speedBar.Size.Percent;
-            speedBarSizePercent.y = _currentSpeed / _scoreHandlerData.SpeedSoftCap;
+            speedBarSizePercent.y = _currentSpeed / speedHandlerData.SpeedSoftCap;
             _speedBar.Size.Percent = speedBarSizePercent;
             _speedBar.Color = Color.HSVToRGB((0.5f + _combo * 0.15f) % 1f, 0.65f, 0.9f);
             
@@ -138,7 +140,7 @@ namespace MultiSuika.DebugInfo
             
             // // Average speed bar
             var averageSpeedPositionPercent = _averageSpeedBar.Position.Percent;
-            averageSpeedPositionPercent.y = _averageSpeed / _scoreHandlerData.SpeedSoftCap;
+            averageSpeedPositionPercent.y = _averageSpeed / speedHandlerData.SpeedSoftCap;
             _averageSpeedBar.Position.Percent = averageSpeedPositionPercent;
             
             // Combo bar
@@ -160,8 +162,8 @@ namespace MultiSuika.DebugInfo
             
             // Acceleration
             var acceleration = _currentSpeed < _targetSpeed
-                ? _scoreHandlerData.BaseAcceleration * _combo
-                : _scoreHandlerData.BaseAcceleration;
+                ? speedHandlerData.BaseAcceleration * _combo
+                : speedHandlerData.BaseAcceleration;
             _tmpAcceleration.text = string.Format($"{acceleration:0.00}");
             
             // Current speed
@@ -174,7 +176,7 @@ namespace MultiSuika.DebugInfo
             _tmpAverageSpeed.text = string.Format($"{_averageSpeed.Value:0.00}");
 
             // Ranking
-            _tmpRanking.text = string.Format($"{ScoreManager.Instance.GetPlayerRanking(_playerIndex) + 1:0}");
+            _tmpRanking.text = string.Format($"{ScoreManager.Instance.GetPlayerSpeedRanking(_playerIndex) + 1:0}");
             
             // Position
             _tmpPositionRatio.text = string.Format($"{(_normalizedSpeed.Value * 100):00}%");

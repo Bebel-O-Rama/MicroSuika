@@ -51,7 +51,7 @@ namespace MultiSuika.Cannon
             
             // This is exactly what I didn't want to do... sigh
             if (VersusManager.Instance)
-                VersusManager.Instance.OnGameOver.Subscribe(OnGameOver, _playerIndex);
+                VersusManager.Instance.OnSmallGameOver.Subscribe(OnGameOver, _playerIndex);
         }
 
         public void SetCannonInputEnabled(bool isActive)

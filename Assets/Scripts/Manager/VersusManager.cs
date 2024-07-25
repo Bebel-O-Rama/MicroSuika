@@ -30,20 +30,21 @@ namespace MultiSuika.Manager
 
         [SerializeField] public GameModeData gameModeData;
         [SerializeField] private VersusWinConditionData versusWinConditionData;
-
+        [SerializeField] private float _delayBeforeGameReset;
+        
         private bool _isGameInProgress = true;
         private FloatReference _averageSpeed;
 
         // Lead parameters
-        private int _playerIndexInLead;
-        private FloatReference _currentLeadTimeCondition;
-        private FloatReference _currentLeadSpeedCondition;
-        private float _leadRequirementProgressionTime;
+        [SerializeField] private int _playerIndexInLead;
+        [SerializeField] private FloatReference _currentLeadTimeCondition;
+        [SerializeField] private FloatReference _currentLeadSpeedCondition;
+        [SerializeField] private float _leadRequirementProgressionTime;
         private Coroutine _leadTimerCoroutine;
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
         public ActionMethodPlayerWrapper<bool> OnLeadStop { get; } = new ActionMethodPlayerWrapper<bool>();
-        public ActionMethodPlayerWrapper<bool> OnGameOver { get; } = new ActionMethodPlayerWrapper<bool>();
+        public ActionMethodPlayerWrapper<bool> OnSmallGameOver { get; } = new ActionMethodPlayerWrapper<bool>();
 
 
         private void Initialize()
@@ -64,7 +65,7 @@ namespace MultiSuika.Manager
 
             if (!_isGameInProgress)
                 return;
-            var currentPlayerRankings = ScoreManager.Instance.GetPlayerRankings();
+            var currentPlayerRankings = ScoreManager.Instance.GetPlayerSpeedRankings();
             if (!CheckLeadConditions(currentPlayerRankings))
             {
                 UpdateLeadRequirementsParameters();
@@ -81,7 +82,7 @@ namespace MultiSuika.Manager
 
         public void ResetGame()
         {
-            ScoreManager.Instance.ResetScoreInformation();
+            ScoreManager.Instance.ResetSpeedInformation();
 
             BallTracker.Instance.ClearItems();
             CannonTracker.Instance.ClearItems();
@@ -89,7 +90,15 @@ namespace MultiSuika.Manager
 
             SpawnContainersVersus();
             SpawnCannonsVersus();
+
+            ResetLeadParameters();
+
+            // The delay is to make sure the transition is over before we start checking every frame for a winner.
+            // We might need to change this if the transition is a bit longer (animation, etc.)
+            Invoke("EnableGameProgress", 0.5f);
         }
+
+        private void EnableGameProgress() => _isGameInProgress = true;
         
         #region Spawner
 
@@ -186,7 +195,7 @@ namespace MultiSuika.Manager
         private IEnumerator LeadTimer()
         {
             yield return new WaitForSeconds(_currentLeadTimeCondition);
-            ProcessGameOver();
+            ProcessSmallGameOver();
         }
 
         private void StopLeadTimer()
@@ -200,21 +209,29 @@ namespace MultiSuika.Manager
             _playerIndexInLead = -1;
         }
 
+        private void ResetLeadParameters()
+        {
+            _playerIndexInLead = 0;
+            _leadRequirementProgressionTime = 0;
+            _currentLeadTimeCondition.Variable.SetValue(0);
+            _currentLeadSpeedCondition.Variable.SetValue(0);
+        }
+
         #endregion
 
         #region GameOver
 
         // It would be nicer if the main objects (Containers and Cannons) could subscribe to an Action and
         // be directly called when the game is over. We could also pass the inState as parameter.
-        private void ProcessGameOver()
+        private void ProcessSmallGameOver()
         {
-            var winnerPlayerIndex = ScoreManager.Instance.GetPlayerRankings().First();
+            var winnerPlayerIndex = ScoreManager.Instance.GetPlayerSpeedRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
                 cannon.SetCannonInputEnabled(false);
 
             for (var i = 0; i < PlayerManager.Instance.GetNumberOfActivePlayer(); i++)
             {
-                OnGameOver.CallAction(i == winnerPlayerIndex, i);
+                OnSmallGameOver.CallAction(i == winnerPlayerIndex, i);
             }
 
             foreach (var ball in BallTracker.Instance.GetItems())
@@ -223,6 +240,28 @@ namespace MultiSuika.Manager
             }
 
             _isGameInProgress = false;
+
+            var isGameOver = ScoreManager.Instance.UpdateWinnerScore(winnerPlayerIndex);
+            var scores = ScoreManager.Instance.GetPlayerScores();
+            var scoreboard = "";
+            for (int i = 0; i < scores.Count; i++)
+            {
+                scoreboard += $"P{i + 1} = {scores[i]}    ";
+            }
+            if (!isGameOver)
+            {
+                Debug.Log($"+1 for Player {winnerPlayerIndex + 1}");
+                Debug.Log($"The current score is {scoreboard}");
+                Debug.Log("**********************************************************");
+            }
+            else
+            {
+                Debug.Log($"Player {winnerPlayerIndex + 1} is the winneeeer!");
+                Debug.Log($"The final score is {scoreboard}");
+                Debug.Log("**********************************************************");
+            }
+            
+            Invoke("ResetGame", _delayBeforeGameReset);
         }
 
         #endregion

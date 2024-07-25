@@ -3,7 +3,7 @@
 namespace MultiSuika.GameLogic
 {
     [CreateAssetMenu(menuName = "Versus/Score Handler Data")]
-    public class ScoreHandlerData : ScriptableObject
+    public class SpeedHandlerData : ScriptableObject
     {
         [Header("Base parameters")] 
         [SerializeField] private float _baseAcceleration; // 3

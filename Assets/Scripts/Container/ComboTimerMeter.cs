@@ -37,7 +37,7 @@ namespace MultiSuika.Container
             var containerInstance = GetComponentInParent<ContainerInstance>();
             _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(containerInstance);
             
-            VersusManager.Instance.OnGameOver.Subscribe(OnGameOver, _playerIndex);
+            VersusManager.Instance.OnSmallGameOver.Subscribe(OnGameOver, _playerIndex);
             
             OnComboStop();
 

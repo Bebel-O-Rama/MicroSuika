@@ -1871,6 +1871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameModeData: {fileID: 11400000, guid: 5f97b648953df2d47bdae435fd836040, type: 2}
   versusWinConditionData: {fileID: 11400000, guid: fce45878d4dba9d4d90cdebc3f35c2a1, type: 2}
+  _delayBeforeGameReset: 3
 --- !u!1 &877577911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2442,8 +2443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44d296ff6e643798b2823e5c214a409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 3
-  _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _playerIndex: 3
+  _playerScore: 0
+  speedHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
   _currentSpeedReader: 0
   _targetSpeedReader: 0
   _comboReader: 0
@@ -2993,8 +2995,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44d296ff6e643798b2823e5c214a409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 2
-  _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _playerIndex: 2
+  _playerScore: 0
+  speedHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
   _currentSpeedReader: 0
   _targetSpeedReader: 0
   _comboReader: 0
@@ -3340,6 +3343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260f93e6a383ee642a2a17c768d8432d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _finalScoreTarget: 3
   _scoreHandlers:
   - {fileID: 1647550388}
   - {fileID: 2044941382}
@@ -3753,8 +3757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44d296ff6e643798b2823e5c214a409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 0
-  _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _playerIndex: 0
+  _playerScore: 0
+  speedHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
   _currentSpeedReader: 0
   _targetSpeedReader: 0
   _comboReader: 0
@@ -5162,8 +5167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44d296ff6e643798b2823e5c214a409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 1
-  _scoreHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
+  _playerIndex: 1
+  _playerScore: 0
+  speedHandlerData: {fileID: 11400000, guid: 631d8fb755de81a46a8d6eeeb06e6dcd, type: 2}
   _currentSpeedReader: 0
   _targetSpeedReader: 0
   _comboReader: 0
