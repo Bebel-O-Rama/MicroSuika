@@ -1871,7 +1871,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameModeData: {fileID: 11400000, guid: 5f97b648953df2d47bdae435fd836040, type: 2}
   versusWinConditionData: {fileID: 11400000, guid: fce45878d4dba9d4d90cdebc3f35c2a1, type: 2}
-  _delayBeforeGameReset: 3
+  _delayBeforeGameReset: 5
+  _playerIndexInLead: 0
+  _currentLeadTimeCondition:
+    UseConstant: 0
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _currentLeadSpeedCondition:
+    UseConstant: 0
+    ConstantValue: 0
+    UseRandomRange: 0
+    RandomCoefficient: 0
+    Variable: {fileID: 0}
+  _leadRequirementProgressionTime: 0
 --- !u!1 &877577911
 GameObject:
   m_ObjectHideFlags: 0

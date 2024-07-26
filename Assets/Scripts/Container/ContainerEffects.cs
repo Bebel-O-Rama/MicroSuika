@@ -59,12 +59,12 @@ namespace MultiSuika.Container
             
             VersusManager.Instance.OnLeadStart.Subscribe(OnLeadStart, _playerIndex);
             VersusManager.Instance.OnLeadStop.Subscribe(OnLeadStop, _playerIndex);
-            VersusManager.Instance.OnSmallGameOver.Subscribe(OnGameOver, _playerIndex);
+            VersusManager.Instance.OnSmallGameOver.Subscribe(OnSmallGameOver, _playerIndex);
         }
 
         #region GameOver
 
-        private void OnGameOver(bool hasWon)
+        private void OnSmallGameOver(bool hasWon)
         {
             if (_speedLinesSequence.IsPlaying())
             {

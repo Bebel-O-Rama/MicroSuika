@@ -88,6 +88,10 @@ namespace MultiSuika.Manager
             CannonTracker.Instance.ClearItems();
             ContainerTracker.Instance.ClearItems();
 
+            OnLeadStart.ClearAll();
+            OnLeadStop.ClearAll();
+            OnSmallGameOver.ClearAll();
+            
             SpawnContainersVersus();
             SpawnCannonsVersus();
 
@@ -203,6 +207,7 @@ namespace MultiSuika.Manager
             if (_leadTimerCoroutine != null)
             {
                 StopCoroutine(_leadTimerCoroutine);
+                // _leadTimerCoroutine = null;
                 OnLeadStop.CallAction(false, _playerIndexInLead);
             }
 
@@ -211,6 +216,8 @@ namespace MultiSuika.Manager
 
         private void ResetLeadParameters()
         {
+            StopLeadTimer();
+            // StopCoroutine(_leadTimerCoroutine);
             _playerIndexInLead = 0;
             _leadRequirementProgressionTime = 0;
             _currentLeadTimeCondition.Variable.SetValue(0);
@@ -259,6 +266,7 @@ namespace MultiSuika.Manager
                 Debug.Log($"Player {winnerPlayerIndex + 1} is the winneeeer!");
                 Debug.Log($"The final score is {scoreboard}");
                 Debug.Log("**********************************************************");
+                ScoreManager.Instance.ResetScores();
             }
             
             Invoke("ResetGame", _delayBeforeGameReset);

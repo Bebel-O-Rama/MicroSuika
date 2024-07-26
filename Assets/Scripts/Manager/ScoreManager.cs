@@ -105,6 +105,14 @@ namespace MultiSuika.Manager
             var newScore = _scoreHandlers[playerIndex].IncrementScore();
             return newScore >= _finalScoreTarget;
         }
+
+        public void ResetScores()
+        {
+            foreach (var handler in _scoreHandlers)
+            {
+                handler.ResetScore();
+            }
+        }
         
 
         public void ResetSpeedInformation() => _scoreHandlers.ForEach(s => s.ResetSpeedHandler());

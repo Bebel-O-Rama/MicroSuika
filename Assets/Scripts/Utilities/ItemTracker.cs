@@ -19,7 +19,6 @@ namespace MultiSuika.Utilities
 
             _itemInformation.Add(CreateInformationInstance(item, playerIndex));
         }
-
         public virtual void ClearItem(T item)
         {
             var info = GetInformationFromItem(item);
