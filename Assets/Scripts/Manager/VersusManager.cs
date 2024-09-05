@@ -44,7 +44,7 @@ namespace MultiSuika.Manager
 
         public ActionMethodPlayerWrapper<float> OnLeadStart { get; } = new ActionMethodPlayerWrapper<float>();
         public ActionMethodPlayerWrapper<bool> OnLeadStop { get; } = new ActionMethodPlayerWrapper<bool>();
-        public ActionMethodPlayerWrapper<bool> OnSmallGameOver { get; } = new ActionMethodPlayerWrapper<bool>();
+        public ActionMethodPlayerWrapper<bool> OnGameOver { get; } = new ActionMethodPlayerWrapper<bool>();
 
 
         private void Initialize()
@@ -90,10 +90,11 @@ namespace MultiSuika.Manager
 
             OnLeadStart.ClearAll();
             OnLeadStop.ClearAll();
-            OnSmallGameOver.ClearAll();
+            OnGameOver.ClearAll();
             
             SpawnContainersVersus();
             SpawnCannonsVersus();
+            
 
             ResetLeadParameters();
 
@@ -150,6 +151,8 @@ namespace MultiSuika.Manager
                 cannon.SetCannonParameters(i, gameModeData);
                 cannon.SetInputParameters(PlayerManager.Instance.GetPlayerInputHandler(i));
                 cannon.SetCannonInputEnabled(true);
+                
+                OnGameOver.Subscribe(cannon.OnGameOver, i);
             }
         }
 
@@ -238,7 +241,7 @@ namespace MultiSuika.Manager
 
             for (var i = 0; i < PlayerManager.Instance.GetNumberOfActivePlayer(); i++)
             {
-                OnSmallGameOver.CallAction(i == winnerPlayerIndex, i);
+                OnGameOver.CallAction(i == winnerPlayerIndex, i);
             }
 
             foreach (var ball in BallTracker.Instance.GetItems())

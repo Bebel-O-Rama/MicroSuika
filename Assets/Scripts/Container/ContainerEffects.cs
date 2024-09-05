@@ -59,7 +59,7 @@ namespace MultiSuika.Container
             
             VersusManager.Instance.OnLeadStart.Subscribe(OnLeadStart, _playerIndex);
             VersusManager.Instance.OnLeadStop.Subscribe(OnLeadStop, _playerIndex);
-            VersusManager.Instance.OnSmallGameOver.Subscribe(OnSmallGameOver, _playerIndex);
+            VersusManager.Instance.OnGameOver.Subscribe(OnSmallGameOver, _playerIndex);
         }
 
         #region GameOver

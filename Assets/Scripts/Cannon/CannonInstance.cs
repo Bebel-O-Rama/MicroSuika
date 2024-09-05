@@ -48,10 +48,6 @@ namespace MultiSuika.Cannon
         {
             var container = ContainerTracker.Instance.GetItemFromPlayerOrDefault(_playerIndex);
             _containerNextBall = container.GetComponent<ContainerNextBall>();
-            
-            // This is exactly what I didn't want to do... sigh
-            if (VersusManager.Instance)
-                VersusManager.Instance.OnSmallGameOver.Subscribe(OnGameOver, _playerIndex);
         }
 
         public void SetCannonInputEnabled(bool isActive)
@@ -99,7 +95,8 @@ namespace MultiSuika.Cannon
             LoadBall();
         }
 
-        private void OnGameOver(bool hasWon)
+        // Should refactor that to not be public
+        public void OnGameOver(bool hasWon)
         {
             if (hasWon && _loadBallCoroutine != null)
                 StopCoroutine(_loadBallCoroutine);
