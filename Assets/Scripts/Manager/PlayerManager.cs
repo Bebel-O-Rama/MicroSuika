@@ -5,6 +5,7 @@ using MultiSuika.Player;
 using MultiSuika.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using PlayerInputManager = UnityEngine.InputSystem.PlayerInputManager;
 
 namespace MultiSuika.Manager
@@ -29,14 +30,16 @@ namespace MultiSuika.Manager
 
         [Header("Players Information")] 
         [SerializeField] [Min(1)] private int _maximumNumberOfPlayers = 4;
-
-        [SerializeField] private PlayerManagerData playerManagerData;
+        [SerializeField] private PlayerManagerData _playerManagerData;
 
         [Header("Input System")] 
         [SerializeField] private PlayerInputManager _inputManagerPrefab;
-
         [SerializeField] private GameObject _inputHandlerPrefab;
 
+        [Header("Debug/Fallback")] 
+        [SerializeField] private bool _isFallbackEnabled = false;
+        [SerializeField] [Range(1, 4)] private int _numberPlayerFallback = 2;
+        
         private Action<int, PlayerInput> _onPlayerPush;
         private Action<int> _onPlayerPop;
 
@@ -46,14 +49,28 @@ namespace MultiSuika.Manager
 
         private void Initialize()
         {
-            playerManagerData.Initialize();
+            _playerManagerData.Initialize();
             
             // Spawn players who were registered in the previous scene
             _playerInputHandler = new Stack<PlayerInputHandler>();
             var numberOfActivePlayer = GetNumberOfActivePlayer();
+            
+            // TEMPORARY DEBUG MODE
+            // It should be either removed or cleaned up, especially when merging the lobby with this scene
+            if (_isFallbackEnabled && numberOfActivePlayer <= 0)
+            {
+                for (int i = 0; i < _numberPlayerFallback; i++)
+                {
+                    _playerManagerData.PushPlayerInformation(Keyboard.current);
+                    var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: Keyboard.current);
+                    PushPlayerInputHandler(playerInputObj);
+                }
+                return;
+            }
+            
             if (numberOfActivePlayer <= 0)
                 return;
-            var inputDevices = playerManagerData.GetOrderedInputDevices();
+            var inputDevices = _playerManagerData.GetOrderedInputDevices();
             for (int i = 0; i < inputDevices.Count; i++)
             {
                 var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, i, pairWithDevice: inputDevices[i]);
@@ -81,7 +98,7 @@ namespace MultiSuika.Manager
 
         private void PushPlayer(PlayerInput playerInput)
         {
-            var playerIndex = playerManagerData.PushPlayerInformation(playerInput.devices[0]);
+            var playerIndex = _playerManagerData.PushPlayerInformation(playerInput.devices[0]);
             PushPlayerInputHandler(playerInput);
             UpdatePlayerJoining();
             _onPlayerPush?.Invoke(playerIndex, playerInput);
@@ -89,7 +106,7 @@ namespace MultiSuika.Manager
 
         private void PopPlayer()
         {
-            var playerIndex = playerManagerData.PopPlayerInformation();
+            var playerIndex = _playerManagerData.PopPlayerInformation();
             PopPlayerInputHandler();
             UpdatePlayerJoining();
             _onPlayerPop?.Invoke(playerIndex);
@@ -137,7 +154,7 @@ namespace MultiSuika.Manager
                 Debug.LogError(
                     "Trying to spawn a PlayerInputHandler, but the playerIndex doesn't match with the index of the player added last.");
             var playerInputObj = PlayerInput.Instantiate(_inputHandlerPrefab, playerIndex,
-                pairWithDevice: playerManagerData.PeekInputDevice());
+                pairWithDevice: _playerManagerData.PeekInputDevice());
             return playerInputObj.GetComponentInParent<PlayerInputHandler>();
         }
 
@@ -150,7 +167,7 @@ namespace MultiSuika.Manager
             return _playerInputHandler.ElementAtOrDefault(playerIndex);
         }
 
-        public IntReference GetNumberOfActivePlayer() => playerManagerData.GetNumberOfActivePlayer();
+        public IntReference GetNumberOfActivePlayer() => _playerManagerData.GetNumberOfActivePlayer();
 
         #endregion
 

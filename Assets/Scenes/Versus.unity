@@ -1917,9 +1917,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maximumNumberOfPlayers: 4
-  playerManagerData: {fileID: 11400000, guid: b6592486d1297584487c7f30034a8d32, type: 2}
+  _playerManagerData: {fileID: 11400000, guid: b6592486d1297584487c7f30034a8d32, type: 2}
   _inputManagerPrefab: {fileID: 6618661410425451850, guid: 76a32bda98f0e5f41aeecf5beb550ad8, type: 3}
   _inputHandlerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
+  _isFallbackEnabled: 1
+  _numberPlayerFallback: 2
 --- !u!4 &877577913
 Transform:
   m_ObjectHideFlags: 0

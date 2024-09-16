@@ -2514,9 +2514,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maximumNumberOfPlayers: 4
-  playerManagerData: {fileID: 11400000, guid: b6592486d1297584487c7f30034a8d32, type: 2}
+  _playerManagerData: {fileID: 11400000, guid: b6592486d1297584487c7f30034a8d32, type: 2}
   _inputManagerPrefab: {fileID: 6618661410425451850, guid: 76a32bda98f0e5f41aeecf5beb550ad8, type: 3}
   _inputHandlerPrefab: {fileID: 7101175191132491598, guid: 4ee03ffed04ca4e4db887be9f47b4656, type: 3}
+  _isFallbackEnabled: 0
+  _numberPlayerFallback: 2
 --- !u!1 &1009091354
 GameObject:
   m_ObjectHideFlags: 0
@@ -3426,7 +3428,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01165134, y: 0.01165134, z: 0.01165134}
+  m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1721856547}
@@ -3485,7 +3487,7 @@ MonoBehaviour:
         Raw: 1920
         Type: 0
       Y:
-        Raw: 858.2704
+        Raw: 1080
         Type: 0
       Z:
         Raw: 0
