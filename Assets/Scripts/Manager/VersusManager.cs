@@ -5,6 +5,7 @@ using MultiSuika.Ball;
 using MultiSuika.Cannon;
 using MultiSuika.Container;
 using MultiSuika.GameLogic;
+using MultiSuika.UI;
 using MultiSuika.Utilities;
 using UnityEngine;
 
@@ -35,6 +36,9 @@ namespace MultiSuika.Manager
         private bool _isGameInProgress = true;
         private FloatReference _averageSpeed;
 
+        // GameScoreTransition
+        [SerializeField] private ScoreTransitionVersus _scoreTransitionVersus;
+        
         // Lead parameters
         [SerializeField] private int _playerIndexInLead;
         [SerializeField] private FloatReference _currentLeadTimeCondition;
@@ -202,7 +206,7 @@ namespace MultiSuika.Manager
         private IEnumerator LeadTimer()
         {
             yield return new WaitForSeconds(_currentLeadTimeCondition);
-            ProcessSmallGameOver();
+            ProcessGameOver();
         }
 
         private void StopLeadTimer()
@@ -232,8 +236,8 @@ namespace MultiSuika.Manager
         #region GameOver
 
         // It would be nicer if the main objects (Containers and Cannons) could subscribe to an Action and
-        // be directly called when the game is over. We could also pass the inState as parameter.
-        private void ProcessSmallGameOver()
+        // be directly called when the game is over. We could also pass the winState as parameter.
+        private void ProcessGameOver()
         {
             var winnerPlayerIndex = ScoreManager.Instance.GetPlayerSpeedRankings().First();
             foreach (var cannon in CannonTracker.Instance.GetItems())
@@ -250,28 +254,12 @@ namespace MultiSuika.Manager
             }
 
             _isGameInProgress = false;
-
-            var isGameOver = ScoreManager.Instance.UpdateWinnerScore(winnerPlayerIndex);
-            var scores = ScoreManager.Instance.GetPlayerScores();
-            var scoreboard = "";
-            for (int i = 0; i < scores.Count; i++)
-            {
-                scoreboard += $"P{i + 1} = {scores[i]}    ";
-            }
-            if (!isGameOver)
-            {
-                Debug.Log($"+1 for Player {winnerPlayerIndex + 1}");
-                Debug.Log($"The current score is {scoreboard}");
-                Debug.Log("**********************************************************");
-            }
-            else
-            {
-                Debug.Log($"Player {winnerPlayerIndex + 1} is the winneeeer!");
-                Debug.Log($"The final score is {scoreboard}");
-                Debug.Log("**********************************************************");
-                ScoreManager.Instance.ResetScores();
-            }
             
+            // UPDATE THAT!!!
+            var isTargetScoreTriggered = ScoreManager.Instance.UpdateWinnerScore(winnerPlayerIndex);
+
+            _scoreTransitionVersus.ScoreTransitionSequence(winnerPlayerIndex, isTargetScoreTriggered);
+
             Invoke("ResetGame", _delayBeforeGameReset);
         }
 

@@ -58,6 +58,8 @@ namespace MultiSuika.Manager
             UpdateAverageSpeed();
         }
 
+        #region SpeedManagement
+        
         private void UpdateSpeedRanking()
         {
             var sortedPlayers = new List<KeyValuePair<int, FloatReference>>(_currentSpeedRefs);
@@ -88,7 +90,11 @@ namespace MultiSuika.Manager
         {
             _averageSpeed.Variable.SetValue(_currentSpeedRefs.Sum(x => x.Value) / _currentSpeedRefs.Count);
         }
-
+        
+        #endregion
+        
+        #region PlayerScore
+        
         public void ClearPlayerScoreComponents(int playerIndex)
         {
             OnComboIncrement.Clear(playerIndex);
@@ -114,7 +120,10 @@ namespace MultiSuika.Manager
             }
         }
         
-
+        #endregion
+        
+        #region Getter/Setter
+        
         public void ResetSpeedInformation() => _scoreHandlers.ForEach(s => s.ResetSpeedHandler());
 
         public FloatReference GetCurrentSpeedReference(int playerIndex) =>
@@ -134,6 +143,8 @@ namespace MultiSuika.Manager
             _scoreHandlers
                 .Select(handler => handler.PlayerScore)
                 .ToList();
+        
+        #endregion
 
     }
 }

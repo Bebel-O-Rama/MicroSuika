@@ -17,44 +17,8 @@ namespace MultiSuika.Container
         [SerializeField] private SpriteRenderer _sideSpriteRenderer;
         [SerializeField] private SpriteRenderer _nextBallHolderSpriteRenderer;
 
-
-        
         public float HorizontalMvtHalfLength { get => _horizontalMvtHalfLength; }
         public Transform ContainerParent { get; private set; }
-
-        // private int _playerIndex;
-        
-        // private void Start()
-        // {
-        //     _playerIndex = ContainerTracker.Instance.GetPlayerFromItem(this);
-        //
-        //     VersusManager.Instance.OnLeadStart.Subscribe(OnLeadStart, _playerIndex);
-        //     VersusManager.Instance.OnLeadStop.Subscribe(OnLeadStop, _playerIndex);
-        // }
-
-        // public void OnGameOver(bool hasWon)
-        // {
-        //     if (hasWon)
-        //     {
-        //         if (_winOutsideSprite)
-        //             _winOutsideSprite.DOFade(1, 1);
-        //     }
-        //     else
-        //     {
-        //         if (_loseExplosion)
-        //             _loseExplosion.Play();
-        //     }
-        // }
-        //
-        // private void OnLeadStart(float timerDuration)
-        // {
-        //     _speedLines.Play();
-        // }
-        //
-        // private void OnLeadStop(bool x)
-        // {
-        //     // stop lead
-        // }
 
         public void SetContainerParameters(GameModeData gameModeData, int containerIndex = 0, int containerToSpawn = 1)
         {

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: WinConditionData (Versus EASY TESTING MODE)
   m_EditorClassIdentifier: 
   _adaptiveRequirementMethod: 1
-  _speedEvaluationMethod: 1
-  _timeRequirementRange: {x: 6, y: 3}
-  _speedRequirementRange: {x: 100, y: 1}
+  _speedEvaluationMethod: 2
+  _timeRequirementRange: {x: 4, y: 3}
+  _speedRequirementRange: {x: 2, y: 1}
   _timeProgressionLength: 240
   _speedProgressionLength: 240
   _timeProgressionCurve:
